@@ -1,7 +1,5 @@
-import { AutocompleteRenderOptionState } from "@mui/material";
 import { FieldOptions, IServerLookupOptions } from "@palmyralabs/rt-forms";
 import { InputType } from "zlib";
-
 
 interface IFieldProps {
     size?: 'small' | 'medium' | 'large'
@@ -28,7 +26,7 @@ interface TextViewAttributeDefinition {
     variant?: 'standard' | 'outlined'
 }
 
-interface MuiInputFieldOptions extends FieldOptions {
+interface MantineInputFieldOptions extends FieldOptions {
     label?: string,
     title?: string,
     attribute: string
@@ -43,66 +41,65 @@ interface ValueLabel {
     label: string
 }
 
-interface ITextFieldDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface ITextFieldDefinition extends MantineInputFieldOptions, ILayoutOptions {
 
 }
 
-interface IDatePickerDefinition extends MuiInputFieldOptions, ILayoutOptions, ITextFieldProps {
+interface IDatePickerDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
     serverPattern?: string,
     displayPattern?: string,
 
 }
 
-interface IDateTimePickerDefinition extends IDatePickerDefinition, MuiInputFieldOptions, ILayoutOptions, ITextFieldProps {
+interface IDateTimePickerDefinition extends IDatePickerDefinition, MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
 
 }
 
-interface IServerLookupDefinition extends MuiInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
+interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
     defaultValue?: InputType | any,
     multiple?: boolean,
     renderOption?: (
         props: React.HTMLAttributes<HTMLLIElement> & { key: any },
         option: any,
-        state: AutocompleteRenderOptionState,
+        // state: AutocompleteRenderOptionState,
         ownerState: any,
     ) => React.ReactNode
 }
 
-interface ISelectDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface ISelectDefinition extends MantineInputFieldOptions, ILayoutOptions {
     options?: Record<any, any> | Record<string, any>
 }
 
-interface ISwitchDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface ISwitchDefinition extends MantineInputFieldOptions, ILayoutOptions {
     options?: Record<any, any> | Record<string, any>
-    switch?: 'MaterialUISwitch' | 'Android12Switch' | 'IOSSwitch' | 'Switch';
 }
 
-interface IRadioGroupDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface IRadioGroupDefinition extends MantineInputFieldOptions, ILayoutOptions {
     options: IRadioGroupOptions
     flexDirection?: FlexDirection
 }
 
-interface ICheckBoxDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface ICheckBoxDefinition extends MantineInputFieldOptions, ILayoutOptions {
     icon?: any,
     checkedIcon?: any
 }
 
-interface ICheckBoxGroupDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface ICheckBoxGroupDefinition extends MantineInputFieldOptions, ILayoutOptions {
     options: Record<any, any> | Record<string, any>
     flexDirection?: FlexDirection
 }
 
-interface ISliderDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface ISliderDefinition extends MantineInputFieldOptions, ILayoutOptions {
     minDistance?: number,
     range?: never
 }
 
-interface IRatingDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface IRatingDefinition extends MantineInputFieldOptions, ILayoutOptions {
     variant?: 'standard' | 'outlined' | 'filled'
 }
 
-interface IServerCheckboxDefinition extends MuiInputFieldOptions, ILayoutOptions, IServerLookupOptions {
+interface IServerCheckboxDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions {
     hideSelectAll?: boolean,
     showSelectedOnly?: boolean,
     flexDirection?: FlexDirection
@@ -121,4 +118,4 @@ export type {
     ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition
 }
 
-export type { MuiInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }
+export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }

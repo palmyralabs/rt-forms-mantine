@@ -43,6 +43,7 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
                 // fullWidth={true}
                 ref={inputRef}
                 {...options}
+                placeholder={props.placeholder}
                 value={getValue()}
                 // error={error.status}
                 error={error.message}

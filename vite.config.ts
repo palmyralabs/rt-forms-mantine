@@ -48,11 +48,6 @@ export default defineConfig({
         'react-chartjs-2',        
         '@emotion/react',
         '@emotion/styled',
-        '@mui/x-date-pickers',
-        '@mui/material',
-        '@mui/icons-material',
-        '@mui/styled-engine',
-        '@mui/x-tree-view',
         '@tanstack', 
         '@tanstack/react-table',
         '@tanstack/core-table'

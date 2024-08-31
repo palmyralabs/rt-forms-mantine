@@ -1,7 +1,7 @@
-import { MuiInputFieldOptions } from "./types";
+import { MantineInputFieldOptions } from "./types";
 
 
-const getFieldLabel = (props: MuiInputFieldOptions) => {
+const getFieldLabel = (props: MantineInputFieldOptions) => {
     if (props.required && props.title)
         return (
             <>
