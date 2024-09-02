@@ -31,7 +31,6 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
                 props.onChange(event);
         }
     }
-    console.log(props.defaultValue, getValue())
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
@@ -40,14 +39,11 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
                 defaultValue={props.defaultValue}
                 label={props.label}
                 variant={variant}
-                // fullWidth={true}
                 ref={inputRef}
                 {...options}
                 placeholder={props.placeholder}
-                value={getValue()}
-                // error={error.status}
+                value={getValue() ? getValue() : props.defaultValue}
                 error={error.message}
-            // helperText={error.message}
             />
         </FieldDecorator>}
     </>

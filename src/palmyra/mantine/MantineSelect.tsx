@@ -50,16 +50,20 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
         sOptions.value = key
 
         return sOptions;
-
     })
+
+    var defaultData = {
+        label: options.options[props.defaultValue],
+        value: props.defaultValue
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <Select
-                // defaultValue={1}
+                defaultValue={defaultData.value}
                 data={sData}
-                value={getValue()}
+                value={getValue() ? getValue() : defaultData.value}
                 {...options}
                 variant={variant}
                 error={error.message}
