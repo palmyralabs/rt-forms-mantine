@@ -45,7 +45,7 @@ const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps
                 {...options}
                 checked={value}
                 disabled={props.disabled} readOnly={props.readOnly}
-                inputRef={(r) => { inputRef.current = r }}
+                ref={(r) => { inputRef.current = r }}
                 label={props.label}
                 error={error.message}
             />

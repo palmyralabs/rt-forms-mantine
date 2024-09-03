@@ -1,6 +1,5 @@
-import { FieldGroupContainer } from "/home/palmyra/Palmyra_library/ts_lib/rt-forms-mantine/rt-forms-mantine/src/palmyra/mantine/FieldGroupContainer.tsx";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { PalmyraForm } from "@palmyralabs/rt-forms";
+import { FieldGroupContainer, PalmyraForm } from "@palmyralabs/rt-forms";
 import { MutableRefObject, useState } from "react";
 import React from 'react'
 
@@ -12,7 +11,7 @@ const FormX = (props: IFormInput) => {
     const { children } = props;
     const [_isValid, setValid] = useState<boolean>(false);
 
-    const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/testdata/form' });
+    const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/demo/testdata/form' });
 
     return (
         <PalmyraForm formData={{}} onValidChange={setValid} ref={props.formRef}

@@ -2,9 +2,9 @@ import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react
 import { getFieldHandler, IFormFieldError, ISelectField, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { getFieldLabel } from './util';
 import { ISelectDefinition } from './types';
-import { ComboboxItem, Select, SelectProps } from '@mantine/core';
+import { ComboboxItem, MultiSelect, MultiSelectProps } from '@mantine/core';
 
-const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition & SelectProps, ref: MutableRefObject<ISelectField>) {
+const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelectDefinition & MultiSelectProps, ref: MutableRefObject<ISelectField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
@@ -37,9 +37,9 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
 
     options.onChange = (e: any, option: ComboboxItem) => {
         if (!props.readOnly) {
-            setValue(option.value);
+            setValue(e);
             if (props.onChange)
-                props.onChange(e.currentTarget.value, option);
+                props.onChange(e);
         }
     }
 
@@ -54,16 +54,12 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
         return sOptions;
     })
 
-    var defaultData = {
-        label: options.options[props.defaultValue],
-        value: props.defaultValue
-    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
-            <Select
-                defaultValue={defaultData.value}
+            <MultiSelect
+                defaultValue={props.defaultValue}
                 data={sData}
                 value={value}
                 {...options}
@@ -75,4 +71,4 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
     );
 });
 
-export { MantineSelect };
+export { MantineMultiSelect };

@@ -11,6 +11,7 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
+    var value = getValue() != '' ? getValue() : props.defaultValue
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager)
@@ -28,10 +29,10 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
         if (!props.readOnly) {
             setValue(event.target.value);
             if (props.onChange)
-                props.onChange(event);
+                props.onChange(event.target.value);
         }
     }
-
+    
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -42,7 +43,7 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
                 ref={inputRef}
                 {...options}
                 placeholder={props.placeholder}
-                value={getValue() ? getValue() : props.defaultValue}
+                value={value}
                 error={error.message}
             />
         </FieldDecorator>}
