@@ -12,7 +12,7 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
 
-    var value = getValue() != '' ? getValue() : props.defaultValue
+    var value = getValue() != '' ? getValue() : null
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager);

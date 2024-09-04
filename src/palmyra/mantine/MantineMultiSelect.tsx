@@ -1,18 +1,16 @@
 import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldHandler, IFormFieldError, ISelectField, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
+import { getFieldHandler, IFormFieldError, ISelectField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { getFieldLabel } from './util';
 import { ISelectDefinition } from './types';
-import { ComboboxItem, MultiSelect, MultiSelectProps } from '@mantine/core';
+import { MultiSelect, MultiSelectProps } from '@mantine/core';
 
 const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelectDefinition & MultiSelectProps, ref: MutableRefObject<ISelectField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions } = fieldManager;
-    const currentRef = ref ? ref : useRef<ITextField>(null);
+    const currentRef = ref ? ref : useRef<ISelectField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
-
-    var value = getValue() != '' ? getValue() : props.defaultValue
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager);
@@ -35,7 +33,7 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
         options.inputProps = { readOnly: true };
     }
 
-    options.onChange = (e: any, option: ComboboxItem) => {
+    options.onChange = (e: any) => {
         if (!props.readOnly) {
             setValue(e);
             if (props.onChange)
@@ -53,6 +51,12 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
 
         return sOptions;
     })
+
+    var value;
+
+    if (getValue() != '') {
+        value = getValue()
+    }
 
 
     return (<>{!mutateOptions.visible &&
