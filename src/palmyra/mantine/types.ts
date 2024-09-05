@@ -1,5 +1,4 @@
 import { FieldOptions, IServerLookupOptions } from "@palmyralabs/rt-forms";
-import { InputType } from "zlib";
 
 interface IFieldProps {
     size?: 'small' | 'medium' | 'large'
@@ -47,8 +46,7 @@ interface ITextFieldDefinition extends MantineInputFieldOptions, ILayoutOptions 
 
 interface IDatePickerDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
     serverPattern?: string,
-    displayPattern?: string,
-
+    displayPattern?: string
 }
 
 interface IDateTimePickerDefinition extends IDatePickerDefinition, MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
@@ -57,7 +55,7 @@ interface IDateTimePickerDefinition extends IDatePickerDefinition, MantineInputF
 
 interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
-    defaultValue?: InputType | any,
+    // defaultValue?: InputType | any,
     multiple?: boolean,
     renderOption?: (
         props: React.HTMLAttributes<HTMLLIElement> & { key: any },
@@ -80,6 +78,9 @@ interface IRadioGroupDefinition extends MantineInputFieldOptions, ILayoutOptions
     flexDirection?: FlexDirection
 }
 
+interface IRadioDefinition extends MantineInputFieldOptions, ILayoutOptions {
+}
+
 interface ICheckBoxDefinition extends MantineInputFieldOptions, ILayoutOptions {
     icon?: any,
     checkedIcon?: any
@@ -91,8 +92,7 @@ interface ICheckBoxGroupDefinition extends MantineInputFieldOptions, ILayoutOpti
 }
 
 interface ISliderDefinition extends MantineInputFieldOptions, ILayoutOptions {
-    minDistance?: number,
-    range?: never
+    labelName?: number
 }
 
 interface IRatingDefinition extends MantineInputFieldOptions, ILayoutOptions {
@@ -105,6 +105,16 @@ interface IServerCheckboxDefinition extends MantineInputFieldOptions, ILayoutOpt
     flexDirection?: FlexDirection
 }
 
+// interface IMultiSelectDefinition extends ISelectDefinition, Omit<IServerLookupDefinition, 'queryOptions'> {
+//     queryOptions?: {
+//         endPoint: IEndPoint;
+//         queryAttribute?: string;
+//         labelAttribute?: string;
+//         idAttribute?: string;
+//         storeOptions?: StoreOptions;
+//     };
+// }
+
 interface IEventListeners {
     onBlur: (data: any) => void,
     onFocus: (data: any) => void,
@@ -115,7 +125,8 @@ interface IEventListeners {
 export type {
     ITextFieldDefinition, ISelectDefinition, IDatePickerDefinition, IServerLookupDefinition,
     ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition,
-    ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition
+    ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition,
+    IRadioDefinition
 }
 
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }

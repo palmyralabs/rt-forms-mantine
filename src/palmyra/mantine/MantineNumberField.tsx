@@ -43,7 +43,7 @@ const MantineNumberField = forwardRef(function MantineNumberField(props: ITextFi
                 ref={inputRef}
                 {...options}
                 placeholder={props.placeholder}
-                // value={value}
+                value={value}
                 error={error.message}
             />
         </FieldDecorator>}
