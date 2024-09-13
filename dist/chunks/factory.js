@@ -860,6 +860,9 @@ function Ir({
 function _r() {
   return `__m__-${jt().replace(/:/g, "")}`;
 }
+function Yr(t) {
+  return t;
+}
 function Z(t) {
   return t.startsWith("data-") ? t : `data-${t}`;
 }
@@ -947,11 +950,11 @@ const tt = L(
   }
 );
 tt.displayName = "@mantine/core/Box";
-const Yr = tt;
+const qr = tt;
 function Br(t) {
   return t;
 }
-function qr(t) {
+function Ur(t) {
   const r = L(t);
   return r.extend = Br, r.withProps = (e) => {
     const n = L((i, s) => /* @__PURE__ */ R(r, { ...e, ...i, ref: s }));
@@ -959,23 +962,24 @@ function qr(t) {
   }, r;
 }
 export {
-  Yr as B,
-  P as a,
-  Qr as b,
-  g as c,
+  qr as B,
+  E as a,
+  O as b,
+  P as c,
   Kr as d,
   hr as e,
-  qr as f,
+  Ur as f,
   Dr as g,
   M as h,
-  Vr as i,
-  Gr as j,
-  Or as k,
-  v as l,
-  Br as m,
-  Xr as n,
+  Br as i,
+  Vr as j,
+  Gr as k,
+  Or as l,
+  v as m,
+  Yr as n,
+  Xr as o,
   U as p,
-  O as r,
+  g as r,
   qt as t,
-  E as u
+  Qr as u
 };

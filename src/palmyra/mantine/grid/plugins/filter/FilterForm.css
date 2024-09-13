@@ -1,0 +1,22 @@
+.py-filter-container {
+    min-width: 550px;
+    top: 110%;
+    right: 0%;
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.py-filter-button-container {
+    padding: 15px 0px;
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.py-filter-button,
+.py-reset-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: none !important;
+}

@@ -1,21 +1,21 @@
-import o, { useLayoutEffect as r, useEffect as i, useState as s } from "react";
-function d() {
+import o, { useState as u } from "react";
+import { u as i } from "./use-isomorphic-effect.js";
+function s() {
   return `mantine-${Math.random().toString(36).slice(2, 11)}`;
 }
-const f = typeof document < "u" ? r : i, c = o.useId || (() => {
+const d = o.useId || (() => {
 });
 function a() {
-  const e = c();
-  return e ? `mantine-${e.replace(/:/g, "")}` : "";
+  const t = d();
+  return t ? `mantine-${t.replace(/:/g, "")}` : "";
 }
-function p(e) {
-  const t = a(), [n, u] = s(t);
-  return f(() => {
-    u(d());
-  }, []), typeof e == "string" ? e : typeof window > "u" ? t : n;
+function m(t) {
+  const e = a(), [n, r] = u(e);
+  return i(() => {
+    r(s());
+  }, []), typeof t == "string" ? t : typeof window > "u" ? e : n;
 }
 export {
-  f as a,
-  d as r,
-  p as u
+  s as r,
+  m as u
 };

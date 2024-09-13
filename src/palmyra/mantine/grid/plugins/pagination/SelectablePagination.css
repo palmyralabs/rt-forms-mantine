@@ -1,0 +1,15 @@
+.py-selectable-pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.py-selectable-pagination-left-container {
+    width: 50%;
+}
+
+.py-selectable-pagination-left-content-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

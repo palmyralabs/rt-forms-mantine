@@ -1,5 +1,5 @@
 import { jsx as D, Fragment as L } from "react/jsx-runtime";
-import { c as s, u as A } from "./factory.js";
+import { r as s, a as A } from "./factory.js";
 import { useState as F, useRef as p, useEffect as T } from "react";
 import M from "react-dom";
 function V(t, r) {

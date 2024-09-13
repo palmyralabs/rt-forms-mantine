@@ -1,1 +1,1 @@
-export * from './palmyra/mantine'
+export * from './palmyra/mantine/form'

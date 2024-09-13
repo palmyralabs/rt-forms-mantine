@@ -1,6 +1,6 @@
 import { jsx as u, jsxs as to } from "react/jsx-runtime";
 import { createContext as ao, useContext as no } from "react";
-import { f as G, b as $, d as w, g as B, i as T, B as V, p as q, h as D, e as lo } from "./factory.js";
+import { f as G, u as $, d as w, g as B, j as T, B as V, p as q, h as D, e as lo } from "./factory.js";
 import { g as S } from "./get-theme-color.js";
 import { g as H, a as J } from "./get-auto-contrast-value.js";
 import { I as io, a as uo, b as po } from "./InputsGroupFieldset.js";
@@ -17,7 +17,7 @@ const fo = {
   card: {
     "--card-radius": T(r)
   }
-})), U = G((o, r) => {
+})), j = G((o, r) => {
   const e = $("CheckboxCard", fo, o), {
     classNames: a,
     className: t,
@@ -59,9 +59,9 @@ const fo = {
     }
   ) });
 });
-U.displayName = "@mantine/core/CheckboxCard";
-U.classes = X;
-const go = {}, j = G((o, r) => {
+j.displayName = "@mantine/core/CheckboxCard";
+j.classes = X;
+const go = {}, U = G((o, r) => {
   const { value: e, defaultValue: a, onChange: t, size: n, wrapperProps: c, children: s, readOnly: i, ...b } = $("CheckboxGroup", go, o), [l, k] = Co({
     value: e,
     defaultValue: a,
@@ -86,8 +86,8 @@ const go = {}, j = G((o, r) => {
     }
   ) });
 });
-j.classes = K.Wrapper.classes;
-j.displayName = "@mantine/core/CheckboxGroup";
+U.classes = K.Wrapper.classes;
+U.displayName = "@mantine/core/CheckboxGroup";
 var Y = { indicator: "m_5e5256ee", icon: "m_1b1c543a", "indicator--outline": "m_76e20374" };
 const _o = {
   icon: L
@@ -256,9 +256,9 @@ const Po = {
 });
 _.classes = { ...Z, ...uo };
 _.displayName = "@mantine/core/Checkbox";
-_.Group = j;
+_.Group = U;
 _.Indicator = A;
-_.Card = U;
+_.Card = j;
 export {
   _ as C
 };

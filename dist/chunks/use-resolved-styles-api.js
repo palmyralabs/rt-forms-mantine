@@ -1,15 +1,15 @@
 import "react";
 import "react/jsx-runtime";
-import { u as r, r as a, a as i } from "./factory.js";
-function u({
+import { a, b as r, c as i } from "./factory.js";
+function d({
   classNames: o,
   styles: l,
   props: e,
   stylesCtx: s
 }) {
-  const t = r();
+  const t = a();
   return {
-    resolvedClassNames: a({
+    resolvedClassNames: r({
       theme: t,
       classNames: o,
       props: e,
@@ -24,5 +24,5 @@ function u({
   };
 }
 export {
-  u
+  d as u
 };

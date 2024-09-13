@@ -1,6 +1,6 @@
 import { jsx as p, jsxs as no } from "react/jsx-runtime";
 import "react";
-import { f as $, b as G, d as T, g as U, i as V, c as K, B as D, p as H, h as x, e as to } from "./factory.js";
+import { f as $, u as G, d as T, g as U, j as V, r as K, B as D, p as H, h as x, e as to } from "./factory.js";
 import { g as N } from "./get-theme-color.js";
 import { g as J, a as M } from "./get-auto-contrast-value.js";
 import { I as co, b as lo } from "./InputsGroupFieldset.js";
@@ -26,8 +26,8 @@ const yo = {
     unstyled: r,
     vars: m,
     checked: y,
-    mod: b,
-    withBorder: I,
+    mod: I,
+    withBorder: b,
     value: R,
     onClick: g,
     name: C,
@@ -60,7 +60,7 @@ const yo = {
     po,
     {
       ref: a,
-      mod: [{ "with-border": I, checked: _ }, b],
+      mod: [{ "with-border": b, checked: _ }, I],
       ...k("card"),
       ...z,
       role: "radio",
@@ -76,19 +76,19 @@ const yo = {
 j.displayName = "@mantine/core/RadioCard";
 j.classes = oo;
 const go = {}, L = $((o, a) => {
-  const { value: e, defaultValue: s, onChange: c, size: u, wrapperProps: n, children: r, name: m, readOnly: y, ...b } = G("RadioGroup", go, o), I = Y(m), [R, g] = mo({
+  const { value: e, defaultValue: s, onChange: c, size: u, wrapperProps: n, children: r, name: m, readOnly: y, ...I } = G("RadioGroup", go, o), b = Y(m), [R, g] = mo({
     value: e,
     defaultValue: s,
     finalValue: "",
     onChange: c
   });
-  return /* @__PURE__ */ p(fo, { value: { value: R, onChange: (v) => !y && g(typeof v == "string" ? v : v.currentTarget.value), size: u, name: I }, children: /* @__PURE__ */ p(
+  return /* @__PURE__ */ p(fo, { value: { value: R, onChange: (v) => !y && g(typeof v == "string" ? v : v.currentTarget.value), size: u, name: b }, children: /* @__PURE__ */ p(
     X.Wrapper,
     {
       size: u,
       ref: a,
       ...n,
-      ...b,
+      ...I,
       labelElement: "div",
       __staticSelector: "RadioGroup",
       children: /* @__PURE__ */ p(co, { role: "radiogroup", children: r })
@@ -136,8 +136,8 @@ const Co = {
     unstyled: r,
     vars: m,
     icon: y,
-    radius: b,
-    color: I,
+    radius: I,
+    color: b,
     iconColor: R,
     autoContrast: g,
     checked: C,
@@ -175,7 +175,7 @@ O.classes = ro;
 var ao = { root: "m_f3f1af94", inner: "m_89c4f5e4", icon: "m_f3ed6b2b", radio: "m_8a3dbb89", "radio--outline": "m_1bfe9d39" };
 const wo = {
   labelPosition: "right"
-}, bo = U(
+}, Io = U(
   (o, { size: a, radius: e, color: s, iconColor: c, variant: u, autoContrast: n }) => {
     const r = H({ color: s || o.primaryColor, theme: o }), m = r.isThemeColor && r.shade === void 0 ? `var(--mantine-color-${r.color}-outline)` : r.color;
     return {
@@ -197,8 +197,8 @@ const wo = {
     unstyled: r,
     vars: m,
     id: y,
-    size: b,
-    label: I,
+    size: I,
+    label: b,
     labelPosition: R,
     description: g,
     error: C,
@@ -223,8 +223,8 @@ const wo = {
     styles: n,
     unstyled: r,
     vars: m,
-    varsResolver: bo
-  }), t = Z(), B = (t == null ? void 0 : t.size) ?? b, so = e.size ? b : B, { styleProps: io, rest: E } = to(P), W = Y(y), q = t ? {
+    varsResolver: Io
+  }), t = Z(), B = (t == null ? void 0 : t.size) ?? I, so = e.size ? I : B, { styleProps: io, rest: E } = to(P), W = Y(y), q = t ? {
     checked: t.value === E.value,
     name: E.name ?? t.name,
     onChange: (F) => {
@@ -240,7 +240,7 @@ const wo = {
       id: W,
       size: so,
       labelPosition: R,
-      label: I,
+      label: b,
       description: g,
       error: C,
       disabled: h,

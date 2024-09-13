@@ -1,0 +1,48 @@
+.py-loading-container {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.py-grid-footer {
+  justify-content: right;
+  margin-left: auto;
+  position: relative;
+  margin-top: 10px;
+}
+
+.py-grid-data-row-even {
+  background-color: rgba(220, 220, 220, 0.03);
+}
+
+.py-grid-data-row {
+  border-bottom: 1px solid rgba(220, 220, 220, 0.5);
+}
+
+.py-grid-data-row:hover {
+  background-color: rgba(220, 220, 220, 0.15);
+  cursor: pointer;
+}
+
+.py-grid-header,
+.py-grid-footer {
+  background-color: rgba(248, 248, 248);
+}
+
+.py-grid-data-cell-type-number {
+  text-align: end !important;
+}
+
+.py-grid-footer-row {
+  text-align: end;
+}
+
+.empty-child-grid-container {
+  font-size: 25px;
+  text-align: center;
+  font-weight: 500;
+  color: rgb(124, 124, 124, 0.85);
+}

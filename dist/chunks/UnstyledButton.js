@@ -1,13 +1,13 @@
 import { jsx as d } from "react/jsx-runtime";
 import "react";
-import { b as f, d as B, B as b } from "./factory.js";
-import { p as U } from "./Input.js";
+import { u as f, d as B, B as U } from "./factory.js";
+import { p as _ } from "./polymorphic-factory.js";
 var o = { root: "m_87cf2631" };
-const _ = {
+const b = {
   __staticSelector: "UnstyledButton"
-}, e = U(
+}, e = _(
   (n, r) => {
-    const t = f("UnstyledButton", _, n), {
+    const t = f("UnstyledButton", b, n), {
       className: a,
       component: s = "button",
       __staticSelector: c,
@@ -27,7 +27,7 @@ const _ = {
       unstyled: l
     });
     return /* @__PURE__ */ d(
-      b,
+      U,
       {
         ...i("root", { focusable: !0 }),
         component: s,

@@ -2,7 +2,7 @@ import { jsx as w, jsxs as de } from "react/jsx-runtime";
 import S from "dayjs";
 import { createContext as At, useContext as Yt, useCallback as me, useRef as De } from "react";
 import { u as qe } from "./use-uncontrolled.js";
-import { c as Ze, f as P, b as q, d as ie, g as ge, h as Ge, B as se, j as Ue, k as Ft } from "./factory.js";
+import { r as Ze, f as P, u as q, d as ie, g as ge, h as Ge, B as se, k as Ue, l as Ft } from "./factory.js";
 import { U as ve } from "./UnstyledButton.js";
 import { u as Je } from "./use-resolved-styles-api.js";
 import { c as Tt } from "./clamp.js";
@@ -319,9 +319,9 @@ const Bt = {
   weekendDays: [0, 6],
   labelSeparator: "–",
   consistentWeeks: !1
-}, jt = At(Bt);
+}, Kt = At(Bt);
 function ae() {
-  const t = Yt(jt), e = me((o) => o || t.locale, [t.locale]), s = me(
+  const t = Yt(Kt), e = me((o) => o || t.locale, [t.locale]), s = me(
     (o) => o || t.timezone || void 0,
     [t.timezone]
   ), a = me(
@@ -343,7 +343,7 @@ function ae() {
     getLabelSeparator: d
   };
 }
-function Kt(t, e) {
+function jt(t, e) {
   if (e === "range" && Array.isArray(t)) {
     const [s, a] = t;
     return s ? a ? `${s.toISOString()} – ${a.toISOString()}` : `${s.toISOString()} –` : "";
@@ -351,7 +351,7 @@ function Kt(t, e) {
   return e === "multiple" && Array.isArray(t) ? t.map((s) => s == null ? void 0 : s.toISOString()).filter(Boolean).join(", ") : !Array.isArray(t) && t ? t.toISOString() : "";
 }
 function Zt({ value: t, type: e, name: s, form: a }) {
-  return /* @__PURE__ */ w("input", { type: "hidden", value: Kt(t, e), name: s, form: a });
+  return /* @__PURE__ */ w("input", { type: "hidden", value: jt(t, e), name: s, form: a });
 }
 Zt.displayName = "@mantine/dates/HiddenDatesInput";
 var at = { day: "m_396ce5cb" };
@@ -436,7 +436,7 @@ const Jt = {}, Qt = ge((t, { size: e }) => ({
     "--wr-fz": Ue(e),
     "--wr-spacing": Ft(e)
   }
-})), je = P((t, e) => {
+})), Ke = P((t, e) => {
   const s = q("WeekdaysRow", Jt, t), {
     classNames: a,
     className: n,
@@ -469,8 +469,8 @@ const Jt = {}, Qt = ge((t, { size: e }) => ({
   }).map((b, y) => /* @__PURE__ */ w(v, { ...r("weekday"), children: b }, y));
   return /* @__PURE__ */ w(se, { component: "tr", ref: e, ...r("weekdaysRow"), ...i, children: _ });
 });
-je.classes = nt;
-je.displayName = "@mantine/dates/WeekdaysRow";
+Ke.classes = nt;
+Ke.displayName = "@mantine/dates/WeekdaysRow";
 function Xt(t, e = 1) {
   const s = new Date(t), a = e === 0 ? 6 : e - 1;
   for (; s.getDay() !== a; )
@@ -619,23 +619,23 @@ const as = {
               "aria-label": ee,
               static: O,
               disabled: (m == null ? void 0 : m(V)) || !it(V, b) || !rt(V, _),
-              ref: (K) => N == null ? void 0 : N(J, ne, K),
+              ref: (j) => N == null ? void 0 : N(J, ne, j),
               ...Y,
-              onKeyDown: (K) => {
+              onKeyDown: (j) => {
                 var I;
-                (I = Y == null ? void 0 : Y.onKeyDown) == null || I.call(Y, K), C == null || C(K, { rowIndex: J, cellIndex: ne, date: V });
+                (I = Y == null ? void 0 : Y.onKeyDown) == null || I.call(Y, j), C == null || C(j, { rowIndex: J, cellIndex: ne, date: V });
               },
-              onMouseEnter: (K) => {
+              onMouseEnter: (j) => {
                 var I;
-                (I = Y == null ? void 0 : Y.onMouseEnter) == null || I.call(Y, K), x == null || x(K, V);
+                (I = Y == null ? void 0 : Y.onMouseEnter) == null || I.call(Y, j), x == null || x(j, V);
               },
-              onClick: (K) => {
+              onClick: (j) => {
                 var I;
-                (I = Y == null ? void 0 : Y.onClick) == null || I.call(Y, K), A == null || A(K, V);
+                (I = Y == null ? void 0 : Y.onClick) == null || I.call(Y, j), A == null || A(j, V);
               },
-              onMouseDown: (K) => {
+              onMouseDown: (j) => {
                 var I;
-                (I = Y == null ? void 0 : Y.onMouseDown) == null || I.call(Y, K), W && K.preventDefault();
+                (I = Y == null ? void 0 : Y.onMouseDown) == null || I.call(Y, j), W && j.preventDefault();
               },
               tabIndex: W || !te ? -1 : 0
             }
@@ -648,7 +648,7 @@ const as = {
   });
   return /* @__PURE__ */ de(se, { component: "table", ...T("month"), size: F, ref: e, ...R, children: [
     !k && /* @__PURE__ */ w("thead", { ...T("monthThead"), children: /* @__PURE__ */ w(
-      je,
+      Ke,
       {
         __staticSelector: p || "Month",
         locale: f,
@@ -1653,8 +1653,8 @@ const _s = {
           event: Y,
           controlsRef: Q
         }),
-        __getDayRef: (Y, te, K) => {
-          Array.isArray(Q.current[E]) || (Q.current[E] = []), Array.isArray(Q.current[E][Y]) || (Q.current[E][Y] = []), Q.current[E][Y][te] = K;
+        __getDayRef: (Y, te, j) => {
+          Array.isArray(Q.current[E]) || (Q.current[E] = []), Array.isArray(Q.current[E][Y]) || (Q.current[E][Y] = []), Q.current[E][Y][te] = j;
         },
         levelControlAriaLabel: typeof u == "function" ? u(ee) : u,
         locale: n,
@@ -1822,7 +1822,7 @@ const Ss = {
     maxDate: ee,
     locale: Y,
     __staticSelector: te,
-    size: K,
+    size: j,
     __preventFocus: I,
     __stopPropagation: $e,
     onNextDecade: xe,
@@ -1854,27 +1854,27 @@ const Ss = {
     styles: Lt,
     classNames: bt,
     unstyled: ne,
-    size: K
-  }, wt = ae(), ue = D || v || 1, Ke = /* @__PURE__ */ new Date(), Ct = E && E > Ke ? E : Ke, oe = St || ye("add", Ct, wt.getTimezone()), Mt = () => {
-    const j = S(oe).add(ue, "month").toDate();
-    Te == null || Te(j), re(j);
+    size: j
+  }, wt = ae(), ue = D || v || 1, je = /* @__PURE__ */ new Date(), Ct = E && E > je ? E : je, oe = St || ye("add", Ct, wt.getTimezone()), Mt = () => {
+    const K = S(oe).add(ue, "month").toDate();
+    Te == null || Te(K), re(K);
   }, kt = () => {
-    const j = S(oe).subtract(ue, "month").toDate();
-    Re == null || Re(j), re(j);
+    const K = S(oe).subtract(ue, "month").toDate();
+    Re == null || Re(K), re(K);
   }, Ot = () => {
-    const j = S(oe).add(ue, "year").toDate();
-    Ye == null || Ye(j), re(j);
+    const K = S(oe).add(ue, "year").toDate();
+    Ye == null || Ye(K), re(K);
   }, Nt = () => {
-    const j = S(oe).subtract(ue, "year").toDate();
-    Fe == null || Fe(j), re(j);
+    const K = S(oe).subtract(ue, "year").toDate();
+    Fe == null || Fe(K), re(K);
   }, $t = () => {
-    const j = S(oe).add(10 * ue, "year").toDate();
-    xe == null || xe(j), re(j);
+    const K = S(oe).add(10 * ue, "year").toDate();
+    xe == null || xe(K), re(K);
   }, xt = () => {
-    const j = S(oe).subtract(10 * ue, "year").toDate();
-    Ae == null || Ae(j), re(j);
+    const K = S(oe).subtract(10 * ue, "year").toDate();
+    Ae == null || Ae(K), re(K);
   };
-  return /* @__PURE__ */ de(se, { ref: e, size: K, "data-calendar": !0, ..._t, children: [
+  return /* @__PURE__ */ de(se, { ref: e, size: j, "data-calendar": !0, ..._t, children: [
     ze === "month" && /* @__PURE__ */ w(
       Ne,
       {
@@ -1933,7 +1933,7 @@ const Ss = {
         previousIcon: z,
         yearLabelFormat: U,
         __onControlMouseEnter: b,
-        __onControlClick: (j, fe) => {
+        __onControlClick: (K, fe) => {
           M && re(fe), pe(he("month", d, n)), m == null || m(fe);
         },
         __preventFocus: I,
@@ -1960,7 +1960,7 @@ const Ss = {
         previousIcon: z,
         decadeLabelFormat: J,
         __onControlMouseEnter: _,
-        __onControlClick: (j, fe) => {
+        __onControlClick: (K, fe) => {
           y && re(fe), pe(he("year", d, n)), r == null || r(fe);
         },
         __preventFocus: I,

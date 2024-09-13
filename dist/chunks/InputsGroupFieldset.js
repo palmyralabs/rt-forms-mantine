@@ -1,9 +1,9 @@
-import { jsx as r, jsxs as f, Fragment as W } from "react/jsx-runtime";
+import { jsx as r, jsxs as f, Fragment as j } from "react/jsx-runtime";
 import { forwardRef as C } from "react";
-import { d as w, B as s, j as D, h as G } from "./factory.js";
-import { I as u, u as N } from "./Input.js";
+import { d as k, B as s, k as w, h as D } from "./factory.js";
+import { I as u, u as G } from "./Input.js";
 var h = { root: "m_5f75b09e", body: "m_5f6e695e", labelWrapper: "m_d3ea56bb", label: "m_8ee546b8", description: "m_328f68c0", error: "m_8e8a99cc" };
-const K = h, R = C(
+const K = h, N = C(
   ({
     __staticSelector: t,
     __stylesApiProps: o,
@@ -23,11 +23,11 @@ const K = h, R = C(
     labelElement: m = "label",
     variant: S,
     style: F,
-    vars: k,
+    vars: R,
     mod: g,
-    ...j
-  }, B) => {
-    const e = w({
+    ...B
+  }, W) => {
+    const e = k({
       name: t,
       props: o,
       className: a,
@@ -41,15 +41,15 @@ const K = h, R = C(
       s,
       {
         ...e("root"),
-        ref: B,
+        ref: W,
         __vars: {
-          "--label-fz": D(l),
-          "--label-lh": G(l, "label-lh")
+          "--label-fz": w(l),
+          "--label-lh": D(l, "label-lh")
         },
         mod: [{ "label-position": x }, g],
         variant: S,
         size: l,
-        ...j,
+        ...B,
         children: /* @__PURE__ */ f(
           s,
           {
@@ -79,13 +79,13 @@ const K = h, R = C(
     );
   }
 );
-R.displayName = "@mantine/core/InlineInput";
+N.displayName = "@mantine/core/InlineInput";
 function L({ children: t, role: o }) {
-  const a = N();
-  return a ? /* @__PURE__ */ r("div", { role: o, "aria-labelledby": a.labelId, "aria-describedby": a.describedBy, children: t }) : /* @__PURE__ */ r(W, { children: t });
+  const a = G();
+  return a ? /* @__PURE__ */ r("div", { role: o, "aria-labelledby": a.labelId, "aria-describedby": a.describedBy, children: t }) : /* @__PURE__ */ r(j, { children: t });
 }
 export {
   L as I,
   K as a,
-  R as b
+  N as b
 };

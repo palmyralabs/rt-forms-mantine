@@ -1,5 +1,5 @@
 import { jsx as n } from "react/jsx-runtime";
-import { c as o } from "./factory.js";
+import { r as o } from "./factory.js";
 import "react";
 function l({ size: r, style: e, ...t }) {
   const i = r !== void 0 ? { width: o(r), height: o(r), ...e } : e;

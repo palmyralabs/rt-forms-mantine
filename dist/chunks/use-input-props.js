@@ -1,6 +1,6 @@
 import "react";
 import "react/jsx-runtime";
-import { b as I, e as O } from "./factory.js";
+import { u as I, e as O } from "./factory.js";
 function D(c, u, _) {
   const r = I(c, u, _), {
     label: y,
