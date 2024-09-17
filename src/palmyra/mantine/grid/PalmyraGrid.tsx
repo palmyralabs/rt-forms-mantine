@@ -1,7 +1,8 @@
 import { forwardRef, MutableRefObject, useEffect, useRef } from "react";
 import { GridX } from "./GridX";
 import { topic } from "@palmyralabs/ts-utils";
-import { IPageQueryable, IPalmyraGrid, PalmyraGridOptions } from "@palmyralabs/rt-forms";
+import { IPageQueryable, IPalmyraGrid, PalmyraGridOptions, StoreFactoryContext } from "@palmyralabs/rt-forms";
+import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 /**
  * 
  * Emitters 
@@ -16,6 +17,7 @@ const PalmyraGrid = forwardRef(function PalmyraGrid<ControlPropsType>(props: Pal
 
     const gridTopic = props.topic;
     const queryRef = ref || useRef<IPageQueryable>();
+    const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/api/palmyra/' });
 
     useEffect(() => {
         if (props.topic) {
@@ -40,7 +42,9 @@ const PalmyraGrid = forwardRef(function PalmyraGrid<ControlPropsType>(props: Pal
 
 
     return <>
-        <GridX {...props} ref={queryRef} />
+        <StoreFactoryContext.Provider value={storeFactory}>
+            <GridX {...props} ref={queryRef} />
+        </StoreFactoryContext.Provider>
     </>
 })
 

@@ -1,0 +1,20 @@
+{
+    "result": [
+        {
+            "id":1,
+            "name": "India"
+        },
+        {
+            "id":2,
+            "name": "England"
+        },
+        {
+            "id":3,
+            "name": "Australia"
+        },
+        {
+            "id":4,
+            "name": "Germany"
+        }
+    ]
+}

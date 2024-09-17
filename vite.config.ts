@@ -5,15 +5,15 @@ import { fileURLToPath } from 'node:url'
 import { glob } from 'glob'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 // @ts-ignore
-// import generalAssets from './plugins/general_assets.js'
+import generalAssets from './plugins/general_assets.js'
 
 export default defineConfig({
   plugins: [  
-  // generalAssets(),
+  generalAssets(),
   libInjectCss(),
   dts({ include: ['src'] })],
   server: {
-    proxy: { "/api": "http://localhost:6060/" },
+    proxy: { "/api": "http://localhost:7070/" },
     open: true,
     port: 7000
   },

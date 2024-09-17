@@ -9,6 +9,7 @@ const FilterButton = (o: DataGridPluginOptions) => {
 
     return (<DropdownButton title="Filter" ref={buttonRef}
         PrefixAdornment={<TbFilterShare />}>
+        
         <FilterForm {...o} onClose={() => buttonRef.current.close()} />
     </DropdownButton>)
 }
