@@ -1,10 +1,10 @@
-import { jsxs as c, jsx as l } from "react/jsx-runtime";
-import { convertToField as v, PalmyraForm as C, FieldGroupContainer as N } from "@palmyralabs/rt-forms";
+import { jsxs as m, jsx as i } from "react/jsx-runtime";
+import { convertToField as v, PalmyraForm as C, FieldGroupContainer as g } from "@palmyralabs/rt-forms";
 import "../../../../../chunks/NoopConverter.js";
 import "dayjs";
-import { useRef as g } from "react";
-import { a as R, T as x } from "../../../../../chunks/index.js";
-import j from "./FieldGenerator.js";
+import { useRef as R } from "react";
+import { a as x, T as j } from "../../../../../chunks/index.js";
+import D from "./FieldGenerator.js";
 import { B as u } from "../../../../../chunks/Button.js";
 import '../../../../../assets/FilterForm.css';const d = (e, r, s) => {
   var n = e.indexOf(".");
@@ -12,40 +12,34 @@ import '../../../../../assets/FilterForm.css';const d = (e, r, s) => {
     r[e] = s;
     return;
   }
-  var o = e.substring(0, n), a = e.substring(n + 1);
-  return (r[o] === void 0 || r[o] == null) && (r[o] = {}), d(a, r[o], s);
-}, P = (e) => {
-  const r = {}, s = g(), n = e.defaultFilter || {}, o = v(e.columns), a = () => o.map((t, i) => j(t, t.label)), p = e.onClose || ((t) => {
+  var o = e.substring(0, n), c = e.substring(n + 1);
+  return (r[o] === void 0 || r[o] == null) && (r[o] = {}), d(c, r[o], s);
+}, G = (e) => {
+  const r = {}, s = R(), n = e.defaultFilter || {}, o = v(e.columns), c = () => o.map((t, l) => D(t, t.label)), p = e.onClose || ((t) => {
   });
   Object.keys(n || {}).map((t) => {
-    const i = n[t];
-    d(t, r, i);
+    const l = n[t];
+    d(t, r, l);
   });
-  const m = (t) => {
+  const a = (t) => {
     e.queryRef.current ? (e.queryRef.current.setFilter(t), p(t)) : console.warn("Query reference not found");
   }, F = () => {
-    m({});
+    a({});
   }, b = () => {
     const t = s.current.getData();
-    var i = {};
-    Object.entries(t).map(([h, f]) => {
-      f && f != "" && (i[h] = f);
-    }), m && m(i);
-  }, y = e.column || 2;
-  return /* @__PURE__ */ c("div", { className: "py-filter-container", children: [
-    /* @__PURE__ */ l("div", { className: "py-filter-content", children: /* @__PURE__ */ l(C, { formData: r, ref: s, children: /* @__PURE__ */ l(N, { columns: y, children: a() }) }) }),
-    /* @__PURE__ */ c("div", { className: "py-filter-button-container", children: [
-      /* @__PURE__ */ c(u, { className: "py-reset-button", onClick: F, children: [
-        /* @__PURE__ */ l(R, { className: "py-button-icon" }),
-        "Reset"
-      ] }),
-      /* @__PURE__ */ c(u, { className: "py-filter-button", onClick: b, children: [
-        /* @__PURE__ */ l(x, { className: "py-button-icon" }),
-        "Filter"
-      ] })
+    var l = {};
+    Object.entries(t).map(([y, f]) => {
+      f && f != "" && (l[y] = f);
+    }), a && a(l);
+  }, h = e.column || 2;
+  return /* @__PURE__ */ m("div", { children: [
+    /* @__PURE__ */ i(C, { formData: r, ref: s, children: /* @__PURE__ */ i(g, { columns: h, children: c() }) }),
+    /* @__PURE__ */ m("div", { className: "py-filter-button-container", children: [
+      /* @__PURE__ */ i(u, { className: "py-reset-button", onClick: F, leftSection: /* @__PURE__ */ i(x, { size: 14 }), children: "Reset" }),
+      /* @__PURE__ */ i(u, { className: "py-filter-button", onClick: b, leftSection: /* @__PURE__ */ i(j, { size: 14 }), children: "Filter" })
     ] })
   ] });
 };
 export {
-  P as FilterForm
+  G as FilterForm
 };

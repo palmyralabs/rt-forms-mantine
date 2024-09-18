@@ -37,39 +37,21 @@ const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButton
         className={`py-dropdown-button-arrow ${dropdownOpen ? 'open' : ''} `} />
 
     return <>
-        {/* <div className="py-dropdown-button-container"> */}
-
-            {/* <Button className={className}
-                disabled={props.disabled}
-                fullWidth={false}
-                rightSection={SuffixAdornment}
-                leftSection={PrefixAdornment}
-                onClick={() => setDropdownOpen(!dropdownOpen)}>
-                <span>{props.title}</span>
-            </Button>
-
-            {dropdownOpen && (
-                <div className="py-dropdown-content">
-                    {props.children}
-                </div>
-            )} */}
-
-            <Popover width={200} position="bottom" withArrow shadow="md">
-                <Popover.Target>
-                    <Button className={className}
-                        disabled={props.disabled}
-                        fullWidth={false}
-                        rightSection={SuffixAdornment}
-                        leftSection={PrefixAdornment}
-                        onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        <span>{props.title}</span>
-                    </Button>
-                </Popover.Target>
-                <Popover.Dropdown>
-                    {props.children}
-                </Popover.Dropdown>
-            </Popover>
-        {/* </div> */}
+        <Popover withArrow shadow="md" position="bottom-end">
+            <Popover.Target>
+                <Button className={className}
+                    disabled={props.disabled}
+                    fullWidth={false}
+                    rightSection={SuffixAdornment}
+                    leftSection={PrefixAdornment}
+                    onClick={() => setDropdownOpen(!dropdownOpen)}>
+                    <span>{props.title}</span>
+                </Button>
+            </Popover.Target>
+            <Popover.Dropdown>
+                {props.children}
+            </Popover.Dropdown>
+        </Popover>
     </>
 });
 

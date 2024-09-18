@@ -20,3 +20,15 @@
     gap: 5px;
     text-transform: none !important;
 }
+
+
+/* .mantine-Popover-dropdown {
+    --popover-shadow: var(--mantine-shadow-md);
+    transition-property: opacity;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+    opacity: 1;
+    z-index: 300;
+    top: 47.5px;
+    left: 1559.58px;
+} */

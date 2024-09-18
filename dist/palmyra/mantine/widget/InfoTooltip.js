@@ -1,19 +1,15 @@
-import { jsxs as z, Fragment as X, jsx as a } from "react/jsx-runtime";
-import { G as Te } from "../../../chunks/iconBase.js";
-import { useState as W, useRef as ee, useCallback as oe, useEffect as De, cloneElement as te, createContext as Me, useContext as Oe } from "react";
-import { f as ne, u as B, a as Re, d as re, B as ae, g as se, j as ie, m as Fe } from "../../../chunks/factory.js";
-import { u as le, s as pe, g as Ce, a as ce, i as de, O as ue, F as Ee, b as Ge, c as Ne, d as Se, e as Ae, f as ze, h as Be, j as Le, k as je, o as ke, l as Ie, m as Ue, n as $e, p as qe, q as He } from "../../../chunks/use-floating-auto-update.js";
+import { jsxs as A, Fragment as X, jsx as s } from "react/jsx-runtime";
+import { G as be } from "../../../chunks/iconBase.js";
+import { useState as W, useRef as ee, useCallback as oe, useEffect as Te, cloneElement as te, createContext as De, useContext as Me } from "react";
+import { f as ne, u as B, a as Oe, d as re, B as se, g as ae, j as ie, m as Re } from "../../../chunks/factory.js";
+import { u as le, s as pe, g as Fe, a as ce, i as de, O as ue, F as Ce, b as Ee, o as Ge, f as Ne, c as Se, d as ze, e as Ae, h as Be, j as Le, k as je, l as ke, m as Ie, n as Ue, p as $e, q as qe } from "../../../chunks/use-floating-auto-update.js";
 import { g as fe } from "../../../chunks/get-theme-color.js";
-import { u as Ve } from "../../../chunks/DirectionProvider.js";
-import { u as Xe, T as Ye } from "../../../chunks/Transition.js";
+import { u as He } from "../../../chunks/DirectionProvider.js";
+import { T as Ve } from "../../../chunks/Transition.js";
+import { g as Xe } from "../../../chunks/get-style-object.js";
 import { u as me } from "../../../chunks/use-merged-ref.js";
-import { u as Ze } from "../../../chunks/use-id.js";
-function he(e, t) {
-  return Array.isArray(e) ? [...e].reduce(
-    (o, n) => ({ ...o, ...he(n, t) }),
-    {}
-  ) : typeof e == "function" ? e(t) : e ?? {};
-}
+import { u as Ye } from "../../../chunks/use-id.js";
+import { u as Ze } from "../../../chunks/use-reduced-motion.js";
 const _e = {
   duration: 100,
   transition: "fade"
@@ -26,7 +22,7 @@ function Ke({
   position: t,
   defaultOpened: o
 }) {
-  const [n, u] = W(o), g = ee(), { x: l, y, elements: m, refs: s, update: h, placement: w } = le({
+  const [n, u] = W(o), y = ee(), { x: l, y: g, elements: m, refs: a, update: h, placement: w } = le({
     placement: t,
     middleware: [
       pe({
@@ -37,7 +33,7 @@ function Ke({
     ]
   }), T = w.includes("right") ? e : t.includes("left") ? e * -1 : 0, f = w.includes("bottom") ? e : t.includes("top") ? e * -1 : 0, p = oe(
     ({ clientX: i, clientY: r }) => {
-      s.setPositionReference({
+      a.setPositionReference({
         getBoundingClientRect() {
           return {
             width: 0,
@@ -54,11 +50,11 @@ function Ke({
     },
     [m.reference]
   );
-  return De(() => {
-    if (s.floating.current) {
-      const i = g.current;
+  return Te(() => {
+    if (a.floating.current) {
+      const i = y.current;
       i.addEventListener("mousemove", p);
-      const r = Ce(s.floating.current);
+      const r = Fe(a.floating.current);
       return r.forEach((v) => {
         v.addEventListener("scroll", h);
       }), () => {
@@ -67,7 +63,7 @@ function Ke({
         });
       };
     }
-  }, [m.reference, s.floating.current, h, p, n]), { handleMouseMove: p, x: l, y, opened: n, setOpened: u, boundaryRef: g, floating: s.setFloating };
+  }, [m.reference, a.floating.current, h, p, n]), { handleMouseMove: p, x: l, y: g, opened: n, setOpened: u, boundaryRef: y, floating: a.setFloating };
 }
 var L = { tooltip: "m_1b3c8819", arrow: "m_f898399f" };
 const Qe = {
@@ -77,7 +73,7 @@ const Qe = {
   defaultOpened: !1,
   position: "right",
   zIndex: ce("popover")
-}, We = se((e, { radius: t, color: o }) => ({
+}, We = ae((e, { radius: t, color: o }) => ({
   tooltip: {
     "--tooltip-radius": t === void 0 ? void 0 : ie(t),
     "--tooltip-bg": o ? fe(o, e) : void 0,
@@ -87,11 +83,11 @@ const Qe = {
   const o = B("TooltipFloating", Qe, e), {
     children: n,
     refProp: u,
-    withinPortal: g,
+    withinPortal: y,
     style: l,
-    className: y,
+    className: g,
     classNames: m,
-    styles: s,
+    styles: a,
     unstyled: h,
     radius: w,
     color: T,
@@ -106,19 +102,19 @@ const Qe = {
     vars: O,
     portalProps: P,
     ...R
-  } = o, F = Re(), c = re({
+  } = o, F = Oe(), c = re({
     name: "TooltipFloating",
     props: o,
     classes: L,
-    className: y,
+    className: g,
     style: l,
     classNames: m,
-    styles: s,
+    styles: a,
     unstyled: h,
     rootSelector: "tooltip",
     vars: O,
     varsResolver: We
-  }), { handleMouseMove: j, x: N, y: S, opened: k, boundaryRef: I, floating: U, setOpened: A } = Ke({
+  }), { handleMouseMove: j, x: N, y: S, opened: k, boundaryRef: I, floating: U, setOpened: z } = Ke({
     offset: p,
     position: i,
     defaultOpened: D
@@ -129,19 +125,19 @@ const Qe = {
     );
   const $ = me(I, n.ref, t), q = (C) => {
     var x, b;
-    (b = (x = n.props).onMouseEnter) == null || b.call(x, C), j(C), A(!0);
+    (b = (x = n.props).onMouseEnter) == null || b.call(x, C), j(C), z(!0);
   }, H = (C) => {
     var x, b;
-    (b = (x = n.props).onMouseLeave) == null || b.call(x, C), A(!1);
+    (b = (x = n.props).onMouseLeave) == null || b.call(x, C), z(!1);
   };
-  return /* @__PURE__ */ z(X, { children: [
-    /* @__PURE__ */ a(ue, { ...P, withinPortal: g, children: /* @__PURE__ */ a(
-      ae,
+  return /* @__PURE__ */ A(X, { children: [
+    /* @__PURE__ */ s(ue, { ...P, withinPortal: y, children: /* @__PURE__ */ s(
+      se,
       {
         ...R,
         ...c("tooltip", {
           style: {
-            ...he(l, F),
+            ...Xe(l, F),
             zIndex: v,
             display: !E && k ? "block" : "none",
             top: (S && Math.round(S)) ?? "",
@@ -164,23 +160,23 @@ const Qe = {
 });
 Y.classes = L;
 Y.displayName = "@mantine/core/TooltipFloating";
-const ve = Me(!1), eo = ve.Provider, oo = () => Oe(ve), to = {
+const he = De(!1), eo = he.Provider, oo = () => Me(he), to = {
   openDelay: 0,
   closeDelay: 0
 };
 function Z(e) {
   const { openDelay: t, closeDelay: o, children: n } = B("TooltipGroup", to, e);
-  return /* @__PURE__ */ a(eo, { value: !0, children: /* @__PURE__ */ a(Ee, { delay: { open: t, close: o }, children: n }) });
+  return /* @__PURE__ */ s(eo, { value: !0, children: /* @__PURE__ */ s(Ce, { delay: { open: t, close: o }, children: n }) });
 }
 Z.displayName = "@mantine/core/TooltipGroup";
 Z.extend = (e) => e;
 function no(e) {
   var P, R, F;
-  const [t, o] = W(e.defaultOpened), u = typeof e.opened == "boolean" ? e.opened : t, g = oo(), l = Ze(), { delay: y, currentId: m, setCurrentId: s } = Ge(), h = oe(
+  const [t, o] = W(e.defaultOpened), u = typeof e.opened == "boolean" ? e.opened : t, y = oo(), l = Ye(), { delay: g, currentId: m, setCurrentId: a } = Ee(), h = oe(
     (c) => {
-      o(c), c && s(l);
+      o(c), c && a(l);
     },
-    [s, l]
+    [a, l]
   ), {
     x: w,
     y: T,
@@ -195,30 +191,30 @@ function no(e) {
     open: u,
     onOpenChange: h,
     middleware: [
-      ke(e.offset),
+      Ge(e.offset),
       pe({ padding: 8 }),
-      Ie(),
-      Ue({ element: e.arrowRef, padding: e.arrowOffset }),
-      ...e.inline ? [$e()] : []
+      Ne(),
+      Se({ element: e.arrowRef, padding: e.arrowOffset }),
+      ...e.inline ? [ze()] : []
     ]
-  }), { getReferenceProps: D, getFloatingProps: M } = Ne([
-    Se(f, {
+  }), { getReferenceProps: D, getFloatingProps: M } = Ae([
+    Be(f, {
       enabled: (P = e.events) == null ? void 0 : P.hover,
-      delay: g ? y : { open: e.openDelay, close: e.closeDelay },
+      delay: y ? g : { open: e.openDelay, close: e.closeDelay },
       mouseOnly: !((R = e.events) != null && R.touch)
     }),
-    Ae(f, { enabled: (F = e.events) == null ? void 0 : F.focus, visibleOnly: !0 }),
-    ze(f, { role: "tooltip" }),
+    Le(f, { enabled: (F = e.events) == null ? void 0 : F.focus, visibleOnly: !0 }),
+    je(f, { role: "tooltip" }),
     // cannot be used with controlled tooltip, page jumps
-    Be(f, { enabled: typeof e.opened > "u" }),
-    Le(f, { id: l })
+    ke(f, { enabled: typeof e.opened > "u" }),
+    Ie(f, { id: l })
   ]);
-  je({
+  Ue({
     opened: u,
     position: e.position,
     positionDependencies: e.positionDependencies,
     floating: { refs: p, update: i }
-  }), Xe(() => {
+  }), Ze(() => {
     var c;
     (c = e.onPositionChange) == null || c.call(e, r);
   }, [r]);
@@ -252,7 +248,7 @@ const Q = {
   events: { hover: !0, focus: !1, touch: !1 },
   zIndex: ce("popover"),
   positionDependencies: []
-}, ro = se((e, { radius: t, color: o }) => ({
+}, ro = ae((e, { radius: t, color: o }) => ({
   tooltip: {
     "--tooltip-radius": t === void 0 ? void 0 : ie(t),
     "--tooltip-bg": o ? fe(o, e) : void 0,
@@ -262,11 +258,11 @@ const Q = {
   const o = B("Tooltip", Q, e), {
     children: n,
     position: u,
-    refProp: g,
+    refProp: y,
     label: l,
-    openDelay: y,
+    openDelay: g,
     closeDelay: m,
-    onPositionChange: s,
+    onPositionChange: a,
     opened: h,
     defaultOpened: w,
     withinPortal: T,
@@ -289,22 +285,22 @@ const Q = {
     zIndex: k,
     disabled: I,
     positionDependencies: U,
-    onClick: A,
+    onClick: z,
     onMouseEnter: $,
     onMouseLeave: q,
     inline: H,
     variant: C,
     keepMounted: x,
     vars: b,
-    portalProps: ge,
+    portalProps: ve,
     mod: ye,
     floatingStrategy: _,
-    ...we
-  } = B("Tooltip", Q, o), { dir: Pe } = Ve(), J = ee(null), d = no({
-    position: qe(Pe, u),
+    ...ge
+  } = B("Tooltip", Q, o), { dir: we } = He(), J = ee(null), d = no({
+    position: $e(we, u),
     closeDelay: m,
-    openDelay: y,
-    onPositionChange: s,
+    openDelay: g,
+    onPositionChange: a,
     opened: h,
     defaultOpened: w,
     events: S,
@@ -331,19 +327,19 @@ const Q = {
     throw new Error(
       "[@mantine/core] Tooltip component children should be an element or a component that accepts ref, fragments, strings, numbers and other primitive values are not supported"
     );
-  const xe = me(d.reference, n.ref, t), K = Je(j, { duration: 100, transition: "fade" });
-  return /* @__PURE__ */ z(X, { children: [
-    /* @__PURE__ */ a(ue, { ...ge, withinPortal: T, children: /* @__PURE__ */ a(
-      Ye,
+  const Pe = me(d.reference, n.ref, t), K = Je(j, { duration: 100, transition: "fade" });
+  return /* @__PURE__ */ A(X, { children: [
+    /* @__PURE__ */ s(ue, { ...ve, withinPortal: T, children: /* @__PURE__ */ s(
+      Ve,
       {
         ...K,
         keepMounted: x,
         mounted: !I && !!d.opened,
         duration: d.isGroupPhase ? 10 : K.duration,
-        children: (be) => /* @__PURE__ */ z(
-          ae,
+        children: (xe) => /* @__PURE__ */ A(
+          se,
           {
-            ...we,
+            ...ge,
             "data-fixed": _ === "fixed" || void 0,
             variant: C,
             mod: [{ multiline: N }, ye],
@@ -352,7 +348,7 @@ const Q = {
               className: V("tooltip").className,
               style: {
                 ...V("tooltip").style,
-                ...be,
+                ...xe,
                 zIndex: k,
                 top: d.y ?? 0,
                 left: d.x ?? 0
@@ -360,8 +356,8 @@ const Q = {
             }),
             children: [
               l,
-              /* @__PURE__ */ a(
-                He,
+              /* @__PURE__ */ s(
+                qe,
                 {
                   ref: J,
                   arrowX: d.arrowX,
@@ -383,14 +379,14 @@ const Q = {
     te(
       n,
       d.getReferenceProps({
-        onClick: A,
+        onClick: z,
         onMouseEnter: $,
         onMouseLeave: q,
         onMouseMove: o.onMouseMove,
         onPointerDown: o.onPointerDown,
         onPointerEnter: o.onPointerEnter,
-        [g]: xe,
-        className: Fe(D, n.props.className),
+        [y]: Pe,
+        className: Re(D, n.props.className),
         ...n.props
       })
     )
@@ -400,28 +396,28 @@ G.classes = L;
 G.displayName = "@mantine/core/Tooltip";
 G.Floating = Y;
 G.Group = Z;
-function ao(e) {
-  return Te({ tag: "svg", attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" }, child: [] }, { tag: "path", attr: { d: "m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" }, child: [] }] })(e);
+function so(e) {
+  return be({ tag: "svg", attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" }, child: [] }, { tag: "path", attr: { d: "m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" }, child: [] }] })(e);
 }
-const so = function() {
-  return /* @__PURE__ */ a(ao, { className: "header-info-icon" });
-}, yo = (e) => {
+const ao = function() {
+  return /* @__PURE__ */ s(so, { className: "header-info-icon" });
+}, Po = (e) => {
   if (e) {
     if (typeof e == "function")
       return e();
     if (typeof e == "object" && e.toolTip) {
       const o = e;
-      return /* @__PURE__ */ z("div", { className: "info-header", children: [
-        /* @__PURE__ */ a("span", { className: "header-content-text", children: o.title }),
-        /* @__PURE__ */ a(G, { label: o.toolTip, children: /* @__PURE__ */ a("span", { style: { paddingBottom: "2px" }, children: /* @__PURE__ */ a(so, {}) }) })
+      return /* @__PURE__ */ A("div", { className: "info-header", children: [
+        /* @__PURE__ */ s("span", { className: "header-content-text", children: o.title }),
+        /* @__PURE__ */ s(G, { label: o.toolTip, children: /* @__PURE__ */ s("span", { style: { paddingBottom: "2px" }, children: /* @__PURE__ */ s(ao, {}) }) })
       ] });
     }
     const t = typeof e == "string" ? e : e.title;
-    return /* @__PURE__ */ a("span", { className: "header-content-text", children: t });
+    return /* @__PURE__ */ s("span", { className: "header-content-text", children: t });
   } else
-    return /* @__PURE__ */ a(X, {});
+    return /* @__PURE__ */ s(X, {});
 };
 export {
-  so as InfoCircle,
-  yo as renderTitle
+  ao as InfoCircle,
+  Po as renderTitle
 };

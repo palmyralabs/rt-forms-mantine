@@ -1,24 +1,26 @@
-import { jsx as o, Fragment as u } from "react/jsx-runtime";
-import { forwardRef as m, useRef as a, useEffect as b } from "react";
+import { jsx as i, Fragment as a } from "react/jsx-runtime";
+import { forwardRef as u, useRef as l, useEffect as p } from "react";
 import { GridX as d } from "./GridX.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
 import { o as e } from "../../../chunks/topic.js";
-const F = m(function(t, c) {
-  const i = t.topic, r = c || a();
-  return b(() => {
+import { StoreFactoryContext as b } from "@palmyralabs/rt-forms";
+import { PalmyraStoreFactory as y } from "@palmyralabs/palmyra-wire";
+const S = u(function(t, c) {
+  const o = t.topic, r = c || l(), n = new y({ baseUrl: "/api/palmyra/" });
+  return p(() => {
     if (t.topic) {
-      const f = e.subscribe(i + "/refresh", () => {
+      const f = e.subscribe(o + "/refresh", () => {
         r.current && r.current.refresh();
-      }), n = e.subscribe(i + "/filter", (p, s) => {
-        r.current && r.current.setFilter(s);
+      }), s = e.subscribe(o + "/filter", (F, m) => {
+        r.current && r.current.setFilter(m);
       });
       return () => {
-        e.unsubscribe(f), e.unsubscribe(n);
+        e.unsubscribe(f), e.unsubscribe(s);
       };
     }
-  }, [i]), /* @__PURE__ */ o(u, { children: /* @__PURE__ */ o(d, { ...t, ref: r }) });
+  }, [o]), /* @__PURE__ */ i(a, { children: /* @__PURE__ */ i(b.Provider, { value: n, children: /* @__PURE__ */ i(d, { ...t, ref: r }) }) });
 });
 export {
-  F as PalmyraGrid
+  S as PalmyraGrid
 };
