@@ -1,45 +1,45 @@
-import { jsx as c, jsxs as M, Fragment as ee } from "react/jsx-runtime";
-import { createContext as te, useContext as ae, forwardRef as se, useRef as N, useMemo as ne, useState as oe, useEffect as j, useImperativeHandle as le } from "react";
+import { jsx as n, jsxs as N, Fragment as ee } from "react/jsx-runtime";
+import { createContext as te, useContext as ae, forwardRef as se, useRef as j, useMemo as le, useState as oe, useEffect as B, useImperativeHandle as ne } from "react";
 import { useFieldManager as ce, getFieldHandler as re, FieldDecorator as ie } from "@palmyralabs/rt-forms";
 import { getFieldLabel as ue } from "./util.js";
 import de from "../options/OptionsParser.js";
-import { f as B, u as H, d as he, e as me, B as T, g as fe, j as ge, h as S } from "../../../chunks/factory.js";
+import { f as H, u as W, d as he, e as me, B as T, g as fe, j as ge, h as S } from "../../../chunks/factory.js";
 import { g as pe } from "../../../chunks/get-theme-color.js";
 import { I as be, a as we, b as ke } from "../../../chunks/InputsGroupFieldset.js";
-import { I as W } from "../../../chunks/Input.js";
-import { u as A } from "../../../chunks/use-uncontrolled.js";
+import { I as A } from "../../../chunks/Input.js";
+import { u as D } from "../../../chunks/use-uncontrolled.js";
 import { u as Ce } from "../../../chunks/use-id.js";
-const D = te(null), ve = D.Provider, Se = () => ae(D), ye = {}, F = B((h, e) => {
-  const { value: s, defaultValue: a, onChange: p, size: r, wrapperProps: m, children: f, readOnly: b, ...y } = H("SwitchGroup", ye, h), [n, i] = A({
+const U = te(null), ve = U.Provider, Se = () => ae(U), ye = {}, G = H((d, e) => {
+  const { value: s, defaultValue: a, onChange: w, size: c, wrapperProps: h, children: m, readOnly: k, ...y } = W("SwitchGroup", ye, d), [r, l] = D({
     value: s,
     defaultValue: a,
     finalValue: [],
-    onChange: p
+    onChange: w
   });
-  return /* @__PURE__ */ c(ve, { value: { value: n, onChange: (g) => {
-    const l = g.currentTarget.value;
-    !b && i(
-      n.includes(l) ? n.filter((V) => V !== l) : [...n, l]
+  return /* @__PURE__ */ n(ve, { value: { value: r, onChange: (o) => {
+    const i = o.currentTarget.value;
+    !k && l(
+      r.includes(i) ? r.filter((g) => g !== i) : [...r, i]
     );
-  }, size: r }, children: /* @__PURE__ */ c(
-    W.Wrapper,
+  }, size: c }, children: /* @__PURE__ */ n(
+    A.Wrapper,
     {
-      size: r,
+      size: c,
       ref: e,
-      ...m,
+      ...h,
       ...y,
       labelElement: "div",
       __staticSelector: "SwitchGroup",
-      children: /* @__PURE__ */ c(be, { role: "group", children: f })
+      children: /* @__PURE__ */ n(be, { role: "group", children: m })
     }
   ) });
 });
-F.classes = W.Wrapper.classes;
-F.displayName = "@mantine/core/SwitchGroup";
-var U = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", thumb: "m_93039a1d", trackLabel: "m_8277e082" };
+G.classes = A.Wrapper.classes;
+G.displayName = "@mantine/core/SwitchGroup";
+var $ = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", thumb: "m_93039a1d", trackLabel: "m_8277e082" };
 const Ve = {
   labelPosition: "right"
-}, _e = fe((h, { radius: e, color: s, size: a }) => ({
+}, _e = fe((d, { radius: e, color: s, size: a }) => ({
   root: {
     "--switch-radius": e === void 0 ? void 0 : ge(e),
     "--switch-height": S(a, "switch-height"),
@@ -47,106 +47,106 @@ const Ve = {
     "--switch-thumb-size": S(a, "switch-thumb-size"),
     "--switch-label-font-size": S(a, "switch-label-font-size"),
     "--switch-track-label-padding": S(a, "switch-track-label-padding"),
-    "--switch-color": s ? pe(s, h) : void 0
+    "--switch-color": s ? pe(s, d) : void 0
   }
-})), I = B((h, e) => {
-  const s = H("Switch", Ve, h), {
+})), I = H((d, e) => {
+  const s = W("Switch", Ve, d), {
     classNames: a,
-    className: p,
-    style: r,
-    styles: m,
-    unstyled: f,
-    vars: b,
+    className: w,
+    style: c,
+    styles: h,
+    unstyled: m,
+    vars: k,
     color: y,
-    label: n,
-    offLabel: i,
-    onLabel: o,
-    id: g,
-    size: l,
-    radius: V,
-    wrapperProps: _,
-    thumbIcon: P,
-    checked: w,
-    defaultChecked: t,
-    onChange: u,
-    labelPosition: k,
-    description: $,
-    error: G,
-    disabled: x,
+    label: r,
+    offLabel: l,
+    onLabel: f,
+    id: o,
+    size: i,
+    radius: g,
+    wrapperProps: P,
+    thumbIcon: V,
+    checked: O,
+    defaultChecked: p,
+    onChange: t,
+    labelPosition: b,
+    description: _,
+    error: x,
+    disabled: L,
     variant: q,
     rootRef: J,
     mod: K,
     ...Q
-  } = s, d = Se(), X = l || (d == null ? void 0 : d.size), C = he({
+  } = s, u = Se(), X = i || (u == null ? void 0 : u.size), C = he({
     name: "Switch",
     props: s,
-    classes: U,
-    className: p,
-    style: r,
+    classes: $,
+    className: w,
+    style: c,
     classNames: a,
-    styles: m,
-    unstyled: f,
-    vars: b,
+    styles: h,
+    unstyled: m,
+    vars: k,
     varsResolver: _e
-  }), { styleProps: Y, rest: L } = me(Q), R = Ce(g), v = d ? {
-    checked: d.value.includes(L.value),
-    onChange: d.onChange
-  } : {}, [z, Z] = A({
-    value: v.checked ?? w,
-    defaultValue: t,
+  }), { styleProps: Y, rest: R } = me(Q), z = Ce(o), v = u ? {
+    checked: u.value.includes(R.value),
+    onChange: u.onChange
+  } : {}, [E, Z] = D({
+    value: v.checked ?? O,
+    defaultValue: p,
     finalValue: !1
   });
-  return /* @__PURE__ */ M(
+  return /* @__PURE__ */ N(
     ke,
     {
       ...C("root"),
       __staticSelector: "Switch",
       __stylesApiProps: s,
-      id: R,
+      id: z,
       size: X,
-      labelPosition: k,
-      label: n,
-      description: $,
-      error: G,
-      disabled: x,
+      labelPosition: b,
+      label: r,
+      description: _,
+      error: x,
+      disabled: L,
       bodyElement: "label",
       labelElement: "span",
       classNames: a,
-      styles: m,
-      unstyled: f,
+      styles: h,
+      unstyled: m,
       "data-checked": v.checked || void 0,
       variant: q,
       ref: J,
       mod: K,
       ...Y,
-      ..._,
+      ...P,
       children: [
-        /* @__PURE__ */ c(
+        /* @__PURE__ */ n(
           "input",
           {
-            ...L,
-            disabled: x,
-            checked: z,
-            onChange: (O) => {
-              var E;
-              d ? (E = v.onChange) == null || E.call(v, O) : u == null || u(O), Z(O.currentTarget.checked);
+            ...R,
+            disabled: L,
+            checked: E,
+            onChange: (F) => {
+              var M;
+              u ? (M = v.onChange) == null || M.call(v, F) : t == null || t(F), Z(F.currentTarget.checked);
             },
-            id: R,
+            id: z,
             ref: e,
             type: "checkbox",
             role: "switch",
             ...C("input")
           }
         ),
-        /* @__PURE__ */ M(
+        /* @__PURE__ */ N(
           T,
           {
             "aria-hidden": "true",
-            mod: { error: G, "label-position": k, "without-labels": !o && !i },
+            mod: { error: x, "label-position": b, "without-labels": !f && !l },
             ...C("track"),
             children: [
-              /* @__PURE__ */ c(T, { component: "span", mod: "reduce-motion", ...C("thumb"), children: P }),
-              /* @__PURE__ */ c("span", { ...C("trackLabel"), children: z ? o : i })
+              /* @__PURE__ */ n(T, { component: "span", mod: "reduce-motion", ...C("thumb"), children: V }),
+              /* @__PURE__ */ n("span", { ...C("trackLabel"), children: E ? f : l })
             ]
           }
         )
@@ -154,46 +154,46 @@ const Ve = {
     }
   );
 });
-I.classes = { ...U, ...we };
+I.classes = { ...$, ...we };
 I.displayName = "@mantine/core/Switch";
-I.Group = F;
+I.Group = G;
 const Ne = se(function(e, s) {
-  const a = ce(e.attribute, e), { getError: p, getValue: r, setValue: m, mutateOptions: f } = a, b = s || N(null), y = p(), n = ne(
+  const a = ce(e.attribute, e), { getError: w, getValue: c, setValue: h, mutateOptions: m, refreshError: k } = a, y = s || j(null), r = w(), l = le(
     () => de(e.options, e.label),
     [e.options, e.label]
-  ), i = (t, u) => {
-    var k = n.checked.value;
-    return t != null && t != null ? k == t : k == u;
-  }, [o, g] = oe(i(r(), e.defaultValue)), l = N(null);
-  j(() => {
-    g(i(r(), e.defaultValue));
-  }, [r()]), le(b, () => ({
+  ), f = (t, b) => {
+    var _ = l.checked.value;
+    return t != null && t != null ? _ == t : _ == b;
+  }, [o, i] = oe(f(c(), e.defaultValue)), g = j(null);
+  B(() => {
+    i(f(c(), e.defaultValue));
+  }, [c()]), ne(y, () => ({
     ...re(a),
     focus() {
-      l.current.checked = !0, l.current.focus();
+      g.current.checked = !0, g.current.focus();
     },
     getOptions() {
     },
-    setOptions(u) {
+    setOptions(b) {
     }
   }), [a]);
-  const V = () => {
-    g(!o);
+  const P = () => {
+    i(!o);
   };
-  j(() => {
-    w.onChange = () => _();
+  B(() => {
+    p.onChange = () => V();
   }, [o]);
-  const _ = () => {
+  const V = () => {
     var t = o ? "checked" : "unchecked";
-    return console.log(n[t].title, t), n[t].title;
-  }, P = () => {
+    return console.log(l[t].title, t), l[t].title;
+  }, O = () => {
     var t = o ? "checked" : "unchecked";
-    return n[t].value;
+    return console.log("S", l[t].value), l[t].value || null;
   };
-  var w = a.getFieldProps();
-  return w.onChange = (t, u) => {
-    e.readOnly || (m(t.target.checked), e.onChange && e.onChange(t.target.checked));
-  }, /* @__PURE__ */ c(ee, { children: !f.visible && /* @__PURE__ */ c(
+  var p = a.getFieldProps();
+  return p.onChange = (t, b) => {
+    e.readOnly || (h(t.target.checked), e.onChange && e.onChange(t.target.checked));
+  }, p.onBlur = k, console.log("switch", o), /* @__PURE__ */ n(ee, { children: !m.visible && /* @__PURE__ */ n(
     ie,
     {
       label: ue(e),
@@ -201,19 +201,20 @@ const Ne = se(function(e, s) {
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ c(
+      children: /* @__PURE__ */ n(
         I,
         {
           checked: o,
-          onClick: V,
-          value: P(),
-          label: _(),
+          onClick: P,
+          value: O(),
+          label: V(),
+          defaultValue: e.defaultValue,
           disabled: e.readOnly,
-          error: y.message,
+          error: r.message,
           ref: (t) => {
-            l.current = t;
+            g.current = t;
           },
-          ...w
+          ...p
         }
       )
     }

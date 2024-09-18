@@ -1,40 +1,40 @@
-import { jsx as a, Fragment as C } from "react/jsx-runtime";
-import { forwardRef as b, useRef as o, useImperativeHandle as k } from "react";
-import { useFieldManager as F, getFieldHandler as O, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { getFieldLabel as v } from "./util.js";
-import { C as M } from "../../../chunks/Checkbox.js";
-const V = b(function(e, l) {
-  const n = F(e.attribute, e), { getError: s, getValue: i, setValue: u, mutateOptions: d } = n, m = l || o(null), f = i() == !0, r = o(null), g = s();
-  k(m, () => ({
-    ...O(n),
+import { jsx as l, Fragment as b } from "react/jsx-runtime";
+import { forwardRef as k, useRef as o, useImperativeHandle as F } from "react";
+import { useFieldManager as O, getFieldHandler as x, FieldDecorator as v } from "@palmyralabs/rt-forms";
+import { getFieldLabel as M } from "./util.js";
+import { C as R } from "../../../chunks/Checkbox.js";
+const V = k(function(e, c) {
+  const r = O(e.attribute, e), { getError: s, getValue: i, setValue: u, mutateOptions: d, refreshError: m } = r, f = c || o(null), h = i() == !0, n = o(null), g = s();
+  F(f, () => ({
+    ...x(r),
     focus() {
-      r.current.checked = !0, r.current.focus();
+      n.current.checked = !0, n.current.focus();
     },
-    setOptions(h) {
+    setOptions(C) {
     },
     getOptions() {
     }
-  }), [n]);
-  var c = n.getFieldProps();
-  return c.onChange = (t, h) => {
+  }), [r]);
+  var a = r.getFieldProps();
+  return a.onChange = (t, C) => {
     e.readOnly || (u(t.currentTarget.checked), e.onChange && e.onChange(t.currentTarget.checked));
-  }, /* @__PURE__ */ a(C, { children: !d.visible && /* @__PURE__ */ a(
-    x,
+  }, a.onBlur = m, /* @__PURE__ */ l(b, { children: !d.visible && /* @__PURE__ */ l(
+    v,
     {
-      label: v(e),
+      label: M(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ a(
-        M,
+      children: /* @__PURE__ */ l(
+        R,
         {
-          ...c,
-          checked: f,
+          ...a,
+          checked: h,
           disabled: e.disabled,
           readOnly: e.readOnly,
           ref: (t) => {
-            r.current = t;
+            n.current = t;
           },
           label: e.label,
           error: g.message

@@ -7,7 +7,7 @@ import { TriStateCheckBox, TriStateCheckBoxProps } from '../ext/TriStateCheckBox
 
 const MantineTriStateCheckBox = forwardRef(function MantineTriStateCheckBox(props: TriStateCheckBoxProps & CheckboxProps & ICheckBoxDefinition, ref: MutableRefObject<ICheckBoxField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ICheckBoxField>(null);
     const value: any = getValue() ? getValue() : undefined;
     const inputRef: any = useRef(null);
@@ -38,6 +38,7 @@ const MantineTriStateCheckBox = forwardRef(function MantineTriStateCheckBox(prop
             }
         }
     }
+    options.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

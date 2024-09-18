@@ -6,7 +6,7 @@ import { PasswordInput, PasswordInputProps } from '@mantine/core';
 
 const MantinePasswordField = forwardRef(function MantinePasswordField(props: ITextFieldDefinition & PasswordInputProps, ref: MutableRefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
@@ -30,7 +30,8 @@ const MantinePasswordField = forwardRef(function MantinePasswordField(props: ITe
             if (props.onChange)
                 props.onChange(event);
         }
-    }
+    } 
+    options.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
@@ -42,7 +43,7 @@ const MantinePasswordField = forwardRef(function MantinePasswordField(props: ITe
                 ref={inputRef}
                 {...options}
                 placeholder={props.placeholder}
-                value={getValue() ? getValue() : props.defaultValue}
+                value={getValue()}
                 error={error.message}
             />
         </FieldDecorator>}

@@ -7,7 +7,7 @@ import { Switch, SwitchProps } from '@mantine/core';
 
 const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition & SwitchProps, ref: MutableRefObject<ISwitchField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISwitchField>(null);
     const error: IFormFieldError = getError();
 
@@ -63,7 +63,8 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
 
     const getOptionValue = () => {
         var key = isOn ? 'checked' : 'unchecked';
-        return parsedOptions[key].value;
+        console.log("S", parsedOptions[key].value)
+        return parsedOptions[key].value || null;
     }
 
     var options = fieldManager.getFieldProps();
@@ -75,11 +76,14 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
                 props.onChange(event.target.checked);
         }
     }
+    options.onBlur = refreshError;
+
+    console.log("switch", isOn)
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
-            <Switch checked={isOn} onClick={toggleStatus} value={getOptionValue()} label={getLabel()}
+            <Switch checked={isOn} onClick={toggleStatus} value={getOptionValue()} label={getLabel()} defaultValue={props.defaultValue}
                 disabled={props.readOnly} error={error.message} ref={(i) => { inputRef.current = i; }}
                 {...options}
             />

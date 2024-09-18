@@ -6,7 +6,7 @@ import { Checkbox, CheckboxProps } from '@mantine/core';
 
 const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps & ICheckBoxDefinition, ref: MutableRefObject<ICheckBoxField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ICheckBoxField>(null);
     const value: boolean = getValue() == true;
     const inputRef: any = useRef(null);
@@ -37,6 +37,7 @@ const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps
             }
         }
     }
+    options.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

@@ -6,7 +6,7 @@ import { Group, Radio, RadioProps } from '@mantine/core';
 
 const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGroupDefinition & RadioProps, ref: MutableRefObject<IRadioGroupField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISwitchField>(null);
     const error: IFormFieldError = getError();
     // const autoFocus = props.autoFocus || false;
@@ -35,6 +35,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
             props.onChange(event.currentTarget.value);
         }
     }
+    fieldOptions.onBlur = refreshError;
 
     const getOptions = (options: any) => {
         if (options) {
@@ -65,7 +66,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <Radio.Group
                 label={props.label}
-                // value={getValue()}
+                value={getValue()}
                 {...fieldOptions}
                 // withAsterisk={props.required}
                 description={props.description}>

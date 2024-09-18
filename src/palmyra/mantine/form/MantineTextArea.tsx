@@ -8,7 +8,7 @@ import { Textarea, TextareaProps } from '@mantine/core';
 const MantineTextArea = forwardRef(function MantineTextArea(props: ITextFieldDefinition & TextareaProps, ref: MutableRefObject<ITextField>) {
 
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
@@ -33,6 +33,7 @@ const MantineTextArea = forwardRef(function MantineTextArea(props: ITextFieldDef
                 props.onChange(event);
         }
     }
+    options.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
@@ -40,14 +41,11 @@ const MantineTextArea = forwardRef(function MantineTextArea(props: ITextFieldDef
             <Textarea
                 variant={variant}
                 label={props.label}
-                // fullWidth={true}
-                // multiline
                 ref={inputRef}
+                defaultValue={props.defaultValue}
                 {...options}
-                value={getValue()}
-                error={error.message}
-            // helperText={error.message}
-            />
+                value={getValue() || null}
+                error={error.message} />
         </FieldDecorator>}
     </>
     );

@@ -11,7 +11,7 @@ const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(props: I
 
     const fieldManager = useFieldManager(props.attribute, props);
 
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
@@ -38,6 +38,7 @@ const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(props: I
                 props.onChange(d);
         }
     }
+    options.onBlur = refreshError;
 
     var value;
     if (getValue() != '') {

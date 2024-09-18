@@ -6,13 +6,13 @@ import { ComboboxItem, Select, SelectProps } from '@mantine/core';
 
 const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition & SelectProps, ref: MutableRefObject<ISelectField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
 
-    var value = getValue() != '' ? getValue() : null
+    var value = getValue() //!= '' ? getValue() : null
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager);
@@ -42,15 +42,13 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
                 props.onChange(e.currentTarget.value, option);
         }
     }
+    options.onBlur = refreshError;
 
     const sData = Object.keys(options.options).map((key, index) => {
         var sOptions = {
-            label: '',
-            value: ''
+            label: options.options[key],
+            value: key
         }
-        sOptions.label = options.options[key]
-        sOptions.value = key
-
         return sOptions;
     })
 

@@ -1,21 +1,21 @@
-import { createContext as K, useContext as Q, useId as jt, forwardRef as L } from "react";
-import { jsx as R, jsxs as zt, Fragment as It } from "react/jsx-runtime";
-function W(t) {
+import { createContext as K, useContext as Q, useId as jt, forwardRef as M } from "react";
+import { jsx as T, jsxs as zt, Fragment as _t } from "react/jsx-runtime";
+function H(t) {
   return Object.keys(t);
 }
-function _t(t) {
+function It(t) {
   return t.replace(/[A-Z]/g, (r) => `-${r.toLowerCase()}`);
 }
-function j(t) {
+function z(t) {
   return t === "0rem" ? "0rem" : `calc(${t} * var(--mantine-scale))`;
 }
-function Lt(t, { shouldScale: r = !1 } = {}) {
+function Pt(t, { shouldScale: r = !1 } = {}) {
   function e(n) {
     if (n === 0 || n === "0")
       return `0${t}`;
     if (typeof n == "number") {
       const i = `${n / 16}${t}`;
-      return r ? j(i) : i;
+      return r ? z(i) : i;
     }
     if (typeof n == "string") {
       if (n === "" || n.startsWith("calc(") || n.startsWith("clamp(") || n.includes("rgba("))
@@ -25,83 +25,83 @@ function Lt(t, { shouldScale: r = !1 } = {}) {
       if (n.includes(" "))
         return n.split(" ").map((s) => e(s)).join(" ");
       if (n.includes(t))
-        return r ? j(n) : n;
+        return r ? z(n) : n;
       const i = n.replace("px", "");
       if (!Number.isNaN(Number(i))) {
         const s = `${Number(i) / 16}${t}`;
-        return r ? j(s) : s;
+        return r ? z(s) : s;
       }
     }
     return n;
   }
   return e;
 }
-const g = Lt("rem", { shouldScale: !0 });
+const g = Pt("rem", { shouldScale: !0 });
 function F(t) {
   return Object.keys(t).reduce((r, e) => (t[e] !== void 0 && (r[e] = t[e]), r), {});
 }
-function Y(t) {
+function q(t) {
   return typeof t == "number" ? !0 : typeof t == "string" ? t.startsWith("calc(") || t.startsWith("var(") || t.includes(" ") && t.trim() !== "" ? !0 : /[0-9]/.test(t.trim().replace("-", "")[0]) : !1;
 }
-function M(t, r = "size", e = !0) {
+function v(t, r = "size", e = !0) {
   if (t !== void 0)
-    return Y(t) ? e ? g(t) : t : `var(--${r}-${t})`;
+    return q(t) ? e ? g(t) : t : `var(--${r}-${t})`;
 }
 function Or(t) {
-  return M(t, "mantine-spacing");
+  return v(t, "mantine-spacing");
 }
 function Vr(t) {
-  return t === void 0 ? "var(--mantine-radius-default)" : M(t, "mantine-radius");
+  return t === void 0 ? "var(--mantine-radius-default)" : v(t, "mantine-radius");
 }
 function Gr(t) {
-  return M(t, "mantine-font-size");
+  return v(t, "mantine-font-size");
 }
 function Xr(t) {
   if (t)
-    return M(t, "mantine-shadow", !1);
+    return v(t, "mantine-shadow", !1);
 }
 function Dr(t) {
   return t;
 }
-function q(t) {
+function Y(t) {
   var r, e, n = "";
   if (typeof t == "string" || typeof t == "number") n += t;
   else if (typeof t == "object") if (Array.isArray(t)) {
     var i = t.length;
-    for (r = 0; r < i; r++) t[r] && (e = q(t[r])) && (n && (n += " "), n += e);
+    for (r = 0; r < i; r++) t[r] && (e = Y(t[r])) && (n && (n += " "), n += e);
   } else for (e in t) t[e] && (n && (n += " "), n += e);
   return n;
 }
-function v() {
-  for (var t, r, e = 0, n = "", i = arguments.length; e < i; e++) (t = arguments[e]) && (r = q(t)) && (n && (n += " "), n += r);
+function E() {
+  for (var t, r, e = 0, n = "", i = arguments.length; e < i; e++) (t = arguments[e]) && (r = Y(t)) && (n && (n += " "), n += r);
   return n;
 }
-const Pt = {};
-function Bt(t) {
+const Lt = {};
+function Wt(t) {
   const r = {};
   return t.forEach((e) => {
     Object.entries(e).forEach(([n, i]) => {
-      r[n] ? r[n] = v(r[n], i) : r[n] = i;
+      r[n] ? r[n] = E(r[n], i) : r[n] = i;
     });
   }), r;
 }
 function O({ theme: t, classNames: r, props: e, stylesCtx: n }) {
   const s = (Array.isArray(r) ? r : [r]).map(
-    (a) => typeof a == "function" ? a(t, e, n) : a || Pt
+    (a) => typeof a == "function" ? a(t, e, n) : a || Lt
   );
-  return Bt(s);
+  return Wt(s);
 }
-function P({ theme: t, styles: r, props: e, stylesCtx: n }) {
+function L({ theme: t, styles: r, props: e, stylesCtx: n }) {
   return (Array.isArray(r) ? r : [r]).reduce((s, a) => typeof a == "function" ? { ...s, ...a(t, e, n) } : { ...s, ...a }, {});
 }
-const Ht = K(null);
+const Bt = K(null);
 function N() {
-  const t = Q(Ht);
+  const t = Q(Bt);
   if (!t)
     throw new Error("[@mantine/core] MantineProvider was not found in tree");
   return t;
 }
-function Wt() {
+function Ht() {
   return N().classNamesPrefix;
 }
 function Ft() {
@@ -158,7 +158,7 @@ function Qt(t) {
   const [r, e, n, i] = t.replace(/[^0-9,./]/g, "").split(/[/,]/).map(Number);
   return { r, g: e, b: n, a: i || 1 };
 }
-function Yt(t) {
+function qt(t) {
   const r = /^hsla?\(\s*(\d+)\s*,\s*(\d+%)\s*,\s*(\d+%)\s*(,\s*(0?\.\d+|\d+(\.\d+)?))?\s*\)$/i, e = t.match(r);
   if (!e)
     return {
@@ -168,16 +168,16 @@ function Yt(t) {
       a: 1
     };
   const n = parseInt(e[1], 10), i = parseInt(e[2], 10) / 100, s = parseInt(e[3], 10) / 100, a = e[5] ? parseFloat(e[5]) : void 0, o = (1 - Math.abs(2 * s - 1)) * i, c = n / 60, f = o * (1 - Math.abs(c % 2 - 1)), p = s - o / 2;
-  let u, y, l;
-  return c >= 0 && c < 1 ? (u = o, y = f, l = 0) : c >= 1 && c < 2 ? (u = f, y = o, l = 0) : c >= 2 && c < 3 ? (u = 0, y = o, l = f) : c >= 3 && c < 4 ? (u = 0, y = f, l = o) : c >= 4 && c < 5 ? (u = f, y = 0, l = o) : (u = o, y = 0, l = f), {
+  let u, y, d;
+  return c >= 0 && c < 1 ? (u = o, y = f, d = 0) : c >= 1 && c < 2 ? (u = f, y = o, d = 0) : c >= 2 && c < 3 ? (u = 0, y = o, d = f) : c >= 3 && c < 4 ? (u = 0, y = f, d = o) : c >= 4 && c < 5 ? (u = f, y = 0, d = o) : (u = o, y = 0, d = f), {
     r: Math.round((u + p) * 255),
     g: Math.round((y + p) * 255),
-    b: Math.round((l + p) * 255),
+    b: Math.round((d + p) * 255),
     a: a || 1
   };
 }
-function qt(t) {
-  return Dt(t) ? Kt(t) : t.startsWith("rgb") ? Qt(t) : t.startsWith("hsl") ? Yt(t) : {
+function Yt(t) {
+  return Dt(t) ? Kt(t) : t.startsWith("rgb") ? Qt(t) : t.startsWith("hsl") ? qt(t) : {
     r: 0,
     g: 0,
     b: 0,
@@ -187,7 +187,7 @@ function qt(t) {
 function Ut(t, r) {
   return typeof t.primaryShade == "number" ? t.primaryShade : r === "dark" ? t.primaryShade.dark : t.primaryShade.light;
 }
-function z(t) {
+function _(t) {
   return t <= 0.03928 ? t / 12.92 : ((t + 0.055) / 1.055) ** 2.4;
 }
 function Zt(t) {
@@ -197,7 +197,7 @@ function Zt(t) {
 function Jt(t) {
   if (t.startsWith("oklch("))
     return (Zt(t) || 0) / 100;
-  const { r, g: e, b: n } = qt(t), i = r / 255, s = e / 255, a = n / 255, o = z(i), c = z(s), f = z(a);
+  const { r, g: e, b: n } = Yt(t), i = r / 255, s = e / 255, a = n / 255, o = _(i), c = _(s), f = _(a);
   return 0.2126 * o + 0.7152 * c + 0.0722 * f;
 }
 function w(t, r = 0.179) {
@@ -270,7 +270,7 @@ function U({
   };
 }
 const tr = K(null);
-function E() {
+function j() {
   const t = Q(tr);
   if (!t)
     throw new Error(
@@ -284,7 +284,7 @@ const rr = {
   never: "mantine-focus-never"
 };
 function nr({ theme: t, options: r, unstyled: e }) {
-  return v(
+  return E(
     (r == null ? void 0 : r.focusable) && !e && (t.focusClassName || rr[t.focusRing]),
     (r == null ? void 0 : r.active) && !e && t.activeClassName
   );
@@ -367,19 +367,19 @@ function fr({
   props: p,
   stylesCtx: u,
   withStaticClasses: y,
-  headless: l,
+  headless: d,
   transformedStyles: h
 }) {
-  return v(
-    nr({ theme: t, options: r, unstyled: o || l }),
+  return E(
+    nr({ theme: t, options: r, unstyled: o || d }),
     or({ theme: t, themeName: e, selector: n, props: p, stylesCtx: u }),
     cr({ options: r, classes: a, selector: n, unstyled: o }),
     G({ selector: n, stylesCtx: u, theme: t, classNames: s, props: p }),
     G({ selector: n, stylesCtx: u, theme: t, classNames: h, props: p }),
     er({ selector: n, stylesCtx: u, options: r, props: p, theme: t }),
     ir({ rootSelector: f, selector: n, className: c }),
-    sr({ selector: n, classes: a, unstyled: o || l }),
-    y && !l && ar({
+    sr({ selector: n, classes: a, unstyled: o || d }),
+    y && !d && ar({
       themeName: e,
       classNamesPrefix: i,
       selector: n,
@@ -398,7 +398,7 @@ function ur({
   return r.map(
     (s) => {
       var a;
-      return P({
+      return L({
         theme: t,
         styles: (a = t.components[s]) == null ? void 0 : a.styles,
         props: e,
@@ -407,9 +407,9 @@ function ur({
     }
   ).reduce((s, a) => ({ ...s, ...a }), {});
 }
-function B({ style: t, theme: r }) {
+function W({ style: t, theme: r }) {
   return Array.isArray(t) ? [...t].reduce(
-    (e, n) => ({ ...e, ...B({ style: n, theme: r }) }),
+    (e, n) => ({ ...e, ...W({ style: n, theme: r }) }),
     {}
   ) : typeof t == "function" ? t(r) : t ?? {};
 }
@@ -438,7 +438,7 @@ function yr({
     t == null ? void 0 : t(e, n, i)
   ])) == null ? void 0 : c[s];
 }
-function lr({
+function dr({
   theme: t,
   themeName: r,
   selector: e,
@@ -455,16 +455,16 @@ function lr({
 }) {
   return {
     ...!y && ur({ theme: t, themeName: r, props: i, stylesCtx: s, selector: e }),
-    ...!y && P({ theme: t, styles: o, props: i, stylesCtx: s })[e],
-    ...!y && P({ theme: t, styles: n == null ? void 0 : n.styles, props: (n == null ? void 0 : n.props) || i, stylesCtx: s })[e],
+    ...!y && L({ theme: t, styles: o, props: i, stylesCtx: s })[e],
+    ...!y && L({ theme: t, styles: n == null ? void 0 : n.styles, props: (n == null ? void 0 : n.props) || i, stylesCtx: s })[e],
     ...yr({ theme: t, props: i, stylesCtx: s, vars: f, varsResolver: p, selector: e, themeName: r, headless: u }),
-    ...a === e ? B({ style: c, theme: t }) : null,
-    ...B({ style: n == null ? void 0 : n.style, theme: t })
+    ...a === e ? W({ style: c, theme: t }) : null,
+    ...W({ style: n == null ? void 0 : n.style, theme: t })
   };
 }
-function dr({ props: t, stylesCtx: r, themeName: e }) {
+function lr({ props: t, stylesCtx: r, themeName: e }) {
   var a;
-  const n = E(), i = (a = Xt()) == null ? void 0 : a();
+  const n = j(), i = (a = Xt()) == null ? void 0 : a();
   return {
     getTransformedStyles: (o) => i ? [
       ...o.map(
@@ -494,18 +494,18 @@ function Kr({
   vars: p,
   varsResolver: u
 }) {
-  const y = E(), l = Wt(), h = Ot(), b = Vt(), S = (Array.isArray(t) ? t : [t]).filter((d) => d), { withStylesTransform: x, getTransformedStyles: C } = dr({
+  const y = j(), d = Ht(), h = Ot(), b = Vt(), S = (Array.isArray(t) ? t : [t]).filter((l) => l), { withStylesTransform: x, getTransformedStyles: C } = lr({
     props: e,
     stylesCtx: n,
     themeName: S
   });
-  return (d, m) => ({
+  return (l, m) => ({
     className: fr({
       theme: y,
       options: m,
       themeName: S,
-      selector: d,
-      classNamesPrefix: l,
+      selector: l,
+      classNamesPrefix: d,
       classNames: c,
       classes: r,
       unstyled: o,
@@ -517,10 +517,10 @@ function Kr({
       headless: b,
       transformedStyles: C([m == null ? void 0 : m.styles, f])
     }),
-    style: lr({
+    style: dr({
       theme: y,
       themeName: S,
-      selector: d,
+      selector: l,
       options: m,
       props: e,
       stylesCtx: n,
@@ -536,12 +536,12 @@ function Kr({
 }
 function Qr(t, r, e) {
   var a;
-  const n = E(), i = (a = n.components[t]) == null ? void 0 : a.defaultProps, s = typeof i == "function" ? i(n) : i;
+  const n = j(), i = (a = n.components[t]) == null ? void 0 : a.defaultProps, s = typeof i == "function" ? i(n) : i;
   return { ...r, ...s, ...F(e) };
 }
 function I(t) {
-  return W(t).reduce(
-    (r, e) => t[e] !== void 0 ? `${r}${_t(e)}:${t[e]};` : r,
+  return H(t).reduce(
+    (r, e) => t[e] !== void 0 ? `${r}${It(e)}:${t[e]};` : r,
     ""
   ).trim();
 }
@@ -553,7 +553,7 @@ function mr({ selector: t, styles: r, media: e, container: n }) {
 }
 function gr(t) {
   const r = Ft();
-  return /* @__PURE__ */ R(
+  return /* @__PURE__ */ T(
     "style",
     {
       "data-mantine-styles": "inline",
@@ -576,18 +576,18 @@ function hr(t) {
     p,
     px: u,
     py: y,
-    pt: l,
+    pt: d,
     pb: h,
     pl: b,
     pr: S,
     pe: x,
     ps: C,
-    bd: d,
+    bd: l,
     bg: m,
-    c: T,
+    c: A,
     opacity: $,
-    ff: A,
-    fz: k,
+    ff: k,
+    fz: R,
     fw: rt,
     lts: nt,
     ta: et,
@@ -600,8 +600,8 @@ function hr(t) {
     maw: ut,
     h: pt,
     mih: yt,
-    mah: lt,
-    bgsz: dt,
+    mah: dt,
+    bgsz: lt,
     bgp: mt,
     bgr: gt,
     bga: ht,
@@ -633,18 +633,18 @@ function hr(t) {
     p,
     px: u,
     py: y,
-    pt: l,
+    pt: d,
     pb: h,
     pl: b,
     pr: S,
     pe: x,
     ps: C,
-    bd: d,
+    bd: l,
     bg: m,
-    c: T,
+    c: A,
     opacity: $,
-    ff: A,
-    fz: k,
+    ff: k,
+    fz: R,
     fw: rt,
     lts: nt,
     ta: et,
@@ -657,8 +657,8 @@ function hr(t) {
     maw: ut,
     h: pt,
     mih: yt,
-    mah: lt,
-    bgsz: dt,
+    mah: dt,
+    bgsz: lt,
     bgp: mt,
     bgr: gt,
     bga: ht,
@@ -782,7 +782,7 @@ function Rr(t, r) {
   }
   return t;
 }
-const _ = {
+const P = {
   color: V,
   textColor: Sr,
   fontSize: Cr,
@@ -813,34 +813,34 @@ function Er(t) {
   return typeof t == "object" && t !== null ? "base" in t ? t.base : void 0 : t;
 }
 function jr(t) {
-  return typeof t == "object" && t !== null ? W(t).filter((r) => r !== "base") : [];
+  return typeof t == "object" && t !== null ? H(t).filter((r) => r !== "base") : [];
 }
 function zr(t, r) {
   return typeof t == "object" && t !== null && r in t ? t[r] : t;
 }
-function Ir({
+function _r({
   styleProps: t,
   data: r,
   theme: e
 }) {
   return Mr(
-    W(t).reduce(
+    H(t).reduce(
       (n, i) => {
         if (i === "hiddenFrom" || i === "visibleFrom" || i === "sx")
           return n;
         const s = r[i], a = Array.isArray(s.property) ? s.property : [s.property], o = Er(t[i]);
         if (!vr(t[i]))
           return a.forEach((f) => {
-            n.inlineStyles[f] = _[s.type](o, e);
+            n.inlineStyles[f] = P[s.type](o, e);
           }), n;
         n.hasResponsiveStyles = !0;
         const c = jr(t[i]);
         return a.forEach((f) => {
-          o && (n.styles[f] = _[s.type](o, e)), c.forEach((p) => {
+          o && (n.styles[f] = P[s.type](o, e)), c.forEach((p) => {
             const u = `(min-width: ${e.breakpoints[p]})`;
             n.media[u] = {
               ...n.media[u],
-              [f]: _[s.type](
+              [f]: P[s.type](
                 zr(t[i], p),
                 e
               )
@@ -857,16 +857,16 @@ function Ir({
     )
   );
 }
-function _r() {
+function Ir() {
   return `__m__-${jt().replace(/:/g, "")}`;
 }
-function Yr(t) {
+function qr(t) {
   return t;
 }
 function Z(t) {
   return t.startsWith("data-") ? t : `data-${t}`;
 }
-function Lr(t) {
+function Pr(t) {
   return Object.keys(t).reduce((r, e) => {
     const n = t[e];
     return n === void 0 || n === "" || n === !1 || n === null || (r[Z(e)] = t[e]), r;
@@ -876,24 +876,24 @@ function J(t) {
   return t ? typeof t == "string" ? { [Z(t)]: !0 } : Array.isArray(t) ? [...t].reduce(
     (r, e) => ({ ...r, ...J(e) }),
     {}
-  ) : Lr(t) : null;
+  ) : Pr(t) : null;
 }
-function H(t, r) {
+function B(t, r) {
   return Array.isArray(t) ? [...t].reduce(
-    (e, n) => ({ ...e, ...H(n, r) }),
+    (e, n) => ({ ...e, ...B(n, r) }),
     {}
   ) : typeof t == "function" ? t(r) : t ?? {};
 }
-function Pr({
+function Lr({
   theme: t,
   style: r,
   vars: e,
   styleProps: n
 }) {
-  const i = H(r, t), s = H(e, t);
+  const i = B(r, t), s = B(e, t);
   return { ...i, ...s, ...n };
 }
-const tt = L(
+const tt = M(
   ({
     component: t,
     style: r,
@@ -908,78 +908,86 @@ const tt = L(
     darkHidden: p,
     renderRoot: u,
     __size: y,
-    ...l
+    ...d
   }, h) => {
-    var k;
-    const b = E(), S = t || "div", { styleProps: x, rest: C } = hr(l), d = Gt(), m = (k = d == null ? void 0 : d()) == null ? void 0 : k(x.sx), T = _r(), $ = Ir({
+    var R;
+    const b = j(), S = t || "div", { styleProps: x, rest: C } = hr(d), l = Gt(), m = (R = l == null ? void 0 : l()) == null ? void 0 : R(x.sx), A = Ir(), $ = _r({
       styleProps: x,
       theme: b,
       data: br
-    }), A = {
+    }), k = {
       ref: h,
-      style: Pr({
+      style: Lr({
         theme: b,
         style: r,
         vars: e,
         styleProps: $.inlineStyles
       }),
-      className: v(n, m, {
-        [T]: $.hasResponsiveStyles,
+      className: E(n, m, {
+        [A]: $.hasResponsiveStyles,
         "mantine-light-hidden": f,
         "mantine-dark-hidden": p,
         [`mantine-hidden-from-${o}`]: o,
         [`mantine-visible-from-${c}`]: c
       }),
       "data-variant": i,
-      "data-size": Y(a) ? void 0 : a || void 0,
+      "data-size": q(a) ? void 0 : a || void 0,
       size: y,
       ...J(s),
       ...C
     };
-    return /* @__PURE__ */ zt(It, { children: [
-      $.hasResponsiveStyles && /* @__PURE__ */ R(
+    return /* @__PURE__ */ zt(_t, { children: [
+      $.hasResponsiveStyles && /* @__PURE__ */ T(
         gr,
         {
-          selector: `.${T}`,
+          selector: `.${A}`,
           styles: $.styles,
           media: $.media
         }
       ),
-      typeof u == "function" ? u(A) : /* @__PURE__ */ R(S, { ...A })
+      typeof u == "function" ? u(k) : /* @__PURE__ */ T(S, { ...k })
     ] });
   }
 );
 tt.displayName = "@mantine/core/Box";
-const qr = tt;
-function Br(t) {
+const Yr = tt;
+function Wr(t) {
   return t;
 }
 function Ur(t) {
-  const r = L(t);
-  return r.extend = Br, r.withProps = (e) => {
-    const n = L((i, s) => /* @__PURE__ */ R(r, { ...e, ...i, ref: s }));
+  const r = t;
+  return (e) => {
+    const n = M((i, s) => /* @__PURE__ */ T(r, { ...e, ...i, ref: s }));
+    return n.extend = r.extend, n.displayName = `WithProps(${r.displayName})`, n;
+  };
+}
+function Zr(t) {
+  const r = M(t);
+  return r.extend = Wr, r.withProps = (e) => {
+    const n = M((i, s) => /* @__PURE__ */ T(r, { ...e, ...i, ref: s }));
     return n.extend = r.extend, n.displayName = `WithProps(${r.displayName})`, n;
   }, r;
 }
 export {
-  qr as B,
-  E as a,
+  Yr as B,
+  j as a,
   O as b,
-  P as c,
+  L as c,
   Kr as d,
   hr as e,
-  Ur as f,
+  Zr as f,
   Dr as g,
-  M as h,
-  Br as i,
+  v as h,
+  Wr as i,
   Vr as j,
   Gr as k,
   Or as l,
-  v as m,
-  Yr as n,
-  Xr as o,
+  E as m,
+  qr as n,
+  Ur as o,
   U as p,
+  Xr as q,
   g as r,
-  qt as t,
+  Yt as t,
   Qr as u
 };

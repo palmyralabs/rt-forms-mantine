@@ -1,18 +1,15 @@
-import { forwardRef, MutableRefObject, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, MutableRefObject,  useImperativeHandle, useRef } from "react";
 import { IServerLookupDefinition } from "./types";
 import { getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { getFieldLabel } from "./util";
-import { delayGenerator } from "@palmyralabs/ts-utils";
 import { Autocomplete, AutocompleteProps } from "@mantine/core";
-
-// const delay100 = delayGenerator(100);
 
 const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServerLookupDefinition & AutocompleteProps,
     ref: MutableRefObject<IServerLookupField>) {
 
     const inputRef: any = useRef(null);
     const fieldManager = useServerLookupFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, refreshOptions, options, getFieldProps } = fieldManager;
+    const { getError, getValue, setValue, options, getFieldProps } = fieldManager;
     const error: IFormFieldError = getError();
     const currentRef = ref ? ref : useRef<IServerLookupField>(null);
 
@@ -26,13 +23,8 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         };
     }, [fieldManager]);
 
-    // useEffect(() => {
-    //     delay100(refreshOptions);
-    // }, []);
-
     const callbacks = {
         onChange: (event: any) => {
-            console.log("e", event)
             setValue(event);
             if (props.onChange)
                 props.onChange(event);
@@ -41,39 +33,13 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
 
     const sData = options.map((key, index) => {
         var sOptions = {
-            label: '',
-            value: ''
+            label: key[props.queryOptions.labelAttribute] || key[props.lookupOptions.labelAttribute],
+            value: key[props.queryOptions.labelAttribute].toString() || key[props.lookupOptions.labelAttribute].toString()
         }
-        console.log("key", key, props.queryOptions.labelAttribute, key[props.queryOptions.labelAttribute], key[props.queryOptions.idAttribute])
-        sOptions.label = key[props.queryOptions.labelAttribute] || key[props.lookupOptions.labelAttribute]
-        sOptions.value = key[props.queryOptions.labelAttribute].toString() || key[props.lookupOptions.labelAttribute].toString()
-
         return sOptions;
     })
 
-    var defaultData = {
-        // label: options[props.defaultValue],
-        value: props.defaultValue
-    }
-
-    // const optionsFilter: OptionsFilter = ({ options, search }) => {
-    //     const splittedSearch = search.toLowerCase().trim().split(' ');
-    //     return (options as ComboboxItem[]).filter((option) => {
-    //         const words = option.label.toLowerCase().trim().split(' ');
-    //         return splittedSearch.every((searchWord) => words.some((word) => word.includes(searchWord)));
-    //     });
-    // };
-
-    var value;
-
-    if (getValue() != '') {
-        value = getValue()
-    }
-    else {
-        value = ''
-    }
-
-    console.log("ss", sData, value, value[props.queryOptions.labelAttribute])
+    const value = getValue();
 
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>

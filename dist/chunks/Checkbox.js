@@ -7,7 +7,7 @@ import { I as io, a as uo, b as po } from "./InputsGroupFieldset.js";
 import { U as ho } from "./UnstyledButton.js";
 import { c as mo, I as K } from "./Input.js";
 import { u as Co } from "./use-uncontrolled.js";
-import { C as L } from "./CheckIcon.js";
+import { a as L } from "./CheckIcon.js";
 import { u as bo } from "./use-id.js";
 const M = ao(null), ko = M.Provider, Q = () => no(M), [xo, vo] = mo();
 var X = { card: "m_26775b0a" };

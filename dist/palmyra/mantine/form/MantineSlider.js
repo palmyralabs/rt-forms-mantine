@@ -1,14 +1,14 @@
-import { jsx as b, jsxs as q, Fragment as ue } from "react/jsx-runtime";
-import { useState as ce, useRef as M, useCallback as de, forwardRef as me, useImperativeHandle as fe } from "react";
+import { jsx as f, jsxs as q, Fragment as ue } from "react/jsx-runtime";
+import { useState as ce, useRef as w, useCallback as de, forwardRef as me, useImperativeHandle as fe } from "react";
 import { useFieldManager as be, getFieldHandler as ve, FieldDecorator as he } from "@palmyralabs/rt-forms";
 import { getFieldLabel as pe } from "./util.js";
 import { f as ge, u as xe, d as ye, g as Me, h as Ve, j as we, r as Se } from "../../../chunks/factory.js";
 import { g as ke } from "../../../chunks/get-theme-color.js";
 import { u as De } from "../../../chunks/DirectionProvider.js";
-import { c as B, g as Re, a as Pe, u as Fe, S as Le, b as Oe, T as ze, d as Ae, e as Ce, f as S } from "../../../chunks/Slider.module.css.js";
+import { c as G, g as Re, a as Pe, u as Fe, S as Le, b as Oe, T as ze, d as Ae, e as Ce, f as D } from "../../../chunks/Slider.module.css.js";
 import { u as He } from "../../../chunks/use-uncontrolled.js";
 import { u as Te } from "../../../chunks/use-merged-ref.js";
-import { c as O } from "../../../chunks/clamp.js";
+import { c as z } from "../../../chunks/clamp.js";
 const Ne = {
   radius: "xl",
   min: 0,
@@ -23,36 +23,36 @@ const Ne = {
   disabled: !1,
   scale: (u) => u
 }, je = Me(
-  (u, { size: a, color: c, thumbSize: i, radius: v }) => ({
+  (u, { size: a, color: c, thumbSize: i, radius: b }) => ({
     root: {
       "--slider-size": Ve(a, "slider-size"),
       "--slider-color": c ? ke(c, u) : void 0,
-      "--slider-radius": v === void 0 ? void 0 : we(v),
+      "--slider-radius": b === void 0 ? void 0 : we(b),
       "--slider-thumb-size": i !== void 0 ? Se(i) : "calc(var(--slider-size) * 2)"
     }
   })
-), z = ge((u, a) => {
+), A = ge((u, a) => {
   const c = xe("Slider", Ne, u), {
     classNames: i,
-    styles: v,
-    value: h,
-    onChange: k,
+    styles: b,
+    value: p,
+    onChange: R,
     onChangeEnd: e,
-    size: D,
+    size: P,
     min: t,
     max: s,
     step: l,
-    precision: R,
-    defaultValue: p,
-    name: V,
-    marks: P,
-    label: m,
-    labelTransitionProps: A,
-    labelAlwaysOn: G,
+    precision: F,
+    defaultValue: g,
+    name: S,
+    marks: x,
+    label: y,
+    labelTransitionProps: M,
+    labelAlwaysOn: C,
     thumbLabel: J,
-    showLabelOnHover: F,
+    showLabelOnHover: L,
     thumbChildren: Q,
-    disabled: g,
+    disabled: v,
     unstyled: W,
     scale: X,
     inverted: Y,
@@ -64,162 +64,163 @@ const Ne = {
   } = c, te = ye({
     name: "Slider",
     props: c,
-    classes: B,
+    classes: G,
     classNames: i,
     className: Z,
-    styles: v,
+    styles: b,
     style: $,
     vars: E,
     varsResolver: je,
     unstyled: W
-  }), { dir: L } = De(), [se, C] = ce(!1), [n, d] = He({
-    value: typeof h == "number" ? O(h, t, s) : h,
-    defaultValue: typeof p == "number" ? O(p, t, s) : p,
-    finalValue: O(0, t, s),
-    onChange: k
-  }), H = M(n), T = M(), f = M(), N = Ce({ value: n, min: t, max: s }), w = X(n), re = typeof m == "function" ? m(w) : m, x = R ?? Re(l), le = de(
+  }), { dir: O } = De(), [se, H] = ce(!1), [n, d] = He({
+    value: typeof p == "number" ? z(p, t, s) : p,
+    defaultValue: typeof g == "number" ? z(g, t, s) : g,
+    finalValue: z(0, t, s),
+    onChange: R
+  }), T = w(n), N = w(), m = w(), j = Ce({ value: n, min: t, max: s }), k = X(n), re = typeof y == "function" ? y(k) : y, h = F ?? Re(l), le = de(
     ({ x: r }) => {
-      if (!g) {
-        const y = Pe({
+      if (!v) {
+        const V = Pe({
           value: r,
           min: t,
           max: s,
           step: l,
-          precision: x
+          precision: h
         });
-        d(y), H.current = y;
+        d(V), T.current = V;
       }
     },
-    [g, t, s, l, x, d]
+    [v, t, s, l, h, d]
   ), { ref: oe, active: ie } = Fe(
     le,
-    { onScrubEnd: () => e == null ? void 0 : e(H.current) },
-    L
+    { onScrubEnd: () => e == null ? void 0 : e(T.current) },
+    O
   ), ne = (r) => {
-    var y, j, _, I, K, U;
-    if (!g)
+    var V, _, I, K, U, B;
+    if (!v)
       switch (r.key) {
         case "ArrowUp": {
-          r.preventDefault(), (y = f.current) == null || y.focus();
-          const o = S(
+          r.preventDefault(), (V = m.current) == null || V.focus();
+          const o = D(
             Math.min(Math.max(n + l, t), s),
-            x
+            h
           );
           d(o), e == null || e(o);
           break;
         }
         case "ArrowRight": {
-          r.preventDefault(), (j = f.current) == null || j.focus();
-          const o = S(
-            Math.min(Math.max(L === "rtl" ? n - l : n + l, t), s),
-            x
+          r.preventDefault(), (_ = m.current) == null || _.focus();
+          const o = D(
+            Math.min(Math.max(O === "rtl" ? n - l : n + l, t), s),
+            h
           );
           d(o), e == null || e(o);
           break;
         }
         case "ArrowDown": {
-          r.preventDefault(), (_ = f.current) == null || _.focus();
-          const o = S(
+          r.preventDefault(), (I = m.current) == null || I.focus();
+          const o = D(
             Math.min(Math.max(n - l, t), s),
-            x
+            h
           );
           d(o), e == null || e(o);
           break;
         }
         case "ArrowLeft": {
-          r.preventDefault(), (I = f.current) == null || I.focus();
-          const o = S(
-            Math.min(Math.max(L === "rtl" ? n + l : n - l, t), s),
-            x
+          r.preventDefault(), (K = m.current) == null || K.focus();
+          const o = D(
+            Math.min(Math.max(O === "rtl" ? n + l : n - l, t), s),
+            h
           );
           d(o), e == null || e(o);
           break;
         }
         case "Home": {
-          r.preventDefault(), (K = f.current) == null || K.focus(), d(t), e == null || e(t);
+          r.preventDefault(), (U = m.current) == null || U.focus(), d(t), e == null || e(t);
           break;
         }
         case "End": {
-          r.preventDefault(), (U = f.current) == null || U.focus(), d(s), e == null || e(s);
+          r.preventDefault(), (B = m.current) == null || B.focus(), d(s), e == null || e(s);
           break;
         }
       }
   };
-  return /* @__PURE__ */ b(Le, { value: { getStyles: te }, children: /* @__PURE__ */ q(
+  return /* @__PURE__ */ f(Le, { value: { getStyles: te }, children: /* @__PURE__ */ q(
     Oe,
     {
       ...ae,
-      ref: Te(a, T),
+      ref: Te(a, N),
       onKeyDownCapture: ne,
       onMouseDownCapture: () => {
         var r;
-        return (r = T.current) == null ? void 0 : r.focus();
+        return (r = N.current) == null ? void 0 : r.focus();
       },
-      size: D,
-      disabled: g,
+      size: P,
+      disabled: v,
       children: [
-        /* @__PURE__ */ b(
+        /* @__PURE__ */ f(
           ze,
           {
             inverted: Y,
             offset: 0,
-            filled: N,
-            marks: P,
+            filled: j,
+            marks: x,
             min: t,
             max: s,
-            value: w,
-            disabled: g,
+            value: k,
+            disabled: v,
             containerProps: {
               ref: oe,
-              onMouseEnter: F ? () => C(!0) : void 0,
-              onMouseLeave: F ? () => C(!1) : void 0
+              onMouseEnter: L ? () => H(!0) : void 0,
+              onMouseLeave: L ? () => H(!1) : void 0
             },
-            children: /* @__PURE__ */ b(
+            children: /* @__PURE__ */ f(
               Ae,
               {
                 max: s,
                 min: t,
-                value: w,
-                position: N,
+                value: k,
+                position: j,
                 dragging: ie,
                 label: re,
-                ref: f,
-                labelTransitionProps: A,
-                labelAlwaysOn: G,
+                ref: m,
+                labelTransitionProps: M,
+                labelAlwaysOn: C,
                 thumbLabel: J,
-                showLabelOnHover: F,
+                showLabelOnHover: L,
                 isHovered: se,
-                disabled: g,
+                disabled: v,
                 children: Q
               }
             )
           }
         ),
-        /* @__PURE__ */ b("input", { type: "hidden", name: V, value: w, ...ee })
+        /* @__PURE__ */ f("input", { type: "hidden", name: S, value: k, ...ee })
       ]
     }
   ) });
 });
-z.classes = B;
-z.displayName = "@mantine/core/Slider";
+A.classes = G;
+A.displayName = "@mantine/core/Slider";
 const Ye = me(function(a, c) {
-  const i = be(a.attribute, a), { getError: v, getValue: h, setValue: k, mutateOptions: e } = i, D = c || M(null), t = v(), s = a.label || "", l = a.min || 0, R = a.max || 100, p = M(null);
-  fe(D, () => ({
+  const i = be(a.attribute, a), { getError: b, getValue: p, setValue: R, mutateOptions: e, refreshError: P } = i, t = c || w(null), s = b(), l = a.label || "", F = a.min || 0, g = a.max || 100, S = w(null);
+  fe(t, () => ({
     ...ve(i),
     focus() {
-      p.current.focus();
+      S.current.focus();
     },
     getOptions() {
     },
-    setOptions(A) {
+    setOptions(C) {
     }
   }), [i]);
-  var V = i.getFieldProps();
-  V.onChange = (m) => {
-    a.readOnly || (k(m), a.onChange && a.onChange(m));
+  var x = i.getFieldProps();
+  x.onChange = (M) => {
+    a.readOnly || (R(M), a.onChange && a.onChange(M));
   };
-  var P = h() != "" ? h() : void 0;
-  return /* @__PURE__ */ b(ue, { children: !e.visible && /* @__PURE__ */ b(
+  var y = p();
+  //!= '' ? getValue() : undefined
+  return x.onBlur = P, /* @__PURE__ */ f(ue, { children: !e.visible && /* @__PURE__ */ f(
     he,
     {
       label: pe(a),
@@ -228,19 +229,19 @@ const Ye = me(function(a, c) {
       customFieldClass: a.customFieldClass,
       customLabelClass: a.customLabelClass,
       children: /* @__PURE__ */ q("div", { style: { width: "100%", textAlign: "center" }, children: [
-        s,
-        /* @__PURE__ */ b(
-          z,
+        l,
+        /* @__PURE__ */ f(
+          A,
           {
-            ...V,
-            ref: p,
+            ...x,
+            ref: S,
             defaultValue: a.defaultValue,
-            value: P,
+            value: y,
             label: a.labelName,
-            min: l,
-            max: R,
+            min: F,
+            max: g,
             size: a.size,
-            error: t.message
+            error: s.message
           }
         )
       ] })

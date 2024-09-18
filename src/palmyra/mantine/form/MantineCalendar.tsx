@@ -11,7 +11,7 @@ const MantineCalendar = forwardRef(function MantineCalendar(props: IDatePickerDe
 
     const fieldManager = useFieldManager(props.attribute, props);
 
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
 
@@ -40,6 +40,7 @@ const MantineCalendar = forwardRef(function MantineCalendar(props: IDatePickerDe
                 props.onChange(d);
         }
     }
+    options.onBlur = refreshError;
 
     var value;
     if (getValue() != '') {

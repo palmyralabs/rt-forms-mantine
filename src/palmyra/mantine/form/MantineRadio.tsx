@@ -6,7 +6,7 @@ import { Radio, RadioProps } from '@mantine/core';
 
 const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & RadioProps, ref: MutableRefObject<IRadioGroupField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISwitchField>(null);
     const error: IFormFieldError = getError();
     // const autoFocus = props.autoFocus || false;
@@ -35,6 +35,7 @@ const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & 
                 props.onChange(event.currentTarget.value);
         }
     }
+    fieldOptions.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

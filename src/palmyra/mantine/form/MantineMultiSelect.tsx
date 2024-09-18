@@ -6,7 +6,7 @@ import { MultiSelect, MultiSelectProps } from '@mantine/core';
 
 const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelectDefinition & MultiSelectProps, ref: MutableRefObject<ISelectField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISelectField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
@@ -40,24 +40,15 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
                 props.onChange(e);
         }
     }
+    options.onBlur = refreshError;
 
     const sData = Object.keys(options.options).map((key, index) => {
         var sOptions = {
-            label: '',
-            value: ''
+            label: options.options[key],
+            value: key
         }
-        sOptions.label = options.options[key]
-        sOptions.value = key
-
         return sOptions;
     })
-
-    var value;
-
-    if (getValue() != '') {
-        value = getValue()
-    }
-
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
@@ -65,7 +56,7 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
             <MultiSelect
                 defaultValue={props.defaultValue}
                 data={sData}
-                value={value}
+                value={getValue()}
                 {...options}
                 variant={variant}
                 error={error.message}

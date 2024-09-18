@@ -7,7 +7,7 @@ import { u as Ft } from "./DirectionProvider.js";
 import { u as $t } from "./factory.js";
 import { u as _t } from "./use-isomorphic-effect.js";
 import { a as Bt } from "./use-merged-ref.js";
-import { u as qe } from "./Transition.js";
+import { u as qe } from "./use-reduced-motion.js";
 function ho(e) {
   return Array.isArray(e) || e === null ? !1 : typeof e == "object" ? e.type !== St : !1;
 }
@@ -2336,18 +2336,18 @@ export {
   io as O,
   vo as a,
   zn as b,
-  Lo as c,
-  Po as d,
-  Do as e,
-  So as f,
+  Co as c,
+  Eo as d,
+  Lo as e,
+  bo as f,
   ee as g,
-  Mo as h,
+  Po as h,
   ho as i,
-  To as j,
-  ko as k,
-  bo as l,
-  Co as m,
-  Eo as n,
+  Do as j,
+  So as k,
+  Mo as l,
+  To as m,
+  ko as n,
   yo as o,
   Io as p,
   no as q,

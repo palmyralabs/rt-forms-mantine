@@ -1,37 +1,37 @@
-import { jsx as n, Fragment as C } from "react/jsx-runtime";
-import { forwardRef as F, useRef as o, useImperativeHandle as R } from "react";
-import { useFieldManager as h, getFieldHandler as b, FieldDecorator as v } from "@palmyralabs/rt-forms";
-import { getFieldLabel as O } from "./util.js";
-import { R as M } from "../../../chunks/Radio.js";
-const w = F(function(e, r) {
-  const t = h(e.attribute, e), { getError: i, getValue: s, setValue: u, mutateOptions: c } = t, d = r || o(null), m = i(), f = o(null);
-  R(d, () => ({
-    ...b(t),
+import { jsx as a, Fragment as h } from "react/jsx-runtime";
+import { forwardRef as F, useRef as l, useImperativeHandle as R } from "react";
+import { useFieldManager as b, getFieldHandler as v, FieldDecorator as O } from "@palmyralabs/rt-forms";
+import { getFieldLabel as M } from "./util.js";
+import { R as L } from "../../../chunks/Radio.js";
+const w = F(function(e, o) {
+  const t = b(e.attribute, e), { getError: s, getValue: i, setValue: u, mutateOptions: c, refreshError: d } = t, m = o || l(null), f = s(), g = l(null);
+  R(m, () => ({
+    ...v(t),
     focus() {
-      f.current.focus();
+      g.current.focus();
     },
-    setOptions(g) {
+    setOptions(C) {
     },
     getOptions() {
     }
   }), [t]);
-  var l = t.getFieldProps();
-  return l.onChange = (a, g) => {
-    e.readOnly || (u(a.currentTarget.value), e.onChange && e.onChange(a.currentTarget.value));
-  }, /* @__PURE__ */ n(C, { children: !c.visible && /* @__PURE__ */ n(
-    v,
+  var r = t.getFieldProps();
+  return r.onChange = (n, C) => {
+    e.readOnly || (u(n.currentTarget.value), e.onChange && e.onChange(n.currentTarget.value));
+  }, r.onBlur = d, /* @__PURE__ */ a(h, { children: !c.visible && /* @__PURE__ */ a(
+    O,
     {
-      label: O(e),
+      label: M(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ n(
-        M,
+      children: /* @__PURE__ */ a(
+        L,
         {
-          value: s(),
-          ...l,
-          error: m.message
+          value: i(),
+          ...r,
+          error: f.message
         }
       )
     }

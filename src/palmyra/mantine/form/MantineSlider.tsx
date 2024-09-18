@@ -6,7 +6,7 @@ import { Slider, SliderProps } from '@mantine/core';
 
 const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition & SliderProps, ref: MutableRefObject<ISliderField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISliderField>(null);
     const error: IFormFieldError = getError();
     const label = props.label || '';
@@ -39,7 +39,9 @@ const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition
                 props.onChange(d);
         }
     }
-    var value = getValue() != '' ? getValue() : undefined
+    var value = getValue() //!= '' ? getValue() : undefined
+
+    options.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

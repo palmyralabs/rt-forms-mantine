@@ -7,7 +7,7 @@ import { Rating, RatingProps } from '@mantine/core';
 
 const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition & RatingProps, ref: MutableRefObject<IRatingField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IRatingField>(null);
     const error: IFormFieldError = getError();
     const inputRef = useRef(null);
@@ -44,6 +44,7 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
                 props.onChange(event);
         }
     }
+    options.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

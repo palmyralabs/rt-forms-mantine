@@ -1,53 +1,54 @@
-import { jsx as u, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as V, useRef as c, useImperativeHandle as M } from "react";
-import { useFieldManager as R, getFieldHandler as S, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { getFieldLabel as y } from "./util.js";
-import { S as D } from "../../../chunks/Select.js";
-const I = V(function(e, o) {
-  const l = R(e.attribute, e), { getError: d, getValue: s, setValue: f, mutateOptions: m } = l, v = o || c(null), g = d(), i = c(null), C = e.variant || "default";
-  var b = s() != "" ? s() : null;
-  M(v, () => ({
-    ...S(l),
+import { jsx as r, Fragment as V } from "react/jsx-runtime";
+import { forwardRef as M, useRef as u, useImperativeHandle as R } from "react";
+import { useFieldManager as S, getFieldHandler as x, FieldDecorator as y } from "@palmyralabs/rt-forms";
+import { getFieldLabel as D } from "./util.js";
+import { S as L } from "../../../chunks/Select.js";
+const I = M(function(e, o) {
+  const n = S(e.attribute, e), { getError: i, getValue: c, setValue: d, mutateOptions: f, refreshError: m } = n, g = o || u(null), v = i(), s = u(null), C = e.variant || "default";
+  var b = c();
+  //!= '' ? getValue() : null
+  R(g, () => ({
+    ...x(n),
     focus() {
-      i && i.current.focus();
+      s && s.current.focus();
     },
-    setOptions(n) {
+    setOptions(l) {
     },
     getOptions() {
     }
-  }), [l]);
-  var a = l.getFieldProps();
-  e.readOnly && (a.inputProps = { readOnly: !0 }), a.onChange = (t, n) => {
-    e.readOnly || (f(n.value), e.onChange && e.onChange(t.currentTarget.value, n));
-  };
-  const F = Object.keys(a.options).map((t, n) => {
-    var r = {
-      label: "",
-      value: ""
+  }), [n]);
+  var t = n.getFieldProps();
+  e.readOnly && (t.inputProps = { readOnly: !0 }), t.onChange = (a, l) => {
+    e.readOnly || (d(l.value), e.onChange && e.onChange(a.currentTarget.value, l));
+  }, t.onBlur = m;
+  const h = Object.keys(t.options).map((a, l) => {
+    var O = {
+      label: t.options[a],
+      value: a
     };
-    return r.label = a.options[t], r.value = t, r;
+    return O;
   });
-  var O = {
-    label: a.options[e.defaultValue],
+  var F = {
+    label: t.options[e.defaultValue],
     value: e.defaultValue
   };
-  return /* @__PURE__ */ u(h, { children: !m.visible && /* @__PURE__ */ u(
-    x,
+  return /* @__PURE__ */ r(V, { children: !f.visible && /* @__PURE__ */ r(
+    y,
     {
-      label: y(e),
+      label: D(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ u(
-        D,
+      children: /* @__PURE__ */ r(
+        L,
         {
-          defaultValue: O.value,
-          data: F,
+          defaultValue: F.value,
+          data: h,
           value: b,
-          ...a,
+          ...t,
           variant: C,
-          error: g.message
+          error: v.message
         }
       )
     }

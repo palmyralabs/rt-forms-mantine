@@ -1,10 +1,11 @@
 import { jsx as m, jsxs as H, Fragment as Oe } from "react/jsx-runtime";
 import { f as A, u as O, d as ee, B as _, g as oe, h as z, k as Y, r as Se, m as Ae } from "./factory.js";
-import { a as Ne } from "./CheckIcon.js";
+import { C as Ne } from "./CheckIcon.js";
 import { S as Ee } from "./ScrollArea.js";
 import { forwardRef as De, useState as Ie, cloneElement as te, useId as Te, useEffect as re, useRef as $, useCallback as v } from "react";
-import { C as Pe, P as F } from "./CloseButton.js";
-import { c as $e } from "./create-safe-context.js";
+import { P as F } from "./Popover.js";
+import { c as Pe } from "./create-safe-context.js";
+import { C as $e } from "./CloseButton.js";
 import { i as q } from "./use-floating-auto-update.js";
 import { u as K } from "./use-merged-ref.js";
 import { u as _e } from "./use-id.js";
@@ -16,7 +17,7 @@ function ne(e) {
     items: e.items.map((o) => ne(o))
   } : e;
 }
-function yo(e) {
+function vo(e) {
   return e ? e.map((o) => ne(o)) : [];
 }
 function Re(e) {
@@ -69,11 +70,11 @@ const Fe = {
 });
 B.classes = w;
 B.displayName = "@mantine/core/ComboboxChevron";
-const [He, N] = $e(
+const [He, N] = Pe(
   "Combobox component was not found in tree"
 ), se = De(
   ({ size: e, onMouseDown: o, onClick: t, onClear: r, ...s }, c) => /* @__PURE__ */ m(
-    Pe,
+    $e,
     {
       ref: c,
       size: e || "sm",
@@ -768,7 +769,7 @@ function pe({
   ));
   return /* @__PURE__ */ m(f.Group, { label: e.group, children: n });
 }
-function vo({
+function wo({
   data: e,
   hidden: o,
   hiddenWhenEmpty: t,
@@ -822,9 +823,9 @@ function vo({
 }
 export {
   f as C,
-  vo as O,
+  wo as O,
   Re as a,
-  yo as g,
+  vo as g,
   R as i,
   eo as u
 };

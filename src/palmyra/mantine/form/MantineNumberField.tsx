@@ -6,12 +6,12 @@ import { NumberInput, NumberInputProps } from '@mantine/core';
 
 const MantineNumberField = forwardRef(function MantineNumberField(props: ITextFieldDefinition & NumberInputProps, ref: MutableRefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
-    var value = getValue() != '' ? getValue() : null
+    var value = getValue() // != '' ? getValue() : null
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager)
@@ -31,7 +31,8 @@ const MantineNumberField = forwardRef(function MantineNumberField(props: ITextFi
             if (props.onChange)
                 props.onChange(event);
         }
-    } 
+    }
+    options.onBlur = refreshError;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

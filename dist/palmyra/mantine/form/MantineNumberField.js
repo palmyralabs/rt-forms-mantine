@@ -114,8 +114,8 @@ function Ae(e, t, r) {
   if (["", "-"].indexOf(e) !== -1)
     return e;
   var n = (e.indexOf(".") !== -1 || r) && t, a = Ce(e), o = a.beforeDecimal, s = a.afterDecimal, N = a.hasNegation, x = parseFloat("0." + (s || "0")), p = s.length <= t ? "0." + s : x.toFixed(t), w = p.split("."), b = o;
-  o && Number(w[0]) && (b = o.split("").reverse().reduce(function(E, R, h) {
-    return E.length > h ? (Number(E[0]) + Number(R)).toString() + E.substring(1, E.length) : R + E;
+  o && Number(w[0]) && (b = o.split("").reverse().reduce(function(V, E, h) {
+    return V.length > h ? (Number(V[0]) + Number(E)).toString() + V.substring(1, V.length) : E + V;
   }, w[0]));
   var d = ke(w[1] || "", t, r), g = N ? "-" : "", f = n ? "." : "";
   return "" + g + b + f + d;
@@ -179,15 +179,15 @@ function wt(e, t, r, n, a, o, s) {
   !t && !r.startsWith(x) && (t = x, r = x + r, n = n + x.length);
   for (var p = r.length, w = e.length, b = {}, d = new Array(p), g = 0; g < p; g++) {
     d[g] = -1;
-    for (var f = 0, E = w; f < E; f++) {
-      var R = s({
+    for (var f = 0, V = w; f < V; f++) {
+      var E = s({
         currentValue: r,
         lastValue: t,
         formattedValue: e,
         currentValueIndex: g,
         formattedValueIndex: f
       });
-      if (R && b[f] !== !0) {
+      if (E && b[f] !== !0) {
         d[g] = f, b[f] = !0;
         break;
       }
@@ -198,8 +198,8 @@ function wt(e, t, r, n, a, o, s) {
   var P = h === p || d[h] === -1 ? w : d[h];
   for (h = n - 1; h > 0 && d[h] === -1; )
     h--;
-  var B = h === -1 || d[h] === -1 ? 0 : d[h] + 1;
-  return B > P ? P : n - B < P - n ? B : P;
+  var _ = h === -1 || d[h] === -1 ? 0 : d[h] + 1;
+  return _ > P ? P : n - _ < P - n ? _ : P;
 }
 function Fe(e, t, r, n) {
   var a = e.length;
@@ -223,16 +223,16 @@ function xt(e) {
 }
 function $e(e, t, r, n, a, o) {
   o === void 0 && (o = ae);
-  var s = mt(function(f, E) {
-    var R, h;
-    return Le(f) ? (h = "", R = "") : typeof f == "number" || E ? (h = typeof f == "number" ? Ke(f) : f, R = n(h)) : (h = a(f, void 0), R = n(h)), { formattedValue: R, numAsString: h };
+  var s = mt(function(f, V) {
+    var E, h;
+    return Le(f) ? (h = "", E = "") : typeof f == "number" || V ? (h = typeof f == "number" ? Ke(f) : f, E = n(h)) : (h = a(f, void 0), E = n(h)), { formattedValue: E, numAsString: h };
   }), N = Me(function() {
     return s(de(e) ? t : e, r);
-  }), x = N[0], p = N[1], w = function(f, E) {
+  }), x = N[0], p = N[1], w = function(f, V) {
     f.formattedValue !== x.formattedValue && p({
       formattedValue: f.formattedValue,
       numAsString: f.value
-    }), o(f, E);
+    }), o(f, V);
   }, b = e, d = r;
   de(e) && (b = x.numAsString, d = !0);
   var g = s(b, d);
@@ -261,26 +261,26 @@ function Dt(e) {
   g === void 0 && (g = ae);
   var f = e.onMouseUp;
   f === void 0 && (f = ae);
-  var E = e.onFocus;
+  var V = e.onFocus;
+  V === void 0 && (V = ae);
+  var E = e.onBlur;
   E === void 0 && (E = ae);
-  var R = e.onBlur;
-  R === void 0 && (R = ae);
   var h = e.value, P = e.getCaretBoundary;
   P === void 0 && (P = xt);
-  var B = e.isValidInputCharacter;
-  B === void 0 && (B = Se);
-  var z = e.isCharacterSame, j = Pe(e, ["type", "displayType", "customInput", "renderText", "getInputRef", "format", "removeFormatting", "defaultValue", "valueIsNumericString", "onValueChange", "isAllowed", "onChange", "onKeyDown", "onMouseUp", "onFocus", "onBlur", "value", "getCaretBoundary", "isValidInputCharacter", "isCharacterSame"]), H = $e(h, x, !!p, s, N, w), k = H[0], V = k.formattedValue, L = k.numAsString, K = H[1], W = Z(), q = Z({ formattedValue: V, numAsString: L }), G = function(u, l) {
+  var _ = e.isValidInputCharacter;
+  _ === void 0 && (_ = Se);
+  var z = e.isCharacterSame, j = Pe(e, ["type", "displayType", "customInput", "renderText", "getInputRef", "format", "removeFormatting", "defaultValue", "valueIsNumericString", "onValueChange", "isAllowed", "onChange", "onKeyDown", "onMouseUp", "onFocus", "onBlur", "value", "getCaretBoundary", "isValidInputCharacter", "isCharacterSame"]), H = $e(h, x, !!p, s, N, w), k = H[0], y = k.formattedValue, L = k.numAsString, K = H[1], W = Z(), q = Z({ formattedValue: y, numAsString: L }), G = function(u, l) {
     q.current = { formattedValue: u.formattedValue, numAsString: u.value }, K(u, l);
-  }, ee = Me(!1), ne = ee[0], v = ee[1], c = Z(null), y = Z({
+  }, ee = Me(!1), ne = ee[0], v = ee[1], c = Z(null), D = Z({
     setCaretTimeout: null,
     focusTimeout: null
   });
   Ve(function() {
     return v(!0), function() {
-      clearTimeout(y.current.setCaretTimeout), clearTimeout(y.current.focusTimeout);
+      clearTimeout(D.current.setCaretTimeout), clearTimeout(D.current.focusTimeout);
     };
   }, []);
-  var F = s, _ = function(u, l) {
+  var F = s, T = function(u, l) {
     var m = parseFloat(l);
     return {
       formattedValue: u,
@@ -288,44 +288,44 @@ function Dt(e) {
       floatValue: isNaN(m) ? void 0 : m
     };
   }, A = function(u, l, m) {
-    u.selectionStart === 0 && u.selectionEnd === u.value.length || (ue(u, l), y.current.setCaretTimeout = setTimeout(function() {
+    u.selectionStart === 0 && u.selectionEnd === u.value.length || (ue(u, l), D.current.setCaretTimeout = setTimeout(function() {
       u.value === m && u.selectionStart !== l && ue(u, l);
     }, 0));
-  }, T = function(u, l, m) {
+  }, B = function(u, l, m) {
     return Fe(u, l, P(u), m);
   }, te = function(u, l, m) {
-    var D = P(l), M = wt(l, V, u, m, D, B, z);
-    return M = Fe(l, M, D), M;
+    var C = P(l), M = wt(l, y, u, m, C, _, z);
+    return M = Fe(l, M, C), M;
   }, ve = function(u) {
     var l = u.formattedValue;
     l === void 0 && (l = "");
-    var m = u.input, D = u.source, M = u.event, I = u.numAsString, i;
+    var m = u.input, C = u.source, M = u.event, R = u.numAsString, i;
     if (m) {
       var S = u.inputValue || m.value, O = ye(m);
       m.value = l, i = te(S, l, O), i !== void 0 && A(m, i, l);
     }
-    l !== V && G(_(l, I), { event: M, source: D });
+    l !== y && G(T(l, R), { event: M, source: C });
   };
   Ve(function() {
     var u = q.current, l = u.formattedValue, m = u.numAsString;
-    (V !== l || L !== m) && G(_(V, L), {
+    (y !== l || L !== m) && G(T(y, L), {
       event: void 0,
       source: pe.props
     });
-  }, [V, L]);
-  var C = c.current ? ye(c.current) : void 0, J = typeof window < "u" ? ze : Ve;
+  }, [y, L]);
+  var I = c.current ? ye(c.current) : void 0, J = typeof window < "u" ? ze : Ve;
   J(function() {
     var u = c.current;
-    if (V !== q.current.formattedValue && u) {
-      var l = te(q.current.formattedValue, V, C);
-      u.value = V, A(u, l, V);
+    if (y !== q.current.formattedValue && u) {
+      var l = te(q.current.formattedValue, y, I);
+      u.value = y, A(u, l, y);
     }
-  }, [V]);
+  }, [y]);
   var le = function(u, l, m) {
-    var D = l.target, M = W.current ? ht(W.current, D.selectionEnd) : Ue(V, u), I = Object.assign(Object.assign({}, M), { lastValue: V }), i = N(u, I), S = F(i);
-    if (i = N(S, void 0), b && !b(_(S, i))) {
-      var O = l.target, U = ye(O), $ = te(u, V, U);
-      return O.value = V, A(O, $, V), !1;
+    var C = l.target, M = W.current ? ht(W.current, C.selectionEnd) : Ue(y, u), R = Object.assign(Object.assign({}, M), { lastValue: y }), i = N(u, R), S = F(i);
+    if (i = N(S, void 0), b && !b(T(S, i))) {
+      var O = l.target, U = ye(O), $ = te(u, y, U);
+      return O.value = y, A(O, $, y), !1;
     }
     return ve({
       formattedValue: S,
@@ -337,35 +337,35 @@ function Dt(e) {
     }), !0;
   }, X = function(u, l) {
     l === void 0 && (l = 0);
-    var m = u.selectionStart, D = u.selectionEnd;
-    W.current = { selectionStart: m, selectionEnd: D + l };
+    var m = u.selectionStart, C = u.selectionEnd;
+    W.current = { selectionStart: m, selectionEnd: C + l };
   }, ie = function(u) {
-    var l = u.target, m = l.value, D = le(m, u, pe.event);
-    D && d(u), W.current = void 0;
+    var l = u.target, m = l.value, C = le(m, u, pe.event);
+    C && d(u), W.current = void 0;
   }, me = function(u) {
-    var l = u.target, m = u.key, D = l.selectionStart, M = l.selectionEnd, I = l.value;
-    I === void 0 && (I = "");
+    var l = u.target, m = u.key, C = l.selectionStart, M = l.selectionEnd, R = l.value;
+    R === void 0 && (R = "");
     var i;
-    m === "ArrowLeft" || m === "Backspace" ? i = Math.max(D - 1, 0) : m === "ArrowRight" ? i = Math.min(D + 1, I.length) : m === "Delete" && (i = D);
+    m === "ArrowLeft" || m === "Backspace" ? i = Math.max(C - 1, 0) : m === "ArrowRight" ? i = Math.min(C + 1, R.length) : m === "Delete" && (i = C);
     var S = 0;
-    m === "Delete" && D === M && (S = 1);
+    m === "Delete" && C === M && (S = 1);
     var O = m === "ArrowLeft" || m === "ArrowRight";
-    if (i === void 0 || D !== M && !O) {
+    if (i === void 0 || C !== M && !O) {
       g(u), X(l, S);
       return;
     }
     var U = i;
     if (O) {
       var $ = m === "ArrowLeft" ? "left" : "right";
-      U = T(I, i, $), U !== i && u.preventDefault();
-    } else m === "Delete" && !B(I[i]) ? U = T(I, i, "right") : m === "Backspace" && !B(I[i]) && (U = T(I, i, "left"));
-    U !== i && A(l, U, I), g(u), X(l, S);
+      U = B(R, i, $), U !== i && u.preventDefault();
+    } else m === "Delete" && !_(R[i]) ? U = B(R, i, "right") : m === "Backspace" && !_(R[i]) && (U = B(R, i, "left"));
+    U !== i && A(l, U, R), g(u), X(l, S);
   }, we = function(u) {
     var l = u.target, m = function() {
-      var D = l.selectionStart, M = l.selectionEnd, I = l.value;
-      if (I === void 0 && (I = ""), D === M) {
-        var i = T(I, D);
-        i !== D && A(l, i, I);
+      var C = l.selectionStart, M = l.selectionEnd, R = l.value;
+      if (R === void 0 && (R = ""), C === M) {
+        var i = B(R, C);
+        i !== C && A(l, i, R);
       }
     };
     m(), requestAnimationFrame(function() {
@@ -374,17 +374,17 @@ function Dt(e) {
   }, se = function(u) {
     u.persist && u.persist();
     var l = u.target, m = u.currentTarget;
-    c.current = l, y.current.focusTimeout = setTimeout(function() {
-      var D = l.selectionStart, M = l.selectionEnd, I = l.value;
-      I === void 0 && (I = "");
-      var i = T(I, D);
-      i !== D && !(D === 0 && M === I.length) && A(l, i, I), E(Object.assign(Object.assign({}, u), { currentTarget: m }));
+    c.current = l, D.current.focusTimeout = setTimeout(function() {
+      var C = l.selectionStart, M = l.selectionEnd, R = l.value;
+      R === void 0 && (R = "");
+      var i = B(R, C);
+      i !== C && !(C === 0 && M === R.length) && A(l, i, R), V(Object.assign(Object.assign({}, u), { currentTarget: m }));
     }, 0);
   }, ge = function(u) {
-    c.current = null, clearTimeout(y.current.focusTimeout), clearTimeout(y.current.setCaretTimeout), R(u);
+    c.current = null, clearTimeout(D.current.focusTimeout), clearTimeout(D.current.setCaretTimeout), E(u);
   }, fe = ne && St() ? "numeric" : void 0, oe = Object.assign({ inputMode: fe }, j, {
     type: t,
-    value: V,
+    value: y,
     onChange: ie,
     onKeyDown: me,
     onMouseUp: we,
@@ -392,14 +392,14 @@ function Dt(e) {
     onBlur: ge
   });
   if (r === "text")
-    return a ? ce.createElement(ce.Fragment, null, a(V, j) || null) : ce.createElement("span", Object.assign({}, j, { ref: o }), V);
+    return a ? ce.createElement(ce.Fragment, null, a(y, j) || null) : ce.createElement("span", Object.assign({}, j, { ref: o }), y);
   if (n) {
     var xe = n;
     return ce.createElement(xe, Object.assign({}, oe, { ref: o }));
   }
   return ce.createElement("input", Object.assign({}, oe, { ref: o }));
 }
-function Te(e, t) {
+function Be(e, t) {
   var r = t.decimalScale, n = t.fixedDecimalScale, a = t.prefix;
   a === void 0 && (a = "");
   var o = t.suffix;
@@ -407,8 +407,8 @@ function Te(e, t) {
   var s = t.allowNegative, N = t.thousandsGroupStyle;
   if (N === void 0 && (N = "thousand"), e === "" || e === "-")
     return e;
-  var x = Ne(t), p = x.thousandSeparator, w = x.decimalSeparator, b = r !== 0 && e.indexOf(".") !== -1 || r && n, d = Ce(e, s), g = d.beforeDecimal, f = d.afterDecimal, E = d.addNegation;
-  return r !== void 0 && (f = ke(f, r, !!n)), p && (g = vt(g, p, N)), a && (g = a + g), o && (f = f + o), E && (g = "-" + g), e = g + (b && w || "") + f, e;
+  var x = Ne(t), p = x.thousandSeparator, w = x.decimalSeparator, b = r !== 0 && e.indexOf(".") !== -1 || r && n, d = Ce(e, s), g = d.beforeDecimal, f = d.afterDecimal, V = d.addNegation;
+  return r !== void 0 && (f = ke(f, r, !!n)), p && (g = vt(g, p, N)), a && (g = a + g), o && (f = f + o), V && (g = "-" + g), e = g + (b && w || "") + f, e;
 }
 function Ne(e) {
   var t = e.decimalSeparator;
@@ -438,32 +438,32 @@ function Et(e, t, r) {
   o === void 0 && (o = "");
   var s = r.suffix;
   s === void 0 && (s = "");
-  var N = r.decimalScale, x = t.from, p = t.to, w = p.start, b = p.end, d = Ne(r), g = d.allowedDecimalSeparators, f = d.decimalSeparator, E = e[b] === f;
+  var N = r.decimalScale, x = t.from, p = t.to, w = p.start, b = p.end, d = Ne(r), g = d.allowedDecimalSeparators, f = d.decimalSeparator, V = e[b] === f;
   if (Se(e) && (e === o || e === s) && t.lastValue === "")
     return e;
   if (b - w === 1 && g.indexOf(e[w]) !== -1) {
-    var R = N === 0 ? "" : f;
-    e = e.substring(0, w) + R + e.substring(w + 1, e.length);
+    var E = N === 0 ? "" : f;
+    e = e.substring(0, w) + E + e.substring(w + 1, e.length);
   }
-  var h = function(c, y, F) {
-    var _ = !1, A = !1;
-    o.startsWith("-") ? _ = !1 : c.startsWith("--") ? (_ = !1, A = !0) : s.startsWith("-") && c.length === s.length ? _ = !1 : c[0] === "-" && (_ = !0);
-    var T = _ ? 1 : 0;
-    return A && (T = 2), T && (c = c.substring(T), y -= T, F -= T), { value: c, start: y, end: F, hasNegation: _ };
-  }, P = h(e, w, b), B = P.hasNegation;
+  var h = function(c, D, F) {
+    var T = !1, A = !1;
+    o.startsWith("-") ? T = !1 : c.startsWith("--") ? (T = !1, A = !0) : s.startsWith("-") && c.length === s.length ? T = !1 : c[0] === "-" && (T = !0);
+    var B = T ? 1 : 0;
+    return A && (B = 2), B && (c = c.substring(B), D -= B, F -= B), { value: c, start: D, end: F, hasNegation: T };
+  }, P = h(e, w, b), _ = P.hasNegation;
   n = P, e = n.value, w = n.start, b = n.end;
-  var z = h(t.lastValue, x.start, x.end), j = z.start, H = z.end, k = z.value, V = e.substring(w, b);
-  e.length && k.length && (j > k.length - s.length || H < o.length) && !(V && s.startsWith(V)) && (e = k);
+  var z = h(t.lastValue, x.start, x.end), j = z.start, H = z.end, k = z.value, y = e.substring(w, b);
+  e.length && k.length && (j > k.length - s.length || H < o.length) && !(y && s.startsWith(y)) && (e = k);
   var L = 0;
   e.startsWith(o) ? L += o.length : w < o.length && (L = w), e = e.substring(L), b -= L;
   var K = e.length, W = e.length - s.length;
-  e.endsWith(s) ? K = W : (b > W || b > e.length - s.length) && (K = b), e = e.substring(0, K), e = Ct(B ? "-" + e : e, a), e = (e.match(It(f)) || []).join("");
+  e.endsWith(s) ? K = W : (b > W || b > e.length - s.length) && (K = b), e = e.substring(0, K), e = Ct(_ ? "-" + e : e, a), e = (e.match(It(f)) || []).join("");
   var q = e.indexOf(f);
-  e = e.replace(new RegExp(je(f), "g"), function(c, y) {
-    return y === q ? "." : "";
+  e = e.replace(new RegExp(je(f), "g"), function(c, D) {
+    return D === q ? "." : "";
   });
   var G = Ce(e, a), ee = G.beforeDecimal, ne = G.afterDecimal, v = G.addNegation;
-  return p.end - p.start < x.end - x.start && ee === "" && E && !parseFloat(ne) && (e = v ? "-" : ""), e;
+  return p.end - p.start < x.end - x.start && ee === "" && V && !parseFloat(ne) && (e = v ? "-" : ""), e;
 }
 function At(e, t) {
   var r = t.prefix;
@@ -493,7 +493,7 @@ function Ft(e) {
       allowNegative: ` + o + `
     `), o = !1), Object.assign(Object.assign({}, e), { allowNegative: o });
 }
-function Tt(e) {
+function Bt(e) {
   e = Ft(e), e.decimalSeparator, e.allowedDecimalSeparators, e.thousandsGroupStyle;
   var t = e.suffix, r = e.allowNegative, n = e.allowLeadingZeros, a = e.onKeyDown;
   a === void 0 && (a = ae);
@@ -501,33 +501,33 @@ function Tt(e) {
   o === void 0 && (o = ae);
   var s = e.thousandSeparator, N = e.decimalScale, x = e.fixedDecimalScale, p = e.prefix;
   p === void 0 && (p = "");
-  var w = e.defaultValue, b = e.value, d = e.valueIsNumericString, g = e.onValueChange, f = Pe(e, ["decimalSeparator", "allowedDecimalSeparators", "thousandsGroupStyle", "suffix", "allowNegative", "allowLeadingZeros", "onKeyDown", "onBlur", "thousandSeparator", "decimalScale", "fixedDecimalScale", "prefix", "defaultValue", "value", "valueIsNumericString", "onValueChange"]), E = Ne(e), R = E.decimalSeparator, h = E.allowedDecimalSeparators, P = function(v) {
-    return Te(v, e);
-  }, B = function(v, c) {
+  var w = e.defaultValue, b = e.value, d = e.valueIsNumericString, g = e.onValueChange, f = Pe(e, ["decimalSeparator", "allowedDecimalSeparators", "thousandsGroupStyle", "suffix", "allowNegative", "allowLeadingZeros", "onKeyDown", "onBlur", "thousandSeparator", "decimalScale", "fixedDecimalScale", "prefix", "defaultValue", "value", "valueIsNumericString", "onValueChange"]), V = Ne(e), E = V.decimalSeparator, h = V.allowedDecimalSeparators, P = function(v) {
+    return Be(v, e);
+  }, _ = function(v, c) {
     return Et(v, c, e);
   }, z = de(b) ? w : b, j = d ?? Rt(z, p, t);
   de(b) ? de(w) || (j = j || typeof w == "number") : j = j || typeof b == "number";
   var H = function(v) {
     return Le(v) ? v : (typeof v == "number" && (v = Ke(v)), j && typeof N == "number" ? Ae(v, N, !!x) : v);
-  }, k = $e(H(b), H(w), !!j, P, B, g), V = k[0], L = V.numAsString, K = V.formattedValue, W = k[1], q = function(v) {
-    var c = v.target, y = v.key, F = c.selectionStart, _ = c.selectionEnd, A = c.value;
-    if (A === void 0 && (A = ""), (y === "Backspace" || y === "Delete") && _ < p.length) {
+  }, k = $e(H(b), H(w), !!j, P, _, g), y = k[0], L = y.numAsString, K = y.formattedValue, W = k[1], q = function(v) {
+    var c = v.target, D = v.key, F = c.selectionStart, T = c.selectionEnd, A = c.value;
+    if (A === void 0 && (A = ""), (D === "Backspace" || D === "Delete") && T < p.length) {
       v.preventDefault();
       return;
     }
-    if (F !== _) {
+    if (F !== T) {
       a(v);
       return;
     }
-    y === "Backspace" && A[0] === "-" && F === p.length + 1 && r && ue(c, 1), N && x && (y === "Backspace" && A[F - 1] === R ? (ue(c, F - 1), v.preventDefault()) : y === "Delete" && A[F] === R && v.preventDefault()), h != null && h.includes(y) && A[F] === R && ue(c, F + 1);
-    var T = s === !0 ? "," : s;
-    y === "Backspace" && A[F - 1] === T && ue(c, F - 1), y === "Delete" && A[F] === T && ue(c, F + 1), a(v);
+    D === "Backspace" && A[0] === "-" && F === p.length + 1 && r && ue(c, 1), N && x && (D === "Backspace" && A[F - 1] === E ? (ue(c, F - 1), v.preventDefault()) : D === "Delete" && A[F] === E && v.preventDefault()), h != null && h.includes(D) && A[F] === E && ue(c, F + 1);
+    var B = s === !0 ? "," : s;
+    D === "Backspace" && A[F - 1] === B && ue(c, F - 1), D === "Delete" && A[F] === B && ue(c, F + 1), a(v);
   }, G = function(v) {
     var c = L;
     if (c.match(/\d/g) || (c = ""), n || (c = gt(c)), x && N && (c = Ae(c, N, x)), c !== L) {
-      var y = Te(c, e);
+      var D = Be(c, e);
       W({
-        formattedValue: y,
+        formattedValue: D,
         value: c,
         floatValue: parseFloat(c)
       }, {
@@ -537,12 +537,12 @@ function Tt(e) {
     }
     o(v);
   }, ee = function(v) {
-    return v === R ? !0 : Se(v);
+    return v === E ? !0 : Se(v);
   }, ne = function(v) {
-    var c = v.currentValue, y = v.lastValue, F = v.formattedValue, _ = v.currentValueIndex, A = v.formattedValueIndex, T = c[_], te = F[A], ve = Ue(y, c), C = ve.to, J = function(le) {
-      return B(le).indexOf(".") + p.length;
+    var c = v.currentValue, D = v.lastValue, F = v.formattedValue, T = v.currentValueIndex, A = v.formattedValueIndex, B = c[T], te = F[A], ve = Ue(D, c), I = ve.to, J = function(le) {
+      return _(le).indexOf(".") + p.length;
     };
-    return b === 0 && x && N && c[C.start] === R && J(c) < _ && J(F) > A ? !1 : _ >= C.start && _ < C.end && h && h.includes(T) && te === R ? !0 : T === te;
+    return b === 0 && x && N && c[I.start] === E && J(c) < T && J(F) > A ? !1 : T >= I.start && T < I.end && h && h.includes(B) && te === E ? !0 : B === te;
   };
   return Object.assign(Object.assign({}, f), {
     value: K,
@@ -551,7 +551,7 @@ function Tt(e) {
     isCharacterSame: ne,
     onValueChange: W,
     format: P,
-    removeFormatting: B,
+    removeFormatting: _,
     getCaretBoundary: function(v) {
       return At(v, e);
     },
@@ -559,11 +559,11 @@ function Tt(e) {
     onBlur: G
   });
 }
-function _t(e) {
-  var t = Tt(e);
+function Tt(e) {
+  var t = Bt(e);
   return ce.createElement(Dt, Object.assign({}, t));
 }
-function _e({ direction: e, style: t, ...r }) {
+function Te({ direction: e, style: t, ...r }) {
   return /* @__PURE__ */ Y(
     "svg",
     {
@@ -590,11 +590,11 @@ function _e({ direction: e, style: t, ...r }) {
   );
 }
 var De = { root: "m_e2f5cd4e", controls: "m_95e17d22", control: "m_80b4b171" };
-const Bt = /^(0\.0*|-0(\.0*)?)$/, Mt = /^-?0\d+(\.\d+)?\.?$/;
+const _t = /^(0\.0*|-0(\.0*)?)$/, Mt = /^-?0\d+(\.\d+)?\.?$/;
 function Ot(e) {
   return (typeof e == "number" ? e < Number.MAX_SAFE_INTEGER : !Number.isNaN(Number(e))) && !Number.isNaN(e);
 }
-function Be(e, t, r) {
+function _e(e, t, r) {
   if (e === void 0)
     return !0;
   const n = t === void 0 || e >= t, a = r === void 0 || e <= r;
@@ -627,16 +627,16 @@ const Pt = {
     max: d,
     min: g,
     step: f,
-    hideControls: E,
-    rightSection: R,
+    hideControls: V,
+    rightSection: E,
     isAllowed: h,
     clampBehavior: P,
-    onBlur: B,
+    onBlur: _,
     allowDecimal: z,
     decimalScale: j,
     onKeyDown: H,
     onKeyDownCapture: k,
-    handlersRef: V,
+    handlersRef: y,
     startValue: L,
     disabled: K,
     rightSectionPointerEvents: W,
@@ -646,11 +646,11 @@ const Pt = {
     rightSectionWidth: ne,
     stepHoldInterval: v,
     stepHoldDelay: c,
-    allowLeadingZeros: y,
+    allowLeadingZeros: D,
     withKeyboardEvents: F,
-    trimLeadingZeroesOnBlur: _,
+    trimLeadingZeroesOnBlur: T,
     ...A
-  } = r, T = rt({
+  } = r, B = rt({
     name: "NumberInput",
     classes: De,
     props: r,
@@ -663,13 +663,13 @@ const Pt = {
     classNames: a,
     styles: o,
     props: r
-  }), [C, J] = ut({
+  }), [I, J] = ut({
     value: w,
     defaultValue: b,
     onChange: x
   }), le = c !== void 0 && v !== void 0, X = Z(null), ie = Z(null), me = Z(0), we = (i, S) => {
     S.source === "event" && J(
-      Ot(i.floatValue) && !Bt.test(i.value) && !(y && Mt.test(i.value)) ? i.floatValue : i.value
+      Ot(i.floatValue) && !_t.test(i.value) && !(D && Mt.test(i.value)) ? i.floatValue : i.value
     ), p == null || p(i, S);
   }, se = (i) => {
     const S = String(i).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
@@ -679,14 +679,14 @@ const Pt = {
   }, fe = Z();
   fe.current = () => {
     let i;
-    const S = se(C), O = se(f), U = Math.max(S, O), $ = 10 ** U;
-    if (typeof C != "number" || Number.isNaN(C))
+    const S = se(I), O = se(f), U = Math.max(S, O), $ = 10 ** U;
+    if (typeof I != "number" || Number.isNaN(I))
       i = be(L, g, d);
     else if (d !== void 0) {
-      const Q = (Math.round(C * $) + Math.round(f * $)) / $;
+      const Q = (Math.round(I * $) + Math.round(f * $)) / $;
       i = Q <= d ? Q : d;
     } else
-      i = (Math.round(C * $) + Math.round(f * $)) / $;
+      i = (Math.round(I * $) + Math.round(f * $)) / $;
     const re = i.toFixed(U);
     J(parseFloat(re)), p == null || p(
       { floatValue: parseFloat(re), formattedValue: re, value: re },
@@ -699,11 +699,11 @@ const Pt = {
   const oe = Z();
   oe.current = () => {
     let i;
-    const S = g !== void 0 ? g : q ? Number.MIN_SAFE_INTEGER : 0, O = se(C), U = se(f), $ = Math.max(O, U), re = 10 ** $;
-    if (typeof C != "number" || Number.isNaN(C))
+    const S = g !== void 0 ? g : q ? Number.MIN_SAFE_INTEGER : 0, O = se(I), U = se(f), $ = Math.max(O, U), re = 10 ** $;
+    if (typeof I != "number" || Number.isNaN(I))
       i = be(L, S, d);
     else {
-      const he = (Math.round(C * re) - Math.round(f * re)) / re;
+      const he = (Math.round(I * re) - Math.round(f * re)) / re;
       i = S !== void 0 && he < S ? S : he;
     }
     const Q = i.toFixed($);
@@ -723,7 +723,7 @@ const Pt = {
       S.selectionStart === 0 && S.selectionStart === S.selectionEnd && (i.preventDefault(), window.setTimeout(() => ge(0), 0));
     }
   };
-  lt(V, { increment: fe.current, decrement: oe.current });
+  lt(y, { increment: fe.current, decrement: oe.current });
   const l = (i) => {
     i ? fe.current() : oe.current(), me.current += 1;
   }, m = (i) => {
@@ -731,61 +731,61 @@ const Pt = {
       const S = typeof v == "number" ? v : v(me.current);
       ie.current = window.setTimeout(() => m(i), S);
     }
-  }, D = (i, S) => {
+  }, C = (i, S) => {
     var O;
     i.preventDefault(), (O = X.current) == null || O.focus(), l(S), le && (ie.current = window.setTimeout(() => m(S), c));
   }, M = () => {
     ie.current && window.clearTimeout(ie.current), ie.current = null, me.current = 0;
-  }, I = /* @__PURE__ */ Ze("div", { ...T("controls"), children: [
+  }, R = /* @__PURE__ */ Ze("div", { ...B("controls"), children: [
     /* @__PURE__ */ Y(
       Re,
       {
-        ...T("control"),
+        ...B("control"),
         tabIndex: -1,
         "aria-hidden": !0,
-        disabled: K || typeof C == "number" && d !== void 0 && C >= d,
+        disabled: K || typeof I == "number" && d !== void 0 && I >= d,
         mod: { direction: "up" },
         onMouseDown: (i) => i.preventDefault(),
         onPointerDown: (i) => {
-          D(i, !0);
+          C(i, !0);
         },
         onPointerUp: M,
         onPointerLeave: M,
-        children: /* @__PURE__ */ Y(_e, { direction: "up" })
+        children: /* @__PURE__ */ Y(Te, { direction: "up" })
       }
     ),
     /* @__PURE__ */ Y(
       Re,
       {
-        ...T("control"),
+        ...B("control"),
         tabIndex: -1,
         "aria-hidden": !0,
-        disabled: K || typeof C == "number" && g !== void 0 && C <= g,
+        disabled: K || typeof I == "number" && g !== void 0 && I <= g,
         mod: { direction: "down" },
         onMouseDown: (i) => i.preventDefault(),
         onPointerDown: (i) => {
-          D(i, !1);
+          C(i, !1);
         },
         onPointerUp: M,
         onPointerLeave: M,
-        children: /* @__PURE__ */ Y(_e, { direction: "down" })
+        children: /* @__PURE__ */ Y(Te, { direction: "down" })
       }
     )
   ] });
   return /* @__PURE__ */ Y(
     Oe,
     {
-      component: _t,
+      component: Tt,
       allowNegative: q,
       className: at(De.root, n),
       size: ee,
       ...A,
       readOnly: G,
       disabled: K,
-      value: C,
+      value: I,
       getInputRef: st(t, X),
       onValueChange: we,
-      rightSection: E || G ? R : R || I,
+      rightSection: V || G ? E : E || R,
       classNames: te,
       styles: ve,
       unstyled: s,
@@ -795,34 +795,34 @@ const Pt = {
       onKeyDownCapture: u,
       rightSectionPointerEvents: W ?? (K ? "none" : void 0),
       rightSectionWidth: ne ?? `var(--ni-right-section-width-${ee || "sm"})`,
-      allowLeadingZeros: y,
+      allowLeadingZeros: D,
       onBlur: (i) => {
-        if (B == null || B(i), P === "blur" && typeof C == "number" && be(C, g, d) !== C && J(be(C, g, d)), _ && typeof C == "string") {
-          const S = C.replace(/^0+/, ""), O = parseFloat(S);
+        if (_ == null || _(i), P === "blur" && typeof I == "number" && be(I, g, d) !== I && J(be(I, g, d)), T && typeof I == "string") {
+          const S = I.replace(/^0+/, ""), O = parseFloat(S);
           J(
             Number.isNaN(O) || O > Number.MAX_SAFE_INTEGER ? S : O
           );
         }
       },
-      isAllowed: (i) => P === "strict" ? h ? h(i) && Be(i.floatValue, g, d) : Be(i.floatValue, g, d) : h ? h(i) : !0
+      isAllowed: (i) => P === "strict" ? h ? h(i) && _e(i.floatValue, g, d) : _e(i.floatValue, g, d) : h ? h(i) : !0
     }
   );
 });
 Ie.classes = { ...Oe.classes, ...De };
 Ie.displayName = "@mantine/core/NumberInput";
 const Xt = He(function(t, r) {
-  const n = Xe(t.attribute, t), { getError: a, getValue: o, setValue: s, mutateOptions: N } = n, x = r || Z(null), p = a(), w = Z(null), b = t.variant || "default";
-  var d = o() != "" ? o() : null;
-  qe(x, () => ({
+  const n = Xe(t.attribute, t), { getError: a, getValue: o, setValue: s, mutateOptions: N, refreshError: x } = n, p = r || Z(null), w = a(), b = Z(null), d = t.variant || "default";
+  var g = o();
+  qe(p, () => ({
     ...Je(n),
     focus() {
-      w.current.focus();
+      b.current.focus();
     }
   }), [n]);
-  var g = n.getFieldProps();
-  return g.onChange = (f) => {
-    t.readOnly || (s(f), t.onChange && t.onChange(f));
-  }, /* @__PURE__ */ Y(We, { children: !N.visible && /* @__PURE__ */ Y(
+  var f = n.getFieldProps();
+  return f.onChange = (V) => {
+    t.readOnly || (s(V), t.onChange && t.onChange(V));
+  }, f.onBlur = x, /* @__PURE__ */ Y(We, { children: !N.visible && /* @__PURE__ */ Y(
     Qe,
     {
       label: Ye(t),
@@ -835,12 +835,12 @@ const Xt = He(function(t, r) {
         {
           defaultValue: t.defaultValue,
           label: t.label,
-          variant: b,
-          ref: w,
-          ...g,
+          variant: d,
+          ref: b,
+          ...f,
           placeholder: t.placeholder,
-          value: d,
-          error: p.message
+          value: g,
+          error: w.message
         }
       )
     }
