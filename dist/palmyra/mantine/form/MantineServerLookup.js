@@ -1,121 +1,121 @@
-import { jsxs as G, jsx as s, Fragment as J } from "react/jsx-runtime";
-import { useEffect as K, forwardRef as Q, useRef as R, useImperativeHandle as X } from "react";
+import { jsxs as G, jsx as r, Fragment as J } from "react/jsx-runtime";
+import { useEffect as K, forwardRef as Q, useRef as V, useImperativeHandle as X } from "react";
 import { useServerLookupFieldManager as Y, getFieldHandler as Z, FieldDecorator as ee } from "@palmyralabs/rt-forms";
-import { getFieldLabel as te } from "./util.js";
-import { u as oe } from "../../../chunks/use-resolved-styles-api.js";
-import { f as ae, u as se } from "../../../chunks/factory.js";
-import { C as w, g as le, a as ne, u as re, O as ie } from "../../../chunks/OptionsDropdown.js";
+import { getFieldLabel as oe } from "./util.js";
+import { u as te } from "../../../chunks/use-resolved-styles-api.js";
+import { f as ae, u as le } from "../../../chunks/factory.js";
+import { C as S, g as se, a as ne, u as re, O as ie } from "../../../chunks/OptionsDropdown.js";
 import { I as M } from "../../../chunks/InputBase.js";
 import { u as ue } from "../../../chunks/use-id.js";
 import { u as ce } from "../../../chunks/use-uncontrolled.js";
 const de = {}, y = ae((F, e) => {
-  const l = se("Autocomplete", de, F), {
-    classNames: p,
-    styles: n,
-    unstyled: r,
-    vars: S,
-    dropdownOpened: b,
-    defaultDropdownOpened: f,
-    onDropdownClose: i,
-    onDropdownOpen: O,
-    onFocus: u,
-    onBlur: c,
-    onClick: d,
-    onChange: g,
-    data: t,
-    value: x,
-    defaultValue: C,
-    selectFirstOptionOnChange: h,
-    onOptionSubmit: v,
-    comboboxProps: q,
-    readOnly: A,
+  const i = le("Autocomplete", de, F), {
+    classNames: O,
+    styles: u,
+    unstyled: c,
+    vars: x,
+    dropdownOpened: C,
+    defaultDropdownOpened: h,
+    onDropdownClose: d,
+    onDropdownOpen: v,
+    onFocus: m,
+    onBlur: l,
+    onClick: p,
+    onChange: b,
+    data: f,
+    value: o,
+    defaultValue: n,
+    selectFirstOptionOnChange: s,
+    onOptionSubmit: D,
+    comboboxProps: E,
+    readOnly: w,
     disabled: L,
-    filter: E,
-    limit: H,
-    withScrollArea: j,
+    filter: H,
+    limit: j,
+    withScrollArea: q,
     maxDropdownHeight: T,
-    size: V,
+    size: I,
     id: z,
     renderOption: B,
     autoComplete: U,
     scrollAreaProps: W,
-    ...m
-  } = l, P = ue(z), _ = le(t), $ = ne(_), [D, k] = ce({
-    value: x,
-    defaultValue: C,
+    ...g
+  } = i, P = ue(z), _ = se(f), $ = ne(_), [A, k] = ce({
+    value: o,
+    defaultValue: n,
     finalValue: "",
-    onChange: g
+    onChange: b
   }), a = re({
-    opened: b,
-    defaultOpened: f,
-    onDropdownOpen: O,
+    opened: C,
+    defaultOpened: h,
+    onDropdownOpen: v,
     onDropdownClose: () => {
-      i == null || i(), a.resetSelectedOption();
+      d == null || d(), a.resetSelectedOption();
     }
-  }), { resolvedClassNames: I, resolvedStyles: N } = oe({
-    props: l,
-    styles: n,
-    classNames: p
+  }), { resolvedClassNames: N, resolvedStyles: R } = te({
+    props: i,
+    styles: u,
+    classNames: O
   });
   return K(() => {
-    h && a.selectFirstOption();
-  }, [h, D]), /* @__PURE__ */ G(
-    w,
+    s && a.selectFirstOption();
+  }, [s, A]), /* @__PURE__ */ G(
+    S,
     {
       store: a,
       __staticSelector: "Autocomplete",
-      classNames: I,
-      styles: N,
-      unstyled: r,
-      readOnly: A,
-      onOptionSubmit: (o) => {
-        v == null || v(o), k($[o].label), a.closeDropdown();
+      classNames: N,
+      styles: R,
+      unstyled: c,
+      readOnly: w,
+      onOptionSubmit: (t) => {
+        D == null || D(t), k($[t].label), a.closeDropdown();
       },
-      size: V,
-      ...q,
+      size: I,
+      ...E,
       children: [
-        /* @__PURE__ */ s(w.Target, { autoComplete: U, children: /* @__PURE__ */ s(
+        /* @__PURE__ */ r(S.Target, { autoComplete: U, children: /* @__PURE__ */ r(
           M,
           {
             ref: e,
-            ...m,
-            size: V,
+            ...g,
+            size: I,
             __staticSelector: "Autocomplete",
             disabled: L,
-            readOnly: A,
-            value: D,
-            onChange: (o) => {
-              k(o.currentTarget.value), a.openDropdown(), h && a.selectFirstOption();
+            readOnly: w,
+            value: A,
+            onChange: (t) => {
+              k(t.currentTarget.value), a.openDropdown(), s && a.selectFirstOption();
             },
-            onFocus: (o) => {
-              a.openDropdown(), u == null || u(o);
+            onFocus: (t) => {
+              a.openDropdown(), m == null || m(t);
             },
-            onBlur: (o) => {
-              a.closeDropdown(), c == null || c(o);
+            onBlur: (t) => {
+              a.closeDropdown(), l == null || l(t);
             },
-            onClick: (o) => {
-              a.openDropdown(), d == null || d(o);
+            onClick: (t) => {
+              a.openDropdown(), p == null || p(t);
             },
-            classNames: I,
-            styles: N,
-            unstyled: r,
+            classNames: N,
+            styles: R,
+            unstyled: c,
             id: P
           }
         ) }),
-        /* @__PURE__ */ s(
+        /* @__PURE__ */ r(
           ie,
           {
             data: _,
-            hidden: A || L,
-            filter: E,
-            search: D,
-            limit: H,
+            hidden: w || L,
+            filter: H,
+            search: A,
+            limit: j,
             hiddenWhenEmpty: !0,
-            withScrollArea: j,
+            withScrollArea: q,
             maxDropdownHeight: T,
-            unstyled: r,
-            labelId: m.label ? `${P}-label` : void 0,
-            "aria-label": m.label ? void 0 : m["aria-label"],
+            unstyled: c,
+            labelId: g.label ? `${P}-label` : void 0,
+            "aria-label": g.label ? void 0 : g["aria-label"],
             renderOption: B,
             scrollAreaProps: W
           }
@@ -124,51 +124,53 @@ const de = {}, y = ae((F, e) => {
     }
   );
 });
-y.classes = { ...M.classes, ...w.classes };
+y.classes = { ...M.classes, ...S.classes };
 y.displayName = "@mantine/core/Autocomplete";
-const De = Q(function(e, l) {
-  const p = R(null), n = Y(e.attribute, e), { getError: r, getValue: S, setValue: b, options: f, getFieldProps: i } = n, O = r(), u = l || R(null);
-  X(u, () => ({
-    ...Z(n),
+const we = Q(function(e, i) {
+  const O = V(null), u = Y(e.attribute, e), { getError: c, getValue: x, setValue: C, options: h, getFieldProps: d } = u, v = c(), m = i || V(null);
+  X(m, () => ({
+    ...Z(u),
     focus() {
-      p.current.focus();
+      O.current.focus();
     }
-  }), [n]);
-  const c = {
-    onChange: (t) => {
-      b(t), e.onChange && e.onChange(t);
-    }
-  }, d = f.map((t, x) => {
-    var C = {
-      label: t[e.queryOptions.labelAttribute] || t[e.lookupOptions.labelAttribute],
-      value: t[e.queryOptions.labelAttribute].toString() || t[e.lookupOptions.labelAttribute].toString()
+  }), [u]);
+  const l = h.map((o, n) => {
+    var s = {
+      label: o[e.queryOptions.labelAttribute] || o[e.lookupOptions.labelAttribute],
+      value: o[e.queryOptions.idAttribute].toString() || o[e.lookupOptions.idAttribute].toString()
     };
-    return C;
-  }), g = S();
-  return /* @__PURE__ */ s(J, { children: /* @__PURE__ */ s(
+    return s;
+  }), p = {
+    onChange: (o) => {
+      const n = l.find((s) => s.label === o) || null;
+      C(parseInt(n == null ? void 0 : n.value)), e.onChange && e.onChange(o);
+    }
+  }, b = x(), f = l.find((o) => o.value === (b == null ? void 0 : b.toString())) || null;
+  return /* @__PURE__ */ r(J, { children: /* @__PURE__ */ r(
     ee,
     {
-      label: te(e),
+      label: oe(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ s(
+      children: /* @__PURE__ */ r(
         y,
         {
           readOnly: e.readOnly,
           renderOption: e.renderOption,
-          ...i(),
-          value: g[e.queryOptions.labelAttribute],
-          data: d,
+          ...d(),
+          value: f == null ? void 0 : f.label,
+          data: l,
+          label: e.label,
           defaultValue: e.defaultValue,
-          error: O.message,
-          ...c
+          error: v.message,
+          ...p
         }
       )
     }
   ) });
 });
 export {
-  De as MantineServerLookup
+  we as MantineServerLookup
 };

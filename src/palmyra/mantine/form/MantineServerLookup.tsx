@@ -1,4 +1,4 @@
-import { forwardRef, MutableRefObject,  useImperativeHandle, useRef } from "react";
+import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react";
 import { IServerLookupDefinition } from "./types";
 import { getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { getFieldLabel } from "./util";
@@ -23,23 +23,25 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         };
     }, [fieldManager]);
 
+    const sData = options.map((key, index) => {
+        var sOptions = {
+            label: key[props.queryOptions.labelAttribute] || key[props.lookupOptions.labelAttribute],
+            value: key[props.queryOptions.idAttribute].toString() || key[props.lookupOptions.idAttribute].toString()
+        }
+        return sOptions;
+    })
+
     const callbacks = {
         onChange: (event: any) => {
-            setValue(event);
+            const changeValue: any = sData.find(item => item.label === event) || null;
+            setValue(parseInt(changeValue?.value));
             if (props.onChange)
                 props.onChange(event);
         }
     }
 
-    const sData = options.map((key, index) => {
-        var sOptions = {
-            label: key[props.queryOptions.labelAttribute] || key[props.lookupOptions.labelAttribute],
-            value: key[props.queryOptions.labelAttribute].toString() || key[props.lookupOptions.labelAttribute].toString()
-        }
-        return sOptions;
-    })
-
     const value = getValue();
+    const selectedValue = sData.find(item => item.value === value?.toString()) || null;
 
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -47,9 +49,10 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             readOnly={props.readOnly}
             renderOption={props.renderOption}
             {...getFieldProps()}
-            value={value[props.queryOptions.labelAttribute]}
+            value={selectedValue?.label}
             // filter={optionsFilter}
             data={sData}
+            label={props.label}
             defaultValue={props.defaultValue}
             error={error.message}
             {...callbacks}>
