@@ -11,7 +11,7 @@ const MantineNumberField = forwardRef(function MantineNumberField(props: ITextFi
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
-    var value = getValue() // != '' ? getValue() : null
+    var value = getValue();
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager)

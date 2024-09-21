@@ -1,6 +1,6 @@
-import { jsx as n, jsxs as N, Fragment as ee } from "react/jsx-runtime";
-import { createContext as te, useContext as ae, forwardRef as se, useRef as j, useMemo as le, useState as oe, useEffect as B, useImperativeHandle as ne } from "react";
-import { useFieldManager as ce, getFieldHandler as re, FieldDecorator as ie } from "@palmyralabs/rt-forms";
+import { jsx as o, jsxs as N, Fragment as ee } from "react/jsx-runtime";
+import { createContext as te, useContext as ae, forwardRef as se, useRef as j, useMemo as ne, useState as le, useEffect as B, useImperativeHandle as oe } from "react";
+import { useFieldManager as re, getFieldHandler as ce, FieldDecorator as ie } from "@palmyralabs/rt-forms";
 import { getFieldLabel as ue } from "./util.js";
 import de from "../options/OptionsParser.js";
 import { f as H, u as W, d as he, e as me, B as T, g as fe, j as ge, h as S } from "../../../chunks/factory.js";
@@ -10,27 +10,27 @@ import { I as A } from "../../../chunks/Input.js";
 import { u as D } from "../../../chunks/use-uncontrolled.js";
 import { u as Ce } from "../../../chunks/use-id.js";
 const U = te(null), ve = U.Provider, Se = () => ae(U), ye = {}, G = H((d, e) => {
-  const { value: s, defaultValue: a, onChange: w, size: c, wrapperProps: h, children: m, readOnly: k, ...y } = W("SwitchGroup", ye, d), [r, l] = D({
+  const { value: s, defaultValue: a, onChange: w, size: r, wrapperProps: h, children: m, readOnly: k, ...y } = W("SwitchGroup", ye, d), [c, n] = D({
     value: s,
     defaultValue: a,
     finalValue: [],
     onChange: w
   });
-  return /* @__PURE__ */ n(ve, { value: { value: r, onChange: (o) => {
-    const i = o.currentTarget.value;
-    !k && l(
-      r.includes(i) ? r.filter((g) => g !== i) : [...r, i]
+  return /* @__PURE__ */ o(ve, { value: { value: c, onChange: (l) => {
+    const i = l.currentTarget.value;
+    !k && n(
+      c.includes(i) ? c.filter((g) => g !== i) : [...c, i]
     );
-  }, size: c }, children: /* @__PURE__ */ n(
+  }, size: r }, children: /* @__PURE__ */ o(
     A.Wrapper,
     {
-      size: c,
+      size: r,
       ref: e,
       ...h,
       ...y,
       labelElement: "div",
       __staticSelector: "SwitchGroup",
-      children: /* @__PURE__ */ n(be, { role: "group", children: m })
+      children: /* @__PURE__ */ o(be, { role: "group", children: m })
     }
   ) });
 });
@@ -53,15 +53,15 @@ const Ve = {
   const s = W("Switch", Ve, d), {
     classNames: a,
     className: w,
-    style: c,
+    style: r,
     styles: h,
     unstyled: m,
     vars: k,
     color: y,
-    label: r,
-    offLabel: l,
+    label: c,
+    offLabel: n,
     onLabel: f,
-    id: o,
+    id: l,
     size: i,
     radius: g,
     wrapperProps: P,
@@ -82,13 +82,13 @@ const Ve = {
     props: s,
     classes: $,
     className: w,
-    style: c,
+    style: r,
     classNames: a,
     styles: h,
     unstyled: m,
     vars: k,
     varsResolver: _e
-  }), { styleProps: Y, rest: R } = me(Q), z = Ce(o), v = u ? {
+  }), { styleProps: Y, rest: R } = me(Q), z = Ce(l), v = u ? {
     checked: u.value.includes(R.value),
     onChange: u.onChange
   } : {}, [E, Z] = D({
@@ -105,7 +105,7 @@ const Ve = {
       id: z,
       size: X,
       labelPosition: b,
-      label: r,
+      label: c,
       description: _,
       error: x,
       disabled: L,
@@ -121,7 +121,7 @@ const Ve = {
       ...Y,
       ...P,
       children: [
-        /* @__PURE__ */ n(
+        /* @__PURE__ */ o(
           "input",
           {
             ...R,
@@ -142,11 +142,11 @@ const Ve = {
           T,
           {
             "aria-hidden": "true",
-            mod: { error: x, "label-position": b, "without-labels": !f && !l },
+            mod: { error: x, "label-position": b, "without-labels": !f && !n },
             ...C("track"),
             children: [
-              /* @__PURE__ */ n(T, { component: "span", mod: "reduce-motion", ...C("thumb"), children: V }),
-              /* @__PURE__ */ n("span", { ...C("trackLabel"), children: E ? f : l })
+              /* @__PURE__ */ o(T, { component: "span", mod: "reduce-motion", ...C("thumb"), children: V }),
+              /* @__PURE__ */ o("span", { ...C("trackLabel"), children: E ? f : n })
             ]
           }
         )
@@ -158,17 +158,17 @@ I.classes = { ...$, ...we };
 I.displayName = "@mantine/core/Switch";
 I.Group = G;
 const Ne = se(function(e, s) {
-  const a = ce(e.attribute, e), { getError: w, getValue: c, setValue: h, mutateOptions: m, refreshError: k } = a, y = s || j(null), r = w(), l = le(
+  const a = re(e.attribute, e), { getError: w, getValue: r, setValue: h, mutateOptions: m, refreshError: k } = a, y = s || j(null), c = w(), n = ne(
     () => de(e.options, e.label),
     [e.options, e.label]
   ), f = (t, b) => {
-    var _ = l.checked.value;
+    var _ = n.checked.value;
     return t != null && t != null ? _ == t : _ == b;
-  }, [o, i] = oe(f(c(), e.defaultValue)), g = j(null);
+  }, [l, i] = le(f(r(), e.defaultValue)), g = j(null);
   B(() => {
-    i(f(c(), e.defaultValue));
-  }, [c()]), ne(y, () => ({
-    ...re(a),
+    i(f(r(), e.defaultValue));
+  }, [r()]), oe(y, () => ({
+    ...ce(a),
     focus() {
       g.current.checked = !0, g.current.focus();
     },
@@ -178,22 +178,22 @@ const Ne = se(function(e, s) {
     }
   }), [a]);
   const P = () => {
-    i(!o);
+    i(!l);
   };
   B(() => {
     p.onChange = () => V();
-  }, [o]);
+  }, [l]);
   const V = () => {
-    var t = o ? "checked" : "unchecked";
-    return console.log(l[t].title, t), l[t].title;
+    var t = l ? "checked" : "unchecked";
+    return console.log(n[t].title, t), n[t].title;
   }, O = () => {
-    var t = o ? "checked" : "unchecked";
-    return console.log("S", l[t].value), l[t].value || null;
+    var t = l ? "checked" : "unchecked";
+    return n[t].value || null;
   };
   var p = a.getFieldProps();
   return p.onChange = (t, b) => {
     e.readOnly || (h(t.target.checked), e.onChange && e.onChange(t.target.checked));
-  }, p.onBlur = k, console.log("switch", o), /* @__PURE__ */ n(ee, { children: !m.visible && /* @__PURE__ */ n(
+  }, p.onBlur = k, /* @__PURE__ */ o(ee, { children: !m.visible && /* @__PURE__ */ o(
     ie,
     {
       label: ue(e),
@@ -201,16 +201,16 @@ const Ne = se(function(e, s) {
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ n(
+      children: /* @__PURE__ */ o(
         I,
         {
-          checked: o,
+          checked: l,
           onClick: P,
           value: O(),
           label: V(),
           defaultValue: e.defaultValue,
           disabled: e.readOnly,
-          error: r.message,
+          error: c.message,
           ref: (t) => {
             g.current = t;
           },

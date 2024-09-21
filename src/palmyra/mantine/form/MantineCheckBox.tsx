@@ -44,7 +44,10 @@ const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <Checkbox
                 {...options}
+                defaultChecked={props.defaultChecked}
                 checked={value}
+                value={value}
+                defaultValue={props.defaultValue}
                 disabled={props.disabled} readOnly={props.readOnly}
                 ref={(r) => { inputRef.current = r }}
                 label={props.label}

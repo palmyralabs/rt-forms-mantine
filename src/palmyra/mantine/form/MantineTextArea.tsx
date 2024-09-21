@@ -34,6 +34,7 @@ const MantineTextArea = forwardRef(function MantineTextArea(props: ITextFieldDef
         }
     }
     options.onBlur = refreshError;
+    const value = getValue();
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
@@ -44,7 +45,7 @@ const MantineTextArea = forwardRef(function MantineTextArea(props: ITextFieldDef
                 ref={inputRef}
                 defaultValue={props.defaultValue}
                 {...options}
-                value={getValue() || null}
+                value={value}
                 error={error.message} />
         </FieldDecorator>}
     </>

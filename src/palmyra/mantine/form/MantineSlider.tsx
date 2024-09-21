@@ -39,7 +39,7 @@ const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition
                 props.onChange(d);
         }
     }
-    var value = getValue() //!= '' ? getValue() : undefined
+    var value = getValue();
 
     options.onBlur = refreshError;
 

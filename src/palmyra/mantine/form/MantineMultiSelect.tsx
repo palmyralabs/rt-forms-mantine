@@ -54,7 +54,7 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <MultiSelect
-                defaultValue={props.defaultValue}
+                defaultValue={props?.defaultValue}
                 data={sData}
                 value={getValue()}
                 {...options}

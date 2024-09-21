@@ -63,7 +63,6 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
 
     const getOptionValue = () => {
         var key = isOn ? 'checked' : 'unchecked';
-        console.log("S", parsedOptions[key].value)
         return parsedOptions[key].value || null;
     }
 
@@ -77,8 +76,6 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
         }
     }
     options.onBlur = refreshError;
-
-    console.log("switch", isOn)
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

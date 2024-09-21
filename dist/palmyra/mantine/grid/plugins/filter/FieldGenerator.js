@@ -10,15 +10,16 @@ import { MantineRadioGroup as l } from "../../../form/MantineRadioGroup.js";
 import "../../../form/MantineRangeSlider.js";
 import { MantineRating as d } from "../../../form/MantineRating.js";
 import { MantineSelect as f } from "../../../form/MantineSelect.js";
+import "../../../form/MantineServerLookup.js";
 import "../../../form/MantineSlider.js";
 import { MantineSwitch as M } from "../../../form/MantineSwitch.js";
 import { MantineTextArea as F } from "../../../form/MantineTextArea.js";
 import { MantineTextField as g } from "../../../form/MantineTextField.js";
 import "react/jsx-runtime";
 import "react";
-const j = (r, n) => {
-  const { type: o } = r, t = { fieldDef: r, title: n }, { getReactField: e, getInvalidField: i } = a();
-  switch (o) {
+const q = (r, o) => {
+  const { type: i } = r, t = { fieldDef: r, title: o }, { getReactField: e, getInvalidField: n } = a();
+  switch (i) {
     case "string":
       return e(t, g);
     case "radio":
@@ -45,9 +46,9 @@ const j = (r, n) => {
       return e(t, p);
     case "autoComplete":
     default:
-      return i(t);
+      return n(t);
   }
 };
 export {
-  j as default
+  q as default
 };

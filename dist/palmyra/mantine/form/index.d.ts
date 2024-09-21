@@ -9,6 +9,7 @@ export * from './MantineRadioGroup';
 export * from './MantineRangeSlider';
 export * from './MantineRating';
 export * from './MantineSelect';
+export * from './MantineServerLookup';
 export * from './MantineSlider';
 export * from './MantineSwitch';
 export * from './MantineTextArea';

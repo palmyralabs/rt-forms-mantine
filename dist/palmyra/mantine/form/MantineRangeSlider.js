@@ -7,14 +7,14 @@ import { g as Oe } from "../../../chunks/get-theme-color.js";
 import { u as Ie } from "../../../chunks/DirectionProvider.js";
 import { c as re, e as ee, g as ze, u as Ee, S as _e, b as Ne, T as je, d as te, f as b, a as ne } from "../../../chunks/Slider.module.css.js";
 import { u as Be } from "../../../chunks/use-uncontrolled.js";
-function Ue(u) {
-  return "TouchEvent" in window && u instanceof window.TouchEvent ? u.touches[0].clientX : u.clientX;
+function Ue(i) {
+  return "TouchEvent" in window && i instanceof window.TouchEvent ? i.touches[0].clientX : i.clientX;
 }
 const Ke = Pe(
-  (u, { size: n, color: m, thumbSize: c, radius: y }) => ({
+  (i, { size: n, color: f, thumbSize: c, radius: y }) => ({
     root: {
       "--slider-size": ke(n, "slider-size"),
-      "--slider-color": m ? Oe(m, u) : void 0,
+      "--slider-color": f ? Oe(f, i) : void 0,
       "--slider-radius": y === void 0 ? void 0 : Le(y),
       "--slider-thumb-size": c !== void 0 ? He(c) : "calc(var(--slider-size) * 2)"
     }
@@ -25,17 +25,17 @@ const Ke = Pe(
   minRange: 10,
   step: 1,
   marks: [],
-  label: (u) => u,
+  label: (i) => i,
   labelTransitionProps: { transition: "fade", duration: 0 },
   labelAlwaysOn: !1,
   showLabelOnHover: !0,
   disabled: !1,
-  scale: (u) => u
-}, U = Se((u, n) => {
-  const m = Ve("RangeSlider", Xe, u), {
+  scale: (i) => i
+}, U = Se((i, n) => {
+  const f = Ve("RangeSlider", Xe, i), {
     classNames: c,
     styles: y,
-    value: d,
+    value: m,
     onChange: E,
     onChangeEnd: h,
     size: D,
@@ -52,11 +52,11 @@ const Ke = Pe(
     labelTransitionProps: ae,
     labelAlwaysOn: se,
     thumbFromLabel: oe,
-    thumbToLabel: ie,
+    thumbToLabel: ue,
     showLabelOnHover: L,
     thumbChildren: x,
     disabled: w,
-    unstyled: ue,
+    unstyled: ie,
     scale: H,
     inverted: le,
     className: ce,
@@ -64,9 +64,9 @@ const Ke = Pe(
     vars: fe,
     hiddenInputProps: K,
     ...me
-  } = m, he = De({
+  } = f, he = De({
     name: "Slider",
-    props: m,
+    props: f,
     classes: re,
     classNames: c,
     className: ce,
@@ -74,27 +74,27 @@ const Ke = Pe(
     style: de,
     vars: fe,
     varsResolver: Ke,
-    unstyled: ue
+    unstyled: ie
   }), { dir: O } = Ie(), [_, I] = Z(-1), [X, $] = Z(!1), [o, ge] = Be({
-    value: d,
+    value: m,
     defaultValue: R,
     finalValue: [a, s],
     onChange: E
-  }), i = V(o), C = V([]), A = V(void 0), F = [
+  }), u = V(o), C = V([]), A = V(void 0), F = [
     ee({ value: o[0], min: a, max: s }),
     ee({ value: o[1], min: a, max: s })
-  ], f = P ?? ze(l), be = (e) => {
-    ge(e), i.current = e;
+  ], d = P ?? ze(l), be = (e) => {
+    ge(e), u.current = e;
   };
   we(
     () => {
-      Array.isArray(d) && (i.current = d);
+      Array.isArray(m) && (u.current = m);
     },
-    Array.isArray(d) ? [d[0], d[1]] : [null, null]
+    Array.isArray(m) ? [m[0], m[1]] : [null, null]
   );
   const S = (e, t, j) => {
-    const r = [...i.current];
-    r[t] = e, t === 0 && (e > r[1] - (g - 1e-9) && (r[1] = Math.min(e + g, s)), e > (s - (g - 1e-9) || a) && (r[t] = i.current[t]), r[1] - e > M && (r[1] = e + M)), t === 1 && (e < r[0] + g && (r[0] = Math.max(e - g, a)), e < r[0] + g && (r[t] = i.current[t]), e - r[0] > M && (r[0] = e - M)), r[0] = b(r[0], f), r[1] = b(r[1], f), be(r), j && (h == null || h(i.current));
+    const r = [...u.current];
+    r[t] = e, t === 0 && (e > r[1] - (g - 1e-9) && (r[1] = Math.min(e + g, s)), e > (s - (g - 1e-9) || a) && (r[t] = u.current[t]), r[1] - e > M && (r[1] = e + M)), t === 1 && (e < r[0] + g && (r[0] = Math.max(e - g, a)), e < r[0] + g && (r[t] = u.current[t]), e - r[0] > M && (r[0] = e - M)), r[0] = b(r[0], d), r[1] = b(r[1], d), be(r), j && (h == null || h(u.current));
   }, ve = (e) => {
     if (!w) {
       const t = ne({
@@ -102,13 +102,13 @@ const Ke = Pe(
         min: a,
         max: s,
         step: l,
-        precision: f
+        precision: d
       });
       S(t, A.current, !1);
     }
   }, { ref: N, active: W } = Ee(
     ({ x: e }) => ve(e),
-    { onScrubEnd: () => h == null ? void 0 : h(i.current) },
+    { onScrubEnd: () => h == null ? void 0 : h(u.current) },
     O
   );
   function q(e) {
@@ -132,8 +132,8 @@ const Ke = Pe(
           const t = z();
           C.current[t].focus(), S(
             b(
-              Math.min(Math.max(i.current[t] + l, a), s),
-              f
+              Math.min(Math.max(u.current[t] + l, a), s),
+              d
             ),
             t,
             !0
@@ -147,12 +147,12 @@ const Ke = Pe(
             b(
               Math.min(
                 Math.max(
-                  O === "rtl" ? i.current[t] - l : i.current[t] + l,
+                  O === "rtl" ? u.current[t] - l : u.current[t] + l,
                   a
                 ),
                 s
               ),
-              f
+              d
             ),
             t,
             !0
@@ -164,8 +164,8 @@ const Ke = Pe(
           const t = z();
           C.current[t].focus(), S(
             b(
-              Math.min(Math.max(i.current[t] - l, a), s),
-              f
+              Math.min(Math.max(u.current[t] - l, a), s),
+              d
             ),
             t,
             !0
@@ -179,12 +179,12 @@ const Ke = Pe(
             b(
               Math.min(
                 Math.max(
-                  O === "rtl" ? i.current[t] + l : i.current[t] - l,
+                  O === "rtl" ? u.current[t] + l : u.current[t] - l,
                   a
                 ),
                 s
               ),
-              f
+              d
             ),
             t,
             !0
@@ -235,7 +235,7 @@ const Ke = Pe(
               value: H(o[0]),
               position: F[0],
               dragging: W,
-              label: typeof p == "function" ? p(b(H(o[0]), f)) : p,
+              label: typeof p == "function" ? p(b(H(o[0]), d)) : p,
               ref: (e) => {
                 C.current[0] = e;
               },
@@ -252,11 +252,11 @@ const Ke = Pe(
             te,
             {
               ...J,
-              thumbLabel: ie,
+              thumbLabel: ue,
               value: H(o[1]),
               position: F[1],
               dragging: W,
-              label: typeof p == "function" ? p(b(H(o[1]), f)) : p,
+              label: typeof p == "function" ? p(b(H(o[1]), d)) : p,
               ref: (e) => {
                 C.current[1] = e;
               },
@@ -277,8 +277,8 @@ const Ke = Pe(
 });
 U.classes = re;
 U.displayName = "@mantine/core/RangeSlider";
-const tt = Ce(function(n, m) {
-  const c = Te(n.attribute, n), { getError: y, getValue: d, setValue: E, mutateOptions: h, refreshError: D } = c, a = m || V(null), s = y(), g = n.label || "", M = n.min || 0, l = n.max || 100, P = V(null);
+const tt = Ce(function(n, f) {
+  const c = Te(n.attribute, n), { getError: y, getValue: m, setValue: E, mutateOptions: h, refreshError: D } = c, a = f || V(null), s = y(), g = n.label || "", M = n.min || 0, l = n.max || 100, P = V(null);
   Re(a, () => ({
     ...xe(c),
     focus() {
@@ -293,7 +293,7 @@ const tt = Ce(function(n, m) {
   R.onChange = (T) => {
     n.readOnly || (E(T), n.onChange && n.onChange(T));
   }, R.onBlur = D;
-  var k = d() != "" ? d() : void 0;
+  var k = m();
   return /* @__PURE__ */ v(Me, { children: !h.visible && /* @__PURE__ */ v(
     Ae,
     {

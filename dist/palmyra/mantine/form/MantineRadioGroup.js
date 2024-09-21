@@ -1,4 +1,4 @@
-import { jsx as t, Fragment as R } from "react/jsx-runtime";
+import { jsx as r, Fragment as R } from "react/jsx-runtime";
 import { forwardRef as O, useRef as f, useImperativeHandle as V } from "react";
 import { useFieldManager as x, getFieldHandler as G, FieldDecorator as M } from "@palmyralabs/rt-forms";
 import { getFieldLabel as j } from "./util.js";
@@ -17,13 +17,13 @@ const D = O(function(e, s) {
     }
   }), [l]);
   var i = l.getFieldProps();
-  i.onChange = (r, a) => {
-    e.readOnly || (g(r.currentTarget.value), e.onChange && e.onChange(r.currentTarget.value));
+  i.onChange = (t, a) => {
+    e.readOnly || (g(t.currentTarget.value), e.onChange && e.onChange(t.currentTarget.value));
   }, i.onBlur = h;
-  const v = (r) => {
-    if (r) {
-      if (r instanceof Array)
-        return r.map((d, k) => /* @__PURE__ */ t(
+  const v = (t) => {
+    if (t) {
+      if (t instanceof Array)
+        return t.map((d, k) => /* @__PURE__ */ r(
           u,
           {
             ref: o,
@@ -34,12 +34,12 @@ const D = O(function(e, s) {
             checked: n()
           }
         ));
-      if (typeof r == "object")
-        return Object.keys(r).map((a, F) => /* @__PURE__ */ t(
+      if (typeof t == "object")
+        return Object.keys(t).map((a, F) => /* @__PURE__ */ r(
           u,
           {
             ref: o,
-            label: r[a],
+            label: t[a],
             value: a,
             error: c.message,
             defaultValue: e.defaultValue,
@@ -47,9 +47,9 @@ const D = O(function(e, s) {
           }
         ));
     }
-    return /* @__PURE__ */ t("div", { children: "No options provided" });
+    return /* @__PURE__ */ r("div", { children: "No options provided" });
   };
-  return /* @__PURE__ */ t(R, { children: !b.visible && /* @__PURE__ */ t(
+  return /* @__PURE__ */ r(R, { children: !b.visible && /* @__PURE__ */ r(
     M,
     {
       label: j(e),
@@ -57,14 +57,14 @@ const D = O(function(e, s) {
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ t(
+      children: /* @__PURE__ */ r(
         u.Group,
         {
           label: e.label,
-          value: n(),
+          value: n().toString(),
           ...i,
           description: e.description,
-          children: /* @__PURE__ */ t(y, { mt: "xs", children: v(e.options) })
+          children: /* @__PURE__ */ r(y, { mt: "xs", children: v(e.options) })
         }
       )
     }

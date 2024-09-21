@@ -6,7 +6,6 @@ import { S as L } from "../../../chunks/Select.js";
 const I = M(function(e, o) {
   const n = S(e.attribute, e), { getError: i, getValue: c, setValue: d, mutateOptions: f, refreshError: m } = n, g = o || u(null), v = i(), s = u(null), C = e.variant || "default";
   var b = c();
-  //!= '' ? getValue() : null
   R(g, () => ({
     ...x(n),
     focus() {

@@ -1,4 +1,4 @@
-import { jsx as S, Fragment as I } from "react/jsx-runtime";
+import { jsx as z, Fragment as I } from "react/jsx-runtime";
 import * as g from "react";
 import { useLayoutEffect as M, useRef as C, useCallback as B, forwardRef as j, useImperativeHandle as k } from "react";
 import { useFieldManager as V, getFieldHandler as $, FieldDecorator as D } from "@palmyralabs/rt-forms";
@@ -63,8 +63,8 @@ var q = M, J = function(e) {
 function ee(n, e, r, t) {
   r === void 0 && (r = 1), t === void 0 && (t = 1 / 0), i || (i = document.createElement("textarea"), i.setAttribute("tabindex", "-1"), i.setAttribute("aria-hidden", "true"), F(i)), i.parentNode === null && document.body.appendChild(i);
   var a = n.paddingSize, s = n.borderSize, o = n.sizingStyle, d = o.boxSizing;
-  Object.keys(o).forEach(function(v) {
-    var h = v;
+  Object.keys(o).forEach(function(m) {
+    var h = m;
     i.style[h] = o[h];
   }), F(i), i.value = e;
   var u = T(i, n);
@@ -135,19 +135,19 @@ var oe = function(e) {
 }, ue = function(e) {
   N(document.fonts, "loadingdone", e);
 }, se = ["cacheMeasurements", "maxRows", "minRows", "onChange", "onHeightChange"], de = function(e, r) {
-  var t = e.cacheMeasurements, a = e.maxRows, s = e.minRows, o = e.onChange, d = o === void 0 ? W : o, u = e.onHeightChange, l = u === void 0 ? W : u, c = Z(e, se), f = c.value !== void 0, v = g.useRef(null), h = K(v, r), m = g.useRef(0), z = g.useRef(), b = function() {
-    var p = v.current, y = t && z.current ? z.current : ie(p);
+  var t = e.cacheMeasurements, a = e.maxRows, s = e.minRows, o = e.onChange, d = o === void 0 ? W : o, u = e.onHeightChange, l = u === void 0 ? W : u, c = Z(e, se), f = c.value !== void 0, m = g.useRef(null), h = K(m, r), b = g.useRef(0), v = g.useRef(), x = function() {
+    var p = m.current, y = t && v.current ? v.current : ie(p);
     if (y) {
-      z.current = y;
-      var w = ee(y, p.value || p.placeholder || "x", s, a), x = w[0], A = w[1];
-      m.current !== x && (m.current = x, p.style.setProperty("height", x + "px", "important"), l(x, {
+      v.current = y;
+      var w = ee(y, p.value || p.placeholder || "x", s, a), S = w[0], A = w[1];
+      b.current !== S && (b.current = S, p.style.setProperty("height", S + "px", "important"), l(S, {
         rowHeight: A
       }));
     }
   }, O = function(p) {
-    f || b(), d(p);
+    f || x(), d(p);
   };
-  return g.useLayoutEffect(b), oe(b), ue(b), /* @__PURE__ */ g.createElement("textarea", R({}, c, {
+  return g.useLayoutEffect(x), oe(x), ue(x), /* @__PURE__ */ g.createElement("textarea", R({}, c, {
     onChange: O,
     ref: h
   }));
@@ -158,7 +158,7 @@ const ce = {}, L = G((n, e) => {
     ce,
     n
   ), u = r && X() !== "test";
-  return /* @__PURE__ */ S(
+  return /* @__PURE__ */ z(
     _,
     {
       component: u ? le : "textarea",
@@ -175,7 +175,7 @@ const ce = {}, L = G((n, e) => {
 L.classes = _.classes;
 L.displayName = "@mantine/core/Textarea";
 const be = j(function(e, r) {
-  const t = V(e.attribute, e), { getError: a, getValue: s, setValue: o, mutateOptions: d, refreshError: u } = t, l = r || C(null), c = a(), f = C(null), v = e.variant || "default";
+  const t = V(e.attribute, e), { getError: a, getValue: s, setValue: o, mutateOptions: d, refreshError: u } = t, l = r || C(null), c = a(), f = C(null), m = e.variant || "default";
   k(l, () => ({
     ...$(t),
     focus() {
@@ -183,9 +183,11 @@ const be = j(function(e, r) {
     }
   }), [t]);
   var h = t.getFieldProps();
-  return h.onChange = (m) => {
-    e.readOnly || (o(m.target.value), e.onChange && e.onChange(m));
-  }, h.onBlur = u, /* @__PURE__ */ S(I, { children: !d.visible && /* @__PURE__ */ S(
+  h.onChange = (v) => {
+    e.readOnly || (o(v.target.value), e.onChange && e.onChange(v));
+  }, h.onBlur = u;
+  const b = s();
+  return /* @__PURE__ */ z(I, { children: !d.visible && /* @__PURE__ */ z(
     D,
     {
       label: Y(e),
@@ -193,15 +195,15 @@ const be = j(function(e, r) {
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ S(
+      children: /* @__PURE__ */ z(
         L,
         {
-          variant: v,
+          variant: m,
           label: e.label,
           ref: f,
           defaultValue: e.defaultValue,
           ...h,
-          value: s() || null,
+          value: b,
           error: c.message
         }
       )

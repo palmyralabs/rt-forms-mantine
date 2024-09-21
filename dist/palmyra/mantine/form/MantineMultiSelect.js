@@ -526,7 +526,7 @@ const ls = ft(function(t, s) {
       children: /* @__PURE__ */ r(
         ie,
         {
-          defaultValue: t.defaultValue,
+          defaultValue: t == null ? void 0 : t.defaultValue,
           data: h,
           value: i(),
           ...e,

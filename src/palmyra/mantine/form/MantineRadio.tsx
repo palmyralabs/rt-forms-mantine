@@ -41,7 +41,7 @@ const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & 
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <Radio
-                value={getValue()}
+                checked={getValue()}
                 {...fieldOptions}
                 error={error.message}
             />

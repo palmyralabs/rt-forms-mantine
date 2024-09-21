@@ -66,7 +66,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <Radio.Group
                 label={props.label}
-                value={getValue()}
+                value={getValue().toString()}
                 {...fieldOptions}
                 // withAsterisk={props.required}
                 description={props.description}>

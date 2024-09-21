@@ -1,10 +1,10 @@
-import { jsx as l, Fragment as F } from "react/jsx-runtime";
+import { jsx as n, Fragment as F } from "react/jsx-runtime";
 import { forwardRef as b, useRef as i, useImperativeHandle as v } from "react";
 import { useFieldManager as x, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
 import { getFieldLabel as T } from "./util.js";
 import { T as L } from "../../../chunks/TextInput.js";
-const y = b(function(e, r) {
-  const t = x(e.attribute, e), { getError: s, getValue: c, setValue: u, mutateOptions: d, refreshError: m } = t, f = r || i(null), g = s(), o = i(null), C = e.variant || "default";
+const w = b(function(e, r) {
+  const t = x(e.attribute, e), { getError: s, getValue: u, setValue: c, mutateOptions: d, refreshError: m } = t, f = r || i(null), g = s(), o = i(null), C = e.variant || "default";
   v(f, () => ({
     ...M(t),
     focus() {
@@ -12,11 +12,11 @@ const y = b(function(e, r) {
     }
   }), [t]);
   var a = t.getFieldProps();
-  a.onChange = (n) => {
-    e.readOnly || (u(n.target.value), e.onChange && e.onChange(n));
+  a.onChange = (l) => {
+    e.readOnly || (c(l.target.value), e.onChange && e.onChange(l));
   }, a.onBlur = m;
-  const h = c();
-  return /* @__PURE__ */ l(F, { children: !d.visible && /* @__PURE__ */ l(
+  const h = u();
+  return /* @__PURE__ */ n(F, { children: !d.visible && /* @__PURE__ */ n(
     R,
     {
       label: T(e),
@@ -24,7 +24,7 @@ const y = b(function(e, r) {
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ l(
+      children: /* @__PURE__ */ n(
         L,
         {
           label: e.label,
@@ -40,5 +40,5 @@ const y = b(function(e, r) {
   ) });
 });
 export {
-  y as MantineTextField
+  w as MantineTextField
 };

@@ -34,7 +34,6 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
         };
     }, [fieldManager]);
 
-
     var options = fieldManager.getFieldProps();
 
     options.onChange = (event: any, v: any) => {

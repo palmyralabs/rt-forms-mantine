@@ -3,7 +3,7 @@ import { forwardRef as F, useRef as l, useImperativeHandle as R } from "react";
 import { useFieldManager as b, getFieldHandler as v, FieldDecorator as O } from "@palmyralabs/rt-forms";
 import { getFieldLabel as M } from "./util.js";
 import { R as L } from "../../../chunks/Radio.js";
-const w = F(function(e, o) {
+const k = F(function(e, o) {
   const t = b(e.attribute, e), { getError: s, getValue: i, setValue: u, mutateOptions: c, refreshError: d } = t, m = o || l(null), f = s(), g = l(null);
   R(m, () => ({
     ...v(t),
@@ -29,7 +29,7 @@ const w = F(function(e, o) {
       children: /* @__PURE__ */ a(
         L,
         {
-          value: i(),
+          checked: i(),
           ...r,
           error: f.message
         }
@@ -38,5 +38,5 @@ const w = F(function(e, o) {
   ) });
 });
 export {
-  w as MantineRadio
+  k as MantineRadio
 };

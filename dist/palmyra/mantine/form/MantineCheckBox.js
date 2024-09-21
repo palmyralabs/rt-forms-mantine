@@ -1,24 +1,24 @@
 import { jsx as l, Fragment as b } from "react/jsx-runtime";
-import { forwardRef as k, useRef as o, useImperativeHandle as F } from "react";
+import { forwardRef as k, useRef as u, useImperativeHandle as F } from "react";
 import { useFieldManager as O, getFieldHandler as x, FieldDecorator as v } from "@palmyralabs/rt-forms";
 import { getFieldLabel as M } from "./util.js";
 import { C as R } from "../../../chunks/Checkbox.js";
-const V = k(function(e, c) {
-  const r = O(e.attribute, e), { getError: s, getValue: i, setValue: u, mutateOptions: d, refreshError: m } = r, f = c || o(null), h = i() == !0, n = o(null), g = s();
-  F(f, () => ({
-    ...x(r),
+const T = k(function(e, c) {
+  const a = O(e.attribute, e), { getError: s, getValue: d, setValue: i, mutateOptions: f, refreshError: m } = a, h = c || u(null), o = d() == !0, n = u(null), C = s();
+  F(h, () => ({
+    ...x(a),
     focus() {
       n.current.checked = !0, n.current.focus();
     },
-    setOptions(C) {
+    setOptions(g) {
     },
     getOptions() {
     }
-  }), [r]);
-  var a = r.getFieldProps();
-  return a.onChange = (t, C) => {
-    e.readOnly || (u(t.currentTarget.checked), e.onChange && e.onChange(t.currentTarget.checked));
-  }, a.onBlur = m, /* @__PURE__ */ l(b, { children: !d.visible && /* @__PURE__ */ l(
+  }), [a]);
+  var r = a.getFieldProps();
+  return r.onChange = (t, g) => {
+    e.readOnly || (i(t.currentTarget.checked), e.onChange && e.onChange(t.currentTarget.checked));
+  }, r.onBlur = m, /* @__PURE__ */ l(b, { children: !f.visible && /* @__PURE__ */ l(
     v,
     {
       label: M(e),
@@ -29,20 +29,23 @@ const V = k(function(e, c) {
       children: /* @__PURE__ */ l(
         R,
         {
-          ...a,
-          checked: h,
+          ...r,
+          defaultChecked: e.defaultChecked,
+          checked: o,
+          value: o,
+          defaultValue: e.defaultValue,
           disabled: e.disabled,
           readOnly: e.readOnly,
           ref: (t) => {
             n.current = t;
           },
           label: e.label,
-          error: g.message
+          error: C.message
         }
       )
     }
   ) });
 });
 export {
-  V as MantineCheckBox
+  T as MantineCheckBox
 };

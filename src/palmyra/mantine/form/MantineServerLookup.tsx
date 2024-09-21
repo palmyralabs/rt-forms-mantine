@@ -40,9 +40,14 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         }
     }
 
-    const value = getValue();
+    var value = getValue();
+
+    if (typeof (getValue()) == 'object') {
+        value = value?.[props.queryOptions.idAttribute] || value?.[props.lookupOptions.idAttribute]
+    }
     const selectedValue = sData.find(item => item.value === value?.toString()) || null;
 
+    
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
         <Autocomplete
