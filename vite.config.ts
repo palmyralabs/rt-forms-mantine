@@ -50,7 +50,10 @@ export default defineConfig({
         '@emotion/styled',
         '@tanstack', 
         '@tanstack/react-table',
-        '@tanstack/core-table'
+        '@tanstack/core-table',
+        '@mantine/core',
+        '@mantine/hooks',
+        '@mantine/dates'
       ],
       input: Object.fromEntries(
         glob.sync('src/**/*.{ts,tsx}').map(file => [

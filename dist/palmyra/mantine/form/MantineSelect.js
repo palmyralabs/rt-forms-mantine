@@ -1,15 +1,15 @@
 import { jsx as r, Fragment as V } from "react/jsx-runtime";
-import { forwardRef as M, useRef as u, useImperativeHandle as R } from "react";
-import { useFieldManager as S, getFieldHandler as x, FieldDecorator as y } from "@palmyralabs/rt-forms";
-import { getFieldLabel as D } from "./util.js";
-import { S as L } from "../../../chunks/Select.js";
+import { forwardRef as M, useRef as s, useImperativeHandle as R } from "react";
+import { useFieldManager as x, getFieldHandler as y, FieldDecorator as D } from "@palmyralabs/rt-forms";
+import { getFieldLabel as L } from "./util.js";
+import { Select as S } from "@mantine/core";
 const I = M(function(e, o) {
-  const n = S(e.attribute, e), { getError: i, getValue: c, setValue: d, mutateOptions: f, refreshError: m } = n, g = o || u(null), v = i(), s = u(null), C = e.variant || "default";
+  const n = x(e.attribute, e), { getError: i, getValue: c, setValue: d, mutateOptions: f, refreshError: m } = n, g = o || s(null), v = i(), u = s(null), C = e.variant || "default";
   var b = c();
   R(g, () => ({
-    ...x(n),
+    ...y(n),
     focus() {
-      s && s.current.focus();
+      u && u.current.focus();
     },
     setOptions(l) {
     },
@@ -32,15 +32,15 @@ const I = M(function(e, o) {
     value: e.defaultValue
   };
   return /* @__PURE__ */ r(V, { children: !f.visible && /* @__PURE__ */ r(
-    y,
+    D,
     {
-      label: D(e),
+      label: L(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ r(
-        L,
+        S,
         {
           defaultValue: F.value,
           data: h,

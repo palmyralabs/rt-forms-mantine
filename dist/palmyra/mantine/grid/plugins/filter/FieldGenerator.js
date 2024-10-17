@@ -17,7 +17,8 @@ import { MantineTextArea as F } from "../../../form/MantineTextArea.js";
 import { MantineTextField as g } from "../../../form/MantineTextField.js";
 import "react/jsx-runtime";
 import "react";
-const q = (r, o) => {
+import "@mantine/core";
+const z = (r, o) => {
   const { type: i } = r, t = { fieldDef: r, title: o }, { getReactField: e, getInvalidField: n } = a();
   switch (i) {
     case "string":
@@ -50,5 +51,5 @@ const q = (r, o) => {
   }
 };
 export {
-  q as default
+  z as default
 };

@@ -2,22 +2,22 @@ import { jsx as l, Fragment as b } from "react/jsx-runtime";
 import { forwardRef as k, useRef as u, useImperativeHandle as F } from "react";
 import { useFieldManager as O, getFieldHandler as x, FieldDecorator as v } from "@palmyralabs/rt-forms";
 import { getFieldLabel as M } from "./util.js";
-import { C as R } from "../../../chunks/Checkbox.js";
+import { Checkbox as R } from "@mantine/core";
 const T = k(function(e, c) {
-  const a = O(e.attribute, e), { getError: s, getValue: d, setValue: i, mutateOptions: f, refreshError: m } = a, h = c || u(null), o = d() == !0, n = u(null), C = s();
+  const n = O(e.attribute, e), { getError: d, getValue: i, setValue: s, mutateOptions: f, refreshError: m } = n, h = c || u(null), o = i() == !0, a = u(null), C = d();
   F(h, () => ({
-    ...x(a),
+    ...x(n),
     focus() {
-      n.current.checked = !0, n.current.focus();
+      a.current.checked = !0, a.current.focus();
     },
     setOptions(g) {
     },
     getOptions() {
     }
-  }), [a]);
-  var r = a.getFieldProps();
+  }), [n]);
+  var r = n.getFieldProps();
   return r.onChange = (t, g) => {
-    e.readOnly || (i(t.currentTarget.checked), e.onChange && e.onChange(t.currentTarget.checked));
+    e.readOnly || (s(t.currentTarget.checked), e.onChange && e.onChange(t.currentTarget.checked));
   }, r.onBlur = m, /* @__PURE__ */ l(b, { children: !f.visible && /* @__PURE__ */ l(
     v,
     {
@@ -37,7 +37,7 @@ const T = k(function(e, c) {
           disabled: e.disabled,
           readOnly: e.readOnly,
           ref: (t) => {
-            n.current = t;
+            a.current = t;
           },
           label: e.label,
           error: C.message

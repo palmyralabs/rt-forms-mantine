@@ -5,7 +5,7 @@ import "dayjs";
 import { useRef as R } from "react";
 import { a as x, T as j } from "../../../../../chunks/index.js";
 import D from "./FieldGenerator.js";
-import { B as u } from "../../../../../chunks/Button.js";
+import { Button as u } from "@mantine/core";
 import '../../../../../assets/FilterForm.css';const d = (e, r, s) => {
   var n = e.indexOf(".");
   if (n < 0) {
@@ -14,7 +14,7 @@ import '../../../../../assets/FilterForm.css';const d = (e, r, s) => {
   }
   var o = e.substring(0, n), c = e.substring(n + 1);
   return (r[o] === void 0 || r[o] == null) && (r[o] = {}), d(c, r[o], s);
-}, G = (e) => {
+}, w = (e) => {
   const r = {}, s = R(), n = e.defaultFilter || {}, o = v(e.columns), c = () => o.map((t, l) => D(t, t.label)), p = e.onClose || ((t) => {
   });
   Object.keys(n || {}).map((t) => {
@@ -41,5 +41,5 @@ import '../../../../../assets/FilterForm.css';const d = (e, r, s) => {
   ] });
 };
 export {
-  G as FilterForm
+  w as FilterForm
 };

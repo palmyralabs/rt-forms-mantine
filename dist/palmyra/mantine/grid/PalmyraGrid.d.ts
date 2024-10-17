@@ -1,5 +1,4 @@
 import { IPalmyraGrid, PalmyraGridOptions } from '@palmyralabs/rt-forms';
-
 /**
  *
  * Emitters

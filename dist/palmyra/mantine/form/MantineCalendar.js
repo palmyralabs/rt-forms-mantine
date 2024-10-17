@@ -2,7 +2,7 @@ import { jsx as o, Fragment as h } from "react/jsx-runtime";
 import { forwardRef as v, useRef as i, useImperativeHandle as b } from "react";
 import { getFieldLabel as D } from "./util.js";
 import { useFieldManager as M, getFieldHandler as y, FieldDecorator as V } from "@palmyralabs/rt-forms";
-import { C as w } from "../../../chunks/Calendar.js";
+import { Calendar as w } from "@mantine/dates";
 const E = v(function(e, s) {
   const u = e.displayPattern || e.serverPattern || "YYYY-MM-DD", t = M(e.attribute, e), { getError: c, getValue: a, setValue: d, mutateOptions: m, refreshError: f } = t, C = s || i(null), g = c(), F = i(null);
   b(C, () => ({

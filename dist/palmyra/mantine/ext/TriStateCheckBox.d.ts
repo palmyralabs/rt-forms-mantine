@@ -1,5 +1,4 @@
 import { CheckboxProps } from '@mantine/core';
-
 interface TriStateCheckBoxProps extends CheckboxProps {
     checked?: any;
     unChecked?: any;

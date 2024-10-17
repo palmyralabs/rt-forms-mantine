@@ -2,7 +2,7 @@ import { jsx as n, Fragment as o } from "react/jsx-runtime";
 import "../../../../chunks/NoopConverter.js";
 import "dayjs";
 import { o as r } from "../../../../chunks/topic.js";
-import { B as s } from "../../../../chunks/Button.js";
+import { Button as s } from "@mantine/core";
 const p = (t, e) => {
   r.publish(t + "/" + e, {});
 }, b = (t) => {

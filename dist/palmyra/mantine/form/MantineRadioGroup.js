@@ -1,35 +1,34 @@
-import { jsx as r, Fragment as R } from "react/jsx-runtime";
-import { forwardRef as O, useRef as f, useImperativeHandle as V } from "react";
+import { jsx as r, Fragment as O } from "react/jsx-runtime";
+import { forwardRef as R, useRef as f, useImperativeHandle as V } from "react";
 import { useFieldManager as x, getFieldHandler as G, FieldDecorator as M } from "@palmyralabs/rt-forms";
 import { getFieldLabel as j } from "./util.js";
-import { R as u } from "../../../chunks/Radio.js";
-import { G as y } from "../../../chunks/Group.js";
-const D = O(function(e, s) {
-  const l = x(e.attribute, e), { getError: m, getValue: n, setValue: g, mutateOptions: b, refreshError: h } = l, C = s || f(null), c = m(), o = f(null);
+import { Radio as u, Group as y } from "@mantine/core";
+const B = R(function(e, c) {
+  const l = x(e.attribute, e), { getError: m, getValue: n, setValue: g, mutateOptions: b, refreshError: h } = l, C = c || f(null), s = m(), i = f(null);
   V(C, () => ({
     ...G(l),
     focus() {
-      o.current.focus();
+      i.current.focus();
     },
     setOptions(a) {
     },
     getOptions() {
     }
   }), [l]);
-  var i = l.getFieldProps();
-  i.onChange = (t, a) => {
+  var o = l.getFieldProps();
+  o.onChange = (t, a) => {
     e.readOnly || (g(t.currentTarget.value), e.onChange && e.onChange(t.currentTarget.value));
-  }, i.onBlur = h;
+  }, o.onBlur = h;
   const v = (t) => {
     if (t) {
       if (t instanceof Array)
         return t.map((d, k) => /* @__PURE__ */ r(
           u,
           {
-            ref: o,
+            ref: i,
             label: d.label,
             value: d.value,
-            error: c.message,
+            error: s.message,
             defaultValue: e.defaultValue,
             checked: n()
           }
@@ -38,10 +37,10 @@ const D = O(function(e, s) {
         return Object.keys(t).map((a, F) => /* @__PURE__ */ r(
           u,
           {
-            ref: o,
+            ref: i,
             label: t[a],
             value: a,
-            error: c.message,
+            error: s.message,
             defaultValue: e.defaultValue,
             checked: n()
           }
@@ -49,7 +48,7 @@ const D = O(function(e, s) {
     }
     return /* @__PURE__ */ r("div", { children: "No options provided" });
   };
-  return /* @__PURE__ */ r(R, { children: !b.visible && /* @__PURE__ */ r(
+  return /* @__PURE__ */ r(O, { children: !b.visible && /* @__PURE__ */ r(
     M,
     {
       label: j(e),
@@ -62,7 +61,7 @@ const D = O(function(e, s) {
         {
           label: e.label,
           value: n().toString(),
-          ...i,
+          ...o,
           description: e.description,
           children: /* @__PURE__ */ r(y, { mt: "xs", children: v(e.options) })
         }
@@ -71,5 +70,5 @@ const D = O(function(e, s) {
   ) });
 });
 export {
-  D as MantineRadioGroup
+  B as MantineRadioGroup
 };

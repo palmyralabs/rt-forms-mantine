@@ -1,5 +1,4 @@
 import { FieldOptions, IServerLookupOptions } from '@palmyralabs/rt-forms';
-
 interface IFieldProps {
     size?: 'small' | 'medium' | 'large';
 }

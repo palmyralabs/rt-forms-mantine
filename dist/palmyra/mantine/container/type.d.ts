@@ -1,5 +1,4 @@
 import { ITitle } from '@palmyralabs/rt-forms';
-
 interface Parent {
     children?: any;
 }

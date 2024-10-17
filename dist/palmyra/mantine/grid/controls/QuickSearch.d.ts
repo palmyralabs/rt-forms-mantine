@@ -1,7 +1,6 @@
 import { IPluginBtnControl } from './types';
 import { DataGridPluginOptions } from '@palmyralabs/rt-forms';
 import { TextInput } from '@mantine/core';
-
 interface IQuickSearchOptions extends Pick<DataGridPluginOptions, 'queryRef' | 'columns'>, IPluginBtnControl {
     width: string;
 }

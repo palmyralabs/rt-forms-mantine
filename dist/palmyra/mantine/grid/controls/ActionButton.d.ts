@@ -1,7 +1,6 @@
 import { IPluginBtnControl } from './types';
 import { DataGridPluginOptions } from '@palmyralabs/rt-forms';
 import { ButtonProps } from '@mantine/core';
-
 interface ActionButtonProps extends Omit<ButtonProps, 'onClick'>, IPluginBtnControl, Pick<DataGridPluginOptions, 'topic'> {
     label: string;
     name: string;
