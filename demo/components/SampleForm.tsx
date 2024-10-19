@@ -17,6 +17,7 @@ import { MantineDateInput } from "../../src/palmyra/mantine/form/MantineDateInpu
 import { MantineDateTimePicker } from "../../src/palmyra/mantine/form/MantineDateTimePicker";
 import { MantineTriStateCheckBox } from "../../src/palmyra/mantine/form/MantineTriStateCheckBox";
 import { MantineColorInput } from "../../src/palmyra/mantine/form/MantineColorInput";
+import { MantineTimeInput } from "../../src/palmyra/mantine/form/MantineTimeInput";
 // import { MantineJsonInput } from "../../src/palmyra/mantine/form/MantineJsonInput";
 
 const SampleForm = () => {
@@ -45,10 +46,18 @@ const SampleForm = () => {
         <><h1>Edit</h1>
             <PalmyraEditForm id="1" endPoint={endPoint}
                 storeFactory={storeFactory} ref={formRef}>
-                {/* <MantineTextField attribute="namea" defaultValue={"11"}/>
-                <MantineColorInput attribute="color" /> */}
+                <MantineDatePickerInput attribute='dates' label={"Date Range"}
+                    valueFormat='DD-MMM-YYYY' type="range" />
+                <MantineDatePickerInput attribute='date' label={"Date"}
+                    valueFormat='DD-MM-YYYY' />
+                <MantineTimeInput attribute='time' label={"Time"} />
+                {/* <MantineTimeInput attribute='times' label={"Time Range"} type="range"/> */}
+
+
+                <MantineTextField attribute="name" />
+                <MantineColorInput attribute="color" />
                 {/* <MantineJsonInput attribute="json" /> */}
-                {/* <MantineTextArea attribute="area" />
+                <MantineTextArea attribute="area" />
                 <MantineSwitch attribute="switch" options={{ True: true, False: false }} />
 
                 <MantineNumberField attribute="population" />
@@ -65,44 +74,28 @@ const SampleForm = () => {
                 />
 
                 <MantineServerLookup
-                    attribute="serverLookus"
-                    title="Select Country"
-                    defaultValue="Germany"
-                    lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
-                    queryOptions={{ endPoint: "/serverlookupData.json", labelAttribute: 'name', idAttribute: 'id' }}
-                />
-
-                <MantineServerLookup
                     attribute="serverLookup"
                     title="Select Country"
                     lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
                     queryOptions={{ endPoint: "/serverlookupData.json", labelAttribute: 'name', idAttribute: 'id' }}
                 />
-                <MantineServerLookup
-                    attribute="server"
-                    title="Select Country"
-                    lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
-                    queryOptions={{ endPoint: "/serverlookupData.json", labelAttribute: 'name', idAttribute: 'id' }}
-                />
+
                 <MantineRating attribute="rating" fractions={2} />
                 <MantineRangeSlider attribute="rangeSlider" label={"Range Slider"} />
                 <MantineRadioGroup attribute="radio" options={{ 1: 'true', 0: 'false' }} />
                 <MantineRadio attribute="radios" />
-                <MantinePasswordField attribute="password" /> */}
+                <MantinePasswordField attribute="password" />
                 {/* <MantineDateTimePicker attribute='dateTime' label={"DateTime"}
                     valueFormat='DD-MM-YYYY hh:mm:ss'
                 /> */}
-                <MantineDatePickerInput attribute='date' label={"Date"}
-                    valueFormat='DD-MM-YYYY'
-                />
 
                 <MantineDateTimePicker attribute='dateTime' valueFormat='DD-MM-YYYY hh:mm:ss'
                     defaultValue={new Date("2022-01-02")} label={"Date Time Input"}
                 />
 
-                <MantineDateInput attribute='date' label={"Date Input"}
+                {/* <MantineDateInput attribute='date' label={"Date Input"}
                     valueFormat='DD-MM-YYYY'
-                />
+                /> */}
 
                 <MantineServerLookup
                     attribute="serverLookup"

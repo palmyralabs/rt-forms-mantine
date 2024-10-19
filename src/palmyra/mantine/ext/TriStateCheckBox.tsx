@@ -21,8 +21,6 @@ const TriStateCheckBox = (props: TriStateCheckBoxProps) => {
     const UnCheckedIcon = props.unChecked || RxCross2
     // const IndeterminateIcon = props.indeterminate || null
 
-    console.log("t", triStateValue, "v", value, "p", props.value)
-
     const handleChange = () => {
         setValue(v => {
             switch (v) {

@@ -2,25 +2,12 @@ import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react
 import { getFieldLabel } from './util';
 import { IDatePickerDefinition } from './types';
 import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
-import { DateInputProps, DateInput } from '@mantine/dates';
-import dayjs from "dayjs";
-
-const MantineDateInput = forwardRef(function MantineDateInput(
-    props: Omit<IDatePickerDefinition, 'displayPattern'> & DateInputProps,
+import { TimeInput, TimeInputProps } from '@mantine/dates';
+const MantineTimeInput = forwardRef(function MantineTimeInput(
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & TimeInputProps,
     ref: MutableRefObject<IDateField>) {
-    const displayFormat: string = props.valueFormat || props.serverPattern || "YYYY-MM-DD";
 
-    const parse = (rawData: any) => {
-        if (rawData)
-            return dayjs(rawData, serverPattern)
-        return undefined;
-    };
-    const format = (v: any) => {
-        if (v && v.isValid && v.isValid())
-            return v.format(serverPattern)
-    };
-
-    const fieldManager = useFieldManager(props.attribute, props, { format, parse });
+    const fieldManager = useFieldManager(props.attribute, props);
 
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
@@ -44,11 +31,11 @@ const MantineDateInput = forwardRef(function MantineDateInput(
 
     var { serverPattern, ...options } = fieldManager.getFieldProps();
 
-    options.onChange = (d: any) => {
+    options.onChange = (e: any) => {
         if (!props.readOnly) {
-            setValue(d);
+            setValue(e.target.value);
             if (props.onChange)
-                props.onChange(d);
+                props.onChange(e);
         }
     }
     options.onBlur = refreshError;
@@ -57,11 +44,10 @@ const MantineDateInput = forwardRef(function MantineDateInput(
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
-            <DateInput
+            <TimeInput
                 {...options}
                 value={value}
                 type={props.type}
-                valueFormat={displayFormat}
                 error={error.message}
             />
         </FieldDecorator>}
@@ -69,4 +55,4 @@ const MantineDateInput = forwardRef(function MantineDateInput(
     );
 });
 
-export { MantineDateInput };
+export { MantineTimeInput };
