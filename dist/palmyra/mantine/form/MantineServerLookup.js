@@ -1,56 +1,65 @@
-import { jsx as u, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as L, useRef as d, useImperativeHandle as S } from "react";
-import { useServerLookupFieldManager as k, getFieldHandler as v, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { getFieldLabel as R } from "./util.js";
-import { Autocomplete as q } from "@mantine/core";
-const V = L(function(t, s) {
-  const m = d(null), o = k(t.attribute, t), { getError: b, getValue: c, setValue: f, options: g, getFieldProps: C } = o, O = b(), F = s || d(null);
-  S(F, () => ({
-    ...v(o),
+import { jsx as n, Fragment as O } from "react/jsx-runtime";
+import { forwardRef as k, useRef as s, useImperativeHandle as y } from "react";
+import { useServerLookupFieldManager as S, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
+import { getFieldLabel as V } from "./util.js";
+import { delayGenerator as w } from "@palmyralabs/ts-utils";
+import { ServerLookup as x } from "./internal/ServerLookup.js";
+const c = w(100), P = k(function(e, r) {
+  const u = s(null), t = S(e.attribute, e), {
+    getError: i,
+    getValue: d,
+    setValue: m,
+    options: f,
+    getFieldProps: g,
+    setSearchText: C,
+    refreshOptions: b,
+    getOptionValue: a,
+    getOptionKey: h
+  } = t, F = i(), p = r || s(null), l = d(), v = l ? a(l) : "";
+  y(p, () => ({
+    ...M(t),
     focus() {
-      m.current.focus();
+      u.current.focus();
     }
-  }), [o]);
-  const r = g.map((n, l) => {
-    var i = {
-      label: n[t.queryOptions.labelAttribute] || n[t.lookupOptions.labelAttribute],
-      value: n[t.queryOptions.idAttribute].toString() || n[t.lookupOptions.idAttribute].toString()
-    };
-    return i;
-  }), A = {
-    onChange: (n) => {
-      const l = r.find((i) => i.label === n) || null;
-      f(parseInt(l == null ? void 0 : l.value)), t.onChange && t.onChange(n);
+  }), [t]);
+  const L = {
+    onValueChange: (o) => {
+      m(o);
+    },
+    onChange: (o) => {
+      c(C, o);
+    },
+    onDropdownOpen: () => {
+      c(b);
+    },
+    onDropdownClose: () => {
     }
   };
-  var e = c();
-  typeof c() == "object" && (e = (e == null ? void 0 : e[t.queryOptions.idAttribute]) || (e == null ? void 0 : e[t.lookupOptions.idAttribute]));
-  const a = r.find((n) => n.value === (e == null ? void 0 : e.toString())) || null;
-  return /* @__PURE__ */ u(h, { children: /* @__PURE__ */ u(
-    M,
+  return /* @__PURE__ */ n(O, { children: /* @__PURE__ */ n(
+    R,
     {
-      label: R(t),
-      customContainerClass: t.customContainerClass,
-      colspan: t.colspan,
-      customFieldClass: t.customFieldClass,
-      customLabelClass: t.customLabelClass,
-      children: /* @__PURE__ */ u(
-        q,
+      label: V(e),
+      customContainerClass: e.customContainerClass,
+      colspan: e.colspan,
+      customFieldClass: e.customFieldClass,
+      customLabelClass: e.customLabelClass,
+      children: /* @__PURE__ */ n(
+        x,
         {
-          readOnly: t.readOnly,
-          renderOption: t.renderOption,
-          ...C(),
-          value: a == null ? void 0 : a.label,
-          data: r,
-          label: t.label,
-          defaultValue: t.defaultValue,
-          error: O.message,
-          ...A
+          readOnly: e.readOnly,
+          ...g(),
+          value: v,
+          getOptionKey: h,
+          getOptionValue: a,
+          data: f,
+          label: e.label,
+          error: F.message,
+          ...L
         }
       )
     }
   ) });
 });
 export {
-  V as MantineServerLookup
+  P as MantineServerLookup
 };

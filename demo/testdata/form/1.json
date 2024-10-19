@@ -1,22 +1,41 @@
 {
-    "result" : {
+    "result": {
         "id": 1,
         "name": "Tenkasi",
+        "color": "#f7b2b2",
+        "area": "Tenkasi sdfsadfsd",
         "population": 1440795,
         "select": "3",
-        "multiSelect": ["3", "4"],
+        "multiSelect": [
+            "3",
+            "4"
+        ],
         "date": "2023-04-18",
-        "dates": ["2023-04-12", "2023-07-16"],
+        "dates": [
+            "2023-04-12",
+            "2023-07-16"
+        ],
         "dateTime": "2023-04-23 12:12:12",
         "serverLookup": {
             "id": 2,
-            "name": "India"
+            "name": "England"
         },
+        "server": 2,
+        "radio": 0,
+        "radios": true,
         "rating": 2.5,
         "slider": 80,
-        "rangeSlider": [50, 90],
-        "check": 1,
-        "checkboxGroup": [1,2]
-    
+        "rangeSlider": [
+            50,
+            90
+        ],
+        "check": true,
+        "checkboxGroup": [
+            1,
+            2
+        ],
+        "switch": true,
+        "password": "new!12",
+        "json": {"id": 2}
     }
 }
