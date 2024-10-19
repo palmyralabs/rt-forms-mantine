@@ -1,53 +1,53 @@
-import { jsx as l, Fragment as F } from "react/jsx-runtime";
-import { forwardRef as O, useRef as o, useImperativeHandle as M } from "react";
-import { useFieldManager as R, getFieldHandler as V, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { getFieldLabel as y } from "./util.js";
-import { MultiSelect as L } from "@mantine/core";
-const w = O(function(e, r) {
-  const a = R(e.attribute, e), { getError: s, getValue: u, setValue: c, mutateOptions: d, refreshError: f } = a, m = r || o(null), g = s(), i = o(null), C = e.variant || "default";
-  M(m, () => ({
-    ...V(a),
+import { jsx as l, Fragment as M } from "react/jsx-runtime";
+import { forwardRef as R, useRef as o, useImperativeHandle as V } from "react";
+import { useFieldManager as x, getFieldHandler as y, FieldDecorator as L } from "@palmyralabs/rt-forms";
+import { getFieldLabel as S } from "./util.js";
+import { MultiSelect as j } from "@mantine/core";
+const k = R(function(e, r) {
+  const s = (t) => t || [], u = (t) => t, a = x(e.attribute, e, { format: u, parse: s }), { getError: c, getValue: d, setValue: f, mutateOptions: m, refreshError: g } = a, C = r || o(null), b = c(), i = o(null), h = e.variant || "default";
+  V(C, () => ({
+    ...y(a),
     focus() {
       i && i.current.focus();
     },
-    setOptions(h) {
+    setOptions(F) {
     },
     getOptions() {
     }
   }), [a]);
-  var t = a.getFieldProps();
-  e.readOnly && (t.inputProps = { readOnly: !0 }), t.onChange = (n) => {
-    e.readOnly || (c(n), e.onChange && e.onChange(n));
-  }, t.onBlur = f;
-  const b = Object.keys(t.options).map((n, h) => {
-    var v = {
-      label: t.options[n],
-      value: n
+  var n = a.getFieldProps();
+  e.readOnly && (n.inputProps = { readOnly: !0 }), n.onChange = (t) => {
+    e.readOnly || (f(t), e.onChange && e.onChange(t));
+  }, n.onBlur = g;
+  const v = Object.keys(n.options).map((t, F) => {
+    var O = {
+      label: n.options[t],
+      value: t
     };
-    return v;
+    return O;
   });
-  return /* @__PURE__ */ l(F, { children: !d.visible && /* @__PURE__ */ l(
-    x,
+  return /* @__PURE__ */ l(M, { children: !m.visible && /* @__PURE__ */ l(
+    L,
     {
-      label: y(e),
+      label: S(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ l(
-        L,
+        j,
         {
           defaultValue: e == null ? void 0 : e.defaultValue,
-          data: b,
-          value: u(),
-          ...t,
-          variant: C,
-          error: g.message
+          data: v,
+          value: d(),
+          ...n,
+          variant: h,
+          error: b.message
         }
       )
     }
   ) });
 });
 export {
-  w as MantineMultiSelect
+  k as MantineMultiSelect
 };

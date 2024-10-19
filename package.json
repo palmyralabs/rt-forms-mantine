@@ -21,6 +21,7 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "test": "tsc --p ./test.tsconfig.json && vitest --root test/", 
+    "demoBuild": "tsc --p ./demo.tsconfig.json",
     "testScript": "vitest --root test/"
   },
   "devDependencies": {

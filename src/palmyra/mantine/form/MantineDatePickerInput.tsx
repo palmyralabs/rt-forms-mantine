@@ -4,10 +4,12 @@ import { IDatePickerDefinition } from './types';
 import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { DatePickerInput, DatePickerInputProps } from '@mantine/dates';
 
-const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(props: IDatePickerDefinition & DatePickerInputProps,
+
+const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & DatePickerInputProps,
     ref: MutableRefObject<IDateField>) {
     // const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
-    const displayFormat: string = props.displayPattern || props.serverPattern || "YYYY-MM-DD";
+    const displayFormat: string = props.serverPattern || "YYYY-MM-DD";
 
     const fieldManager = useFieldManager(props.attribute, props);
 
@@ -30,7 +32,7 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(props:
         };
     }, [fieldManager]);
 
-    var options = fieldManager.getFieldProps();
+    var {serverPattern, ...options} = fieldManager.getFieldProps();
 
     options.onChange = (d: any) => {
         if (!props.readOnly) {

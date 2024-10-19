@@ -5,7 +5,17 @@ import { ISelectDefinition } from './types';
 import { MultiSelect, MultiSelectProps } from '@mantine/core';
 
 const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelectDefinition & MultiSelectProps, ref: MutableRefObject<ISelectField>) {
-    const fieldManager = useFieldManager(props.attribute, props);
+    
+    const parse = (rawData: any) => {
+        if (rawData)
+            return rawData;
+        return [];
+    };
+    const format = (v: any) => {
+        return v;
+    };
+    
+    const fieldManager = useFieldManager(props.attribute, props, {format, parse});
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISelectField>(null);
     const error: IFormFieldError = getError();

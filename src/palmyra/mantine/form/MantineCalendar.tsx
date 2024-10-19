@@ -4,10 +4,11 @@ import { IDatePickerDefinition } from './types';
 import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { Calendar, CalendarProps } from '@mantine/dates';
 
-const MantineCalendar = forwardRef(function MantineCalendar(props: IDatePickerDefinition & CalendarProps,
+const MantineCalendar = forwardRef(function MantineCalendar(
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & CalendarProps,
     ref: MutableRefObject<IDateField>) {
     // const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
-    const displayFormat: string = props.displayPattern || props.serverPattern || "YYYY-MM-DD";
+    // const displayFormat: string = props.valueFormat || props.serverPattern || "YYYY-MM-DD";
 
     const fieldManager = useFieldManager(props.attribute, props);
 
@@ -63,7 +64,6 @@ const MantineCalendar = forwardRef(function MantineCalendar(props: IDatePickerDe
                 defaultValue={props.defaultValue}
                 {...options}
                 value={value}
-                valueFormat={displayFormat}
                 error={error.message}
             />
         </FieldDecorator>}

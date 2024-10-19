@@ -1,45 +1,36 @@
-import { jsxs as m, jsx as i } from "react/jsx-runtime";
-import { convertToField as v, PalmyraForm as C, FieldGroupContainer as g } from "@palmyralabs/rt-forms";
-import "../../../../../chunks/NoopConverter.js";
-import "dayjs";
-import { useRef as R } from "react";
-import { a as x, T as j } from "../../../../../chunks/index.js";
-import D from "./FieldGenerator.js";
-import { Button as u } from "@mantine/core";
-import '../../../../../assets/FilterForm.css';const d = (e, r, s) => {
-  var n = e.indexOf(".");
-  if (n < 0) {
-    r[e] = s;
-    return;
-  }
-  var o = e.substring(0, n), c = e.substring(n + 1);
-  return (r[o] === void 0 || r[o] == null) && (r[o] = {}), d(c, r[o], s);
-}, w = (e) => {
-  const r = {}, s = R(), n = e.defaultFilter || {}, o = v(e.columns), c = () => o.map((t, l) => D(t, t.label)), p = e.onClose || ((t) => {
+import { jsxs as a, jsx as r } from "react/jsx-runtime";
+import { convertToField as h, PalmyraForm as C, FieldGroupContainer as R } from "@palmyralabs/rt-forms";
+import { setValueByKey as g } from "@palmyralabs/ts-utils";
+import { useRef as j } from "react";
+import { a as x, T as D } from "../../../../../chunks/index.js";
+import T from "./FieldGenerator.js";
+import { Button as m } from "@mantine/core";
+import '../../../../../assets/FilterForm.css';const G = (t) => {
+  const s = {}, l = j(), c = t.defaultFilter || {}, f = h(t.columns), u = () => f.map((e, o) => T(e, e.label)), d = t.onClose || ((e) => {
   });
-  Object.keys(n || {}).map((t) => {
-    const l = n[t];
-    d(t, r, l);
+  Object.keys(c || {}).map((e) => {
+    const o = c[e];
+    g(e, s, o);
   });
-  const a = (t) => {
-    e.queryRef.current ? (e.queryRef.current.setFilter(t), p(t)) : console.warn("Query reference not found");
+  const n = (e) => {
+    t.queryRef.current ? (t.queryRef.current.setFilter(e), d(e)) : console.warn("Query reference not found");
+  }, p = () => {
+    n({});
   }, F = () => {
-    a({});
-  }, b = () => {
-    const t = s.current.getData();
-    var l = {};
-    Object.entries(t).map(([y, f]) => {
-      f && f != "" && (l[y] = f);
-    }), a && a(l);
-  }, h = e.column || 2;
-  return /* @__PURE__ */ m("div", { children: [
-    /* @__PURE__ */ i(C, { formData: r, ref: s, children: /* @__PURE__ */ i(g, { columns: h, children: c() }) }),
-    /* @__PURE__ */ m("div", { className: "py-filter-button-container", children: [
-      /* @__PURE__ */ i(u, { className: "py-reset-button", onClick: F, leftSection: /* @__PURE__ */ i(x, { size: 14 }), children: "Reset" }),
-      /* @__PURE__ */ i(u, { className: "py-filter-button", onClick: b, leftSection: /* @__PURE__ */ i(j, { size: 14 }), children: "Filter" })
+    const e = l.current.getData();
+    var o = {};
+    Object.entries(e).map(([b, i]) => {
+      i && i != "" && (o[b] = i);
+    }), n && n(o);
+  }, y = t.column || 2;
+  return /* @__PURE__ */ a("div", { children: [
+    /* @__PURE__ */ r(C, { formData: s, ref: l, children: /* @__PURE__ */ r(R, { columns: y, children: u() }) }),
+    /* @__PURE__ */ a("div", { className: "py-filter-button-container", children: [
+      /* @__PURE__ */ r(m, { className: "py-reset-button", onClick: p, leftSection: /* @__PURE__ */ r(x, { size: 14 }), children: "Reset" }),
+      /* @__PURE__ */ r(m, { className: "py-filter-button", onClick: F, leftSection: /* @__PURE__ */ r(D, { size: 14 }), children: "Filter" })
     ] })
   ] });
 };
 export {
-  w as FilterForm
+  G as FilterForm
 };

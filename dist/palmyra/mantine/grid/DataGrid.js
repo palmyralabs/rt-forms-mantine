@@ -1,10 +1,8 @@
 import { jsx as a, Fragment as c } from "react/jsx-runtime";
 import { forwardRef as f, useRef as m } from "react";
 import { ApiDataTable as h } from "./base/ApiDataTable.js";
-import "../../../chunks/NoopConverter.js";
-import "dayjs";
-import { o as D } from "../../../chunks/topic.js";
-const R = f(function(r, e) {
+import { topic as D } from "@palmyralabs/ts-utils";
+const y = f(function(r, e) {
   const n = e || m();
   return /* @__PURE__ */ a(c, { children: /* @__PURE__ */ a(h, { ...r, onDataChange: (t, i) => {
     if (r.onDataChange)
@@ -22,5 +20,5 @@ const R = f(function(r, e) {
   }, ref: n }) });
 });
 export {
-  R as DataGrid
+  y as DataGrid
 };
