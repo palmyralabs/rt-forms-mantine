@@ -5,17 +5,17 @@ import { getFieldLabel as j } from "./util.js";
 import B from "../options/OptionsParser.js";
 import { Switch as D } from "@mantine/core";
 const N = y(function(e, i) {
-  const l = x(e.attribute, e), { getError: C, getValue: c, setValue: b, mutateOptions: O, refreshError: V } = l, F = i || g(null), v = C(), a = L(
+  const a = x(e.attribute, e), { getError: C, getValue: r, setValue: b, mutateOptions: O, refreshError: V } = a, F = i || g(null), v = C(), c = L(
     () => B(e.options, e.label),
     [e.options, e.label]
   ), d = (t, u) => {
-    var m = a.checked.value;
+    var m = c.checked.value;
     return t != null && t != null ? m == t : m == u;
-  }, [n, f] = R(d(c(), e.defaultValue)), o = g(null);
+  }, [n, f] = R(d(r(), e.defaultValue)), o = g(null);
   k(() => {
-    f(d(c(), e.defaultValue));
-  }, [c()]), E(F, () => ({
-    ...H(l),
+    f(d(r(), e.defaultValue));
+  }, [r()]), E(F, () => ({
+    ...H(a),
     focus() {
       o.current.checked = !0, o.current.focus();
     },
@@ -23,24 +23,24 @@ const N = y(function(e, i) {
     },
     setOptions(u) {
     }
-  }), [l]);
+  }), [a]);
   const M = () => {
     f(!n);
   };
   k(() => {
-    r.onChange = () => h();
+    l.onChange = () => h();
   }, [n]);
   const h = () => {
     var t = n ? "checked" : "unchecked";
-    return console.log(a[t].title, t), a[t].title;
+    return c[t].title;
   }, S = () => {
     var t = n ? "checked" : "unchecked";
-    return a[t].value || null;
+    return c[t].value || null;
   };
-  var r = l.getFieldProps();
-  return r.onChange = (t, u) => {
+  var l = a.getFieldProps();
+  return l.onChange = (t, u) => {
     e.readOnly || (b(t.target.checked), e.onChange && e.onChange(t.target.checked));
-  }, r.onBlur = V, /* @__PURE__ */ s(w, { children: !O.visible && /* @__PURE__ */ s(
+  }, l.onBlur = V, /* @__PURE__ */ s(w, { children: !O.visible && /* @__PURE__ */ s(
     I,
     {
       label: j(e),
@@ -61,7 +61,7 @@ const N = y(function(e, i) {
           ref: (t) => {
             o.current = t;
           },
-          ...r
+          ...l
         }
       )
     }

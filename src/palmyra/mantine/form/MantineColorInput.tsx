@@ -24,11 +24,11 @@ const MantineColorInput = forwardRef(function MantineColorInput(props: ITextFiel
 
     var options = fieldManager.getFieldProps();
 
-    options.onChange = (event: any) => {
+    options.onChange = (v: any) => {
         if (!props.readOnly) {
-            setValue(event);
+            setValue(v);
             if (props.onChange)
-                props.onChange(event);
+                props.onChange(v);
         }
     }
     options.onBlur = refreshError;

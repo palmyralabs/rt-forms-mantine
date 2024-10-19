@@ -57,7 +57,6 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
 
     const getLabel = () => {
         var key = isOn ? 'checked' : 'unchecked';
-        console.log(parsedOptions[key].title, key)
         return parsedOptions[key].title;
     }
 

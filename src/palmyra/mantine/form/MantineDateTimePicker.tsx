@@ -3,14 +3,25 @@ import { getFieldLabel } from './util';
 import { IDatePickerDefinition } from './types';
 import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { DateTimePicker, DateTimePickerProps } from '@mantine/dates';
+import dayjs from "dayjs";
 
 const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & DateTimePickerProps,
     ref: MutableRefObject<IDateField>) {
     // const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
-    const displayFormat: string = props.valueFormat || props.serverPattern || "YYYY-MM-DD";
+    const displayFormat: string = props.valueFormat || props.serverPattern || "YYYY-MM-DD hh:mm:ss";
 
-    const fieldManager = useFieldManager(props.attribute, props);
+    const parse = (rawData: any) => {
+        if (rawData)
+            return dayjs(rawData, serverPattern)
+        return undefined;
+    };
+    const format = (v: any) => {
+        if (v && v.isValid && v.isValid())
+            return v.format(serverPattern)
+    };
+
+    const fieldManager = useFieldManager(props.attribute, props, { format, parse });
 
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
@@ -30,7 +41,7 @@ const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(
         };
     }, [fieldManager]);
 
-    var { displayPattern, ...options } = fieldManager.getFieldProps();
+    var { serverPattern, ...options } = fieldManager.getFieldProps();
 
     options.onChange = (d: any,) => {
         if (!props.readOnly) {
@@ -41,23 +52,12 @@ const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(
     }
     options.onBlur = refreshError;
 
-    var value;
-    if (getValue() != '') {
-        value = new Date(getValue())
-    }
-
-    const defaultValue = (() => {
-        if (props.defaultValue) {
-            return new Date(props.defaultValue);
-        }
-        return '';
-    })();
+    const value = getValue();
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <DateTimePicker
-                defaultValue={defaultValue}
                 {...options}
                 value={value}
                 valueFormat={displayFormat}
