@@ -1,24 +1,22 @@
-import { jsx as i, Fragment as m } from "react/jsx-runtime";
-import { forwardRef as u, useRef as l, useEffect as d } from "react";
-import { GridX as p } from "./GridX.js";
+import { jsx as c, Fragment as u } from "react/jsx-runtime";
+import { forwardRef as m, useRef as a, useEffect as b } from "react";
+import { GridX as d } from "./GridX.js";
 import { topic as e } from "@palmyralabs/ts-utils";
-import { StoreFactoryContext as b } from "@palmyralabs/rt-forms";
-import { PalmyraStoreFactory as y } from "@palmyralabs/palmyra-wire";
-const w = u(function(t, c) {
-  const o = t.topic, r = c || l(), n = new y({ baseUrl: "/api/palmyra/" });
-  return d(() => {
+const g = m(function(t, f) {
+  const i = t.topic, r = f || a();
+  return b(() => {
     if (t.topic) {
-      const f = e.subscribe(o + "/refresh", () => {
+      const n = e.subscribe(i + "/refresh", () => {
         r.current && r.current.refresh();
-      }), s = e.subscribe(o + "/filter", (F, a) => {
-        r.current && r.current.setFilter(a);
+      }), o = e.subscribe(i + "/filter", (p, s) => {
+        r.current && r.current.setFilter(s);
       });
       return () => {
-        e.unsubscribe(f), e.unsubscribe(s);
+        e.unsubscribe(n), e.unsubscribe(o);
       };
     }
-  }, [o]), /* @__PURE__ */ i(m, { children: /* @__PURE__ */ i(b.Provider, { value: n, children: /* @__PURE__ */ i(p, { ...t, ref: r }) }) });
+  }, [i]), /* @__PURE__ */ c(u, { children: /* @__PURE__ */ c(d, { ...t, ref: r }) });
 });
 export {
-  w as PalmyraGrid
+  g as PalmyraGrid
 };
