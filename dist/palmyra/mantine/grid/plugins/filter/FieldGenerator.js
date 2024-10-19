@@ -1,9 +1,10 @@
 import { useFieldGenrator as a } from "@palmyralabs/rt-forms";
 import { MantineCheckBox as m } from "../../../form/MantineCheckBox.js";
-import { MantineDateInput as s } from "../../../form/MantineDateInput.js";
+import { MantineDateInput as p } from "../../../form/MantineDateInput.js";
+import "../../../form/MantineDatePickerInput.js";
 import "../../../form/MantineDateTimePicker.js";
-import { MantineMultiSelect as c } from "../../../form/MantineMultiSelect.js";
-import { MantineNumberField as p } from "../../../form/MantineNumberField.js";
+import { MantineMultiSelect as s } from "../../../form/MantineMultiSelect.js";
+import { MantineNumberField as c } from "../../../form/MantineNumberField.js";
 import { MantinePasswordField as u } from "../../../form/MantinePasswordField.js";
 import "../../../form/MantineRadio.js";
 import { MantineRadioGroup as l } from "../../../form/MantineRadioGroup.js";
@@ -15,10 +16,11 @@ import "../../../form/MantineSlider.js";
 import { MantineSwitch as M } from "../../../form/MantineSwitch.js";
 import { MantineTextArea as F } from "../../../form/MantineTextArea.js";
 import { MantineTextField as g } from "../../../form/MantineTextField.js";
+import "../../../form/MantineTimeInput.js";
 import "react/jsx-runtime";
 import "react";
 import "@mantine/core";
-const z = (r, o) => {
+const E = (r, o) => {
   const { type: i } = r, t = { fieldDef: r, title: o }, { getReactField: e, getInvalidField: n } = a();
   switch (i) {
     case "string":
@@ -28,9 +30,9 @@ const z = (r, o) => {
     case "select":
       return e(t, f);
     case "date":
-      return e(t, s);
+      return e(t, p);
     case "multiSelect":
-      return e(t, c);
+      return e(t, s);
     case "checkbox":
       return e(t, m);
     case "textarea":
@@ -44,12 +46,12 @@ const z = (r, o) => {
     case "float":
     case "number":
     case "numbersOnly":
-      return e(t, p);
+      return e(t, c);
     case "autoComplete":
     default:
       return n(t);
   }
 };
 export {
-  z as default
+  E as default
 };

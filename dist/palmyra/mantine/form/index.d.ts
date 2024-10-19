@@ -1,5 +1,6 @@
 export * from './MantineCheckBox';
 export * from './MantineDateInput';
+export * from './MantineDatePickerInput';
 export * from './MantineDateTimePicker';
 export * from './MantineMultiSelect';
 export * from './MantineNumberField';
@@ -14,4 +15,5 @@ export * from './MantineSlider';
 export * from './MantineSwitch';
 export * from './MantineTextArea';
 export * from './MantineTextField';
+export * from './MantineTimeInput';
 export * from '../ext/TriStateCheckBox';
