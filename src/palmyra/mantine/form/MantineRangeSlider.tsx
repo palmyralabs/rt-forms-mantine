@@ -5,13 +5,25 @@ import { ISliderDefinition } from './types';
 import { RangeSlider, RangeSliderProps } from '@mantine/core';
 
 const MantineRangeSlider = forwardRef(function MantineRangeSlider(props: ISliderDefinition & RangeSliderProps, ref: MutableRefObject<ISliderField>) {
-    const fieldManager = useFieldManager(props.attribute, props);
+    
+    const min = props.min || 0;
+    const max = props.max || 100;
+
+    const parse = (rawData: any) => {
+        if (rawData){            
+            return rawData;
+        }
+        return [min, min+1];
+    };
+    const format = (v: any) => {
+        return v;
+    };
+    
+    const fieldManager = useFieldManager(props.attribute, props, {format, parse});
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISliderField>(null);
     const error: IFormFieldError = getError();
-    const label = props.label || '';
-    const min = props.min || 0;
-    const max = props.max || 100;
+    const label = props.label || '';    
     const inputRef = useRef(null);
 
     useImperativeHandle(currentRef, () => {
@@ -50,7 +62,6 @@ const MantineRangeSlider = forwardRef(function MantineRangeSlider(props: ISlider
                 {label}
                 <RangeSlider {...options}
                     ref={inputRef}
-                    defaultValue={props.defaultValue}
                     value={value}
                     label={props.labelName}
                     min={min}
