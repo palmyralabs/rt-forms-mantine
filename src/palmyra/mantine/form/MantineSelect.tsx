@@ -37,9 +37,10 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
 
     options.onChange = (e: any, option: ComboboxItem) => {
         if (!props.readOnly) {
-            setValue(option.value);
+            if (option)
+                setValue(option.value);
             if (props.onChange)
-                props.onChange(e.currentTarget.value, option);
+                props.onChange(e, option);
         }
     }
     options.onBlur = refreshError;

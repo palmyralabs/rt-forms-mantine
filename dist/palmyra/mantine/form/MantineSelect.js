@@ -3,24 +3,24 @@ import { forwardRef as M, useRef as i, useImperativeHandle as R } from "react";
 import { useFieldManager as S, getFieldHandler as x, FieldDecorator as L } from "@palmyralabs/rt-forms";
 import { keyToString as u, getFieldLabel as j } from "./util.js";
 import { Select as D } from "@mantine/core";
-const w = M(function(e, o) {
-  const a = S(e.attribute, e), { getError: c, getValue: d, setValue: m, mutateOptions: f, refreshError: g } = a, v = o || i(null), C = c(), s = i(null), b = e.variant || "default";
+const B = M(function(e, o) {
+  const r = S(e.attribute, e), { getError: c, getValue: d, setValue: m, mutateOptions: f, refreshError: g } = r, v = o || i(null), C = c(), s = i(null), b = e.variant || "default";
   var h = d();
   R(v, () => ({
-    ...x(a),
+    ...x(r),
     focus() {
       s && s.current.focus();
     },
-    setOptions(r) {
+    setOptions(a) {
     },
     getOptions() {
     }
-  }), [a]);
-  var t = a.getFieldProps();
-  e.readOnly && (t.inputProps = { readOnly: !0 }), t.onChange = (n, r) => {
-    e.readOnly || (m(r.value), e.onChange && e.onChange(n.currentTarget.value, r));
+  }), [r]);
+  var t = r.getFieldProps();
+  e.readOnly && (t.inputProps = { readOnly: !0 }), t.onChange = (n, a) => {
+    e.readOnly || (a && m(a.value), e.onChange && e.onChange(n, a));
   }, t.onBlur = g;
-  const F = Object.keys(t.options).map((n, r) => {
+  const F = Object.keys(t.options).map((n, a) => {
     var O = {
       label: t.options[n],
       value: u(n)
@@ -49,5 +49,5 @@ const w = M(function(e, o) {
   ) });
 });
 export {
-  w as MantineSelect
+  B as MantineSelect
 };
