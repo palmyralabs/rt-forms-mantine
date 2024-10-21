@@ -28,11 +28,11 @@ const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & 
 
     var fieldOptions = fieldManager.getFieldProps();
 
-    fieldOptions.onChange = (event: any, v: boolean) => {
+    fieldOptions.onChange = (v: any) => {
         if (!props.readOnly) {
-            setValue(event.currentTarget.value);
+            setValue(v);
             if (props.onChange)
-                props.onChange(event.currentTarget.value);
+                props.onChange(v);
         }
     }
     fieldOptions.onBlur = refreshError;

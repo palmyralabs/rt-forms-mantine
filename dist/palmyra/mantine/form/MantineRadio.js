@@ -1,24 +1,24 @@
-import { jsx as a, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as F, useRef as l, useImperativeHandle as R } from "react";
-import { useFieldManager as b, getFieldHandler as v, FieldDecorator as O } from "@palmyralabs/rt-forms";
+import { jsx as a, Fragment as C } from "react/jsx-runtime";
+import { forwardRef as h, useRef as l, useImperativeHandle as F } from "react";
+import { useFieldManager as R, getFieldHandler as b, FieldDecorator as O } from "@palmyralabs/rt-forms";
 import { getFieldLabel as M } from "./util.js";
 import { Radio as L } from "@mantine/core";
-const k = F(function(e, o) {
-  const t = b(e.attribute, e), { getError: i, getValue: s, setValue: u, mutateOptions: c, refreshError: d } = t, m = o || l(null), f = i(), g = l(null);
-  R(m, () => ({
-    ...v(t),
+const w = h(function(e, o) {
+  const t = R(e.attribute, e), { getError: i, getValue: s, setValue: c, mutateOptions: u, refreshError: d } = t, m = o || l(null), f = i(), g = l(null);
+  F(m, () => ({
+    ...b(t),
     focus() {
       g.current.focus();
     },
-    setOptions(C) {
+    setOptions(x) {
     },
     getOptions() {
     }
   }), [t]);
-  var r = t.getFieldProps();
-  return r.onChange = (n, C) => {
-    e.readOnly || (u(n.currentTarget.value), e.onChange && e.onChange(n.currentTarget.value));
-  }, r.onBlur = d, /* @__PURE__ */ a(h, { children: !c.visible && /* @__PURE__ */ a(
+  var n = t.getFieldProps();
+  return n.onChange = (r) => {
+    e.readOnly || (c(r), e.onChange && e.onChange(r));
+  }, n.onBlur = d, /* @__PURE__ */ a(C, { children: !u.visible && /* @__PURE__ */ a(
     O,
     {
       label: M(e),
@@ -30,7 +30,7 @@ const k = F(function(e, o) {
         L,
         {
           checked: s(),
-          ...r,
+          ...n,
           error: f.message
         }
       )
@@ -38,5 +38,5 @@ const k = F(function(e, o) {
   ) });
 });
 export {
-  k as MantineRadio
+  w as MantineRadio
 };
