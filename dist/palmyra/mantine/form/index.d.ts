@@ -16,4 +16,5 @@ export * from './MantineSwitch';
 export * from './MantineTextArea';
 export * from './MantineTextField';
 export * from './MantineTimeInput';
+export * from '../form/view/index';
 export * from '../ext/TriStateCheckBox';

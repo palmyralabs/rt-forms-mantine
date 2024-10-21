@@ -17,7 +17,7 @@ interface FilterOptions extends DataGridPluginOptions {
 }
 
 const FilterForm = (o: FilterOptions) => {
-    const formattedFilterValue = {};
+    const formattedFilterValue = o.queryRef.current.getCurrentFilter() || {};
     const filterRef: MutableRefObject<IForm> = useRef<IForm>();
     const defaultFilter = o.defaultFilter || {};
 

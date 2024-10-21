@@ -4,30 +4,30 @@ import { setValueByKey as g } from "@palmyralabs/ts-utils";
 import { useRef as j } from "react";
 import { a as x, T as D } from "../../../../../chunks/index.js";
 import T from "./FieldGenerator.js";
-import { Button as m } from "@mantine/core";
+import { Button as f } from "@mantine/core";
 import '../../../../../assets/FilterForm.css';const G = (t) => {
-  const s = {}, l = j(), c = t.defaultFilter || {}, f = h(t.columns), u = () => f.map((e, o) => T(e, e.label)), d = t.onClose || ((e) => {
+  const l = t.queryRef.current.getCurrentFilter() || {}, s = j(), c = t.defaultFilter || {}, m = h(t.columns), u = () => m.map((e, n) => T(e, e.label)), d = t.onClose || ((e) => {
   });
   Object.keys(c || {}).map((e) => {
-    const o = c[e];
-    g(e, s, o);
+    const n = c[e];
+    g(e, l, n);
   });
-  const n = (e) => {
+  const o = (e) => {
     t.queryRef.current ? (t.queryRef.current.setFilter(e), d(e)) : console.warn("Query reference not found");
   }, p = () => {
-    n({});
+    o({});
   }, F = () => {
-    const e = l.current.getData();
-    var o = {};
+    const e = s.current.getData();
+    var n = {};
     Object.entries(e).map(([b, i]) => {
-      i && i != "" && (o[b] = i);
-    }), n && n(o);
+      i && i != "" && (n[b] = i);
+    }), o && o(n);
   }, y = t.column || 2;
   return /* @__PURE__ */ a("div", { children: [
-    /* @__PURE__ */ r(C, { formData: s, ref: l, children: /* @__PURE__ */ r(R, { columns: y, children: u() }) }),
+    /* @__PURE__ */ r(C, { formData: l, ref: s, children: /* @__PURE__ */ r(R, { columns: y, children: u() }) }),
     /* @__PURE__ */ a("div", { className: "py-filter-button-container", children: [
-      /* @__PURE__ */ r(m, { className: "py-reset-button", onClick: p, leftSection: /* @__PURE__ */ r(x, { size: 14 }), children: "Reset" }),
-      /* @__PURE__ */ r(m, { className: "py-filter-button", onClick: F, leftSection: /* @__PURE__ */ r(D, { size: 14 }), children: "Filter" })
+      /* @__PURE__ */ r(f, { className: "py-reset-button", onClick: p, leftSection: /* @__PURE__ */ r(x, { size: 14 }), children: "Reset" }),
+      /* @__PURE__ */ r(f, { className: "py-filter-button", onClick: F, leftSection: /* @__PURE__ */ r(D, { size: 14 }), children: "Filter" })
     ] })
   ] });
 };

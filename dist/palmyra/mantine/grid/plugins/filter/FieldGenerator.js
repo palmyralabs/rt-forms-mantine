@@ -17,41 +17,45 @@ import { MantineSwitch as M } from "../../../form/MantineSwitch.js";
 import { MantineTextArea as F } from "../../../form/MantineTextArea.js";
 import { MantineTextField as g } from "../../../form/MantineTextField.js";
 import "../../../form/MantineTimeInput.js";
+import "../../../form/view/MantineTextView.js";
+import "../../../form/view/MantineOptionsView.js";
+import "../../../form/view/MantineDateView.js";
+import "../../../form/view/MantineLookupView.js";
 import "react/jsx-runtime";
 import "react";
 import "@mantine/core";
-const E = (r, o) => {
-  const { type: i } = r, t = { fieldDef: r, title: o }, { getReactField: e, getInvalidField: n } = a();
+const L = (e, o) => {
+  const { type: i } = e, t = { fieldDef: e, title: o }, { getReactField: r, getInvalidField: n } = a();
   switch (i) {
     case "string":
-      return e(t, g);
+      return r(t, g);
     case "radio":
-      return e(t, l);
+      return r(t, l);
     case "select":
-      return e(t, f);
+      return r(t, f);
     case "date":
-      return e(t, p);
+      return r(t, p);
     case "multiSelect":
-      return e(t, s);
+      return r(t, s);
     case "checkbox":
-      return e(t, m);
+      return r(t, m);
     case "textarea":
-      return e(t, F);
+      return r(t, F);
     case "switch":
-      return e(t, M);
+      return r(t, M);
     case "password":
-      return e(t, u);
+      return r(t, u);
     case "rating":
-      return e(t, d);
+      return r(t, d);
     case "float":
     case "number":
     case "numbersOnly":
-      return e(t, c);
+      return r(t, c);
     case "autoComplete":
     default:
       return n(t);
   }
 };
 export {
-  E as default
+  L as default
 };

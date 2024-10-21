@@ -57,6 +57,13 @@ interface ICalendarDefinition extends MantineInputFieldOptions, ILayoutOptions, 
     serverPattern?: string
 }
 
+interface ILookupViewOptions extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
+    lookupOptions?: {
+        idAttribute: string;
+        labelAttribute: string;
+    };
+}
+
 interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
     // defaultValue?: InputType | any,
@@ -130,7 +137,7 @@ export type {
     ITextFieldDefinition, ISelectDefinition, IDatePickerDefinition, IServerLookupDefinition,
     ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition,
     ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition,
-    IRadioDefinition, ICalendarDefinition
+    IRadioDefinition, ICalendarDefinition, ILookupViewOptions
 }
 
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }
