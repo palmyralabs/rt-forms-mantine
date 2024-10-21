@@ -1,7 +1,7 @@
 import { jsx as i, Fragment as n, jsxs as o } from "react/jsx-runtime";
 import { forwardRef as s, useRef as g, useMemo as f } from "react";
 import { DropdownButton as h } from "../widget/DropdownButton.js";
-import { T as u } from "../../../chunks/index.js";
+import { T as u } from "../../../chunks/index2.js";
 import { FilterForm as P } from "./plugins/filter/FilterForm.js";
 import { DataGrid as p } from "./DataGrid.js";
 import { SelectablePagination as y } from "./plugins/pagination/SelectablePagination.js";

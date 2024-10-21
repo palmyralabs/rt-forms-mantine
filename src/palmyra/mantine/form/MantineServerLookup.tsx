@@ -5,6 +5,7 @@ import { getFieldLabel } from "./util";
 import { AutocompleteProps } from "@mantine/core";
 import { delayGenerator } from "@palmyralabs/ts-utils";
 import { ServerLookup } from "./internal/ServerLookup";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const delay100 = delayGenerator(100);
 
@@ -51,6 +52,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             readOnly={props.readOnly}
             {...getFieldProps()}
             value={label}
+            rightSection={<IoMdArrowDropdown />}
             getOptionKey={getOptionKey}
             getOptionValue={getOptionValue}
             data={options}

@@ -2,7 +2,7 @@ import { jsxs as a, jsx as r } from "react/jsx-runtime";
 import { convertToField as h, PalmyraForm as C, FieldGroupContainer as R } from "@palmyralabs/rt-forms";
 import { setValueByKey as g } from "@palmyralabs/ts-utils";
 import { useRef as j } from "react";
-import { a as x, T as D } from "../../../../../chunks/index.js";
+import { a as x, T as D } from "../../../../../chunks/index2.js";
 import T from "./FieldGenerator.js";
 import { Button as f } from "@mantine/core";
 import '../../../../../assets/FilterForm.css';const G = (t) => {

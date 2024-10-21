@@ -1,58 +1,53 @@
-import { jsx as r, Fragment as V } from "react/jsx-runtime";
-import { forwardRef as M, useRef as s, useImperativeHandle as R } from "react";
-import { useFieldManager as x, getFieldHandler as y, FieldDecorator as D } from "@palmyralabs/rt-forms";
-import { getFieldLabel as L } from "./util.js";
-import { Select as S } from "@mantine/core";
-const I = M(function(e, o) {
-  const n = x(e.attribute, e), { getError: i, getValue: c, setValue: d, mutateOptions: f, refreshError: m } = n, g = o || s(null), v = i(), u = s(null), C = e.variant || "default";
-  var b = c();
-  R(g, () => ({
-    ...y(n),
+import { jsx as l, Fragment as y } from "react/jsx-runtime";
+import { forwardRef as M, useRef as i, useImperativeHandle as R } from "react";
+import { useFieldManager as S, getFieldHandler as x, FieldDecorator as L } from "@palmyralabs/rt-forms";
+import { keyToString as u, getFieldLabel as j } from "./util.js";
+import { Select as D } from "@mantine/core";
+const w = M(function(e, o) {
+  const a = S(e.attribute, e), { getError: c, getValue: d, setValue: m, mutateOptions: f, refreshError: g } = a, v = o || i(null), C = c(), s = i(null), b = e.variant || "default";
+  var h = d();
+  R(v, () => ({
+    ...x(a),
     focus() {
-      u && u.current.focus();
+      s && s.current.focus();
     },
-    setOptions(l) {
+    setOptions(r) {
     },
     getOptions() {
     }
-  }), [n]);
-  var t = n.getFieldProps();
-  e.readOnly && (t.inputProps = { readOnly: !0 }), t.onChange = (a, l) => {
-    e.readOnly || (d(l.value), e.onChange && e.onChange(a.currentTarget.value, l));
-  }, t.onBlur = m;
-  const h = Object.keys(t.options).map((a, l) => {
+  }), [a]);
+  var t = a.getFieldProps();
+  e.readOnly && (t.inputProps = { readOnly: !0 }), t.onChange = (n, r) => {
+    e.readOnly || (m(r.value), e.onChange && e.onChange(n.currentTarget.value, r));
+  }, t.onBlur = g;
+  const F = Object.keys(t.options).map((n, r) => {
     var O = {
-      label: t.options[a],
-      value: a
+      label: t.options[n],
+      value: u(n)
     };
     return O;
   });
-  var F = {
-    label: t.options[e.defaultValue],
-    value: e.defaultValue
-  };
-  return /* @__PURE__ */ r(V, { children: !f.visible && /* @__PURE__ */ r(
-    D,
+  return /* @__PURE__ */ l(y, { children: !f.visible && /* @__PURE__ */ l(
+    L,
     {
-      label: L(e),
+      label: j(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ r(
-        S,
+      children: /* @__PURE__ */ l(
+        D,
         {
-          defaultValue: F.value,
-          data: h,
-          value: b,
+          data: F,
+          value: u(h),
           ...t,
-          variant: C,
-          error: v.message
+          variant: b,
+          error: C.message
         }
       )
     }
   ) });
 });
 export {
-  I as MantineSelect
+  w as MantineSelect
 };

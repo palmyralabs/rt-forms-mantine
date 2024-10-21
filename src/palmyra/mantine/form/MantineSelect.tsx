@@ -1,6 +1,6 @@
 import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
 import { getFieldHandler, IFormFieldError, ISelectField, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from './util';
+import { getFieldLabel, keyToString } from './util';
 import { ISelectDefinition } from './types';
 import { ComboboxItem, Select, SelectProps } from '@mantine/core';
 
@@ -47,23 +47,17 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
     const sData = Object.keys(options.options).map((key, index) => {
         var sOptions = {
             label: options.options[key],
-            value: key
+            value: keyToString(key)
         }
         return sOptions;
     })
-
-    var defaultData = {
-        label: options.options[props.defaultValue],
-        value: props.defaultValue
-    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <Select
-                defaultValue={defaultData.value}
                 data={sData}
-                value={value}
+                value={keyToString(value)}
                 {...options}
                 variant={variant}
                 error={error.message}

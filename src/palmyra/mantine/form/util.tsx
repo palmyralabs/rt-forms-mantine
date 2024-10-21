@@ -1,6 +1,5 @@
 import { MantineInputFieldOptions } from "./types";
 
-
 const getFieldLabel = (props: MantineInputFieldOptions) => {
     if (props.required && props.title)
         return (
@@ -15,4 +14,11 @@ const getFieldLabel = (props: MantineInputFieldOptions) => {
         return props.title;
 }
 
-export { getFieldLabel }
+const keyToString = (v: any) => {
+    if (typeof (v) == 'number') {
+        return v + ''
+    }
+    return v
+}
+
+export { getFieldLabel, keyToString }

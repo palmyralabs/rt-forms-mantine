@@ -1,12 +1,13 @@
-import { jsx as n, Fragment as O } from "react/jsx-runtime";
-import { forwardRef as k, useRef as s, useImperativeHandle as y } from "react";
-import { useServerLookupFieldManager as S, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
-import { getFieldLabel as V } from "./util.js";
-import { delayGenerator as w } from "@palmyralabs/ts-utils";
-import { ServerLookup as x } from "./internal/ServerLookup.js";
-const c = w(100), P = k(function(e, r) {
-  const u = s(null), t = S(e.attribute, e), {
-    getError: i,
+import { jsx as r, Fragment as O } from "react/jsx-runtime";
+import { forwardRef as S, useRef as s, useImperativeHandle as k } from "react";
+import { useServerLookupFieldManager as w, getFieldHandler as y, FieldDecorator as M } from "@palmyralabs/rt-forms";
+import { getFieldLabel as D } from "./util.js";
+import { delayGenerator as R } from "@palmyralabs/ts-utils";
+import { ServerLookup as V } from "./internal/ServerLookup.js";
+import { a as x } from "../../../chunks/index.js";
+const c = R(100), T = S(function(e, n) {
+  const i = s(null), t = w(e.attribute, e), {
+    getError: u,
     getValue: d,
     setValue: m,
     options: f,
@@ -15,11 +16,11 @@ const c = w(100), P = k(function(e, r) {
     refreshOptions: b,
     getOptionValue: a,
     getOptionKey: h
-  } = t, F = i(), p = r || s(null), l = d(), v = l ? a(l) : "";
-  y(p, () => ({
-    ...M(t),
+  } = t, p = u(), F = n || s(null), l = d(), v = l ? a(l) : "";
+  k(F, () => ({
+    ...y(t),
     focus() {
-      u.current.focus();
+      i.current.focus();
     }
   }), [t]);
   const L = {
@@ -35,25 +36,26 @@ const c = w(100), P = k(function(e, r) {
     onDropdownClose: () => {
     }
   };
-  return /* @__PURE__ */ n(O, { children: /* @__PURE__ */ n(
-    R,
+  return /* @__PURE__ */ r(O, { children: /* @__PURE__ */ r(
+    M,
     {
-      label: V(e),
+      label: D(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ n(
-        x,
+      children: /* @__PURE__ */ r(
+        V,
         {
           readOnly: e.readOnly,
           ...g(),
           value: v,
+          rightSection: /* @__PURE__ */ r(x, {}),
           getOptionKey: h,
           getOptionValue: a,
           data: f,
           label: e.label,
-          error: F.message,
+          error: p.message,
           ...L
         }
       )
@@ -61,5 +63,5 @@ const c = w(100), P = k(function(e, r) {
   ) });
 });
 export {
-  P as MantineServerLookup
+  T as MantineServerLookup
 };

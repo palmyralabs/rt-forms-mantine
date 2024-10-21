@@ -1,6 +1,6 @@
 import { jsx as r } from "react/jsx-runtime";
 import { useRef as e } from "react";
-import { T as i } from "../../../../chunks/index.js";
+import { T as i } from "../../../../chunks/index2.js";
 import "@mantine/core";
 import { DropdownButton as m } from "../../widget/DropdownButton.js";
 import { FilterForm as n } from "../plugins/filter/FilterForm.js";
