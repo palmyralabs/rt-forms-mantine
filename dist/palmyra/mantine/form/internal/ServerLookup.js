@@ -1,28 +1,29 @@
 import { jsx as f } from "react/jsx-runtime";
 import { Autocomplete as m } from "@mantine/core";
 import { useState as v, useEffect as g } from "react";
-const y = function(e) {
-  const [c, o] = v(e.value), u = e.data || [], { onValueChange: h, getOptionKey: i, getOptionValue: l, ...r } = e;
+const y = function(t) {
+  const [l, o] = v(t.value), u = t.data || [], { onValueChange: h, getOptionKey: c, getOptionValue: i, ...s } = t;
   g(() => {
-    o(e.value);
-  }, [e.value]);
-  const s = u.map((n, t) => {
+    o(t.value);
+  }, [t.value]);
+  const r = u.map((e, n) => {
     var a = {
-      label: l(n) + "",
-      value: i(n) + ""
+      label: i(e) + "",
+      value: c(e) + ""
     };
     return a;
   });
   return /* @__PURE__ */ f(
     m,
     {
-      ...r,
-      data: s,
-      value: c,
+      ...s,
+      filter: ({ options: e }) => e,
+      data: r,
+      value: l,
       ...{
-        onChange: (n) => {
-          const t = u.find((a) => n == l(a));
-          o(n), e.onChange && e.onChange(n), t && e.onValueChange(t);
+        onChange: (e) => {
+          const n = u.find((a) => e == i(a));
+          o(e), n ? t.onValueChange(n, e) : t.onChange && t.onChange(e);
         }
       }
     }

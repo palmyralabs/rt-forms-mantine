@@ -1,6 +1,6 @@
 import { AutocompleteProps } from '@mantine/core';
 interface helper {
-    onValueChange: (d: any) => void;
+    onValueChange: (d: any, label: string) => void;
     getOptionKey: (d: any) => any;
     getOptionValue: (d: any) => any;
 }

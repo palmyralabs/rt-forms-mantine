@@ -2,7 +2,7 @@ import { Autocomplete, AutocompleteProps } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 interface helper {
-    onValueChange: (d: any) => void,
+    onValueChange: (d: any, label: string) => void,
     getOptionKey: (d: any) => any,
     getOptionValue: (d: any) => any
 }
@@ -30,16 +30,18 @@ const ServerLookup = (function MantineServerLookup(props: AutocompleteProps & he
                 return label == getOptionValue(v);
             });
             setDisplayValue(label);
-            if (props.onChange)
-                props.onChange(label);
             if (d) {
-                props.onValueChange(d);
+                props.onValueChange(d, label);
+            } else {
+                if (props.onChange)
+                    props.onChange(label);
             }
         }
     }
 
     return <Autocomplete
         {...o}
+        filter={({ options }) => options}
         data={data}
         value={displayValue}
         {...callbacks}>

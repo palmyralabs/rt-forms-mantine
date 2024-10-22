@@ -1,67 +1,67 @@
-import { jsx as r, Fragment as O } from "react/jsx-runtime";
-import { forwardRef as S, useRef as s, useImperativeHandle as k } from "react";
-import { useServerLookupFieldManager as w, getFieldHandler as y, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { getFieldLabel as D } from "./util.js";
-import { delayGenerator as R } from "@palmyralabs/ts-utils";
-import { ServerLookup as V } from "./internal/ServerLookup.js";
-import { a as x } from "../../../chunks/index.js";
-const c = R(100), T = S(function(e, n) {
-  const i = s(null), t = w(e.attribute, e), {
+import { jsx as n, Fragment as k } from "react/jsx-runtime";
+import { forwardRef as w, useRef as s, useImperativeHandle as y } from "react";
+import { useServerLookupFieldManager as M, getFieldHandler as D, FieldDecorator as R } from "@palmyralabs/rt-forms";
+import { getFieldLabel as V } from "./util.js";
+import { delayGenerator as x } from "@palmyralabs/ts-utils";
+import { ServerLookup as H } from "./internal/ServerLookup.js";
+import { a as I } from "../../../chunks/index.js";
+const c = x(100), q = w(function(e, r) {
+  const i = s(null), t = M(e.attribute, e), {
     getError: u,
     getValue: d,
     setValue: m,
-    options: f,
-    getFieldProps: g,
+    options: g,
+    getFieldProps: f,
     setSearchText: C,
-    refreshOptions: b,
+    refreshOptions: h,
     getOptionValue: a,
-    getOptionKey: h
-  } = t, p = u(), F = n || s(null), l = d(), v = l ? a(l) : "";
-  k(F, () => ({
-    ...y(t),
+    getOptionKey: b
+  } = t, F = u(), v = r || s(null), l = d(), L = l ? a(l) : "";
+  y(v, () => ({
+    ...D(t),
     focus() {
       i.current.focus();
     }
   }), [t]);
-  const L = {
-    onValueChange: (o) => {
-      m(o);
+  const O = {
+    onValueChange: (o, S) => {
+      m(o), e.onChange && e.onChange(S);
     },
     onChange: (o) => {
-      c(C, o);
+      c(C, o), e.onChange && e.onChange(o);
     },
     onDropdownOpen: () => {
-      c(b);
+      c(h);
     },
     onDropdownClose: () => {
     }
   };
-  return /* @__PURE__ */ r(O, { children: /* @__PURE__ */ r(
-    M,
+  return /* @__PURE__ */ n(k, { children: /* @__PURE__ */ n(
+    R,
     {
-      label: D(e),
+      label: V(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ r(
-        V,
+      children: /* @__PURE__ */ n(
+        H,
         {
           readOnly: e.readOnly,
-          ...g(),
-          value: v,
-          rightSection: /* @__PURE__ */ r(x, {}),
-          getOptionKey: h,
+          ...f(),
+          value: L,
+          rightSection: /* @__PURE__ */ n(I, {}),
+          getOptionKey: b,
           getOptionValue: a,
-          data: f,
+          data: g,
           label: e.label,
-          error: p.message,
-          ...L
+          error: F.message,
+          ...O
         }
       )
     }
   ) });
 });
 export {
-  T as MantineServerLookup
+  q as MantineServerLookup
 };

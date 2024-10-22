@@ -33,11 +33,13 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
     }, [fieldManager]);
 
     const callbacks = {
-        onValueChange: (d: any) => {
+        onValueChange: (d: any, label: string) => {
             setValue(d);
+            props.onChange && props.onChange(label)
         },
         onChange: (label: string) => {
             delay100(setSearchText, label);
+            props.onChange && props.onChange(label)
         },
         onDropdownOpen: () => {
             delay100(refreshOptions)
