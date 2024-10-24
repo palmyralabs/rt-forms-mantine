@@ -37,7 +37,8 @@ const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButton
         className={`py-dropdown-button-arrow ${dropdownOpen ? 'open' : ''} `} />
 
     return <>
-        <Popover withArrow shadow="md" position="bottom-end">
+        <Popover withArrow shadow="md" position="bottom-end"        
+            opened={dropdownOpen} onChange={setDropdownOpen}>
             <Popover.Target>
                 <Button className={className}
                     disabled={props.disabled}
