@@ -36,10 +36,10 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={props.label ? (variant === 'outlined' ? "text-view-value-outlined" : "text-view-value") : ''}>{getValue()}</div>
+                    <div className={props.label ? (variant === 'outlined' ? "text-view-value-outlined" : "text-view-value") : ''}>{getValue() || '--'}</div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
-                    {getValue()}
+                    {getValue() || "--"}
                 </div>
             }
         </FieldDecorator>}

@@ -3,6 +3,7 @@ import { getFieldLabel } from './util';
 import { IDatePickerDefinition } from './types';
 import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { TimeInput, TimeInputProps } from '@mantine/dates';
+
 const MantineTimeInput = forwardRef(function MantineTimeInput(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & TimeInputProps,
     ref: MutableRefObject<IDateField>) {
@@ -39,7 +40,6 @@ const MantineTimeInput = forwardRef(function MantineTimeInput(
         }
     }
     options.onBlur = refreshError;
-
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

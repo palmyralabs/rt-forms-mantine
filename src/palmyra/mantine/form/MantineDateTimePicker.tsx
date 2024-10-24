@@ -6,7 +6,7 @@ import { DateTimePicker, DateTimePickerProps } from '@mantine/dates';
 import dayjs from "dayjs";
 
 const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(
-    props: Omit<IDatePickerDefinition, 'displayPattern'> & DateTimePickerProps,
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DateTimePickerProps, 'defaultValue'>,
     ref: MutableRefObject<IDateField>) {
     // const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
     const displayFormat: string = props.valueFormat || props.serverPattern || "YYYY-MM-DD hh:mm:ss";

@@ -39,10 +39,10 @@ const MantineLookupView = forwardRef(function MantineLabelDisplay(props: ILookup
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={(variant == 'standard') ? "text-view-value" : "text-view-value-outlined"}>{data[labelKey] || 'N/A'}</div>
+                    <div className={(variant == 'standard') ? "text-view-value" : "text-view-value-outlined"}>{data[labelKey] || '--'}</div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
-                    {data[labelKey] || 'N/A'}
+                    {data[labelKey] || '--'}
                 </div>
             }
         </FieldDecorator>}

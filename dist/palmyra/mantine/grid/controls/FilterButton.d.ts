@@ -1,3 +1,6 @@
 import { DataGridPluginOptions } from '@palmyralabs/rt-forms';
-declare const FilterButton: (o: DataGridPluginOptions) => import("react/jsx-runtime").JSX.Element;
+interface IFilterInput extends DataGridPluginOptions {
+    width?: string;
+}
+declare const FilterButton: (o: IFilterInput) => import("react/jsx-runtime").JSX.Element;
 export { FilterButton };

@@ -4,12 +4,15 @@ import { DropdownButton, IDropdown } from "../../widget";
 import { FilterForm } from "../plugins/filter/FilterForm";
 import { DataGridPluginOptions } from "@palmyralabs/rt-forms";
 
-const FilterButton = (o: DataGridPluginOptions) => {
+interface IFilterInput extends DataGridPluginOptions{
+    width?: string
+}
+
+const FilterButton = (o: IFilterInput) => {
     const buttonRef = useRef<IDropdown>();
 
     return (<DropdownButton title="Filter" ref={buttonRef}
-        PrefixAdornment={<TbFilterShare />}>
-        
+        PrefixAdornment={<TbFilterShare />} width={o.width || '650'}>
         <FilterForm {...o} onClose={() => buttonRef.current.close()} />
     </DropdownButton>)
 }

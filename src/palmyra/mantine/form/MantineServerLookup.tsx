@@ -9,7 +9,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 
 const delay100 = delayGenerator(100);
 
-const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServerLookupDefinition & AutocompleteProps,
+const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteProps, 'defaultValue'>,
     ref: MutableRefObject<IServerLookupField>) {
 
     const inputRef: any = useRef(null);

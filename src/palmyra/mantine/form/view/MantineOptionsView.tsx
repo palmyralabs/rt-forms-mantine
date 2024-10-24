@@ -24,7 +24,7 @@ const MantineOptionsView = forwardRef(function MantineOptionsView(props: ISelect
                     <div className="text-view-label">{props.label}</div>
                     <div style={{ textAlign: textAlign }}
                         className={props.label ? (variant === 'outlined' ? "text-view-value-outlined" : "text-view-value") : ''}>
-                        {props.options[getValue()]}
+                        {props.options[getValue()] || '--'}
                     </div>
                 </div>
             </FieldDecorator>}

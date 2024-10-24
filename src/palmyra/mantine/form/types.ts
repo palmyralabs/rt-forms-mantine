@@ -66,7 +66,7 @@ interface ILookupViewOptions extends MantineInputFieldOptions, ILayoutOptions, I
 
 interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
-    // defaultValue?: InputType | any,
+    defaultValue?: any,
     multiple?: boolean,
     renderOption?: (
         props: React.HTMLAttributes<HTMLLIElement> & { key: any },

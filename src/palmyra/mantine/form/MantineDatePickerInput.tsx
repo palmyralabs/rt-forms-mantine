@@ -6,20 +6,20 @@ import { DatePickerInput, DatePickerInputProps } from '@mantine/dates';
 import dayjs from "dayjs";
 
 const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
-    props: Omit<IDatePickerDefinition, 'displayPattern'> & DatePickerInputProps,
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DatePickerInputProps, 'defaultValue'>,
     ref: MutableRefObject<IDateField>) {
     // const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
     const displayFormat: string = props.valueFormat || "YYYY-MM-DD";
     const type = props.type;
 
+
     const parseToDaysJs = (rawData: any, serverPattern) => {
-        if (rawData)
+        if (rawData) {
             return dayjs(rawData, serverPattern)
-        return undefined;
+        } return undefined;
     };
 
     const formatDayJs = (v: any, serverPattern) => {
-
         if (v && v.isValid && v.isValid())
             return v.format(serverPattern)
     };
@@ -95,6 +95,7 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
 
     options.onChange = (d: any) => {
         if (!props.readOnly) {
+            console.log("onchange", d)
             setValue(d);
             if (props.onChange)
                 props.onChange(d);

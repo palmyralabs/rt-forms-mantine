@@ -5,7 +5,7 @@ import { useFieldManager as E, getFieldHandler as H, FieldDecorator as J } from 
 import { DatePickerInput as O } from "@mantine/dates";
 import A from "dayjs";
 const K = L(function(t, m) {
-  const C = t.valueFormat || "YYYY-MM-DD", l = t.type, i = (e, n) => {
+  const C = t.valueFormat || "YYYY-MM-DD", l = t.type, o = (e, n) => {
     if (e)
       return A(e, n);
   }, a = (e, n) => {
@@ -17,18 +17,18 @@ const K = L(function(t, m) {
         var n, s;
         const d = e.charAt(0);
         if (d == ">")
-          n = i(e.slice(1), r);
+          n = o(e.slice(1), r);
         else if (d == "<")
-          s = i(e.slice(1), r);
+          s = o(e.slice(1), r);
         else {
           const u = e.split("...");
-          n = i(u[0], r), u[1] && (s = i(u[1], r));
+          n = o(u[0], r), u[1] && (s = o(u[1], r));
         }
       }
       return [n, s];
     }
-    return i(e, r);
-  }, y = (e) => {
+    return o(e, r);
+  }, h = (e) => {
     if (l == "range") {
       if (e) {
         const n = a(e.from, r), s = a(e.to, r);
@@ -38,18 +38,18 @@ const K = L(function(t, m) {
           return "<" + s;
       }
     } else l == "default" && a(e, r);
-  }, o = E(t.attribute, t, { format: y, parse: F }), { getError: h, getValue: b, setValue: M, mutateOptions: P, refreshError: v } = o, I = m || g(null), R = h(), V = b(), Y = g(null);
+  }, i = E(t.attribute, t, { format: h, parse: F }), { getError: y, getValue: b, setValue: M, mutateOptions: P, refreshError: v } = i, I = m || g(null), R = y(), V = b(), Y = g(null);
   j(I, () => ({
-    ...H(o),
+    ...H(i),
     focus() {
       Y.current.focus();
     },
     setCurrent() {
     }
-  }), [o]);
-  var { serverPattern: r, ...c } = o.getFieldProps();
+  }), [i]);
+  var { serverPattern: r, ...c } = i.getFieldProps();
   return c.onChange = (e) => {
-    t.readOnly || (M(e), t.onChange && t.onChange(e));
+    t.readOnly || (console.log("onchange", e), M(e), t.onChange && t.onChange(e));
   }, c.onBlur = v, /* @__PURE__ */ f(k, { children: !P.visible && /* @__PURE__ */ f(
     J,
     {

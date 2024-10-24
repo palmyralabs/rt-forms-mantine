@@ -4,6 +4,7 @@ interface IDropdownButtonOptions {
     disabled?: boolean;
     PrefixAdornment?: JSX.Element;
     children?: any;
+    width?: string;
 }
 interface IDropdown {
     open: () => void;

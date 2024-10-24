@@ -8,7 +8,8 @@ interface IDropdownButtonOptions {
     className?: string,
     disabled?: boolean,
     PrefixAdornment?: JSX.Element,
-    children?: any
+    children?: any,
+    width?: string
 }
 
 interface IDropdown {
@@ -37,7 +38,7 @@ const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButton
         className={`py-dropdown-button-arrow ${dropdownOpen ? 'open' : ''} `} />
 
     return <>
-        <Popover withArrow shadow="md" position="bottom-end"        
+        <Popover withArrow shadow="md" position="bottom-end" width={props.width}
             opened={dropdownOpen} onChange={setDropdownOpen}>
             <Popover.Target>
                 <Button className={className}

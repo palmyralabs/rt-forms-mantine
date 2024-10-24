@@ -22,7 +22,7 @@ const M = d(function(e, a) {
           {
             style: { textAlign: s },
             className: e.label ? o === "outlined" ? "text-view-value-outlined" : "text-view-value" : "",
-            children: e.options[i()]
+            children: e.options[i()] || "--"
           }
         )
       ] })

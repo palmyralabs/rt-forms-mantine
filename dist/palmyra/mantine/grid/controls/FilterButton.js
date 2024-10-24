@@ -4,7 +4,7 @@ import { T as i } from "../../../../chunks/index2.js";
 import "@mantine/core";
 import { DropdownButton as m } from "../../widget/DropdownButton.js";
 import { FilterForm as n } from "../plugins/filter/FilterForm.js";
-const F = (t) => {
+const d = (t) => {
   const o = e();
   return /* @__PURE__ */ r(
     m,
@@ -12,10 +12,11 @@ const F = (t) => {
       title: "Filter",
       ref: o,
       PrefixAdornment: /* @__PURE__ */ r(i, {}),
+      width: t.width || "650",
       children: /* @__PURE__ */ r(n, { ...t, onClose: () => o.current.close() })
     }
   );
 };
 export {
-  F as FilterButton
+  d as FilterButton
 };

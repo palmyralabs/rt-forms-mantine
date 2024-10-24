@@ -35,7 +35,6 @@ const MantineCalendar = forwardRef(function MantineCalendar(
 
     options.onChange = (d: any) => {
         if (!props.readOnly) {
-            console.log("e", d)
             setValue(d);
             if (props.onChange)
                 props.onChange(d);
@@ -52,10 +51,6 @@ const MantineCalendar = forwardRef(function MantineCalendar(
             value = new Date(getValue())
         }
     }
-
-
-
-    console.log(value, props.defaultValue)
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

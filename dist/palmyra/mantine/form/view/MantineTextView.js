@@ -21,8 +21,8 @@ const V = f(function(e, a) {
       customLabelClass: e.customLabelClass,
       children: e.label ? /* @__PURE__ */ v("div", { ...i, className: "text-view-field-container", children: [
         /* @__PURE__ */ t("div", { className: "text-view-label", children: e.label }),
-        /* @__PURE__ */ t("div", { className: e.label ? u === "outlined" ? "text-view-value-outlined" : "text-view-value" : "", children: n() })
-      ] }) : /* @__PURE__ */ t("div", { ...i, style: { textAlign: o }, children: n() })
+        /* @__PURE__ */ t("div", { className: e.label ? u === "outlined" ? "text-view-value-outlined" : "text-view-value" : "", children: n() || "--" })
+      ] }) : /* @__PURE__ */ t("div", { ...i, style: { textAlign: o }, children: n() || "--" })
     }
   ) });
 });
