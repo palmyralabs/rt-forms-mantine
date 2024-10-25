@@ -1,70 +1,68 @@
-import { jsx as f, Fragment as k } from "react/jsx-runtime";
-import { forwardRef as L, useRef as g, useImperativeHandle as j } from "react";
-import { getFieldLabel as x } from "./util.js";
-import { useFieldManager as E, getFieldHandler as H, FieldDecorator as J } from "@palmyralabs/rt-forms";
-import { DatePickerInput as O } from "@mantine/dates";
-import A from "dayjs";
-const K = L(function(t, m) {
-  const C = t.valueFormat || "YYYY-MM-DD", l = t.type, o = (e, n) => {
-    if (e)
-      return A(e, n);
-  }, a = (e, n) => {
+import { jsx as C, Fragment as j } from "react/jsx-runtime";
+import { forwardRef as x, useRef as h, useImperativeHandle as E } from "react";
+import { getFieldLabel as H } from "./util.js";
+import { useFieldManager as J, getFieldHandler as O, FieldDecorator as A } from "@palmyralabs/rt-forms";
+import { DatePickerInput as B } from "@mantine/dates";
+import c from "dayjs";
+const S = x(function(t, F) {
+  const r = t.serverPattern || t.valueFormat || "YYYY-MM-DD", b = t.valueFormat || "YYYY-MM-DD", i = t.type, l = (e, n) => e ? c(e, n) : null, u = (e, n) => {
     if (e && e.isValid && e.isValid())
       return e.format(n);
-  }, F = (e) => {
-    if (l == "range") {
+  }, M = (e) => {
+    if (i == "range") {
       if (e && typeof e == "string") {
         var n, s;
-        const d = e.charAt(0);
-        if (d == ">")
-          n = o(e.slice(1), r);
-        else if (d == "<")
-          s = o(e.slice(1), r);
+        const y = e.charAt(0);
+        if (y == ">")
+          n = l(e.slice(1), r);
+        else if (y == "<")
+          s = l(e.slice(1), r);
         else {
-          const u = e.split("...");
-          n = o(u[0], r), u[1] && (s = o(u[1], r));
+          const g = e.split("...");
+          n = l(g[0], r), g[1] && (s = l(g[1], r));
         }
       }
       return [n, s];
-    }
-    return o(e, r);
-  }, h = (e) => {
-    if (l == "range") {
+    } else
+      return l(e, r);
+  }, Y = (e) => {
+    if (i == "range") {
       if (e) {
-        const n = a(e.from, r), s = a(e.to, r);
+        const n = u(e.from, r), s = u(e.to, r);
         if (n)
           return s ? n + "..." + s : ">" + n;
         if (s)
           return "<" + s;
       }
-    } else l == "default" && a(e, r);
-  }, i = E(t.attribute, t, { format: h, parse: F }), { getError: y, getValue: b, setValue: M, mutateOptions: P, refreshError: v } = i, I = m || g(null), R = y(), V = b(), Y = g(null);
-  j(I, () => ({
-    ...H(i),
+    } else
+      u(e, r);
+  }, o = J(t.attribute, t, { format: Y, parse: M }), { getError: P, getValue: V, setValue: a, mutateOptions: v, refreshError: D } = o, I = F || h(null), R = P(), f = V(), m = (e) => e && e.isValid() && e.toDate() || null, k = i == "range" ? [m(f[0]), m(f[1])] : m(f), L = h(null);
+  E(I, () => ({
+    ...O(o),
     focus() {
-      Y.current.focus();
+      L.current.focus();
     },
     setCurrent() {
     }
-  }), [i]);
-  var { serverPattern: r, ...c } = i.getFieldProps();
-  return c.onChange = (e) => {
-    t.readOnly || (console.log("onchange", e), M(e), t.onChange && t.onChange(e));
-  }, c.onBlur = v, /* @__PURE__ */ f(k, { children: !P.visible && /* @__PURE__ */ f(
-    J,
+  }), [o]);
+  var { ...d } = o.getFieldProps();
+  return d.onChange = (e) => {
+    t.readOnly || (i == "range" ? a(e ? [c(e[0]), c(e[1])] : void 0) : a(e ? c(e) : void 0), t.onChange && t.onChange(e));
+  }, d.onBlur = D, /* @__PURE__ */ C(j, { children: !v.visible && /* @__PURE__ */ C(
+    A,
     {
-      label: x(t),
+      label: H(t),
       customContainerClass: t.customContainerClass,
       colspan: t.colspan,
       customFieldClass: t.customFieldClass,
       customLabelClass: t.customLabelClass,
-      children: /* @__PURE__ */ f(
-        O,
+      children: /* @__PURE__ */ C(
+        B,
         {
-          ...c,
-          value: V,
+          ...d,
+          value: k,
           type: t.type,
-          valueFormat: C,
+          valueFormat: b,
           error: R.message,
           label: t.label
         }
@@ -73,5 +71,5 @@ const K = L(function(t, m) {
   ) });
 });
 export {
-  K as MantineDatePickerInput
+  S as MantineDatePickerInput
 };

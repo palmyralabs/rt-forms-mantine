@@ -8,15 +8,17 @@ import dayjs from "dayjs";
 const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DatePickerInputProps, 'defaultValue'>,
     ref: MutableRefObject<IDateField>) {
-    // const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
+    const serverPattern = props.serverPattern || props.valueFormat || "YYYY-MM-DD";
     const displayFormat: string = props.valueFormat || "YYYY-MM-DD";
     const type = props.type;
 
+    // const {parse, format, convert, revert}
 
     const parseToDaysJs = (rawData: any, serverPattern) => {
         if (rawData) {
             return dayjs(rawData, serverPattern)
-        } return undefined;
+        }
+        return null;
     };
 
     const formatDayJs = (v: any, serverPattern) => {
@@ -41,8 +43,8 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
                 }
             }
             return [from, to];
-        }
-        return parseToDaysJs(rawData, serverPattern);
+        } else
+            return parseToDaysJs(rawData, serverPattern);
     }
 
     const format = (v): string => {
@@ -63,10 +65,9 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
                     }
                 }
             }
-        } else if (type == "default") {
+        } else {
             formatDayJs(v, serverPattern);
         }
-        return undefined;
     };
 
     const fieldManager = useFieldManager(props.attribute, props, { format, parse });
@@ -75,6 +76,10 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
     const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
     const value = getValue();
+
+    const t = (v) => v && v.isValid() && v.toDate() || null;
+
+    const dateValue = type == 'range' ? [t(value[0]), t(value[1])] : t(value);
 
     const inputRef: any = useRef(null);
 
@@ -91,12 +96,23 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
         };
     }, [fieldManager]);
 
-    var { serverPattern, ...options } = fieldManager.getFieldProps();
+    var { ...options } = fieldManager.getFieldProps();
 
     options.onChange = (d: any) => {
         if (!props.readOnly) {
-            console.log("onchange", d)
-            setValue(d);
+            if (type == 'range') {
+                if (d) {
+                    setValue([dayjs(d[0]), dayjs(d[1])]);
+                } else {
+                    setValue(undefined)
+                }
+            } else {
+                if (d) {
+                    setValue(dayjs(d));
+                } else {
+                    setValue(undefined)
+                }
+            }
             if (props.onChange)
                 props.onChange(d);
         }
@@ -108,7 +124,7 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <DatePickerInput
                 {...options}
-                value={value}
+                value={dateValue}
                 type={props.type}
                 valueFormat={displayFormat}
                 error={error.message}
