@@ -1,61 +1,65 @@
-import { useFieldGenrator as a } from "@palmyralabs/rt-forms";
-import { MantineCheckBox as m } from "../../../form/MantineCheckBox.js";
-import { MantineDateInput as p } from "../../../form/MantineDateInput.js";
-import "../../../form/MantineDatePickerInput.js";
+import { jsx as m } from "react/jsx-runtime";
+import { useFieldGenrator as p } from "@palmyralabs/rt-forms";
+import { MantineCheckBox as s } from "../../../form/MantineCheckBox.js";
+import { MantineDateInput as c } from "../../../form/MantineDateInput.js";
+import { MantineDatePickerInput as u } from "../../../form/MantineDatePickerInput.js";
 import "../../../form/MantineDateTimePicker.js";
-import { MantineMultiSelect as s } from "../../../form/MantineMultiSelect.js";
-import { MantineNumberField as c } from "../../../form/MantineNumberField.js";
-import { MantinePasswordField as u } from "../../../form/MantinePasswordField.js";
+import { MantineMultiSelect as l } from "../../../form/MantineMultiSelect.js";
+import { MantineNumberField as f } from "../../../form/MantineNumberField.js";
+import { MantinePasswordField as d } from "../../../form/MantinePasswordField.js";
 import "../../../form/MantineRadio.js";
-import { MantineRadioGroup as l } from "../../../form/MantineRadioGroup.js";
+import { MantineRadioGroup as M } from "../../../form/MantineRadioGroup.js";
 import "../../../form/MantineRangeSlider.js";
-import { MantineRating as d } from "../../../form/MantineRating.js";
-import { MantineSelect as f } from "../../../form/MantineSelect.js";
-import "../../../form/MantineServerLookup.js";
+import { MantineRating as g } from "../../../form/MantineRating.js";
+import { MantineSelect as x } from "../../../form/MantineSelect.js";
+import { MantineServerLookup as F } from "../../../form/MantineServerLookup.js";
 import "../../../form/MantineSlider.js";
-import { MantineSwitch as M } from "../../../form/MantineSwitch.js";
-import { MantineTextArea as F } from "../../../form/MantineTextArea.js";
-import { MantineTextField as g } from "../../../form/MantineTextField.js";
+import { MantineSwitch as b } from "../../../form/MantineSwitch.js";
+import { MantineTextArea as h } from "../../../form/MantineTextArea.js";
+import { MantineTextField as k } from "../../../form/MantineTextField.js";
 import "../../../form/MantineTimeInput.js";
 import "../../../form/view/MantineTextView.js";
 import "../../../form/view/MantineOptionsView.js";
 import "../../../form/view/MantineDateView.js";
 import "../../../form/view/MantineLookupView.js";
-import "react/jsx-runtime";
 import "react";
 import "@mantine/core";
-const L = (e, o) => {
-  const { type: i } = e, t = { fieldDef: e, title: o }, { getReactField: r, getInvalidField: n } = a();
-  switch (i) {
+const W = (r, i) => {
+  const { type: n } = r, t = { fieldDef: r, title: i }, { getReactField: e, getInvalidField: a } = p();
+  switch (n) {
     case "string":
-      return r(t, g);
+      return e(t, k);
     case "radio":
-      return r(t, l);
+      return e(t, M);
     case "select":
-      return r(t, f);
+      return e(t, x);
     case "date":
-      return r(t, p);
+      return e(t, c);
     case "multiSelect":
-      return r(t, s);
+      return e(t, l);
     case "checkbox":
-      return r(t, m);
+      return e(t, s);
+    case "serverlookup":
+      return e(t, F);
     case "textarea":
-      return r(t, F);
+      return e(t, h);
     case "switch":
-      return r(t, M);
+      return e(t, b);
     case "password":
-      return r(t, u);
+      return e(t, d);
     case "rating":
-      return r(t, d);
+      return e(t, g);
     case "float":
     case "number":
     case "numbersOnly":
-      return r(t, c);
+      return e(t, f);
+    case "dateRange":
+      return e(t, (o) => /* @__PURE__ */ m(u, { attribute: o.attribute, ...o, type: "range" }));
     case "autoComplete":
     default:
-      return n(t);
+      return a(t);
   }
 };
 export {
-  L as default
+  W as default
 };

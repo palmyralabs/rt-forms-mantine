@@ -1,53 +1,55 @@
-import { jsx as t, Fragment as i, jsxs as h } from "react/jsx-runtime";
-import { G as m } from "../../../chunks/iconBase.js";
-import { forwardRef as u, useState as w, useRef as p, useImperativeHandle as g } from "react";
-import { Popover as r, Button as x } from "@mantine/core";
-import '../../../assets/DropdownButton.css';function b(d) {
-  return m({ tag: "svg", attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" }, child: [] }] })(d);
+import { jsx as t, Fragment as i, jsxs as m } from "react/jsx-runtime";
+import { G as w } from "../../../chunks/iconBase.js";
+import { forwardRef as p, useState as g, useRef as x, useImperativeHandle as D } from "react";
+import { Popover as r, Button as b } from "@mantine/core";
+import '../../../assets/DropdownButton.css';function v(d) {
+  return w({ tag: "svg", attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" }, child: [] }] })(d);
 }
-const S = u(function(n, a) {
-  const [o, e] = w(!1), l = a || p(), c = n.className || "py-dropdown-button";
-  g(l, () => ({
+const C = p(function(e, a) {
+  const [o, n] = g(!1), l = a || x(), c = e.className || "py-dropdown-button";
+  D(l, () => ({
     open() {
-      e(!0);
+      n(!0);
     },
     close() {
-      e(!1);
+      n(!1);
     }
   }), []);
-  const s = n.PrefixAdornment || /* @__PURE__ */ t(i, {}), f = /* @__PURE__ */ t(
-    b,
+  const s = e.PrefixAdornment || /* @__PURE__ */ t(i, {}), f = /* @__PURE__ */ t(
+    v,
     {
       className: `py-dropdown-button-arrow ${o ? "open" : ""} `
     }
-  );
-  return /* @__PURE__ */ t(i, { children: /* @__PURE__ */ h(
+  ), h = (u) => {
+    u.preventDefault(), n(!1);
+  };
+  return /* @__PURE__ */ t(i, { children: /* @__PURE__ */ m(
     r,
     {
       withArrow: !0,
       shadow: "md",
       position: "bottom-end",
-      width: n.width,
+      width: e.width,
       opened: o,
-      onChange: e,
+      onChange: h,
       children: [
         /* @__PURE__ */ t(r.Target, { children: /* @__PURE__ */ t(
-          x,
+          b,
           {
             className: c,
-            disabled: n.disabled,
+            disabled: e.disabled,
             fullWidth: !1,
             rightSection: f,
             leftSection: s,
-            onClick: () => e(!o),
-            children: /* @__PURE__ */ t("span", { children: n.title })
+            onClick: () => n(!o),
+            children: /* @__PURE__ */ t("span", { children: e.title })
           }
         ) }),
-        /* @__PURE__ */ t(r.Dropdown, { children: n.children })
+        /* @__PURE__ */ t(r.Dropdown, { children: e.children })
       ]
     }
   ) });
 });
 export {
-  S as DropdownButton
+  C as DropdownButton
 };

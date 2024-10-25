@@ -37,9 +37,14 @@ const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButton
     const SuffixAdornment = <MdKeyboardArrowDown
         className={`py-dropdown-button-arrow ${dropdownOpen ? 'open' : ''} `} />
 
+    const onClose = (e) => {
+        e.preventDefault();
+        setDropdownOpen(false);
+    }
+
     return <>
         <Popover withArrow shadow="md" position="bottom-end" width={props.width}
-            opened={dropdownOpen} onChange={setDropdownOpen}>
+            opened={dropdownOpen} onChange={onClose}>
             <Popover.Target>
                 <Button className={className}
                     disabled={props.disabled}

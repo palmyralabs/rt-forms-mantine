@@ -1,7 +1,7 @@
 import { FieldRequest, useFieldGenrator, ColumnFieldOptions } from "@palmyralabs/rt-forms";
 import {
-    MantineCheckBox, MantineDateInput, MantineMultiSelect, MantineNumberField, MantinePasswordField,
-    MantineRadioGroup, MantineRating, MantineSelect, MantineSwitch, MantineTextArea, MantineTextField
+    MantineCheckBox, MantineDateInput, MantineDatePickerInput, MantineMultiSelect, MantineNumberField, MantinePasswordField,
+    MantineRadioGroup, MantineRating, MantineSelect, MantineServerLookup, MantineSwitch, MantineTextArea, MantineTextField
 } from "../../../form";
 
 const getField = (fieldDef: ColumnFieldOptions, title?: any) => {
@@ -23,8 +23,8 @@ const getField = (fieldDef: ColumnFieldOptions, title?: any) => {
             return getReactField(props, MantineMultiSelect);
         case 'checkbox':
             return getReactField(props, MantineCheckBox);
-        // case 'serverlookup':
-        //     return getReactField(props, MantineServerLookup);
+        case 'serverlookup':
+            return getReactField(props, MantineServerLookup);
         case 'textarea':
             return getReactField(props, MantineTextArea);
         case 'switch':
@@ -37,8 +37,8 @@ const getField = (fieldDef: ColumnFieldOptions, title?: any) => {
         case 'number':
         case 'numbersOnly':
             return getReactField(props, MantineNumberField);
-        // case 'dateRange':
-        //     return getReactField(props, MantineDatePickerInput);
+        case 'dateRange':
+            return getReactField(props, (p: any) => <MantineDatePickerInput attribute={p.attribute} {...p} type="range" />);
         case 'autoComplete':
         // return getReactField(props, MantineAutoComplete);
         default:
