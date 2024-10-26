@@ -39,6 +39,8 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
         if (!props.readOnly) {
             if (option)
                 setValue(option.value);
+            else
+                setValue(null);
             if (props.onChange)
                 props.onChange(e, option);
         }
