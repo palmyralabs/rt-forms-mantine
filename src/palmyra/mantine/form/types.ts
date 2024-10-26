@@ -1,4 +1,5 @@
-import { FieldOptions, IServerLookupOptions } from "@palmyralabs/rt-forms";
+import { DefaultQueryParams, IEndPoint, StoreOptions } from "@palmyralabs/palmyra-wire";
+import { FieldOptions, IServerLookupOptions, numbers } from "@palmyralabs/rt-forms";
 
 interface IFieldProps {
     size?: 'small' | 'medium' | 'large'
@@ -64,10 +65,40 @@ interface ILookupViewOptions extends MantineInputFieldOptions, ILayoutOptions, I
     };
 }
 
+interface IServerQueryOptions {
+    queryOptions: {
+        delay?: number,
+        endPoint: IEndPoint;
+        queryAttribute?: string;
+        labelAttribute?: string;
+        storeOptions?: StoreOptions;
+    };
+    fetchDefault?: number;
+    pageSize?: numbers;
+    defaultParams?: DefaultQueryParams;
+}
+
+interface IServerAutoCompleteDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerQueryOptions, ITextFieldProps {
+    renderOption?: (
+        props: React.HTMLAttributes<HTMLLIElement> & { key: any },
+        option: any,
+        // state: AutocompleteRenderOptionState,
+        ownerState: any,
+    ) => React.ReactNode
+}
+
 interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
     defaultValue?: any,
     multiple?: boolean,
+    queryOptions: {
+        delay?: number,
+        endPoint: IEndPoint;
+        queryAttribute?: string;
+        labelAttribute?: string;
+        idAttribute?: string;
+        storeOptions?: StoreOptions;
+    };
     renderOption?: (
         props: React.HTMLAttributes<HTMLLIElement> & { key: any },
         option: any,
@@ -137,7 +168,7 @@ export type {
     ITextFieldDefinition, ISelectDefinition, IDatePickerDefinition, IServerLookupDefinition,
     ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition,
     ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition,
-    IRadioDefinition, ICalendarDefinition, ILookupViewOptions
+    IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition
 }
 
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }

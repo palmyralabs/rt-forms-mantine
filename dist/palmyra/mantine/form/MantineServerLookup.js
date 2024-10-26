@@ -1,38 +1,38 @@
-import { jsx as n, Fragment as w } from "react/jsx-runtime";
-import { forwardRef as y, useRef as s, useImperativeHandle as M } from "react";
+import { jsx as n, Fragment as k } from "react/jsx-runtime";
+import { forwardRef as w, useRef as i, useImperativeHandle as M } from "react";
 import { useServerLookupFieldManager as D, getFieldHandler as R, FieldDecorator as V } from "@palmyralabs/rt-forms";
 import { getFieldLabel as x } from "./util.js";
 import { delayGenerator as E } from "@palmyralabs/ts-utils";
 import { ServerLookup as H } from "./internal/ServerLookup.js";
 import { a as I } from "../../../chunks/index.js";
-const c = E(100), q = y(function(e, t) {
-  const i = s(null), r = D(e.attribute, e), {
-    getError: u,
+const p = w(function(e, t) {
+  const a = E(e.queryOptions.delay || 200), u = i(null), r = D(e.attribute, e), {
+    getError: c,
     getValue: d,
     setValue: m,
     options: g,
     getFieldProps: f,
     setSearchText: C,
     refreshOptions: h,
-    getOptionValue: a,
+    getOptionValue: l,
     getOptionKey: b,
     refreshError: F
-  } = r, v = u(), L = t || s(null), l = d(), O = l ? a(l) : "";
-  M(L, () => ({
+  } = r, v = c(), y = t || i(null), s = d(), L = s ? l(s) : "";
+  M(y, () => ({
     ...R(r),
     focus() {
-      i.current.focus();
+      u.current.focus();
     }
   }), [r]);
-  const S = {
-    onValueChange: (o, k) => {
-      m(o), e.onChange && e.onChange(k);
+  const O = {
+    onValueChange: (o, S) => {
+      m(o), e.onChange && e.onChange(S);
     },
     onChange: (o) => {
-      c(C, o), e.onChange && e.onChange(o);
+      a(C, o), e.onChange && e.onChange(o);
     },
     onDropdownOpen: () => {
-      c(h);
+      a(h);
     },
     onDropdownClose: () => {
     },
@@ -40,7 +40,7 @@ const c = E(100), q = y(function(e, t) {
       F();
     }
   };
-  return /* @__PURE__ */ n(w, { children: /* @__PURE__ */ n(
+  return /* @__PURE__ */ n(k, { children: /* @__PURE__ */ n(
     V,
     {
       label: x(e),
@@ -53,19 +53,19 @@ const c = E(100), q = y(function(e, t) {
         {
           readOnly: e.readOnly,
           ...f(),
-          value: O,
+          value: L,
           rightSection: /* @__PURE__ */ n(I, {}),
           getOptionKey: b,
-          getOptionValue: a,
+          getOptionValue: l,
           data: g,
           label: e.label,
           error: v.message,
-          ...S
+          ...O
         }
       )
     }
   ) });
 });
 export {
-  q as MantineServerLookup
+  p as MantineServerLookup
 };
