@@ -15,7 +15,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
     const inputRef: any = useRef(null);
     const fieldManager = useServerLookupFieldManager(props.attribute, props);
     const { getError, getValue, setValue, options, getFieldProps, setSearchText,
-        refreshOptions, getOptionValue, getOptionKey } = fieldManager;
+        refreshOptions, getOptionValue, getOptionKey, refreshError } = fieldManager;
     const error: IFormFieldError = getError();
     const currentRef = ref ? ref : useRef<IServerLookupField>(null);
 
@@ -45,6 +45,9 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             delay100(refreshOptions)
         },
         onDropdownClose: () => {
+        },
+        onBlur: () => {
+            refreshError();
         }
     }
 
