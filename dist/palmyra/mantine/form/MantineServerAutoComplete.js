@@ -5,7 +5,7 @@ import { getFieldLabel as R } from "./util.js";
 import { delayGenerator as V } from "@palmyralabs/ts-utils";
 import { a as x } from "../../../chunks/index.js";
 import { MantineAutoComplete as k } from "./internal/MantineAutoComplete.js";
-const _ = M(function(e, a) {
+const z = M(function(e, a) {
   const r = V(e.queryOptions.delay || 250), u = i(null), t = A(e.attribute, e), {
     getError: m,
     getValue: d,
@@ -24,7 +24,7 @@ const _ = M(function(e, a) {
   }), [t]);
   const O = {
     onValueChange: (n, c) => {
-      l(c), e.onChange && e.onChange(c);
+      l(c), e.onChange && e.onChange(c, n);
     },
     onChange: (n) => {
       r(g, n), l(n), e.onChange && e.onChange(n);
@@ -61,5 +61,5 @@ const _ = M(function(e, a) {
   ) });
 });
 export {
-  _ as MantineServerAutoComplete
+  z as MantineServerAutoComplete
 };

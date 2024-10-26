@@ -9,8 +9,9 @@ import { MantineAutoComplete } from "./internal/MantineAutoComplete";
 
 
 
-const MantineServerAutoComplete = forwardRef(function MantineServerLookup(props: IServerAutoCompleteDefinition & AutocompleteProps,
-    ref: MutableRefObject<IServerLookupField>) {
+const MantineServerAutoComplete = forwardRef(function MantineServerLookup
+    (props: IServerAutoCompleteDefinition & AutocompleteProps & { onChange?: (value: string, data?: any) => void; },
+        ref: MutableRefObject<IServerLookupField>) {
     const delay = delayGenerator(props.queryOptions.delay || 250);
     const inputRef: any = useRef(null);
     const fieldManager = useServerAutoComplete(props.attribute, props);
@@ -33,9 +34,9 @@ const MantineServerAutoComplete = forwardRef(function MantineServerLookup(props:
     }, [fieldManager]);
 
     const callbacks = {
-        onValueChange: (_d: any, label: string) => {
+        onValueChange: (d: any, label: string) => {
             setValue(label);
-            props.onChange && props.onChange(label)
+            props.onChange && props.onChange(label, d)
         },
         onChange: (label: string) => {
             delay(setSearchText, label);
