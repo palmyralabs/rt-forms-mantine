@@ -1,6 +1,6 @@
 import { IEndPoint, PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { ISaveForm, PalmyraEditForm, PalmyraNewForm } from "@palmyralabs/rt-forms";
-import { MantineCheckBox, MantinePasswordField, MantineRadio, MantineRadioGroup, MantineSwitch, MantineTextArea, MantineTextField, SectionContainer } from "../../src/main";
+import { MantineCheckBox, MantineNumberPickerInput, MantinePasswordField, MantineRadio, MantineRadioGroup, MantineSwitch, MantineTextArea, MantineTextField, SectionContainer } from "../../src/main";
 import { Button } from "@mantine/core";
 import { useEffect, useRef } from "react";
 import { MantineServerLookup } from "../../src/palmyra/mantine/form/MantineServerLookup";
@@ -46,6 +46,7 @@ const SampleForm = () => {
         <><h1>Edit</h1>
             <PalmyraEditForm id="1" endPoint={endPoint}
                 storeFactory={storeFactory} ref={formRef}>
+                    <MantineNumberPickerInput attribute="picker" label="Number Picker"/>
                 <MantineDatePickerInput attribute='dates' label={"Date Range"}
                     valueFormat='DD-MMM-YYYY' type="range" />
                 <MantineDatePickerInput attribute='date' label={"Date"}
