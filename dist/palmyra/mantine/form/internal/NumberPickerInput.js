@@ -1,51 +1,42 @@
-import { jsx as e, jsxs as a } from "react/jsx-runtime";
-import { Button as n } from "@mantine/core";
-import { PickerInputBase as v } from "./PickerInputBase.js";
-import { useDisclosure as m } from "@mantine/hooks";
-import { useState as h } from "react";
-const I = (t) => {
-  const [o, u] = h(""), [c, i] = m(!1), d = () => {
-  }, s = (r) => {
-    u((p) => p + r);
-  }, l = (r) => /* @__PURE__ */ e(n, { onClick: () => s(r.label), children: r.label }), b = (r) => /* @__PURE__ */ e(n, { children: r.label });
-  return /* @__PURE__ */ e(
-    v,
+import { jsx as l } from "react/jsx-runtime";
+import { Button as i } from "@mantine/core";
+import { PickerInputBase as d } from "./PickerInputBase.js";
+import { useDisclosure as f } from "@mantine/hooks";
+import { useState as k } from "react";
+import { d as y } from "../../../../chunks/index3.js";
+import '../../../../assets/NumberPickerInput.css';const A = [
+  [{ label: "1", value: 1 }, { label: "2", value: 2 }, { label: "3", value: 3 }],
+  [{ label: "4", value: 4 }, { label: "5", value: 5 }, { label: "6", value: 6 }],
+  [{ label: "7", value: 7 }, { label: "8", value: 8 }, { label: "9", value: 9 }],
+  [
+    { label: ".", value: "." },
+    { label: "0", value: 0 },
+    { label: /* @__PURE__ */ l(y, { className: "py-number-btn-icon" }), value: "D", isAction: !0 }
+  ],
+  [{ label: "Clear All", value: "CA", isAction: !0 }]
+], D = (o) => {
+  const [u, n] = k(""), [b, m] = f(!1), s = () => {
+    n("");
+  }, t = (e) => {
+    e === "D" ? n((a) => a.slice(0, -1)) : e === "CA" ? s() : n((a) => a + e);
+  }, p = (e) => /* @__PURE__ */ l(i, { onClick: () => t(e.label), className: "py-number-btn", children: e.label }), v = (e) => /* @__PURE__ */ l(i, { onClick: () => t(e.value), className: "py-number-btn", children: e.label });
+  return /* @__PURE__ */ l(
+    d,
     {
-      formattedValue: o,
-      dropdownOpened: c,
-      dropdownHandlers: i,
-      onClear: d,
-      wrapperProps: { label: t.label, error: t.error },
+      formattedValue: u,
+      dropdownOpened: b,
+      dropdownHandlers: m,
+      onClear: s,
+      wrapperProps: { label: o.label, error: o.error },
       shouldClear: !1,
-      value: o,
+      value: u,
       dropdownType: "popover",
       type: "PickerInputBase",
       __staticSelector: "DatePickerInput",
-      children: /* @__PURE__ */ e("div", { children: /* @__PURE__ */ a("table", { children: [
-        /* @__PURE__ */ a("tr", { children: [
-          /* @__PURE__ */ e(l, { label: "1", value: 1 }),
-          /* @__PURE__ */ e(l, { label: "2", value: 2 }),
-          /* @__PURE__ */ e(l, { label: "3", value: 3 })
-        ] }),
-        /* @__PURE__ */ a("tr", { children: [
-          /* @__PURE__ */ e(l, { label: "4", value: 4 }),
-          /* @__PURE__ */ e(l, { label: "5", value: 5 }),
-          /* @__PURE__ */ e(l, { label: "6", value: 6 })
-        ] }),
-        /* @__PURE__ */ a("tr", { children: [
-          /* @__PURE__ */ e(l, { label: "7", value: 7 }),
-          /* @__PURE__ */ e(l, { label: "8", value: 8 }),
-          /* @__PURE__ */ e(l, { label: "9", value: 9 })
-        ] }),
-        /* @__PURE__ */ a("tr", { children: [
-          /* @__PURE__ */ e(l, { label: ".", value: 1 }),
-          /* @__PURE__ */ e(l, { label: "0", value: 0 }),
-          /* @__PURE__ */ e(b, { label: "D" })
-        ] })
-      ] }) })
+      children: /* @__PURE__ */ l("div", { className: "py-number-picker-container", children: A.map((e, a) => /* @__PURE__ */ l("div", { className: "py-number-picker", children: e.map((r, c) => r.isAction ? /* @__PURE__ */ l(v, { label: r.label, value: r.value }, c) : /* @__PURE__ */ l(p, { label: r.label, value: r.value }, c)) }, a)) })
     }
   );
 };
 export {
-  I as NumberPickerInput
+  D as NumberPickerInput
 };
