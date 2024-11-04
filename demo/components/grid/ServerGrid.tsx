@@ -13,7 +13,7 @@ const columns: ColumnDefinition[] = [
     }, {
         attribute: 'name',
         label: 'Thumbnail',
-        type: 'string',
+        type: 'date',
         searchable: true,
         sortable: true
     }, {
@@ -35,19 +35,19 @@ const ServerGrid = () => {
     }
 
     return <>
-        {/* <StoreFactoryContext.Provider value={storeFactory}>
+        <StoreFactoryContext.Provider value={storeFactory}>
             <GridX columns={columns} endPoint={endPoint}
                 quickSearch="code"
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}
                 pageSize={[20, 30, 1000]} />
-        </StoreFactoryContext.Provider> */}
+        </StoreFactoryContext.Provider>
 
-        <PalmyraGrid columns={columns} endPoint={endPoint}
+        {/* <PalmyraGrid columns={columns} endPoint={endPoint}
             quickSearch="code"
             getPluginOptions={getOptions}
             DataGridControls={DataGridDefaultControls}
-            pageSize={[20, 30, 1000]} />
+            pageSize={[20, 30, 1000]} /> */}
     </>
 }
 

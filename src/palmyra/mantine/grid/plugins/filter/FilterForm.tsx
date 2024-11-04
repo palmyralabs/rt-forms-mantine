@@ -66,7 +66,7 @@ const FilterForm = (o: FilterOptions) => {
 
     const fieldGroupColumn = o.column || 2;
 
-    return <div>
+    return <div onMouseDown={(e) => e.stopPropagation()}>
         <PalmyraForm formData={formattedFilterValue} ref={filterRef}>
             <FieldGroupContainer columns={fieldGroupColumn}>
                 {getFilterColumns()}
