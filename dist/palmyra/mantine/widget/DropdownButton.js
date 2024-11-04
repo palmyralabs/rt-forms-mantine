@@ -1,27 +1,27 @@
 import { jsx as t, Fragment as i, jsxs as m } from "react/jsx-runtime";
-import { G as w } from "../../../chunks/iconBase.js";
-import { forwardRef as p, useState as g, useRef as x, useImperativeHandle as D } from "react";
+import { G as u } from "../../../chunks/iconBase.js";
+import { forwardRef as w, useState as p, useRef as g, useImperativeHandle as x } from "react";
 import { Popover as r, Button as b } from "@mantine/core";
-import '../../../assets/DropdownButton.css';function v(d) {
-  return w({ tag: "svg", attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" }, child: [] }] })(d);
+import '../../../assets/DropdownButton.css';function D(d) {
+  return u({ tag: "svg", attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" }, child: [] }] })(d);
 }
-const C = p(function(e, a) {
-  const [o, n] = g(!1), l = a || x(), c = e.className || "py-dropdown-button";
-  D(l, () => ({
+const y = w(function(n, a) {
+  const [o, e] = p(!1), l = a || g(), c = n.className || "py-dropdown-button";
+  x(l, () => ({
     open() {
-      n(!0);
+      e(!0);
     },
     close() {
-      n(!1);
+      e(!1);
     }
   }), []);
-  const s = e.PrefixAdornment || /* @__PURE__ */ t(i, {}), f = /* @__PURE__ */ t(
-    v,
+  const s = n.PrefixAdornment || /* @__PURE__ */ t(i, {}), f = /* @__PURE__ */ t(
+    D,
     {
       className: `py-dropdown-button-arrow ${o ? "open" : ""} `
     }
-  ), h = (u) => {
-    u.preventDefault(), n(!1);
+  ), h = () => {
+    e(!o);
   };
   return /* @__PURE__ */ t(i, { children: /* @__PURE__ */ m(
     r,
@@ -29,7 +29,7 @@ const C = p(function(e, a) {
       withArrow: !0,
       shadow: "md",
       position: "bottom-end",
-      width: e.width,
+      width: n.width,
       opened: o,
       onChange: h,
       children: [
@@ -37,19 +37,19 @@ const C = p(function(e, a) {
           b,
           {
             className: c,
-            disabled: e.disabled,
+            disabled: n.disabled,
             fullWidth: !1,
             rightSection: f,
             leftSection: s,
-            onClick: () => n(!o),
-            children: /* @__PURE__ */ t("span", { children: e.title })
+            onClick: () => e(!o),
+            children: /* @__PURE__ */ t("span", { children: n.title })
           }
         ) }),
-        /* @__PURE__ */ t(r.Dropdown, { children: e.children })
+        /* @__PURE__ */ t(r.Dropdown, { children: n.children })
       ]
     }
   ) });
 });
 export {
-  C as DropdownButton
+  y as DropdownButton
 };
