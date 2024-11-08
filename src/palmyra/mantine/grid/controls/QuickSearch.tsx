@@ -22,7 +22,7 @@ const QuickSearch = (options: IQuickSearchOptions & TextFieldProps) => {
         setSearchText(val);
         if (queryRef?.current) {
             if (val && val.length > 0)
-                queryRef.current.setQuickSearch(val);
+                queryRef.current.setQuickSearch(val + '*');
             else {
                 queryRef.current.setQuickSearch(null);
             }

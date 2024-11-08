@@ -5,7 +5,7 @@ import { I as p } from "../../../../chunks/index.js";
 const Q = (s) => {
   const { width: f, queryRef: e, ...r } = s, [i, o] = S(""), n = r.visible != !1, h = (l) => {
     const t = l.target.value;
-    o(t), e != null && e.current && (t && t.length > 0 ? e.current.setQuickSearch(t) : e.current.setQuickSearch(null));
+    o(t), e != null && e.current && (t && t.length > 0 ? e.current.setQuickSearch(t + "*") : e.current.setQuickSearch(null));
   };
   return /* @__PURE__ */ u(m, { children: [
     " ",
