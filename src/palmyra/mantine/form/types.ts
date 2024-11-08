@@ -90,7 +90,7 @@ interface IServerAutoCompleteDefinition extends MantineInputFieldOptions, ILayou
 interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
     defaultValue?: any,
-    multiple?: boolean,
+    multiple?: boolean,    
     queryOptions: {
         delay?: number,
         endPoint: IEndPoint;
@@ -98,7 +98,8 @@ interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptio
         labelAttribute?: string;
         idAttribute?: string;
         storeOptions?: StoreOptions;
-    };
+    },
+    onChange?: (value: string, d?:any) => void;
     renderOption?: (
         props: React.HTMLAttributes<HTMLLIElement> & { key: any },
         option: any,

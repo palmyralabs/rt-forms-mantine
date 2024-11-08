@@ -81,6 +81,7 @@ interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptio
         idAttribute?: string;
         storeOptions?: StoreOptions;
     };
+    onChange?: (value: string, d?: any) => void;
     renderOption?: (props: React.HTMLAttributes<HTMLLIElement> & {
         key: any;
     }, option: any, ownerState: any) => React.ReactNode;

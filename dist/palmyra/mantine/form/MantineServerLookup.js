@@ -26,7 +26,7 @@ const p = w(function(e, t) {
   }), [r]);
   const O = {
     onValueChange: (o, S) => {
-      m(o), e.onChange && e.onChange(S);
+      m(o), e.onChange && e.onChange(S, o);
     },
     onChange: (o) => {
       a(C, o), e.onChange && e.onChange(o);

@@ -34,7 +34,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
     const callbacks = {
         onValueChange: (d: any, label: string) => {
             setValue(d);
-            props.onChange && props.onChange(label)
+            props.onChange && props.onChange(label, d)
         },
         onChange: (label: string) => {
             delay(setSearchText, label);
