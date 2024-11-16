@@ -52,9 +52,9 @@ const p = w(function(e, t) {
         H,
         {
           readOnly: e.readOnly,
+          rightSection: /* @__PURE__ */ n(I, {}),
           ...f(),
           value: L,
-          rightSection: /* @__PURE__ */ n(I, {}),
           getOptionKey: b,
           getOptionValue: l,
           data: g,

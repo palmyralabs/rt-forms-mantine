@@ -54,9 +54,9 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
         <ServerLookup
             readOnly={props.readOnly}
-            {...getFieldProps()}
-            value={label}
             rightSection={<IoMdArrowDropdown />}
+            {...getFieldProps()}
+            value={label}            
             getOptionKey={getOptionKey}
             getOptionValue={getOptionValue}
             data={options}
