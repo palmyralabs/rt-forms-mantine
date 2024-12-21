@@ -32,9 +32,15 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
                 props.onChange(event);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
     const value = getValue();
-    
+
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -43,7 +49,7 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
                 variant={variant}
                 ref={inputRef}
                 {...options}
-                value = {value}
+                value={value}
                 placeholder={props.placeholder}
                 error={error.message}
             />

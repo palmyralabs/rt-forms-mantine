@@ -1,44 +1,46 @@
-import { jsx as n, Fragment as F } from "react/jsx-runtime";
-import { forwardRef as b, useRef as i, useImperativeHandle as v } from "react";
-import { useFieldManager as x, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
-import { getFieldLabel as L } from "./util.js";
-import { TextInput as T } from "@mantine/core";
-const w = b(function(e, r) {
-  const t = x(e.attribute, e), { getError: s, getValue: u, setValue: c, mutateOptions: d, refreshError: m } = t, f = r || i(null), g = s(), o = i(null), C = e.variant || "default";
-  v(f, () => ({
-    ...M(t),
+import { jsx as a, Fragment as h } from "react/jsx-runtime";
+import { forwardRef as F, useRef as i, useImperativeHandle as b } from "react";
+import { useFieldManager as v, getFieldHandler as x, FieldDecorator as M } from "@palmyralabs/rt-forms";
+import { getFieldLabel as R } from "./util.js";
+import { TextInput as B } from "@mantine/core";
+const j = F(function(e, r) {
+  const l = v(e.attribute, e), { getError: u, getValue: s, setValue: c, mutateOptions: d, refreshError: T } = l, m = r || i(null), f = u(), o = i(null), g = e.variant || "default";
+  b(m, () => ({
+    ...x(l),
     focus() {
       o.current.focus();
     }
-  }), [t]);
-  var a = t.getFieldProps();
-  a.onChange = (l) => {
-    e.readOnly || (c(l.target.value), e.onChange && e.onChange(l));
-  }, a.onBlur = m;
-  const h = u();
-  return /* @__PURE__ */ n(F, { children: !d.visible && /* @__PURE__ */ n(
-    R,
+  }), [l]);
+  var n = l.getFieldProps();
+  n.onChange = (t) => {
+    e.readOnly || (c(t.target.value), e.onChange && e.onChange(t));
+  }, n.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  };
+  const C = s();
+  return /* @__PURE__ */ a(h, { children: !d.visible && /* @__PURE__ */ a(
+    M,
     {
-      label: L(e),
+      label: R(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ n(
-        T,
+      children: /* @__PURE__ */ a(
+        B,
         {
           label: e.label,
-          variant: C,
+          variant: g,
           ref: o,
-          ...a,
-          value: h,
+          ...n,
+          value: C,
           placeholder: e.placeholder,
-          error: g.message
+          error: f.message
         }
       )
     }
   ) });
 });
 export {
-  w as MantineTextField
+  j as MantineTextField
 };

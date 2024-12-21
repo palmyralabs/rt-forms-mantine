@@ -1,44 +1,46 @@
-import { jsx as l, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as F, useRef as i, useImperativeHandle as v } from "react";
-import { useFieldManager as x, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
-import { getFieldLabel as V } from "./util.js";
-import { Textarea as L } from "@mantine/core";
-const w = F(function(e, r) {
-  const a = x(e.attribute, e), { getError: s, getValue: u, setValue: c, mutateOptions: f, refreshError: m } = a, d = r || i(null), g = s(), o = i(null), C = e.variant || "default";
-  v(d, () => ({
-    ...M(a),
+import { jsx as l, Fragment as b } from "react/jsx-runtime";
+import { forwardRef as h, useRef as u, useImperativeHandle as F } from "react";
+import { useFieldManager as v, getFieldHandler as x, FieldDecorator as M } from "@palmyralabs/rt-forms";
+import { getFieldLabel as R } from "./util.js";
+import { Textarea as V } from "@mantine/core";
+const j = h(function(e, r) {
+  const t = v(e.attribute, e), { getError: i, getValue: s, setValue: c, mutateOptions: f, refreshError: L } = t, m = r || u(null), d = i(), o = u(null), g = e.variant || "default";
+  F(m, () => ({
+    ...x(t),
     focus() {
       o.current.focus();
     }
-  }), [a]);
-  var t = a.getFieldProps();
-  t.onChange = (n) => {
-    e.readOnly || (c(n.target.value), e.onChange && e.onChange(n));
-  }, t.onBlur = m;
-  const b = u();
-  return /* @__PURE__ */ l(h, { children: !f.visible && /* @__PURE__ */ l(
-    R,
+  }), [t]);
+  var n = t.getFieldProps();
+  n.onChange = (a) => {
+    e.readOnly || (c(a.target.value), e.onChange && e.onChange(a));
+  }, n.onBlur = (a) => {
+    e.onBlur && e.onBlur(a);
+  };
+  const C = s();
+  return /* @__PURE__ */ l(b, { children: !f.visible && /* @__PURE__ */ l(
+    M,
     {
-      label: V(e),
+      label: R(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ l(
-        L,
+        V,
         {
-          variant: C,
+          variant: g,
           label: e.label,
           ref: o,
           defaultValue: e.defaultValue,
-          ...t,
-          value: b,
-          error: g.message
+          ...n,
+          value: C,
+          error: d.message
         }
       )
     }
   ) });
 });
 export {
-  w as MantineTextArea
+  j as MantineTextArea
 };
