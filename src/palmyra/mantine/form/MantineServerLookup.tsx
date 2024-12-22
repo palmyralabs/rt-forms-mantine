@@ -1,11 +1,12 @@
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react";
-import { IServerLookupDefinition } from "./types";
-import { getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from "./util";
 import { AutocompleteProps } from "@mantine/core";
+import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager } from '@palmyralabs/rt-forms';
 import { delayGenerator } from "@palmyralabs/ts-utils";
-import { ServerLookup } from "./internal/ServerLookup";
+import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx";
+import { ServerLookup } from "./internal/ServerLookup";
+import { IServerLookupDefinition } from "./types";
+import { getFieldLabel } from "./util";
 
 const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteProps, 'defaultValue'>,
     ref: MutableRefObject<IServerLookupField>) {
@@ -49,14 +50,20 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             refreshError();
         }
     }
+    const handleClearValue = () => {
+        setValue(null);
+        props.onChange && props.onChange('', null);
+    };
 
+    const rightSectionIcon = value ? <RxCross2 onClick={handleClearValue} style={{ cursor: 'pointer' }} /> :
+        <IoMdArrowDropdown />
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
         <ServerLookup
             readOnly={props.readOnly}
-            rightSection={<IoMdArrowDropdown />}
+            rightSection={rightSectionIcon}
             {...getFieldProps()}
-            value={label}            
+            value={label}
             getOptionKey={getOptionKey}
             getOptionValue={getOptionValue}
             data={options}

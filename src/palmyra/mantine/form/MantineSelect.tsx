@@ -1,8 +1,9 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldHandler, IFormFieldError, ISelectField, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel, keyToString } from './util';
-import { ISelectDefinition } from './types';
 import { ComboboxItem, Select, SelectProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, IFormFieldError, ISelectField, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from 'react';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { ISelectDefinition } from './types';
+import { getFieldLabel, keyToString } from './util';
 
 const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition & SelectProps, ref: MutableRefObject<ISelectField>) {
     const fieldManager = useFieldManager(props.attribute, props);
@@ -55,6 +56,8 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
         return sOptions;
     })
 
+    const rightSectionIcon = props.rightSection ? props.rightSection :
+        <IoMdArrowDropdown />
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -64,6 +67,7 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
                 {...options}
                 variant={variant}
                 error={error.message}
+                rightSection={rightSectionIcon}
             />
         </FieldDecorator>}
     </>

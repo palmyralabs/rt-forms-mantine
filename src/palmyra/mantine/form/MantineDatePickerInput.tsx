@@ -5,6 +5,7 @@ import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDec
 import { DatePickerInput, DatePickerInputProps } from '@mantine/dates';
 import dayjs from "dayjs";
 import { DateUtils } from './DateUtils';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 
 const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DatePickerInputProps, 'defaultValue'>,
@@ -60,7 +61,7 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
     options.onBlur = refreshError;
 
     const dateValue = revert(value);
-
+    const fieldIcon = props.rightSection ? props.rightSection : <FaRegCalendarAlt />;
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -71,6 +72,7 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
                 valueFormat={displayFormat}
                 error={error.message}
                 label={props.label}
+                rightSection={fieldIcon}
             />
         </FieldDecorator>}
     </>
