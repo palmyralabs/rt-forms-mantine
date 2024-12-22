@@ -4,6 +4,7 @@ import './TextView.css';
 import { FieldDecorator, IDateField, getFieldHandler, useFieldManager } from '@palmyralabs/rt-forms';
 import { getFieldLabel } from '../util';
 import { IDatePickerDefinition, TextViewAttributeDefinition } from '../types';
+import { getVariantClassName } from "./variantClassName";
 
 const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePickerDefinition & TextViewAttributeDefinition, ref) {
 
@@ -60,10 +61,12 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={(variant == 'standard') ? "text-view-value" : "text-view-value-outlined"}>{formatValue(value) || "--"}</div>
+                    <div className={getVariantClassName(variant, props.label)}>{formatValue(value) || "--"}</div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
-                    {formatValue(value) || "--"}
+                    <div className={getVariantClassName(variant, props.title)}>
+                        {formatValue(value) || "--"}
+                    </div>
                 </div>
             }
         </FieldDecorator>}

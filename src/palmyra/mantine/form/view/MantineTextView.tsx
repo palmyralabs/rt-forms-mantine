@@ -2,10 +2,11 @@ import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react
 import { getFieldHandler, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { getFieldLabel } from '../util'
 import { ITextFieldDefinition } from '../types';
+import { getVariantClassName } from './variantClassName';
 
 interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center',
-    variant?: 'standard' | 'outlined'
+    variant?: 'standard' | 'outlined' | 'filled'
 }
 
 const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition,
@@ -36,10 +37,12 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={props.label ? (variant === 'outlined' ? "text-view-value-outlined" : "text-view-value") : ''}>{getValue() || '--'}</div>
+                    <div className={getVariantClassName(variant, props.label)}>{getValue() || '--'}</div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
-                    {getValue() || "--"}
+                    <div className={getVariantClassName(variant, props.title)}>
+                        {getValue() || "--"}
+                    </div>
                 </div>
             }
         </FieldDecorator>}

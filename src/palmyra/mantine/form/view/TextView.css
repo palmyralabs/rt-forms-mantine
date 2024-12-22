@@ -16,9 +16,9 @@
     margin-top: 5px;
 }
 
+.text-view-value-filled,
 .text-view-value-outlined {
     margin-top: 10px;
-    border: 1.5px solid rgba(230, 230, 230, 1);
     width: 100%;
     margin-left: 10px;
     padding: 5px;
@@ -27,4 +27,13 @@
     display: flex;
     align-items: center;
     padding-left: 10px;
+}
+
+.text-view-value-filled {
+    background-color: rgb(243, 244, 246);
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.text-view-value-outlined {
+    border: 1.5px solid rgba(230, 230, 230, 1);
 }
