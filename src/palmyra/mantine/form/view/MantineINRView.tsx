@@ -23,7 +23,7 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
     const textAlign: any = props.textAlign || 'left';
     const inputRef: any = useRef(null);
     const variant = props.variant || 'standard';
-    const valueFormat = props.valueFormat || 'number';
+    const valueFormat = props.valueFormat || 'text';
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager)
@@ -56,32 +56,36 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
 
     var options = fieldManager.getFieldProps();
 
+    const INRField = <>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <MdOutlineCurrencyRupee />
+            {showInWords ? formatAmountText(value) : formatAmount(value)}
+        </div>
+        <Tooltip label={showInWords ? 'Switch to Digits' : 'Switch to Words'} withArrow>
+            <div onClick={toggleView} style={{ cursor: 'pointer' }}>
+                {showInWords ? <GoNumber /> : <MdTextFields />}
+            </div>
+        </Tooltip>
+    </>;
+
+
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={getVariantClassName(variant, props.label)}>
-                        <MdOutlineCurrencyRupee />
-                        {formatAmount(getValue())}
+                    <div className={getVariantClassName(variant, props.label)} style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+                    }}>
+                        {INRField}
                     </div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
                     <div className={getVariantClassName(variant, props.title)} style={{
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between'
                     }}>
-                        <div style={{
-                            display: 'flex', alignItems: 'center'
-                        }}>
-                            <MdOutlineCurrencyRupee />
-                            {showInWords ? formatAmountText(value) : formatAmount(value)}
-                        </div>
-                        <Tooltip label={showInWords ? 'Switch to Digits' :'Switch to Words'} withArrow>
-                            <div onClick={toggleView} style={{ cursor: 'pointer' }}>
-                                {showInWords ? <GoNumber /> : <MdTextFields />}
-                            </div>
-                        </Tooltip>
+                        {INRField}
                     </div>
 
                 </div>

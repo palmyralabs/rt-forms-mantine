@@ -24,9 +24,10 @@ import "../../../form/view/MantineTextView.js";
 import "../../../form/view/MantineOptionsView.js";
 import "../../../form/view/MantineDateView.js";
 import "../../../form/view/MantineLookupView.js";
+import "../../../form/view/MantineINRView.js";
 import "react";
 import "@mantine/core";
-const Y = (e, i) => {
+const Z = (e, i) => {
   const { type: n } = e, t = { fieldDef: e, title: i }, { getReactField: r, getInvalidField: a } = p();
   switch (n) {
     case "string":
@@ -63,5 +64,5 @@ const Y = (e, i) => {
   }
 };
 export {
-  Y as default
+  Z as default
 };

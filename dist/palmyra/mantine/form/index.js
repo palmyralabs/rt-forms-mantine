@@ -7,14 +7,14 @@ import { MantineNumberField as u } from "./MantineNumberField.js";
 import { MantineNumberPickerInput as c } from "./MantineNumberPickerInput.js";
 import { MantinePasswordField as S } from "./MantinePasswordField.js";
 import { MantineRadio as w } from "./MantineRadio.js";
-import { MantineRadioGroup as D } from "./MantineRadioGroup.js";
-import { MantineRangeSlider as P } from "./MantineRangeSlider.js";
-import { MantineRating as V } from "./MantineRating.js";
+import { MantineRadioGroup as I } from "./MantineRadioGroup.js";
+import { MantineRangeSlider as V } from "./MantineRangeSlider.js";
+import { MantineRating as P } from "./MantineRating.js";
 import { MantineSelect as s } from "./MantineSelect.js";
 import { MantineServerLookup as F } from "./MantineServerLookup.js";
-import { MantineServerAutoComplete as g } from "./MantineServerAutoComplete.js";
-import { MantineSlider as A } from "./MantineSlider.js";
-import { MantineSwitch as L } from "./MantineSwitch.js";
+import { MantineServerAutoComplete as b } from "./MantineServerAutoComplete.js";
+import { MantineSlider as v } from "./MantineSlider.js";
+import { MantineSwitch as B } from "./MantineSwitch.js";
 import { MantineTextArea as G } from "./MantineTextArea.js";
 import { MantineTextField as j } from "./MantineTextField.js";
 import { MantineTimeInput as y } from "./MantineTimeInput.js";
@@ -22,13 +22,15 @@ import { MantineTextView as E } from "./view/MantineTextView.js";
 import { MantineOptionsView as J } from "./view/MantineOptionsView.js";
 import { MantineDateView as Q } from "./view/MantineDateView.js";
 import { MantineLookupView as W } from "./view/MantineLookupView.js";
-import { TriStateCheckBox as Y } from "../ext/TriStateCheckBox.js";
+import { MantineINRView as Y } from "./view/MantineINRView.js";
+import { TriStateCheckBox as _ } from "../ext/TriStateCheckBox.js";
 export {
   r as MantineCheckBox,
   n as MantineDateInput,
   a as MantineDatePickerInput,
   m as MantineDateTimePicker,
   Q as MantineDateView,
+  Y as MantineINRView,
   W as MantineLookupView,
   f as MantineMultiSelect,
   u as MantineNumberField,
@@ -36,17 +38,17 @@ export {
   J as MantineOptionsView,
   S as MantinePasswordField,
   w as MantineRadio,
-  D as MantineRadioGroup,
-  P as MantineRangeSlider,
-  V as MantineRating,
+  I as MantineRadioGroup,
+  V as MantineRangeSlider,
+  P as MantineRating,
   s as MantineSelect,
-  g as MantineServerAutoComplete,
+  b as MantineServerAutoComplete,
   F as MantineServerLookup,
-  A as MantineSlider,
-  L as MantineSwitch,
+  v as MantineSlider,
+  B as MantineSwitch,
   G as MantineTextArea,
   j as MantineTextField,
   E as MantineTextView,
   y as MantineTimeInput,
-  Y as TriStateCheckBox
+  _ as TriStateCheckBox
 };
