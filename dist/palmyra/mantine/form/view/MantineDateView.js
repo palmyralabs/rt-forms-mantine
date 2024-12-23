@@ -1,47 +1,48 @@
-import { jsx as a, Fragment as h, jsxs as C } from "react/jsx-runtime";
-import D from "dayjs";
-import { forwardRef as M, useRef as c, useImperativeHandle as Y } from "react";
+import { jsx as n, Fragment as D, jsxs as M } from "react/jsx-runtime";
+import Y from "dayjs";
+import { forwardRef as x, useRef as d, useImperativeHandle as y } from "react";
 import '../../../../assets/TextView.css';/* empty css                          */
-import { useFieldManager as w, getFieldHandler as y, FieldDecorator as P } from "@palmyralabs/rt-forms";
-import { getFieldLabel as L } from "../util.js";
-const O = M(function(e, r) {
-  const l = w(e.attribute, e), { getValue: d, mutateOptions: u } = l, m = r || c(null), i = d(), f = e.textAlign || "left", v = e.variant || "standard", b = e.serverPattern || "YYYY-MM-DD", g = e.displayPattern || e.serverPattern || "DD-MM-YYYY", F = c(null);
-  Y(m, () => ({
-    ...y(l),
+import { useFieldManager as N, getFieldHandler as P, FieldDecorator as V } from "@palmyralabs/rt-forms";
+import { getFieldLabel as w } from "../util.js";
+import { getVariantClassName as m } from "./variantClassName.js";
+const k = x(function(e, i) {
+  const l = N(e.attribute, e), { getValue: u, mutateOptions: f } = l, v = i || d(null), r = u(), b = e.textAlign || "left", s = e.variant || "standard", g = e.serverPattern || "YYYY-MM-DD", F = e.displayPattern || e.serverPattern || "DD-MM-YYYY", h = d(null);
+  y(v, () => ({
+    ...P(l),
     focus() {
-      F.current.focus();
+      h.current.focus();
     }
   }), [l]);
-  const x = (t) => {
+  const C = (t) => {
     if (t == null || t == null || t == "")
       return null;
-    const n = D(t, b);
-    if (n.isValid())
-      return n;
-  }, s = (t) => {
+    const a = Y(t, g);
+    if (a.isValid())
+      return a;
+  }, o = (t) => {
     if (!t)
       return "";
     if (t) {
-      const n = x(t);
-      return n != null ? n.format(g) : (console.error("Invalid date provided:", t), "");
+      const a = C(t);
+      return a != null ? a.format(F) : (console.error("Invalid date provided:", t), "");
     }
   };
-  var o = l.getFieldProps();
-  return /* @__PURE__ */ a(h, { children: !u.visible && /* @__PURE__ */ a(
-    P,
+  var c = l.getFieldProps();
+  return /* @__PURE__ */ n(D, { children: !f.visible && /* @__PURE__ */ n(
+    V,
     {
-      label: L(e),
+      label: w(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: e.label ? /* @__PURE__ */ C("div", { ...o, className: "text-view-field-container", children: [
-        /* @__PURE__ */ a("div", { className: "text-view-label", children: e.label }),
-        /* @__PURE__ */ a("div", { className: v == "standard" ? "text-view-value" : "text-view-value-outlined", children: s(i) || "--" })
-      ] }) : /* @__PURE__ */ a("div", { ...o, style: { textAlign: f }, children: s(i) || "--" })
+      children: e.label ? /* @__PURE__ */ M("div", { ...c, className: "text-view-field-container", children: [
+        /* @__PURE__ */ n("div", { className: "text-view-label", children: e.label }),
+        /* @__PURE__ */ n("div", { className: m(s, e.label), children: o(r) || "--" })
+      ] }) : /* @__PURE__ */ n("div", { ...c, style: { textAlign: b }, children: /* @__PURE__ */ n("div", { className: m(s, e.title), children: o(r) || "--" }) })
     }
   ) });
 });
 export {
-  O as MantineDateView
+  k as MantineDateView
 };

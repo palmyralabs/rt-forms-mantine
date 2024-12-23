@@ -1,65 +1,68 @@
-import { jsx as n, Fragment as k } from "react/jsx-runtime";
-import { forwardRef as w, useRef as i, useImperativeHandle as M } from "react";
-import { useServerLookupFieldManager as D, getFieldHandler as R, FieldDecorator as V } from "@palmyralabs/rt-forms";
-import { getFieldLabel as x } from "./util.js";
-import { delayGenerator as E } from "@palmyralabs/ts-utils";
-import { ServerLookup as H } from "./internal/ServerLookup.js";
-import { a as I } from "../../../chunks/index.js";
-const p = w(function(e, t) {
-  const a = E(e.queryOptions.delay || 200), u = i(null), r = D(e.attribute, e), {
-    getError: c,
-    getValue: d,
-    setValue: m,
+import { jsx as o, Fragment as R } from "react/jsx-runtime";
+import { useServerLookupFieldManager as V, getFieldHandler as w, FieldDecorator as M } from "@palmyralabs/rt-forms";
+import { delayGenerator as x } from "@palmyralabs/ts-utils";
+import { forwardRef as D, useRef as i, useImperativeHandle as I } from "react";
+import { a as E } from "../../../chunks/index.js";
+import { R as H } from "../../../chunks/index3.js";
+import { ServerLookup as j } from "./internal/ServerLookup.js";
+import { getFieldLabel as q } from "./util.js";
+const U = D(function(e, a) {
+  const l = x(e.queryOptions.delay || 200), u = i(null), r = V(e.attribute, e), {
+    getError: d,
+    getValue: m,
+    setValue: s,
     options: g,
-    getFieldProps: f,
-    setSearchText: C,
-    refreshOptions: h,
-    getOptionValue: l,
+    getFieldProps: C,
+    setSearchText: h,
+    refreshOptions: f,
+    getOptionValue: c,
     getOptionKey: b,
-    refreshError: F
-  } = r, v = c(), y = t || i(null), s = d(), L = s ? l(s) : "";
-  M(y, () => ({
-    ...R(r),
+    refreshError: y
+  } = r, F = d(), v = a || i(null), t = m(), L = t ? c(t) : "";
+  I(v, () => ({
+    ...w(r),
     focus() {
       u.current.focus();
     }
   }), [r]);
   const O = {
-    onValueChange: (o, S) => {
-      m(o), e.onChange && e.onChange(S, o);
+    onValueChange: (n, k) => {
+      s(n), e.onChange && e.onChange(k, n);
     },
-    onChange: (o) => {
-      a(C, o), e.onChange && e.onChange(o);
+    onChange: (n) => {
+      l(h, n), e.onChange && e.onChange(n);
     },
     onDropdownOpen: () => {
-      a(h);
+      l(f);
     },
     onDropdownClose: () => {
     },
     onBlur: () => {
-      F();
+      y();
     }
-  };
-  return /* @__PURE__ */ n(k, { children: /* @__PURE__ */ n(
-    V,
+  }, S = t ? /* @__PURE__ */ o(H, { onClick: () => {
+    s(null), e.onChange && e.onChange("", null);
+  }, style: { cursor: "pointer" } }) : /* @__PURE__ */ o(E, {});
+  return /* @__PURE__ */ o(R, { children: /* @__PURE__ */ o(
+    M,
     {
-      label: x(e),
+      label: q(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ n(
-        H,
+      children: /* @__PURE__ */ o(
+        j,
         {
           readOnly: e.readOnly,
-          rightSection: /* @__PURE__ */ n(I, {}),
-          ...f(),
+          rightSection: S,
+          ...C(),
           value: L,
           getOptionKey: b,
-          getOptionValue: l,
+          getOptionValue: c,
           data: g,
           label: e.label,
-          error: v.message,
+          error: F.message,
           ...O
         }
       )
@@ -67,5 +70,5 @@ const p = w(function(e, t) {
   ) });
 });
 export {
-  p as MantineServerLookup
+  U as MantineServerLookup
 };

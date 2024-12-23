@@ -1,32 +1,33 @@
-import { jsx as t, Fragment as b, jsxs as g } from "react/jsx-runtime";
-import { forwardRef as x, useRef as o, useImperativeHandle as h } from "react";
+import { jsx as t, Fragment as g, jsxs as h } from "react/jsx-runtime";
+import { forwardRef as C, useRef as o, useImperativeHandle as F } from "react";
 import '../../../../assets/TextView.css';/* empty css                          */
-import { getFieldLabel as C } from "../util.js";
-import { useFieldManager as F, getFieldHandler as w, FieldDecorator as L } from "@palmyralabs/rt-forms";
-const H = x(function(e, n) {
-  const l = F(e.attribute, e), { getValue: r, mutateOptions: d } = l, u = n || o(null), i = r(), a = e.lookupOptions, s = (a == null ? void 0 : a.labelAttribute) || "name", m = e.textAlign || "left", v = e.variant || "standard", f = o(null);
-  h(u, () => ({
-    ...w(l),
+import { getFieldLabel as x } from "../util.js";
+import { useFieldManager as L, getFieldHandler as N, FieldDecorator as w } from "@palmyralabs/rt-forms";
+import { getVariantClassName as d } from "./variantClassName.js";
+const k = C(function(e, n) {
+  const l = L(e.attribute, e), { getValue: m, mutateOptions: u } = l, f = n || o(null), i = m(), a = e.lookupOptions, s = (a == null ? void 0 : a.labelAttribute) || "name", b = e.textAlign || "left", c = e.variant || "standard", v = o(null);
+  F(f, () => ({
+    ...N(l),
     focus() {
-      f.current.focus();
+      v.current.focus();
     }
   }), [l]);
-  var c = l.getFieldProps();
-  return /* @__PURE__ */ t(b, { children: !d.visible && /* @__PURE__ */ t(
-    L,
+  var r = l.getFieldProps();
+  return /* @__PURE__ */ t(g, { children: !u.visible && /* @__PURE__ */ t(
+    w,
     {
-      label: C(e),
+      label: x(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: e.label ? /* @__PURE__ */ g("div", { ...c, className: "text-view-field-container", children: [
+      children: e.label ? /* @__PURE__ */ h("div", { ...r, className: "text-view-field-container", children: [
         /* @__PURE__ */ t("div", { className: "text-view-label", children: e.label }),
-        /* @__PURE__ */ t("div", { className: v == "standard" ? "text-view-value" : "text-view-value-outlined", children: i[s] || "--" })
-      ] }) : /* @__PURE__ */ t("div", { ...c, style: { textAlign: m }, children: i[s] || "--" })
+        /* @__PURE__ */ t("div", { className: d(c, e.label), children: i[s] || "--" })
+      ] }) : /* @__PURE__ */ t("div", { ...r, style: { textAlign: b }, children: /* @__PURE__ */ t("div", { className: d(c, e.title), children: i[s] || "--" }) })
     }
   ) });
 });
 export {
-  H as MantineLookupView
+  k as MantineLookupView
 };
