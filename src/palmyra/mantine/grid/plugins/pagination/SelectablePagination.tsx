@@ -1,26 +1,26 @@
-import { delayGenerator, topic } from "@palmyralabs/ts-utils";
-import { useEffect, useState } from "react";
+import { delayGenerator } from "@palmyralabs/ts-utils";
+import { forwardRef, MutableRefObject, useImperativeHandle, useRef, useState } from "react";
 import './SelectablePagination.css';
 import { DataGridPluginOptions } from "@palmyralabs/rt-forms";
 import { Pagination, Select } from "@mantine/core";
 
 const delay = delayGenerator(10)
 
-const SelectablePagination = (o: DataGridPluginOptions) => {
+const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOptions, ref: MutableRefObject<IPagination>) {
 
     const pageQuery = o.queryRef?.current;
     const [_count, setCount] = useState<number>(0); // Counter used to refresh the state of pagination
     const [_value, setValue] = useState<any>();
 
-    useEffect(() => {
-        if (o.topic) {
-            const handler = topic.subscribe(o.topic + "/data", () => {
-                delay(() => setCount((d: number) => d + 1));
-            });
+    const currentRef = ref ? ref : useRef<IPagination>(null);
 
-            return () => { topic.unsubscribe(handler) };
-        }
-    }, [o.topic])
+    useImperativeHandle(currentRef, () => {
+        return {
+            refresh() {
+                delay(() => setCount((d: number) => d + 1));
+            }
+        };
+    }, [currentRef]);
 
     const handleRowsPerPageChange = (event, option) => {
         const limit = parseInt(option.value, 10);
@@ -52,8 +52,14 @@ const SelectablePagination = (o: DataGridPluginOptions) => {
         return page.value = pageSize
     })
 
+    const isEnabled = () => {
+        const minPage = o.ignoreSinglePage ? 1 : 0;
+        return !isNaN(totalPages)
+            && totalPages > minPage;
+    }
+
     return <div>
-        {(!isNaN(totalPages)) && (
+        {(isEnabled()) && (
             <div>
                 <div className="py-selectable-pagination-container">
                     <div className="py-selectable-pagination-left-container">
@@ -88,6 +94,6 @@ const SelectablePagination = (o: DataGridPluginOptions) => {
         )}
     </div>
 
-}
+});
 
 export { SelectablePagination }

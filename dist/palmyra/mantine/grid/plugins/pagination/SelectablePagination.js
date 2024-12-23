@@ -1,58 +1,56 @@
-import { jsx as t, jsxs as l } from "react/jsx-runtime";
-import { delayGenerator as R, topic as p } from "@palmyralabs/ts-utils";
-import { useState as h, useEffect as w } from "react";
-import { Select as x, Pagination as z } from "@mantine/core";
-import '../../../../../assets/SelectablePagination.css';const C = R(10), V = (n) => {
-  var g;
-  const e = (g = n.queryRef) == null ? void 0 : g.current, [j, m] = h(0), [q, u] = h();
-  w(() => {
-    if (n.topic) {
-      const i = p.subscribe(n.topic + "/data", () => {
-        C(() => m((s) => s + 1));
-      });
-      return () => {
-        p.unsubscribe(i);
-      };
+import { jsx as t, jsxs as c } from "react/jsx-runtime";
+import { delayGenerator as w } from "@palmyralabs/ts-utils";
+import { forwardRef as x, useState as m, useRef as z, useImperativeHandle as C } from "react";
+import { Select as I, Pagination as j } from "@mantine/core";
+import '../../../../../assets/SelectablePagination.css';const q = w(10), G = x(function(a, r) {
+  var h;
+  const e = (h = a.queryRef) == null ? void 0 : h.current, [E, u] = m(0), [L, f] = m(), d = r || z(null);
+  C(d, () => ({
+    refresh() {
+      q(() => u((n) => n + 1));
     }
-  }, [n.topic]);
-  const v = (i, s) => {
-    const N = parseInt(s.value, 10);
-    u(s.value), e.setPageSize(N);
-  }, c = (e == null ? void 0 : e.getTotalRecords()) || 0, f = (e == null ? void 0 : e.getQueryLimit()) || { limit: 15 }, a = Array.isArray(n.pageSize) ? n.pageSize : [n.pageSize], r = (e == null ? void 0 : e.getPageNo()) || 0, o = f.limit || 25, d = Math.ceil(c / o), P = r * o + 1, b = Math.min((r + 1) * o, c), S = (i) => {
-    e.gotoPage(i - 1);
-  }, y = a.map((i) => i);
-  return /* @__PURE__ */ t("div", { children: !isNaN(d) && /* @__PURE__ */ t("div", { children: /* @__PURE__ */ l("div", { className: "py-selectable-pagination-container", children: [
-    /* @__PURE__ */ t("div", { className: "py-selectable-pagination-left-container", children: a && a.length > 1 ? /* @__PURE__ */ l("div", { className: "py-selectable-pagination-left-content-container", children: [
+  }), [d]);
+  const v = (n, p) => {
+    const N = parseInt(p.value, 10);
+    f(p.value), e.setPageSize(N);
+  }, s = (e == null ? void 0 : e.getTotalRecords()) || 0, P = (e == null ? void 0 : e.getQueryLimit()) || { limit: 15 }, i = Array.isArray(a.pageSize) ? a.pageSize : [a.pageSize], g = (e == null ? void 0 : e.getPageNo()) || 0, l = P.limit || 25, o = Math.ceil(s / l), S = g * l + 1, R = Math.min((g + 1) * l, s), b = (n) => {
+    e.gotoPage(n - 1);
+  }, y = i.map((n) => n);
+  return /* @__PURE__ */ t("div", { children: (() => {
+    const n = a.ignoreSinglePage ? 1 : 0;
+    return !isNaN(o) && o > n;
+  })() && /* @__PURE__ */ t("div", { children: /* @__PURE__ */ c("div", { className: "py-selectable-pagination-container", children: [
+    /* @__PURE__ */ t("div", { className: "py-selectable-pagination-left-container", children: i && i.length > 1 ? /* @__PURE__ */ c("div", { className: "py-selectable-pagination-left-content-container", children: [
       /* @__PURE__ */ t("div", { children: /* @__PURE__ */ t("span", { children: "Showing" }) }),
       /* @__PURE__ */ t("div", { className: "py-selectable-pagination-select-field", children: /* @__PURE__ */ t("div", { style: { width: "100px" }, children: /* @__PURE__ */ t(
-        x,
+        I,
         {
           id: "rows-per-page-select",
-          defaultValue: a[0].toString(),
+          defaultValue: i[0].toString(),
           onChange: v,
           size: "xs",
           checkIconPosition: "right",
           data: y.toString().split(",")
         }
       ) }) }),
-      /* @__PURE__ */ t("div", { className: "py-selectable-pagination-show-result", children: /* @__PURE__ */ l("span", { children: [
-        P,
+      /* @__PURE__ */ t("div", { className: "py-selectable-pagination-show-result", children: /* @__PURE__ */ c("span", { children: [
+        S,
         " - ",
-        b,
+        R,
         " of ",
-        c,
+        s,
         " Results"
       ] }) })
     ] }) : null }),
     /* @__PURE__ */ t("div", { className: "py-selectable-pagination-right-container", children: /* @__PURE__ */ t(
-      z,
+      j,
       {
-        total: d,
-        onChange: S
+        total: o,
+        onChange: b
       }
     ) })
   ] }) }) });
-};
+});
 export {
-  V as SelectablePagination
+  G as SelectablePagination
 };

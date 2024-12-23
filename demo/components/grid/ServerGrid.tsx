@@ -37,7 +37,7 @@ const ServerGrid = () => {
     return <>
         <StoreFactoryContext.Provider value={storeFactory}>
             <GridX columns={columns} endPoint={endPoint}
-                quickSearch="code"
+                quickSearch="code" pagination={{ignoreSinglePage: false}}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}
                 pageSize={[20, 30, 1000]} />

@@ -1,3 +1,3 @@
 import { DataGridPluginOptions } from '@palmyralabs/rt-forms';
-declare const SelectablePagination: (o: DataGridPluginOptions) => import("react/jsx-runtime").JSX.Element;
+declare const SelectablePagination: import('react').ForwardRefExoticComponent<DataGridPluginOptions & import('react').RefAttributes<IPagination>>;
 export { SelectablePagination };

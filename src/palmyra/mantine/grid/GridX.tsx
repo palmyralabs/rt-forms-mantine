@@ -3,19 +3,40 @@ import { forwardRef, MutableRefObject, useMemo, useRef } from "react";
 import { DropdownButton } from "../widget/DropdownButton";
 import { TbFilterShare } from "react-icons/tb";
 import { FilterForm } from "./plugins/filter/FilterForm";
-import { DataGrid } from "./DataGrid";
 import { SelectablePagination } from "./plugins/pagination/SelectablePagination";
 import './DataGrid.css'
 import { renderTitle } from "../widget";
+import { ApiDataTable } from "./base/ApiDataTable";
 
 const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType>, ref: MutableRefObject<IPageQueryable>) {
     const queryRef = ref || useRef<IPageQueryable>();
-
+    const paginationRef = ref || useRef<IPagination>();
     const topic: string = props.topic || useMemo(() => 'id' + Math.random(), []);
+
+    const onDataChange = (newData: any[], oldData?: any[]) => {
+
+        if (paginationRef.current) {
+            try {
+                paginationRef.current.refresh();
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        if (props.onDataChange) {
+            try {
+                props.onDataChange(newData, oldData)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    }
+
+    const ignoreSinglePage = props.pagination?.ignoreSinglePage;
 
     const pluginOptions: DataGridPluginOptions = {
         ...props.DataGridControlProps, queryRef, columns: props.columns, getPluginOptions: props.getPluginOptions,
-        pageSize: props.pageSize, topic, quickSearch: props.quickSearch,
+        pageSize: props.pageSize, quickSearch: props.quickSearch, topic, ignoreSinglePage
     }
 
     const Controls: (props: any) => JSX.Element = props.DataGridControls ||
@@ -34,9 +55,9 @@ const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<Co
             </div>
         </div>
         <div className="py-data-grid-table">
-            <DataGrid {...props} topic={topic} ref={queryRef} />
+            <ApiDataTable {...props} onDataChange={onDataChange} ref={queryRef} />
         </div>
-        <Pagination {...pluginOptions} />
+        <Pagination {...pluginOptions} ref={paginationRef} />
     </>
 });
 
