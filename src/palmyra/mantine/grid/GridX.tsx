@@ -10,12 +10,12 @@ import { ApiDataTable } from "./base/ApiDataTable";
 
 const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType>, ref: MutableRefObject<IPageQueryable>) {
     const queryRef = ref || useRef<IPageQueryable>();
-    const paginationRef = ref || useRef<IPagination>();
+    const paginationRef = useRef<IPagination>();
     const topic: string = props.topic || useMemo(() => 'id' + Math.random(), []);
 
     const onDataChange = (newData: any[], oldData?: any[]) => {
 
-        if (paginationRef.current) {
+        if (paginationRef.current && paginationRef.current.refresh) {
             try {
                 paginationRef.current.refresh();
             } catch (error) {
