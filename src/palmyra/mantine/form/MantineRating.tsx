@@ -43,7 +43,13 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
                 props.onChange(event);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

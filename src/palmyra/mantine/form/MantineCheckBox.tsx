@@ -37,7 +37,13 @@ const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps
             }
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

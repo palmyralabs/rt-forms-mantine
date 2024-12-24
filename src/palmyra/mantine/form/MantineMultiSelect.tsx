@@ -50,8 +50,14 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
                 props.onChange(e);
         }
     }
-    options.onBlur = refreshError;
-
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
+    
     const sData = Object.keys(options.options).map((key, index) => {
         var sOptions = {
             label: options.options[key],

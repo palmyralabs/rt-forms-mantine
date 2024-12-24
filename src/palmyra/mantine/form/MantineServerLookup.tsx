@@ -46,8 +46,12 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         },
         onDropdownClose: () => {
         },
-        onBlur: () => {
+        onBlur: (e: any) => {
             refreshError();
+            if (props.onBlur) {
+                props.onBlur(e);
+                refreshError
+            }
         }
     }
     const handleClearValue = () => {

@@ -50,8 +50,13 @@ const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(
                 props.onChange(d);
         }
     }
-    options.onBlur = refreshError;
-
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
     const value = getValue();
 
     return (<>{!mutateOptions.visible &&

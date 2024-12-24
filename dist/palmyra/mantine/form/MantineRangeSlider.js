@@ -1,46 +1,48 @@
-import { jsx as a, Fragment as x, jsxs as M } from "react/jsx-runtime";
-import { forwardRef as O, useRef as o, useImperativeHandle as L } from "react";
-import { useFieldManager as S, getFieldHandler as j, FieldDecorator as y } from "@palmyralabs/rt-forms";
-import { getFieldLabel as z } from "./util.js";
-import { RangeSlider as E } from "@mantine/core";
-const P = O(function(e, i) {
-  const r = e.min || 0, c = e.max || 100, u = (n) => n || [r, r + 1], m = (n) => n, t = S(e.attribute, e, { format: m, parse: u }), { getError: d, getValue: f, setValue: g, mutateOptions: C, refreshError: b } = t, h = i || o(null), F = d(), R = e.label || "", s = o(null);
-  L(h, () => ({
-    ...j(t),
+import { jsx as a, Fragment as v, jsxs as x } from "react/jsx-runtime";
+import { forwardRef as M, useRef as s, useImperativeHandle as O } from "react";
+import { useFieldManager as B, getFieldHandler as L, FieldDecorator as S } from "@palmyralabs/rt-forms";
+import { getFieldLabel as j } from "./util.js";
+import { RangeSlider as y } from "@mantine/core";
+const P = M(function(e, i) {
+  const l = e.min || 0, c = e.max || 100, u = (n) => n || [l, l + 1], m = (n) => n, t = B(e.attribute, e, { format: m, parse: u }), { getError: d, getValue: f, setValue: g, mutateOptions: C, refreshError: E } = t, b = i || s(null), h = d(), F = e.label || "", o = s(null);
+  O(b, () => ({
+    ...L(t),
     focus() {
-      s.current.focus();
+      o.current.focus();
     },
     getOptions() {
     },
-    setOptions(V) {
+    setOptions(H) {
     }
   }), [t]);
-  var l = t.getFieldProps();
-  l.onChange = (n) => {
+  var r = t.getFieldProps();
+  r.onChange = (n) => {
     e.readOnly || (g(n), e.onChange && e.onChange(n));
-  }, l.onBlur = b;
-  var v = f();
-  return /* @__PURE__ */ a(x, { children: !C.visible && /* @__PURE__ */ a(
-    y,
+  }, r.onBlur = (n) => {
+    e.onBlur && e.onBlur(n);
+  };
+  var R = f();
+  return /* @__PURE__ */ a(v, { children: !C.visible && /* @__PURE__ */ a(
+    S,
     {
-      label: z(e),
+      label: j(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ M("div", { style: { width: "100%", textAlign: "center" }, children: [
-        R,
+      children: /* @__PURE__ */ x("div", { style: { width: "100%", textAlign: "center" }, children: [
+        F,
         /* @__PURE__ */ a(
-          E,
+          y,
           {
-            ...l,
-            ref: s,
-            value: v,
+            ...r,
+            ref: o,
+            value: R,
             label: e.labelName,
-            min: r,
+            min: l,
             max: c,
             size: e.size,
-            error: F.message
+            error: h.message
           }
         )
       ] })

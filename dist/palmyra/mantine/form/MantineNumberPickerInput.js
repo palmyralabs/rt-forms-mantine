@@ -1,44 +1,46 @@
-import { jsx as a, Fragment as F } from "react/jsx-runtime";
-import { forwardRef as h, useRef as u, useImperativeHandle as v } from "react";
-import { useFieldManager as M, getFieldHandler as R, FieldDecorator as V } from "@palmyralabs/rt-forms";
-import { getFieldLabel as I } from "./util.js";
-import { NumberPickerInput as L } from "./internal/NumberPickerInput.js";
-const j = h(function(e, l) {
-  const t = M(e.attribute, e), { getError: i, getValue: s, setValue: c, mutateOptions: m, refreshError: d } = t, f = l || u(null), b = i(), n = u(null), g = e.variant || "default";
-  var C = s();
-  v(f, () => ({
-    ...R(t),
+import { jsx as a, Fragment as C } from "react/jsx-runtime";
+import { forwardRef as F, useRef as u, useImperativeHandle as h } from "react";
+import { useFieldManager as v, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
+import { getFieldLabel as V } from "./util.js";
+import { NumberPickerInput as B } from "./internal/NumberPickerInput.js";
+const H = F(function(e, n) {
+  const t = v(e.attribute, e), { getError: i, getValue: s, setValue: c, mutateOptions: m, refreshError: L } = t, d = n || u(null), f = i(), o = u(null), b = e.variant || "default";
+  var g = s();
+  h(d, () => ({
+    ...M(t),
     focus() {
-      n.current.focus();
+      o.current.focus();
     }
   }), [t]);
   var r = t.getFieldProps();
-  return r.onChange = (o) => {
-    c(o);
-  }, r.onBlur = d, /* @__PURE__ */ a(F, { children: !m.visible && /* @__PURE__ */ a(
-    V,
+  return r.onChange = (l) => {
+    c(l);
+  }, r.onBlur = (l) => {
+    e.onBlur && e.onBlur(l);
+  }, /* @__PURE__ */ a(C, { children: !m.visible && /* @__PURE__ */ a(
+    R,
     {
-      label: I(e),
+      label: V(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        L,
+        B,
         {
           defaultValue: e.defaultValue,
           label: e.label,
-          variant: g,
-          ref: n,
+          variant: b,
+          ref: o,
           ...r,
           placeholder: e.placeholder,
-          value: C,
-          error: b.message
+          value: g,
+          error: f.message
         }
       )
     }
   ) });
 });
 export {
-  j as MantineNumberPickerInput
+  H as MantineNumberPickerInput
 };

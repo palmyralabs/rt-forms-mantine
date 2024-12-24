@@ -1,12 +1,12 @@
-import { jsx as l, Fragment as O } from "react/jsx-runtime";
-import { forwardRef as R, useRef as f, useImperativeHandle as V } from "react";
-import { useFieldManager as x, getFieldHandler as G, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { getFieldLabel as j } from "./util.js";
-import { Radio as u, Group as y } from "@mantine/core";
-const D = R(function(e, s) {
-  const r = x(e.attribute, e), { getError: m, getValue: n, setValue: g, mutateOptions: b, refreshError: h } = r, C = s || f(null), c = m(), i = f(null);
-  V(C, () => ({
-    ...G(r),
+import { jsx as l, Fragment as v } from "react/jsx-runtime";
+import { forwardRef as O, useRef as f, useImperativeHandle as R } from "react";
+import { useFieldManager as V, getFieldHandler as x, FieldDecorator as G } from "@palmyralabs/rt-forms";
+import { getFieldLabel as M } from "./util.js";
+import { Radio as u, Group as j } from "@mantine/core";
+const D = O(function(e, c) {
+  const r = V(e.attribute, e), { getError: m, getValue: n, setValue: g, mutateOptions: b, refreshError: B } = r, h = c || f(null), s = m(), i = f(null);
+  R(h, () => ({
+    ...x(r),
     focus() {
       i.current.focus();
     },
@@ -18,29 +18,31 @@ const D = R(function(e, s) {
   var o = r.getFieldProps();
   o.onChange = (t) => {
     e.readOnly || (g(t), e.onChange && e.onChange(t));
-  }, o.onBlur = h;
-  const F = (t) => {
+  }, o.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  };
+  const C = (t) => {
     if (t) {
       if (t instanceof Array)
-        return t.map((d, k) => /* @__PURE__ */ l(
+        return t.map((d, L) => /* @__PURE__ */ l(
           u,
           {
             ref: i,
             label: d.label,
             value: d.value,
-            error: c.message,
+            error: s.message,
             defaultValue: e.defaultValue,
             checked: n()
           }
         ));
       if (typeof t == "object")
-        return Object.keys(t).map((a, v) => /* @__PURE__ */ l(
+        return Object.keys(t).map((a, F) => /* @__PURE__ */ l(
           u,
           {
             ref: i,
             label: t[a],
             value: a,
-            error: c.message,
+            error: s.message,
             defaultValue: e.defaultValue,
             checked: n()
           }
@@ -48,10 +50,10 @@ const D = R(function(e, s) {
     }
     return /* @__PURE__ */ l("div", { children: "No options provided" });
   };
-  return /* @__PURE__ */ l(O, { children: !b.visible && /* @__PURE__ */ l(
-    M,
+  return /* @__PURE__ */ l(v, { children: !b.visible && /* @__PURE__ */ l(
+    G,
     {
-      label: j(e),
+      label: M(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
@@ -63,7 +65,7 @@ const D = R(function(e, s) {
           value: n().toString(),
           ...o,
           description: e.description,
-          children: /* @__PURE__ */ l(y, { mt: "xs", children: F(e.options) })
+          children: /* @__PURE__ */ l(j, { mt: "xs", children: C(e.options) })
         }
       )
     }

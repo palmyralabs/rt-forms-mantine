@@ -39,7 +39,13 @@ const MantineTimeInput = forwardRef(function MantineTimeInput(
                 props.onChange(e);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

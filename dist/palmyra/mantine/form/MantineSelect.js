@@ -1,14 +1,14 @@
-import { jsx as o, Fragment as M } from "react/jsx-runtime";
-import { Select as y } from "@mantine/core";
-import { useFieldManager as R, getFieldHandler as w, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { forwardRef as D, useRef as c, useImperativeHandle as I } from "react";
-import { a as L } from "../../../chunks/index.js";
-import { keyToString as u, getFieldLabel as j } from "./util.js";
-const T = D(function(e, l) {
-  const r = R(e.attribute, e), { getError: d, getValue: m, setValue: i, mutateOptions: f, refreshError: g } = r, h = l || c(null), v = d(), s = c(null), C = e.variant || "default";
-  var b = m();
-  I(h, () => ({
-    ...w(r),
+import { jsx as l, Fragment as S } from "react/jsx-runtime";
+import { Select as M } from "@mantine/core";
+import { useFieldManager as y, getFieldHandler as R, FieldDecorator as w } from "@palmyralabs/rt-forms";
+import { forwardRef as x, useRef as c, useImperativeHandle as B } from "react";
+import { a as D } from "../../../chunks/index.js";
+import { keyToString as u, getFieldLabel as I } from "./util.js";
+const T = x(function(e, o) {
+  const r = y(e.attribute, e), { getError: d, getValue: m, setValue: i, mutateOptions: f, refreshError: j } = r, g = o || c(null), h = d(), s = c(null), v = e.variant || "default";
+  var C = m();
+  B(g, () => ({
+    ...R(r),
     focus() {
       s && s.current.focus();
     },
@@ -17,34 +17,36 @@ const T = D(function(e, l) {
     getOptions() {
     }
   }), [r]);
-  var t = r.getFieldProps();
-  e.readOnly && (t.inputProps = { readOnly: !0 }), t.onChange = (n, a) => {
-    e.readOnly || (i(a ? a.value : null), e.onChange && e.onChange(n, a));
-  }, t.onBlur = g;
-  const F = Object.keys(t.options).map((n, a) => {
-    var S = {
-      label: t.options[n],
-      value: u(n)
+  var n = r.getFieldProps();
+  e.readOnly && (n.inputProps = { readOnly: !0 }), n.onChange = (t, a) => {
+    e.readOnly || (i(a ? a.value : null), e.onChange && e.onChange(t, a));
+  }, n.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  };
+  const b = Object.keys(n.options).map((t, a) => {
+    var O = {
+      label: n.options[t],
+      value: u(t)
     };
-    return S;
-  }), O = e.rightSection ? e.rightSection : /* @__PURE__ */ o(L, {});
-  return /* @__PURE__ */ o(M, { children: !f.visible && /* @__PURE__ */ o(
-    x,
+    return O;
+  }), F = e.rightSection ? e.rightSection : /* @__PURE__ */ l(D, {});
+  return /* @__PURE__ */ l(S, { children: !f.visible && /* @__PURE__ */ l(
+    w,
     {
-      label: j(e),
+      label: I(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ o(
-        y,
+      children: /* @__PURE__ */ l(
+        M,
         {
-          data: F,
-          value: u(b),
-          ...t,
-          variant: C,
-          error: v.message,
-          rightSection: O
+          data: b,
+          value: u(C),
+          ...n,
+          variant: v,
+          error: h.message,
+          rightSection: F
         }
       )
     }

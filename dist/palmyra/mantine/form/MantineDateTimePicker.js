@@ -1,21 +1,21 @@
-import { jsx as a, Fragment as M } from "react/jsx-runtime";
-import { forwardRef as P, useRef as s, useImperativeHandle as D } from "react";
-import { getFieldLabel as R } from "./util.js";
-import { useFieldManager as V, getFieldHandler as Y, FieldDecorator as k } from "@palmyralabs/rt-forms";
-import { DateTimePicker as y } from "@mantine/dates";
-import L from "dayjs";
-const I = P(function(e, o) {
-  const l = e.valueFormat || e.serverPattern || "YYYY-MM-DD hh:mm:ss", m = (t) => {
+import { jsx as a, Fragment as v } from "react/jsx-runtime";
+import { forwardRef as M, useRef as l, useImperativeHandle as P } from "react";
+import { getFieldLabel as D } from "./util.js";
+import { useFieldManager as R, getFieldHandler as V, FieldDecorator as Y } from "@palmyralabs/rt-forms";
+import { DateTimePicker as k } from "@mantine/dates";
+import y from "dayjs";
+const I = M(function(e, o) {
+  const s = e.valueFormat || e.serverPattern || "YYYY-MM-DD hh:mm:ss", u = (t) => {
     if (t)
-      return L(t, i);
-  }, u = (t) => {
+      return y(t, i);
+  }, m = (t) => {
     if (t && t.isValid && t.isValid())
       return t.format(i);
-  }, r = V(e.attribute, e, { format: u, parse: m }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: C } = r, F = o || s(null), h = c(), b = s(null);
-  D(F, () => ({
-    ...Y(r),
+  }, r = R(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: L } = r, C = o || l(null), F = c(), h = l(null);
+  P(C, () => ({
+    ...V(r),
     focus() {
-      b.current.focus();
+      h.current.focus();
     },
     setCurrent() {
     }
@@ -23,23 +23,25 @@ const I = P(function(e, o) {
   var { serverPattern: i, ...n } = r.getFieldProps();
   n.onChange = (t) => {
     e.readOnly || (d(t), e.onChange && e.onChange(t));
-  }, n.onBlur = C;
-  const v = f();
-  return /* @__PURE__ */ a(M, { children: !g.visible && /* @__PURE__ */ a(
-    k,
+  }, n.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  };
+  const b = f();
+  return /* @__PURE__ */ a(v, { children: !g.visible && /* @__PURE__ */ a(
+    Y,
     {
-      label: R(e),
+      label: D(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        y,
+        k,
         {
           ...n,
-          value: v,
-          valueFormat: l,
-          error: h.message
+          value: b,
+          valueFormat: s,
+          error: F.message
         }
       )
     }

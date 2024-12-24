@@ -1,38 +1,40 @@
-import { jsx as l, Fragment as b } from "react/jsx-runtime";
-import { forwardRef as k, useRef as u, useImperativeHandle as F } from "react";
-import { useFieldManager as O, getFieldHandler as x, FieldDecorator as v } from "@palmyralabs/rt-forms";
-import { getFieldLabel as M } from "./util.js";
-import { Checkbox as R } from "@mantine/core";
-const T = k(function(e, c) {
-  const n = O(e.attribute, e), { getError: d, getValue: i, setValue: s, mutateOptions: f, refreshError: m } = n, h = c || u(null), o = i() == !0, a = u(null), C = d();
-  F(h, () => ({
-    ...x(n),
+import { jsx as r, Fragment as g } from "react/jsx-runtime";
+import { forwardRef as b, useRef as o, useImperativeHandle as k } from "react";
+import { useFieldManager as F, getFieldHandler as O, FieldDecorator as x } from "@palmyralabs/rt-forms";
+import { getFieldLabel as B } from "./util.js";
+import { Checkbox as v } from "@mantine/core";
+const T = b(function(e, c) {
+  const n = F(e.attribute, e), { getError: i, getValue: d, setValue: s, mutateOptions: f, refreshError: R } = n, m = c || o(null), u = d() == !0, a = o(null), h = i();
+  k(m, () => ({
+    ...O(n),
     focus() {
       a.current.checked = !0, a.current.focus();
     },
-    setOptions(g) {
+    setOptions(C) {
     },
     getOptions() {
     }
   }), [n]);
-  var r = n.getFieldProps();
-  return r.onChange = (t, g) => {
+  var l = n.getFieldProps();
+  return l.onChange = (t, C) => {
     e.readOnly || (s(t.currentTarget.checked), e.onChange && e.onChange(t.currentTarget.checked));
-  }, r.onBlur = m, /* @__PURE__ */ l(b, { children: !f.visible && /* @__PURE__ */ l(
-    v,
+  }, l.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  }, /* @__PURE__ */ r(g, { children: !f.visible && /* @__PURE__ */ r(
+    x,
     {
-      label: M(e),
+      label: B(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ l(
-        R,
+      children: /* @__PURE__ */ r(
+        v,
         {
-          ...r,
+          ...l,
           defaultChecked: e.defaultChecked,
-          checked: o,
-          value: o,
+          checked: u,
+          value: u,
           defaultValue: e.defaultValue,
           disabled: e.disabled,
           readOnly: e.readOnly,
@@ -40,7 +42,7 @@ const T = k(function(e, c) {
             a.current = t;
           },
           label: e.label,
-          error: C.message
+          error: h.message
         }
       )
     }

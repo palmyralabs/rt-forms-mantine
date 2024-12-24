@@ -32,7 +32,13 @@ const MantineNumberField = forwardRef(function MantineNumberField(props: ITextFi
                 props.onChange(event);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

@@ -31,7 +31,13 @@ const MantineColorInput = forwardRef(function MantineColorInput(props: ITextFiel
                 props.onChange(v);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
     const value = getValue();
 
     return (<>{!mutateOptions.visible &&

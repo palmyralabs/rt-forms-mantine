@@ -51,7 +51,13 @@ const MantineDateInput = forwardRef(function MantineDateInput(
                 props.onChange(d);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
 
     return (<>{!mutateOptions.visible &&

@@ -51,7 +51,13 @@ const MantineRangeSlider = forwardRef(function MantineRangeSlider(props: ISlider
                 props.onChange(d);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
     var value = getValue();
 
     return (<>{!mutateOptions.visible &&

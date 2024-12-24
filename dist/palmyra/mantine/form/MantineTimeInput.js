@@ -1,34 +1,36 @@
-import { jsx as a, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as F, useRef as o, useImperativeHandle as b } from "react";
-import { getFieldLabel as v } from "./util.js";
-import { useFieldManager as I, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
-import { TimeInput as y } from "@mantine/dates";
-const V = F(function(e, l) {
-  const t = I(e.attribute, e), { getError: s, getValue: i, setValue: u, mutateOptions: c, refreshError: m } = t, d = l || o(null), f = s(), g = o(null), C = i();
-  b(d, () => ({
-    ...M(t),
+import { jsx as a, Fragment as C } from "react/jsx-runtime";
+import { forwardRef as h, useRef as o, useImperativeHandle as F } from "react";
+import { getFieldLabel as b } from "./util.js";
+import { useFieldManager as v, getFieldHandler as I, FieldDecorator as M } from "@palmyralabs/rt-forms";
+import { TimeInput as R } from "@mantine/dates";
+const P = h(function(e, l) {
+  const n = v(e.attribute, e), { getError: i, getValue: s, setValue: u, mutateOptions: c, refreshError: B } = n, m = l || o(null), f = i(), d = o(null), g = s();
+  F(m, () => ({
+    ...I(n),
     focus() {
-      g.current.focus();
+      d.current.focus();
     },
     setCurrent() {
     }
-  }), [t]);
-  var { serverPattern: T, ...n } = t.getFieldProps();
-  return n.onChange = (r) => {
-    e.readOnly || (u(r.target.value), e.onChange && e.onChange(r));
-  }, n.onBlur = m, /* @__PURE__ */ a(h, { children: !c.visible && /* @__PURE__ */ a(
-    R,
+  }), [n]);
+  var { serverPattern: L, ...r } = n.getFieldProps();
+  return r.onChange = (t) => {
+    e.readOnly || (u(t.target.value), e.onChange && e.onChange(t));
+  }, r.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  }, /* @__PURE__ */ a(C, { children: !c.visible && /* @__PURE__ */ a(
+    M,
     {
-      label: v(e),
+      label: b(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        y,
+        R,
         {
-          ...n,
-          value: C,
+          ...r,
+          value: g,
           type: e.type,
           error: f.message
         }
@@ -37,5 +39,5 @@ const V = F(function(e, l) {
   ) });
 });
 export {
-  V as MantineTimeInput
+  P as MantineTimeInput
 };

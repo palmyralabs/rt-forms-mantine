@@ -78,7 +78,13 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
                 props.onChange(event.target.checked);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     const errorMessage = parsedOptions ? error.message : 'Invalid options, must contain two keys'
 

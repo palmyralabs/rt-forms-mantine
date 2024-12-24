@@ -30,8 +30,14 @@ const MantinePasswordField = forwardRef(function MantinePasswordField(props: ITe
             if (props.onChange)
                 props.onChange(event);
         }
-    } 
-    options.onBlur = refreshError;
+    }
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

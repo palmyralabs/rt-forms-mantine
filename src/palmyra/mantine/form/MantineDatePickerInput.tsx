@@ -58,7 +58,13 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
                 props.onChange(d);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     const dateValue = revert(value);
     const fieldIcon = props.rightSection ? props.rightSection : <FaRegCalendarAlt />;

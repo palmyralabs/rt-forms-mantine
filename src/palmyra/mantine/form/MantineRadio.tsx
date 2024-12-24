@@ -35,7 +35,14 @@ const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & 
                 props.onChange(v);
         }
     }
-    fieldOptions.onBlur = refreshError;
+    
+    fieldOptions.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}

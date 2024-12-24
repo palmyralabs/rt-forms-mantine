@@ -1,65 +1,67 @@
-import { jsx as o, Fragment as y } from "react/jsx-runtime";
-import { forwardRef as V, useMemo as L, useRef as d, useImperativeHandle as R, useEffect as S } from "react";
-import { useFieldManager as E, getFieldHandler as x, FieldDecorator as H } from "@palmyralabs/rt-forms";
-import { getFieldLabel as I } from "./util.js";
-import j from "../options/OptionsParser.js";
-import { Switch as B } from "@mantine/core";
-const K = V(function(e, s) {
-  const n = L(
-    () => j(e.options, e.label),
+import { jsx as o, Fragment as w } from "react/jsx-runtime";
+import { forwardRef as y, useMemo as V, useRef as d, useImperativeHandle as L, useEffect as R } from "react";
+import { useFieldManager as S, getFieldHandler as B, FieldDecorator as E } from "@palmyralabs/rt-forms";
+import { getFieldLabel as x } from "./util.js";
+import H from "../options/OptionsParser.js";
+import { Switch as I } from "@mantine/core";
+const K = y(function(e, s) {
+  const n = V(
+    () => H(e.options, e.label),
     [e.options, e.label]
   ), f = (t) => {
     if (n)
       return t ? n.checked.value : n.unchecked.value;
-  }, m = (t) => n ? t == n.checked.value : !1, r = E(e.attribute, e, { format: f, parse: m }), { getError: h, getValue: g, setValue: i, mutateOptions: k, refreshError: C } = r, b = s || d(null), v = h(), a = g(), l = d(null);
-  R(b, () => ({
-    ...x(r),
+  }, m = (t) => n ? t == n.checked.value : !1, r = S(e.attribute, e, { format: f, parse: m }), { getError: h, getValue: g, setValue: i, mutateOptions: k, refreshError: D } = r, C = s || d(null), b = h(), a = g(), l = d(null);
+  L(C, () => ({
+    ...B(r),
     focus() {
       l.current.checked = !0, l.current.focus();
     },
     getOptions() {
     },
-    setOptions(w) {
+    setOptions(M) {
     }
   }), [r]);
-  const O = () => {
+  const v = () => {
     i(!a);
   };
-  S(() => {
+  R(() => {
     c.onChange = () => u();
   }, [a]);
   const u = () => {
     var t = a ? "checked" : "unchecked";
     if (n)
       return n[t].title;
-  }, F = () => {
+  }, O = () => {
     var t = a ? "checked" : "unchecked";
     if (n)
       return n[t].value;
   };
   var c = r.getFieldProps();
-  c.onChange = (t, w) => {
+  c.onChange = (t, M) => {
     e.readOnly || (i(t.target.checked), e.onChange && e.onChange(t.target.checked));
-  }, c.onBlur = C;
-  const M = n ? v.message : "Invalid options, must contain two keys";
-  return /* @__PURE__ */ o(y, { children: !k.visible && /* @__PURE__ */ o(
-    H,
+  }, c.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  };
+  const F = n ? b.message : "Invalid options, must contain two keys";
+  return /* @__PURE__ */ o(w, { children: !k.visible && /* @__PURE__ */ o(
+    E,
     {
-      label: I(e),
+      label: x(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ o(
-        B,
+        I,
         {
           checked: a,
-          onClick: O,
-          value: F(),
+          onClick: v,
+          value: O(),
           label: u(),
           defaultValue: e.defaultValue,
           disabled: e.readOnly,
-          error: M,
+          error: F,
           ref: (t) => {
             l.current = t;
           },

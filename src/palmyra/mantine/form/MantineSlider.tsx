@@ -41,7 +41,13 @@ const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition
     }
     var value = getValue();
 
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}

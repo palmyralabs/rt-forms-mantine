@@ -35,7 +35,13 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
             props.onChange(v);
         }
     }
-    fieldOptions.onBlur = refreshError;
+    fieldOptions.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    };
 
     const getOptions = (options: any) => {
         if (options) {

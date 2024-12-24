@@ -1,45 +1,47 @@
-import { jsx as i, Fragment as v } from "react/jsx-runtime";
-import { forwardRef as O, useRef as u, useImperativeHandle as M } from "react";
-import { useFieldManager as S, getFieldHandler as L, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { getFieldLabel as z } from "./util.js";
-import { Rating as E } from "@mantine/core";
-const D = O(function(e, c) {
-  const t = S(e.attribute, e), { getError: o, getValue: r, setValue: m, mutateOptions: s, refreshError: f } = t, d = c || u(null), g = o(), n = u(null), C = e.variant || "default", b = (e == null ? void 0 : e.autoFocus) || !1, F = (e == null ? void 0 : e.fractions) || 1, h = e == null ? void 0 : e.fullSymbol, y = e == null ? void 0 : e.emptySymbol;
-  M(d, () => ({
-    ...L(t),
+import { jsx as i, Fragment as R } from "react/jsx-runtime";
+import { forwardRef as v, useRef as c, useImperativeHandle as O } from "react";
+import { useFieldManager as M, getFieldHandler as S, FieldDecorator as B } from "@palmyralabs/rt-forms";
+import { getFieldLabel as L } from "./util.js";
+import { Rating as x } from "@mantine/core";
+const D = v(function(e, u) {
+  const n = M(e.attribute, e), { getError: o, getValue: r, setValue: m, mutateOptions: f, refreshError: E } = n, s = u || c(null), d = o(), a = c(null), g = e.variant || "default", C = (e == null ? void 0 : e.autoFocus) || !1, b = (e == null ? void 0 : e.fractions) || 1, F = e == null ? void 0 : e.fullSymbol, h = e == null ? void 0 : e.emptySymbol;
+  O(s, () => ({
+    ...S(n),
     focus() {
-      n.current.checked = !0, n.current.focus();
+      a.current.checked = !0, a.current.focus();
     },
     getOptions() {
     },
-    setOptions(R) {
+    setOptions(y) {
     }
-  }), [t]);
-  var a = t.getFieldProps();
-  return a.onChange = (l, R) => {
-    e.readOnly || (m(l), e.onChange && e.onChange(l));
-  }, a.onBlur = f, /* @__PURE__ */ i(v, { children: !s.visible && /* @__PURE__ */ i(
-    x,
+  }), [n]);
+  var l = n.getFieldProps();
+  return l.onChange = (t, y) => {
+    e.readOnly || (m(t), e.onChange && e.onChange(t));
+  }, l.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  }, /* @__PURE__ */ i(R, { children: !f.visible && /* @__PURE__ */ i(
+    B,
     {
-      label: z(e),
+      label: L(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ i(
-        E,
+        x,
         {
-          variant: C,
+          variant: g,
           readOnly: e.readOnly,
-          inputRef: n,
+          inputRef: a,
           size: e.size,
-          fractions: F,
-          ...a,
-          fullSymbol: h,
-          emptySymbol: y,
+          fractions: b,
+          ...l,
+          fullSymbol: F,
+          emptySymbol: h,
           value: r(),
-          error: g.message,
-          autoFocus: b
+          error: d.message,
+          autoFocus: C
         }
       )
     }

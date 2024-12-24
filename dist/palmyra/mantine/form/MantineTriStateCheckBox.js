@@ -1,12 +1,12 @@
-import { jsx as n, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as F, useRef as s, useImperativeHandle as b } from "react";
-import { useFieldManager as k, getFieldHandler as v, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { getFieldLabel as B } from "./util.js";
-import { TriStateCheckBox as M } from "../ext/TriStateCheckBox.js";
-const V = F(function(e, a) {
-  const t = k(e.attribute, e), { getError: c, getValue: o, setValue: u, mutateOptions: m, refreshError: d } = t, f = a || s(null), g = o() ? o() : void 0, l = s(null), C = c();
-  b(f, () => ({
-    ...v(t),
+import { jsx as r, Fragment as C } from "react/jsx-runtime";
+import { forwardRef as h, useRef as c, useImperativeHandle as F } from "react";
+import { useFieldManager as b, getFieldHandler as B, FieldDecorator as k } from "@palmyralabs/rt-forms";
+import { getFieldLabel as v } from "./util.js";
+import { TriStateCheckBox as x } from "../ext/TriStateCheckBox.js";
+const V = h(function(e, a) {
+  const n = b(e.attribute, e), { getError: s, getValue: o, setValue: u, mutateOptions: m, refreshError: O } = n, d = a || c(null), f = o() ? o() : void 0, l = c(null), g = s();
+  F(d, () => ({
+    ...B(n),
     focus() {
       l.current.checked = !0, l.current.focus();
     },
@@ -14,19 +14,21 @@ const V = F(function(e, a) {
     },
     getOptions() {
     }
-  }), [t]);
-  var i = t.getFieldProps();
-  return i.onChange = (r) => {
-    e.readOnly || (u(r), e.onChange && e.onChange(r.currentTarget.checked));
-  }, i.onBlur = d, /* @__PURE__ */ n(h, { children: !m.visible && /* @__PURE__ */ n(
-    x,
+  }), [n]);
+  var i = n.getFieldProps();
+  return i.onChange = (t) => {
+    e.readOnly || (u(t), e.onChange && e.onChange(t.currentTarget.checked));
+  }, i.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  }, /* @__PURE__ */ r(C, { children: !m.visible && /* @__PURE__ */ r(
+    k,
     {
-      label: B(e),
+      label: v(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ n(M, { value: g, error: C.message, ...e })
+      children: /* @__PURE__ */ r(x, { value: f, error: g.message, ...e })
     }
   ) });
 });

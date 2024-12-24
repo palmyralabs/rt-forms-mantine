@@ -46,7 +46,13 @@ const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition
                 props.onChange(e, option);
         }
     }
-    options.onBlur = refreshError;
+    options.onBlur = (event: any) => {
+        refreshError;
+        if (props.onBlur) {
+            props.onBlur(event);
+            refreshError
+        }
+    }
 
     const sData = Object.keys(options.options).map((key, index) => {
         var sOptions = {
