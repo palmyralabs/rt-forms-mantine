@@ -10,7 +10,7 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IRatingField>(null);
     const error: IFormFieldError = getError();
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLDivElement>(null);
     const variant = props.variant || 'default';
     const autoFocus = props?.autoFocus || false;
     const fractions = props?.fractions || 1;
@@ -22,13 +22,14 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
         return {
             ...handler,
             focus() {
-                inputRef.current.checked = true;
-                inputRef.current.focus();
+                if (inputRef.current && inputRef.current.focus) {
+                    inputRef.current.focus();
+                }
             },
             getOptions() {
 
             },
-            setOptions(d) {
+            setOptions(_d: any) {
 
             }
         };
@@ -57,7 +58,7 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
             <Rating
                 variant={variant}
                 readOnly={props.readOnly}
-                inputRef={inputRef}
+                ref={inputRef}
                 size={props.size}
                 fractions={fractions}
                 {...options}

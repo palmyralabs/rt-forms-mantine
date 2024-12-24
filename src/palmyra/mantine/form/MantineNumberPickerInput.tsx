@@ -12,7 +12,6 @@ const MantineNumberPickerInput = forwardRef(function MantineNumberField(props: I
 
 
     const error: IFormFieldError = getError();
-    const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
     var value = getValue();
 
@@ -21,7 +20,7 @@ const MantineNumberPickerInput = forwardRef(function MantineNumberField(props: I
         return {
             ...handler,
             focus() {
-                inputRef.current.focus();
+                // do nothing now.  will be revisited later.
             }
         };
     }, [fieldManager]);
@@ -45,7 +44,6 @@ const MantineNumberPickerInput = forwardRef(function MantineNumberField(props: I
             <NumberPickerInput defaultValue={props.defaultValue}
                 label={props.label}                
                 variant={variant}
-                ref={inputRef}
                 {...options}
                 placeholder={props.placeholder}
                 value={value}

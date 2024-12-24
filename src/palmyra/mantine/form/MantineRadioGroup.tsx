@@ -32,7 +32,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
         if (!props.readOnly) {
             setValue(v);
             if (props.onChange)
-            props.onChange(v);
+                props.onChange(v);
         }
     }
     fieldOptions.onBlur = (event: any) => {
@@ -48,7 +48,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
             if (options instanceof Array) {
                 const o: { value: any, label: string }[] = options;
                 const result = o.map((v: { value: any, label: string }, index: number) => (
-                    <Radio ref={inputRef} label={v.label} value={v.value} error={error.message}
+                    <Radio ref={inputRef} key={v.label + index} label={v.label} value={v.value} error={error.message}
                         defaultValue={props.defaultValue} checked={getValue()}
                     />
                 ))
@@ -57,7 +57,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
 
             if (typeof options == 'object') {
                 return Object.keys(options).map((key, index) => (
-                    <Radio ref={inputRef} label={options[key]} value={key} error={error.message}
+                    <Radio ref={inputRef} key={options[key] + index} label={options[key]} value={key} error={error.message}
                         defaultValue={props.defaultValue} checked={getValue()}
                     />
                 ))
