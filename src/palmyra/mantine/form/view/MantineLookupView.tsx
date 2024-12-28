@@ -11,9 +11,9 @@ const MantineLookupView = forwardRef(function MantineLabelDisplay(props: ILookup
     const { getValue, mutateOptions } = fieldManager;
     const currentRef: any = ref ? ref : useRef(null);
     const data = getValue();
-    const lookupOptions = props.lookupOptions;
-    const labelKey = lookupOptions?.labelAttribute || 'name';
-    const textAlign: any = props.textAlign || 'left';
+    const lookupOptionList = props.lookupOptions;
+    const labelKey = lookupOptionList?.labelAttribute || 'name';
+    const textAlignment: any = props.textAlign || 'left';
     const variant: string = props.variant || 'standard';
     const inputRef: any = useRef(null);
 
@@ -27,11 +27,7 @@ const MantineLookupView = forwardRef(function MantineLabelDisplay(props: ILookup
         };
     }, [fieldManager]);
 
-    // const labelAccessor = hasDot(labelKey) ?
-    //     (d: any) => (getValueByKey(labelKey, d)) :
-    //     (d: any) => (console.log("asd", d, labelKey), d?.[labelKey]);
-
-    var options = fieldManager.getFieldProps();
+    var {lookupOptions, textAlign, ...options} = fieldManager.getFieldProps();
 
 
     return (<>{!mutateOptions.visible &&
@@ -42,7 +38,7 @@ const MantineLookupView = forwardRef(function MantineLabelDisplay(props: ILookup
                     <div className="text-view-label">{props.label}</div>
                     <div className={getVariantClassName(variant, props.label)}>{data[labelKey] || '--'}</div>
                 </div> :
-                <div {...options} style={{ textAlign: textAlign }}>
+                <div {...options} style={{ textAlign: textAlignment }}>
                     <div className={getVariantClassName(variant, props.title)}>
                         {data[labelKey] || '--'}
                     </div>

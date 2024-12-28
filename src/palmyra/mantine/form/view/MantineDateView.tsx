@@ -12,9 +12,9 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
     const { getValue, mutateOptions } = fieldManager;
     const currentRef: any = ref ? ref : useRef<IDateField>(null);
     const value = getValue();
-    const textAlign: any = props.textAlign || 'left';
+    const textAlignment: any = props.textAlign || 'left';
     const variant: string = props.variant || 'standard';
-    const serverPattern = props.serverPattern || "YYYY-MM-DD"
+    const serverFormat = props.serverPattern || "YYYY-MM-DD"
     const displayFormat: string = props.displayPattern || props.serverPattern || "DD-MM-YYYY";
     const inputRef: any = useRef(null);
 
@@ -32,7 +32,7 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
         if (null == value || undefined == value || '' == value)
             return null;
 
-        const date = dayjs(value, serverPattern);
+        const date = dayjs(value, serverFormat);
         if (date.isValid())
             return date;
     }
@@ -53,7 +53,8 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
         }
     };
 
-    var options = fieldManager.getFieldProps();
+    var { datePattern, serverPattern, textAlign,
+        displayPattern, ...options } = fieldManager.getFieldProps();
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
@@ -63,7 +64,7 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
                     <div className="text-view-label">{props.label}</div>
                     <div className={getVariantClassName(variant, props.label)}>{formatValue(value) || "--"}</div>
                 </div> :
-                <div {...options} style={{ textAlign: textAlign }}>
+                <div {...options} style={{ textAlign: textAlignment }}>
                     <div className={getVariantClassName(variant, props.title)}>
                         {formatValue(value) || "--"}
                     </div>

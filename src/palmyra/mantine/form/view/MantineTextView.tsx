@@ -15,7 +15,7 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
     const fieldManager = useFieldManager(props.attribute, props);
     const { getValue, mutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
-    const textAlign: any = props.textAlign || 'left';
+    const textAlignment: any = props.textAlign || 'left';
     const inputRef: any = useRef(null);
     const variant = props.variant || 'standard';
 
@@ -29,7 +29,7 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
         };
     }, [fieldManager]);
 
-    var options = fieldManager.getFieldProps();
+    var {textAlign, ...options} = fieldManager.getFieldProps();
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
@@ -39,7 +39,7 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
                     <div className="text-view-label">{props.label}</div>
                     <div className={getVariantClassName(variant, props.label)}>{getValue() || '--'}</div>
                 </div> :
-                <div {...options} style={{ textAlign: textAlign }}>
+                <div {...options} style={{ textAlign: textAlignment }}>
                     <div className={getVariantClassName(variant, props.title)}>
                         {getValue() || "--"}
                     </div>
