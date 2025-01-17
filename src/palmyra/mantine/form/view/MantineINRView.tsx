@@ -89,16 +89,14 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
                     <div className={getVariantClassName(variant, props.label)} style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                        padding:'0 10px'
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
                     }}>
                         {INRField}
                     </div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
                     <div className={getVariantClassName(variant, props.title)} style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                        padding:'0 10px'
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
                     }}>
                         {INRField}
                     </div>
