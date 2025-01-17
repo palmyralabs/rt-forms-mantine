@@ -50,22 +50,35 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
             const lakhs = (input / 100000).toFixed(2);
             const lak = Number(lakhs);
             return `${lakhs} Lakh${lak > 1 ? 's' : ''}`;
+        } else if (input >= 1000) {
+            const thousands = (input / 1000).toFixed(2);
+            const thou = Number(thousands);
+            return `${thou} Thousand`
+        } else if (input >= 100) {
+            const hundreds = (input / 100).toFixed(2);
+            const hun = Number(hundreds)
+            return `${hun} Hundred`
+        } else if (input >= 1) {
+            const rupee = input.toFixed(0);
+            const rupe = Number(rupee);
+            return `${rupe} Rupee${rupe > 1 ? 's' : ''}`;
         }
-        return formatAmount(input);
+        formatAmount(input)
     };
+
 
     var options = fieldManager.getFieldProps();
 
     const INRField = <>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <MdOutlineCurrencyRupee />
-            {showInWords ? formatAmountText(value) : formatAmount(value)}
-        </div>
         <Tooltip label={showInWords ? 'Switch to Digits' : 'Switch to Words'} withArrow>
             <div onClick={toggleView} style={{ cursor: 'pointer' }}>
                 {showInWords ? <GoNumber /> : <MdTextFields />}
             </div>
         </Tooltip>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <MdOutlineCurrencyRupee />
+            {showInWords ? formatAmountText(value) : formatAmount(value)}
+        </div>
     </>;
 
 
@@ -76,18 +89,19 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
                     <div className={getVariantClassName(variant, props.label)} style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        padding:'0 10px'
                     }}>
                         {INRField}
                     </div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
                     <div className={getVariantClassName(variant, props.title)} style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        padding:'0 10px'
                     }}>
                         {INRField}
                     </div>
-
                 </div>
             }
         </FieldDecorator>}
