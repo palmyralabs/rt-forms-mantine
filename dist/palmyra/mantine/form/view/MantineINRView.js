@@ -1,4 +1,4 @@
-import { jsxs as o, Fragment as f, jsx as l } from "react/jsx-runtime";
+import { jsxs as o, Fragment as h, jsx as l } from "react/jsx-runtime";
 import { useFieldManager as $, getFieldHandler as V, FieldDecorator as H } from "@palmyralabs/rt-forms";
 import { forwardRef as A, useRef as x, useImperativeHandle as T, useState as j } from "react";
 import { G as k } from "../../../../chunks/iconBase.js";
@@ -36,18 +36,19 @@ const Q = A(function(e, c) {
     } else if (t >= 1) {
       const a = t.toFixed(0), n = Number(a);
       return `${n} Rupee${n > 1 ? "s" : ""}`;
-    }
+    } else if (t < 1)
+      return 0;
     b(t);
   };
   var m = s.getFieldProps();
-  const h = /* @__PURE__ */ o(f, { children: [
+  const f = /* @__PURE__ */ o(h, { children: [
     /* @__PURE__ */ l(W, { label: r ? "Switch to Digits" : "Switch to Words", withArrow: !0, children: /* @__PURE__ */ l("div", { onClick: M, style: { cursor: "pointer" }, children: r ? /* @__PURE__ */ l(Z, {}) : /* @__PURE__ */ l(L, {}) }) }),
     /* @__PURE__ */ o("div", { style: { display: "flex", alignItems: "center" }, children: [
       /* @__PURE__ */ l(S, {}),
       r ? R(u) : b(u)
     ] })
   ] });
-  return /* @__PURE__ */ l(f, { children: !F.visible && /* @__PURE__ */ l(
+  return /* @__PURE__ */ l(h, { children: !F.visible && /* @__PURE__ */ l(
     H,
     {
       label: G(e),
@@ -61,12 +62,12 @@ const Q = A(function(e, c) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between"
-        }, children: h })
+        }, children: f })
       ] }) : /* @__PURE__ */ l("div", { ...m, style: { textAlign: C }, children: /* @__PURE__ */ l("div", { className: g(d, e.title), style: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between"
-      }, children: h }) })
+      }, children: f }) })
     }
   ) });
 });
