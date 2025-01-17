@@ -1,10 +1,10 @@
-import { jsx as a, Fragment as v } from "react/jsx-runtime";
-import { forwardRef as M, useRef as l, useImperativeHandle as P } from "react";
+import { jsx as a, Fragment as M } from "react/jsx-runtime";
+import { forwardRef as P, useRef as l, useImperativeHandle as v } from "react";
 import { getFieldLabel as D } from "./util.js";
 import { useFieldManager as R, getFieldHandler as V, FieldDecorator as Y } from "@palmyralabs/rt-forms";
 import { DateTimePicker as k } from "@mantine/dates";
 import y from "dayjs";
-const I = M(function(e, o) {
+const I = P(function(e, o) {
   const s = e.valueFormat || e.serverPattern || "YYYY-MM-DD hh:mm:ss", u = (t) => {
     if (t)
       return y(t, i);
@@ -12,7 +12,7 @@ const I = M(function(e, o) {
     if (t && t.isValid && t.isValid())
       return t.format(i);
   }, r = R(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: L } = r, C = o || l(null), F = c(), h = l(null);
-  P(C, () => ({
+  v(C, () => ({
     ...V(r),
     focus() {
       h.current.focus();
@@ -27,7 +27,7 @@ const I = M(function(e, o) {
     e.onBlur && e.onBlur(t);
   };
   const b = f();
-  return /* @__PURE__ */ a(v, { children: !g.visible && /* @__PURE__ */ a(
+  return /* @__PURE__ */ a(M, { children: !g.visible && /* @__PURE__ */ a(
     Y,
     {
       label: D(e),

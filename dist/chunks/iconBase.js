@@ -5,8 +5,8 @@ var p = {
   className: void 0,
   style: void 0,
   attr: void 0
-}, s = a.createContext && /* @__PURE__ */ a.createContext(p), O = ["attr", "size", "title"];
-function g(e, t) {
+}, s = a.createContext && /* @__PURE__ */ a.createContext(p), g = ["attr", "size", "title"];
+function v(e, t) {
   if (e == null) return {};
   var r = y(e, t), n, i;
   if (Object.getOwnPropertySymbols) {
@@ -90,12 +90,12 @@ function h(e) {
       attr: n,
       size: i,
       title: o
-    } = e, v = g(e, O), f = i || r.size || "1em", l;
+    } = e, O = v(e, g), f = i || r.size || "1em", l;
     return r.className && (l = r.className), e.className && (l = (l ? l + " " : "") + e.className), /* @__PURE__ */ a.createElement("svg", c({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
-    }, r.attr, n, v, {
+    }, r.attr, n, O, {
       className: l,
       style: u(u({
         color: e.color || r.color
