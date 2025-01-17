@@ -62,6 +62,8 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
             const rupee = input.toFixed(0);
             const rupe = Number(rupee);
             return `${rupe} Rupee${rupe > 1 ? 's' : ''}`;
+        } else if (input < 1) {
+            return 0
         }
         formatAmount(input)
     };
