@@ -59,8 +59,12 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         props.onChange && props.onChange('', null);
     };
 
-    const rightSectionIcon = value ? <RxCross2 onClick={handleClearValue} style={{ cursor: 'pointer' }} /> :
+    const readOnly = props.readOnly;
+    const disabled = props.disabled;
+
+    const rightSectionIcon = value && !readOnly && !disabled ? <RxCross2 onClick={handleClearValue} style={{ cursor: 'pointer' }} /> :
         <IoMdArrowDropdown />
+
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
         <ServerLookup

@@ -1,13 +1,13 @@
-import { jsx as o, Fragment as R } from "react/jsx-runtime";
-import { useServerLookupFieldManager as V, getFieldHandler as w, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { delayGenerator as x } from "@palmyralabs/ts-utils";
-import { forwardRef as D, useRef as i, useImperativeHandle as B } from "react";
-import { a as I } from "../../../chunks/index.js";
-import { R as E } from "../../../chunks/index3.js";
-import { ServerLookup as H } from "./internal/ServerLookup.js";
-import { getFieldLabel as j } from "./util.js";
-const U = D(function(e, a) {
-  const l = x(e.queryOptions.delay || 200), c = i(null), r = V(e.attribute, e), {
+import { jsx as o, Fragment as V } from "react/jsx-runtime";
+import { useServerLookupFieldManager as x, getFieldHandler as D, FieldDecorator as B } from "@palmyralabs/rt-forms";
+import { delayGenerator as I } from "@palmyralabs/ts-utils";
+import { forwardRef as E, useRef as c, useImperativeHandle as H } from "react";
+import { a as j } from "../../../chunks/index.js";
+import { R as q } from "../../../chunks/index3.js";
+import { ServerLookup as A } from "./internal/ServerLookup.js";
+import { getFieldLabel as G } from "./util.js";
+const X = E(function(e, a) {
+  const l = I(e.queryOptions.delay || 200), u = c(null), r = x(e.attribute, e), {
     getError: d,
     getValue: m,
     setValue: s,
@@ -15,19 +15,19 @@ const U = D(function(e, a) {
     getFieldProps: C,
     setSearchText: f,
     refreshOptions: h,
-    getOptionValue: u,
+    getOptionValue: i,
     getOptionKey: b,
     refreshError: y
-  } = r, F = d(), v = a || i(null), t = m(), L = t ? u(t) : "";
-  B(v, () => ({
-    ...w(r),
+  } = r, O = d(), F = a || c(null), t = m(), v = t ? i(t) : "";
+  H(F, () => ({
+    ...D(r),
     focus() {
-      c.current.focus();
+      u.current.focus();
     }
   }), [r]);
-  const O = {
-    onValueChange: (n, k) => {
-      s(n), e.onChange && e.onChange(k, n);
+  const L = {
+    onValueChange: (n, M) => {
+      s(n), e.onChange && e.onChange(M, n);
     },
     onChange: (n) => {
       l(f, n), e.onChange && e.onChange(n);
@@ -40,35 +40,35 @@ const U = D(function(e, a) {
     onBlur: (n) => {
       y(), e.onBlur && e.onBlur(n);
     }
-  }, S = t ? /* @__PURE__ */ o(E, { onClick: () => {
+  }, S = () => {
     s(null), e.onChange && e.onChange("", null);
-  }, style: { cursor: "pointer" } }) : /* @__PURE__ */ o(I, {});
-  return /* @__PURE__ */ o(R, { children: /* @__PURE__ */ o(
-    M,
+  }, k = e.readOnly, R = e.disabled, w = t && !k && !R ? /* @__PURE__ */ o(q, { onClick: S, style: { cursor: "pointer" } }) : /* @__PURE__ */ o(j, {});
+  return /* @__PURE__ */ o(V, { children: /* @__PURE__ */ o(
+    B,
     {
-      label: j(e),
+      label: G(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ o(
-        H,
+        A,
         {
           readOnly: e.readOnly,
-          rightSection: S,
+          rightSection: w,
           ...C(),
-          value: L,
+          value: v,
           getOptionKey: b,
-          getOptionValue: u,
+          getOptionValue: i,
           data: g,
           label: e.label,
-          error: F.message,
-          ...O
+          error: O.message,
+          ...L
         }
       )
     }
   ) });
 });
 export {
-  U as MantineServerLookup
+  X as MantineServerLookup
 };
