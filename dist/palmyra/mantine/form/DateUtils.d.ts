@@ -6,10 +6,12 @@ interface IDateInput {
     valueFormat?: string;
     value?: any;
 }
+declare const getDefaultDatePattern: () => string;
+declare const getDefaultDateTimePattern: () => string;
 declare const DateUtils: (props: IDateInput) => {
     parse: (rawData: string) => dayjs.Dayjs | dayjs.Dayjs[];
     format: (v: any) => string;
     revert: (value: any) => any;
     convert: (d: any) => void;
 };
-export { DateUtils };
+export { DateUtils, getDefaultDatePattern, getDefaultDateTimePattern };

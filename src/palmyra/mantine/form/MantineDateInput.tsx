@@ -4,11 +4,12 @@ import { IDatePickerDefinition } from './types';
 import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { DateInputProps, DateInput } from '@mantine/dates';
 import dayjs from "dayjs";
+import { getDefaultDatePattern } from './DateUtils';
 
 const MantineDateInput = forwardRef(function MantineDateInput(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & DateInputProps,
     ref: MutableRefObject<IDateField>) {
-    const displayFormat: string = props.valueFormat || props.serverPattern || "YYYY-MM-DD";
+    const displayFormat: string = props.valueFormat || props.serverPattern || getDefaultDatePattern();;
 
     const parse = (rawData: any) => {
         if (rawData)

@@ -4,13 +4,13 @@ import { IDatePickerDefinition } from './types';
 import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { DatePickerInput, DatePickerInputProps } from '@mantine/dates';
 import dayjs from "dayjs";
-import { DateUtils } from './DateUtils';
+import { DateUtils, getDefaultDatePattern } from './DateUtils';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 
 const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DatePickerInputProps, 'defaultValue'>,
     ref: MutableRefObject<IDateField>) {
-    const displayFormat: string = props.valueFormat || "YYYY-MM-DD";
+    const displayFormat: string = props.valueFormat || getDefaultDatePattern();
     const type = props.type;
 
     const { parse, format, revert } = DateUtils(props);
@@ -37,7 +37,7 @@ const MantineDatePickerInput = forwardRef(function MantineDatePickerInput(
         };
     }, [fieldManager]);
 
-    var { ...options } = fieldManager.getFieldProps();
+    var { serverPattern, ...options } = fieldManager.getFieldProps();
 
     options.onChange = (d: any) => {
         if (!props.readOnly) {

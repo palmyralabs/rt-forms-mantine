@@ -5,6 +5,7 @@ import { FieldDecorator, IDateField, getFieldHandler, useFieldManager } from '@p
 import { getFieldLabel } from '../util';
 import { IDatePickerDefinition, TextViewAttributeDefinition } from '../types';
 import { getVariantClassName } from "./variantClassName";
+import { getDefaultDatePattern } from "../DateUtils";
 
 const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePickerDefinition & TextViewAttributeDefinition, ref) {
 
@@ -14,8 +15,8 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
     const value = getValue();
     const textAlignment: any = props.textAlign || 'left';
     const variant: string = props.variant || 'standard';
-    const serverFormat = props.serverPattern || "YYYY-MM-DD"
-    const displayFormat: string = props.displayPattern || props.serverPattern || "DD-MM-YYYY";
+    const serverFormat = props.serverPattern || getDefaultDatePattern();
+    const displayFormat: string = props.displayPattern || props.serverPattern || getDefaultDatePattern();
     const inputRef: any = useRef(null);
 
     useImperativeHandle(currentRef, () => {

@@ -7,8 +7,6 @@ import { Calendar, CalendarProps } from '@mantine/dates';
 const MantineCalendar = forwardRef(function MantineCalendar(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & CalendarProps,
     ref: MutableRefObject<IDateField>) {
-    // const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
-    // const displayFormat: string = props.valueFormat || props.serverPattern || "YYYY-MM-DD";
 
     const fieldManager = useFieldManager(props.attribute, props);
 

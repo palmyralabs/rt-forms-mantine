@@ -1,33 +1,34 @@
-import { jsx as a, Fragment as M } from "react/jsx-runtime";
-import { forwardRef as P, useRef as i, useImperativeHandle as v } from "react";
-import { getFieldLabel as D } from "./util.js";
-import { useFieldManager as R, getFieldHandler as V, FieldDecorator as Y } from "@palmyralabs/rt-forms";
+import { jsx as a, Fragment as b } from "react/jsx-runtime";
+import { forwardRef as v, useRef as l, useImperativeHandle as D } from "react";
+import { getFieldLabel as M } from "./util.js";
+import { useFieldManager as R, getFieldHandler as T, FieldDecorator as V } from "@palmyralabs/rt-forms";
 import { DateTimePicker as k } from "@mantine/dates";
 import y from "dayjs";
-const I = P(function(e, l) {
-  const s = e.valueFormat || e.serverPattern || "YYYY-MM-DD hh:mm:ss", u = (r) => {
-    if (r)
-      return y(r, o);
-  }, m = (r) => r && r.isValid && r.isValid() ? r.format(o) : null, t = R(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: L } = t, C = l || i(null), F = c(), h = i(null);
-  v(C, () => ({
-    ...V(t),
+import { getDefaultDateTimePattern as B } from "./DateUtils.js";
+const z = v(function(e, o) {
+  const s = e.valueFormat || e.serverPattern || B(), u = (t) => {
+    if (t)
+      return y(t, i);
+  }, m = (t) => t && t.isValid && t.isValid() ? t.format(i) : null, r = R(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: j } = r, C = o || l(null), F = c(), h = l(null);
+  D(C, () => ({
+    ...T(r),
     focus() {
       h.current.focus();
     },
     setCurrent() {
     }
-  }), [t]);
-  var { serverPattern: o, ...n } = t.getFieldProps();
-  n.onChange = (r) => {
-    e.readOnly || (d(r), e.onChange && e.onChange(r));
-  }, n.onBlur = (r) => {
-    e.onBlur && e.onBlur(r);
+  }), [r]);
+  var { serverPattern: i, ...n } = r.getFieldProps();
+  n.onChange = (t) => {
+    e.readOnly || (d(t), e.onChange && e.onChange(t));
+  }, n.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
   };
-  const b = f();
-  return /* @__PURE__ */ a(M, { children: !g.visible && /* @__PURE__ */ a(
-    Y,
+  const P = f();
+  return /* @__PURE__ */ a(b, { children: !g.visible && /* @__PURE__ */ a(
+    V,
     {
-      label: D(e),
+      label: M(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
@@ -36,7 +37,7 @@ const I = P(function(e, l) {
         k,
         {
           ...n,
-          value: b,
+          value: P,
           valueFormat: s,
           error: F.message
         }
@@ -45,5 +46,5 @@ const I = P(function(e, l) {
   ) });
 });
 export {
-  I as MantineDateTimePicker
+  z as MantineDateTimePicker
 };

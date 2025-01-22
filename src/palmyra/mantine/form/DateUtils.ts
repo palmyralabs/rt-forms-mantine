@@ -8,9 +8,12 @@ interface IDateInput {
     value?: any
 }
 
+const getDefaultDatePattern = () => "DD-MM-YYYY";
+const getDefaultDateTimePattern = () => "DD-MM-YYYY hh:mm:ss";
+
 const DateUtils = (props: IDateInput) => {
 
-    const serverPattern = props.serverPattern || props.valueFormat || "YYYY-MM-DD";
+    const serverPattern = props.serverPattern || props.valueFormat || getDefaultDatePattern();
     const type = props.type;
 
     const parseToDaysJs = (rawData: any, serverPattern) => {
@@ -101,4 +104,4 @@ const DateUtils = (props: IDateInput) => {
     return { parse, format, revert, convert }
 };
 
-export { DateUtils }
+export { DateUtils, getDefaultDatePattern, getDefaultDateTimePattern }
