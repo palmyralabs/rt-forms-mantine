@@ -18,7 +18,8 @@ const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(
     };
     const format = (v: any) => {
         if (v && v.isValid && v.isValid())
-            return v.format(serverPattern)
+            return v.format(serverPattern);
+        return null;
     };
 
     const fieldManager = useFieldManager(props.attribute, props, { format, parse });

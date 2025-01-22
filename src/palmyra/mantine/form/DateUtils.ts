@@ -24,6 +24,7 @@ const DateUtils = (props: IDateInput) => {
         if (v && v.isValid && v.isValid()) {
             return v.format(serverPattern)
         }
+        return null;
     };
 
     const parse = (rawData: string) => {
@@ -64,6 +65,7 @@ const DateUtils = (props: IDateInput) => {
                         return '<' + to;
                     }
                 }
+                return null;
             }
         } else {
             return formatDayJs(v, serverPattern);

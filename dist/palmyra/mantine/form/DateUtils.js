@@ -1,40 +1,34 @@
 import u from "dayjs";
 const Y = (i) => {
-  const s = i.serverPattern || i.valueFormat || "YYYY-MM-DD", o = i.type, n = (e, t) => e ? u(e, t) : null, c = (e, t) => {
-    if (e && e.isValid && e.isValid())
-      return e.format(t);
-  };
+  const n = i.serverPattern || i.valueFormat || "YYYY-MM-DD", o = i.type, s = (e, r) => e ? u(e, r) : null, l = (e, r) => e && e.isValid && e.isValid() ? e.format(r) : null;
   return { parse: (e) => {
     if (o == "range") {
       if (e && typeof e == "string") {
-        var t, r;
-        const l = e.charAt(0);
-        if (l == ">")
-          t = n(e.slice(1), s);
-        else if (l == "<")
-          r = n(e.slice(1), s);
+        var r, t;
+        const f = e.charAt(0);
+        if (f == ">")
+          r = s(e.slice(1), n);
+        else if (f == "<")
+          t = s(e.slice(1), n);
         else {
-          const f = e.split("...");
-          t = n(f[0], s), f[1] && (r = n(f[1], s));
+          const c = e.split("...");
+          r = s(c[0], n), c[1] && (t = s(c[1], n));
         }
       }
-      return [t, r];
+      return [r, t];
     } else
-      return n(e, s);
+      return s(e, n);
   }, format: (e) => {
     if (o == "range") {
       if (e) {
-        const t = c(e[0], s), r = c(e[1], s);
-        if (t)
-          return r ? t + "..." + r : ">" + t;
-        if (r)
-          return "<" + r;
+        const r = l(e[0], n), t = l(e[1], n);
+        return r ? t ? r + "..." + t : ">" + r : t ? "<" + t : null;
       }
     } else
-      return c(e, s);
+      return l(e, n);
   }, revert: (e) => {
-    const t = (r) => r && r.isValid() && r.toDate() || null;
-    return o == "range" ? [t(e[0]), t(e[1])] : t(e);
+    const r = (t) => t && t.isValid() && t.toDate() || null;
+    return o == "range" ? [r(e[0]), r(e[1])] : r(e);
   }, convert: (e) => {
   } };
 };

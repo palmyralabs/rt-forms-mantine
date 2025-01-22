@@ -4,14 +4,11 @@ import { getFieldLabel as D } from "./util.js";
 import { useFieldManager as I, getFieldHandler as R, FieldDecorator as V } from "@palmyralabs/rt-forms";
 import { DateInput as Y } from "@mantine/dates";
 import B from "dayjs";
-const q = v(function(e, o) {
+const q = v(function(e, l) {
   const s = e.valueFormat || e.serverPattern || "YYYY-MM-DD", u = (t) => {
     if (t)
-      return B(t, l);
-  }, c = (t) => {
-    if (t && t.isValid && t.isValid())
-      return t.format(l);
-  }, n = I(e.attribute, e, { format: c, parse: u }), { getError: m, getValue: f, setValue: d, mutateOptions: g, refreshError: P } = n, C = o || i(null), F = m(), h = i(null), b = f();
+      return B(t, o);
+  }, c = (t) => t && t.isValid && t.isValid() ? t.format(o) : null, n = I(e.attribute, e, { format: c, parse: u }), { getError: m, getValue: f, setValue: d, mutateOptions: g, refreshError: P } = n, C = l || i(null), F = m(), h = i(null), b = f();
   y(C, () => ({
     ...R(n),
     focus() {
@@ -20,7 +17,7 @@ const q = v(function(e, o) {
     setCurrent() {
     }
   }), [n]);
-  var { serverPattern: l, ...r } = n.getFieldProps();
+  var { serverPattern: o, ...r } = n.getFieldProps();
   return r.onChange = (t) => {
     e.readOnly || (d(t), e.onChange && e.onChange(t));
   }, r.onBlur = (t) => {
