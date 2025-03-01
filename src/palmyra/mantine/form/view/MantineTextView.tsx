@@ -6,7 +6,8 @@ import { getVariantClassName } from './variantClassName';
 
 interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center',
-    variant?: 'standard' | 'outlined' | 'filled'
+    variant?: 'standard' | 'outlined' | 'filled',
+    viewType?: 'preformatted' | 'normal'
 }
 
 const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition,
@@ -16,6 +17,7 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
     const { getValue, mutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const textAlignment: any = props.textAlign || 'left';
+    const viewType: any = props.viewType || 'normal';
     const inputRef: any = useRef(null);
     const variant = props.variant || 'standard';
 
@@ -29,8 +31,8 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
         };
     }, [fieldManager]);
 
-    var {textAlign, ...options} = fieldManager.getFieldProps();
-
+    var { textAlign, ...options } = fieldManager.getFieldProps();
+    
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -41,7 +43,8 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
                 </div> :
                 <div {...options} style={{ textAlign: textAlignment }}>
                     <div className={getVariantClassName(variant, props.title)}>
-                        {getValue() || "--"}
+                        {viewType == 'preformatted' ?
+                            <pre> {getValue() || "--"} </pre> : <>{getValue() || "--"}</>}
                     </div>
                 </div>
             }
