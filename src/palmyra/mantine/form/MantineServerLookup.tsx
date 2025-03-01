@@ -7,11 +7,9 @@ import { RxCross2 } from "react-icons/rx";
 import { ServerLookup } from "./internal/ServerLookup";
 import { IServerLookupDefinition } from "./types";
 import { getFieldLabel } from "./util";
-import { useDisclosure } from "@mantine/hooks";
 
 const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteProps, 'defaultValue'>,
     ref: MutableRefObject<IServerLookupField>) {
-    const [dropdownOpened, { toggle }] = useDisclosure();
     const delay = delayGenerator(props.queryOptions.delay || 200);
     const inputRef: any = useRef(null);
     const fieldManager = useServerLookupFieldManager(props.attribute, props);
@@ -64,7 +62,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
     const disabled = props.disabled;
 
     const rightSectionIcon = value && !readOnly && !disabled ? <RxCross2 onClick={handleClearValue} style={{ cursor: 'pointer' }} /> :
-        <IoMdArrowDropdown onClick={toggle}/>
+        <IoMdArrowDropdown />
 
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -78,7 +76,6 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             data={options}
             label={props.label}
             error={error.message}
-            dropdownOpened={dropdownOpened}
             {...callbacks}>
         </ServerLookup>
     </FieldDecorator>
