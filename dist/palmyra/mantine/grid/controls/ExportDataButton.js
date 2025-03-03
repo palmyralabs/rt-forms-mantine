@@ -14,10 +14,10 @@ import '../../../../assets/ExportDataButton.css';const q = (e) => {
     excel: () => s("excel"),
     doc: () => s("doc")
   }, a = {
-    csv: /* @__PURE__ */ t(x, { className: "py-export-button-list-icon" }),
-    pdf: /* @__PURE__ */ t(u, { className: "py-export-button-list-icon" }),
-    excel: /* @__PURE__ */ t(f, { className: "py-export-button-list-icon" }),
-    doc: /* @__PURE__ */ t(b, { className: "py-export-button-list-icon" })
+    csv: /* @__PURE__ */ t(b, { className: "py-export-button-list-icon" }),
+    pdf: /* @__PURE__ */ t(f, { className: "py-export-button-list-icon" }),
+    excel: /* @__PURE__ */ t(u, { className: "py-export-button-list-icon" }),
+    doc: /* @__PURE__ */ t(x, { className: "py-export-button-list-icon" })
   };
   return /* @__PURE__ */ t(m, { children: c && /* @__PURE__ */ t(
     y,

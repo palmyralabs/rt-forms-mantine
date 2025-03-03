@@ -1,4 +1,4 @@
-import { jsx as n, Fragment as P, jsxs as y } from "react/jsx-runtime";
+import { jsx as a, Fragment as P, jsxs as y } from "react/jsx-runtime";
 import D from "dayjs";
 import { forwardRef as N, useRef as d, useImperativeHandle as V } from "react";
 import '../../../../assets/TextView.css';/* empty css                          */
@@ -17,15 +17,15 @@ const K = N(function(t, l) {
   const C = (e) => {
     if (e == null || e == null || e == "")
       return null;
-    const a = D(e, F);
-    if (a.isValid())
-      return a;
+    const n = D(e, F);
+    if (n.isValid())
+      return n;
   }, o = (e) => {
     if (!e)
       return "";
     if (e) {
-      const a = C(e);
-      return a != null ? a.format(h) : (console.error("Invalid date provided:", e), "");
+      const n = C(e);
+      return n != null ? n.format(h) : (console.error("Invalid date provided:", e), "");
     }
   };
   var {
@@ -35,7 +35,7 @@ const K = N(function(t, l) {
     displayPattern: O,
     ...c
   } = r.getFieldProps();
-  return /* @__PURE__ */ n(P, { children: !g.visible && /* @__PURE__ */ n(
+  return /* @__PURE__ */ a(P, { children: !g.visible && /* @__PURE__ */ a(
     L,
     {
       label: M(t),
@@ -44,9 +44,9 @@ const K = N(function(t, l) {
       customFieldClass: t.customFieldClass,
       customLabelClass: t.customLabelClass,
       children: t.label ? /* @__PURE__ */ y("div", { ...c, className: "text-view-field-container", children: [
-        /* @__PURE__ */ n("div", { className: "text-view-label", children: t.label }),
-        /* @__PURE__ */ n("div", { className: m(s, t.label), children: o(i) || "--" })
-      ] }) : /* @__PURE__ */ n("div", { ...c, style: { textAlign: b }, children: /* @__PURE__ */ n("div", { className: m(s, t.title), children: o(i) || "--" }) })
+        /* @__PURE__ */ a("div", { className: "text-view-label", children: t.label }),
+        /* @__PURE__ */ a("div", { className: m(s, t.label), children: o(i) || "--" })
+      ] }) : /* @__PURE__ */ a("div", { ...c, style: { textAlign: b }, children: /* @__PURE__ */ a("div", { className: m(s, t.title), children: o(i) || "--" }) })
     }
   ) });
 });

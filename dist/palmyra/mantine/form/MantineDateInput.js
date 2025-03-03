@@ -5,11 +5,11 @@ import { useFieldManager as M, getFieldHandler as P, FieldDecorator as R } from 
 import { DateInput as V } from "@mantine/dates";
 import B from "dayjs";
 import { getDefaultDatePattern as L } from "./DateUtils.js";
-const A = y(function(e, l) {
-  const u = e.valueFormat || e.serverPattern || L(), s = (t) => {
+const A = y(function(e, o) {
+  const s = e.valueFormat || e.serverPattern || L(), u = (t) => {
     if (t)
-      return B(t, o);
-  }, m = (t) => t && t.isValid && t.isValid() ? t.format(o) : null, r = M(e.attribute, e, { format: m, parse: s }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: x } = r, C = l || i(null), F = c(), h = i(null), b = f();
+      return B(t, l);
+  }, m = (t) => t && t.isValid && t.isValid() ? t.format(l) : null, r = M(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: x } = r, C = o || i(null), F = c(), h = i(null), b = f();
   D(C, () => ({
     ...P(r),
     focus() {
@@ -18,7 +18,7 @@ const A = y(function(e, l) {
     setCurrent() {
     }
   }), [r]);
-  var { serverPattern: o, ...n } = r.getFieldProps();
+  var { serverPattern: l, ...n } = r.getFieldProps();
   return n.onChange = (t) => {
     e.readOnly || (d(t), e.onChange && e.onChange(t));
   }, n.onBlur = (t) => {
@@ -37,7 +37,7 @@ const A = y(function(e, l) {
           ...n,
           value: b,
           type: e.type,
-          valueFormat: u,
+          valueFormat: s,
           error: F.message
         }
       )

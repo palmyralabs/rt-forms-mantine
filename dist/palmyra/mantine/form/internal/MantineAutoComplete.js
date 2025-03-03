@@ -1,8 +1,8 @@
-import { jsx as d } from "react/jsx-runtime";
-import { Autocomplete as m } from "@mantine/core";
-import { useState as r, useEffect as g, useMemo as h } from "react";
+import { jsx as m } from "react/jsx-runtime";
+import { Autocomplete as r } from "@mantine/core";
+import { useState as d, useEffect as g, useMemo as h } from "react";
 const v = [], E = function(e) {
-  const [i, u] = r(e.value), o = e.data || v, { onValueChange: V, getOptionValue: c, ...l } = e;
+  const [i, u] = d(e.value), o = e.data || v, { onValueChange: V, getOptionValue: c, ...l } = e;
   g(() => {
     u(e.value);
   }, [e.value]);
@@ -13,8 +13,8 @@ const v = [], E = function(e) {
       console.log(a, t), a != null && n.push(a + "");
     }), n;
   }, [o]);
-  return /* @__PURE__ */ d(
-    m,
+  return /* @__PURE__ */ m(
+    r,
     {
       ...l,
       data: f,

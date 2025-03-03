@@ -1,10 +1,10 @@
-import { jsx as n, Fragment as d } from "react/jsx-runtime";
+import { jsx as n, Fragment as s } from "react/jsx-runtime";
 import { useState as u } from "react";
 import { R as k } from "../../../chunks/index3.js";
 import { G as m } from "../../../chunks/iconBase.js";
 import { Checkbox as C } from "@mantine/core";
 function f(e) {
-  return m({ tag: "svg", attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { fill: "none", strokeLinecap: "square", strokeMiterlimit: "10", strokeWidth: "44", d: "M416 128 192 384l-96-96" }, child: [] }] })(e);
+  return m({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { fill: "none", strokeLinecap: "square", strokeMiterlimit: "10", strokeWidth: "44", d: "M416 128 192 384l-96-96" }, child: [] }] })(e);
 }
 const S = (e) => {
   const a = e.value ? e.value : 0, [t, r] = u(a), o = e.checked || f, l = e.unChecked || k, i = () => {
@@ -29,8 +29,8 @@ const S = (e) => {
       default:
         return null;
     }
-  }, s = t === 1 ? "Pass" : t === -1 ? "Fail" : "";
-  return /* @__PURE__ */ n(d, { children: /* @__PURE__ */ n(
+  }, d = t === 1 ? "Pass" : t === -1 ? "Fail" : "";
+  return /* @__PURE__ */ n(s, { children: /* @__PURE__ */ n(
     C,
     {
       ...e,
@@ -42,7 +42,7 @@ const S = (e) => {
       onChange: e.onChange || i,
       disabled: e.disabled,
       readOnly: e.readOnly,
-      label: e.checkLabel || s
+      label: e.checkLabel || d
     }
   ) });
 };
