@@ -31,7 +31,7 @@ describe('DatePickerInput', () => {
         getById(dom.container, 'datePicker');
         
         act(() => {
-            dateRef.current.setValue(dayjs(new Date()));
+            dateRef.current.setValue(dayjs("22-01-2025", "DD-MM-YYYY"));
         });
         formData = formRef.current.getData();
         expect(formData.datePicker).toBe('22-01-2025');

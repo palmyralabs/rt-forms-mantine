@@ -12,12 +12,15 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
 
-  const serverQuery = useServerQuery(props);
+  const LSOptions = useLSQueryOptions({ lsKey: lsKey || '__palmyra.grid' });
+  const lsParams = { ...props.initParams, ...LSOptions.getLSOptions() };
+  const queryParams = { ...props, initParams: lsParams };
+
+  const serverQuery = useServerQuery(queryParams);
 
   const currentRef = ref || useRef<IPageQueryable>();
   useImperativeHandle(currentRef, () => {
     if (lsKey) {
-      const LSOptions = useLSQueryOptions({ lsKey });
       const setSortColumns = (d: any) => {
         LSOptions.setSortColumns(d);
         serverQuery.setSortColumns(d);
@@ -38,6 +41,11 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
         serverQuery.gotoPage(d);
       }
 
+      const setPageSize = (newPageSize: number) => {
+        LSOptions.setPageSize(newPageSize);
+        serverQuery.setPageSize(newPageSize);
+      }
+
       const nextPage = () => {
         const pageNum = serverQuery.nextPage();
         if (pageNum >= 0) {
@@ -55,8 +63,7 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
         }
         return pageNum;
       }
-
-      return { ...serverQuery, setQuickSearch, setFilter, gotoPage, nextPage, prevPage, setSortColumns };
+      return { ...serverQuery, setQuickSearch, setFilter, gotoPage, nextPage, prevPage, setPageSize, setSortColumns };
     } else {
       return serverQuery;
     }
@@ -69,11 +76,11 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
   } : () => { };
 
   const data = serverQuery.getCurrentData();
-  const setSortColumns = serverQuery.setSortColumns;
+  const setSortColumns = currentRef.current?.setSortColumns || serverQuery.setSortColumns;
 
   return (
     <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer}
-      rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns}
+      rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
     />
   )
 });

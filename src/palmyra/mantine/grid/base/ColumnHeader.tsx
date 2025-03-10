@@ -3,13 +3,12 @@ import { LuArrowDownUp, LuArrowUpDown } from "react-icons/lu";
 import './ColumnHeader.css';
 import { useSortColumn } from '@palmyralabs/rt-forms';
 import { Table } from '@mantine/core';
-const ColumnHeader = ({ header, children, onSortChange }) => {
-
+const ColumnHeader = ({ header, children, sortMode, onSortChange }) => {
     const columnAttribute = header.column.columnDef.meta?.attribute || header.id;
     const sortDisabled = !header.column.columnDef.enableSorting;
     const width = header.column.columnDef.meta?.columnDef?.width || 'auto';
 
-    const { sortColumn, order, sortOrder } = useSortColumn({ sortDisabled, onSortChange })
+    const { sortColumn, order, sortOrder } = useSortColumn({ sortDisabled, onSortChange, initMode: sortMode })
 
     useEffect(() => {
         onSortChange(columnAttribute, order)
