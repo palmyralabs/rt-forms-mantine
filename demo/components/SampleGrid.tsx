@@ -5,7 +5,7 @@ const SampleGrid = () => {
 
     return <>
         <ServerGrid />
-        <SimplGrid />
+        {/* <SimplGrid /> */}
     </>
 }
 

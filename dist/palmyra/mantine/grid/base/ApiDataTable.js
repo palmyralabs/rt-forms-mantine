@@ -1,26 +1,45 @@
-import { jsx as f } from "react/jsx-runtime";
-import { forwardRef as d, useRef as R, useImperativeHandle as w } from "react";
-import { NoopGridCustomizer as y, useServerQuery as h, generateColumns as p, EmptyChildTable as D } from "@palmyralabs/rt-forms";
-import b from "./BaseTable.js";
-const z = d(function(o, n) {
-  const { columns: r, EmptyChild: m } = o, s = m || D, e = o.customizer || y, t = h(o), a = n || R();
-  w(a, () => t, [t]);
-  const i = p(r, e), c = o.onRowClick ? (C) => {
-    o.onRowClick(C);
+import { jsx as y } from "react/jsx-runtime";
+import { forwardRef as k, useRef as z, useImperativeHandle as Q } from "react";
+import { NoopGridCustomizer as R, useServerQuery as v, generateColumns as d, EmptyChildTable as w } from "@palmyralabs/rt-forms";
+import x from "./BaseTable.js";
+import { useLSQueryOptions as D } from "./useLSQueryOptions.js";
+const H = k(function(s, u) {
+  var c;
+  const { columns: l, EmptyChild: g, lsKey: r } = s, P = g || w, n = s.customizer || R, o = D({ lsKey: r, pageSize: s.pageSize }), S = { ...s.initParams, ...o.getLSOptions() }, a = { ...s, initParams: S }, t = v(a), i = u || z();
+  Q(i, () => r ? { ...t, setQuickSearch: (e) => {
+    o.setQuickSearch(e), t.setQuickSearch(e);
+  }, setFilter: (e) => {
+    o.setFilter(e), t.setFilter(e);
+  }, gotoPage: (e) => {
+    o.setPage(e), t.gotoPage(e);
+  }, nextPage: () => {
+    const e = t.nextPage();
+    return e >= 0 && o.setPage(e), e;
+  }, prevPage: () => {
+    const e = t.prevPage();
+    return e >= 0 ? o.setPage(e) : o.resetPage(), e;
+  }, setPageSize: (e) => {
+    o.setPageSize(e), t.setPageSize(e);
+  }, setSortColumns: (e) => {
+    o.setSortColumns(e), t.setSortColumns(e);
+  } } : t, [t]);
+  const C = d(l, n), f = s.onRowClick ? (m) => {
+    s.onRowClick(m);
   } : () => {
-  }, l = t.getCurrentData(), u = t.setSortColumns;
-  return /* @__PURE__ */ f(
-    b,
+  }, p = t.getCurrentData(), h = ((c = i.current) == null ? void 0 : c.setSortColumns) || t.setSortColumns;
+  return /* @__PURE__ */ y(
+    x,
     {
-      columnDefs: i,
-      EmptyChild: s,
-      customizer: e,
-      rowData: l,
-      onRowClick: c,
-      onColumnSort: u
+      columnDefs: C,
+      EmptyChild: P,
+      customizer: n,
+      rowData: p,
+      onRowClick: f,
+      onColumnSort: h,
+      initParams: a.initParams
     }
   );
 });
 export {
-  z as ApiDataTable
+  H as ApiDataTable
 };

@@ -5,30 +5,24 @@ import { DataGridDefaultControls, GridX, IDataGridDefaultControlConfig, PalmyraG
 
 const columns: ColumnDefinition[] = [
     {
-        attribute: 'code',
-        label: 'Identifier',
+        attribute: 'name',
+        label: 'name',
         type: 'string',
         searchable: true,
         sortable: true
     }, {
-        attribute: 'name',
-        label: 'Thumbnail',
-        type: 'date',
-        searchable: true,
-        sortable: true
-    }, {
-        attribute: 'count',
-        label: 'Count',
+        attribute: 'population',
+        label: 'Population',
         type: 'number',
         searchable: true,
         sortable: true
     }
 ]
 
-const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/api/palmyra/' });
+const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/localApi/' });
 
 const ServerGrid = () => {
-    const endPoint = 'masterdata/project'; //'grid/simpleGridData.json'
+    const endPoint = 'masterdata/project.json'; //'grid/simpleGridData.json'
 
     const getOptions = (): IDataGridDefaultControlConfig => {
         return { export: { disabled: false } }
@@ -36,18 +30,12 @@ const ServerGrid = () => {
 
     return <>
         <StoreFactoryContext.Provider value={storeFactory}>
-            <GridX columns={columns} endPoint={endPoint}
+            <GridX columns={columns} endPoint={endPoint} lsKey="uniqueKey"
                 quickSearch="code" pagination={{ignoreSinglePage: false}}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}
                 pageSize={[20, 30, 1000]} />
         </StoreFactoryContext.Provider>
-
-        {/* <PalmyraGrid columns={columns} endPoint={endPoint}
-            quickSearch="code"
-            getPluginOptions={getOptions}
-            DataGridControls={DataGridDefaultControls}
-            pageSize={[20, 30, 1000]} /> */}
     </>
 }
 

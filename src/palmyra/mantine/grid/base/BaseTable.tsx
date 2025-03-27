@@ -12,11 +12,19 @@ import { Table } from '@mantine/core';
 export default function BaseTable(props: BaseTableOptions) {
 
   const { rowData, customizer } = props;
+  const sortParams = props.initParams?.sort || {};
   const { onColumnSort, options, EmptyChildren, onRowClick } = useBaseGridManager(props);
   const tableRef: MutableRefObject<IReactTanstackTable> = customizer?.getTableRef ? customizer?.getTableRef() : useRef();
 
   const table = useReactTable(options);
   tableRef.current = table;
+
+  const getMode = (header) => {
+    const attribute = header.column?.columnDef?.meta?.attribute;
+    if(attribute){      
+      return sortParams[attribute];
+    }
+  }
 
   return (<>
     <div className={props.className}>
@@ -28,7 +36,7 @@ export default function BaseTable(props: BaseTableOptions) {
                 return (
                   header.isPlaceholder ? null : (
                     <ColumnHeader header={header}
-                      key={header.id}
+                      key={header.id} sortMode={getMode(header)}
                       onSortChange={onColumnSort}
                     >
                       {flexRender(
