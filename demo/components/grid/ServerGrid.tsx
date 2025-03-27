@@ -30,7 +30,7 @@ const ServerGrid = () => {
 
     return <>
         <StoreFactoryContext.Provider value={storeFactory}>
-            <GridX columns={columns} endPoint={endPoint}
+            <GridX columns={columns} endPoint={endPoint} lsKey="uniqueKey"
                 quickSearch="code" pagination={{ignoreSinglePage: false}}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}

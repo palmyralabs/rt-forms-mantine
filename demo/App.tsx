@@ -11,10 +11,10 @@ function App() {
   return (
     <>
       {/* <SampleNewForm /> */}
-      <SampleForm /> 
-      {/* <SampleGrid /> */}
+      {/* <SampleForm />  */}
+      <SampleGrid />
 
-      <SampleViewForm />
+      {/* <SampleViewForm /> */}
     </>
 
   )

@@ -7,12 +7,11 @@ import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 
 const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions, ref: MutableRefObject<IPageQueryable>) {
-  const { columns, EmptyChild } = props;
-  const lsKey = 'hello';
+  const { columns, EmptyChild, lsKey } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
 
-  const LSOptions = useLSQueryOptions({ lsKey: lsKey || '__palmyra.grid' });
+  const LSOptions = useLSQueryOptions({ lsKey: lsKey, pageSize: props.pageSize });
   const lsParams = { ...props.initParams, ...LSOptions.getLSOptions() };
   const queryParams = { ...props, initParams: lsParams };
 

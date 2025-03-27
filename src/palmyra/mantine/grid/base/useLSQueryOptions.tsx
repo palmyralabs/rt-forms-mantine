@@ -2,6 +2,7 @@ import { IServerQueryInput } from "@palmyralabs/rt-forms";
 
 interface LSQueryConfig {
     lsKey: string;
+    pageSize: number | number[];
 }
 
 interface LSQueryOptions {
@@ -29,7 +30,9 @@ type initParams = IServerQueryInput["initParams"];
 
 
 const useLSQueryOptions = (props: LSQueryConfig): LSQueryOptions => {
-
+    const pageSize = props.pageSize ? props.pageSize : 15;
+    const initialLimit = pageSize instanceof Array ? pageSize[0] : pageSize;
+    
     const storeData = () => {
         const v = JSON.stringify(params);
         sessionStorage.setItem(props.lsKey, v);
@@ -48,6 +51,8 @@ const useLSQueryOptions = (props: LSQueryConfig): LSQueryOptions => {
     }
 
     const params: initParams = getData();
+    if(params.limit == undefined)
+        params.limit = initialLimit;
 
     const getLSOptions = () => {
         return params;
@@ -83,7 +88,7 @@ const useLSQueryOptions = (props: LSQueryConfig): LSQueryOptions => {
     };
 
     const setPage = (d: number) => {
-        const limit = getData().limit || 15;
+        const limit = getData().limit || initialLimit || 15;
         const page = d || 0;
         params.offset = page * limit;        
         storeData();
