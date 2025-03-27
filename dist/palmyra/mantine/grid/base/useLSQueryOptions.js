@@ -1,34 +1,34 @@
-const Q = (n) => {
-  const o = () => {
+const Q = (s) => {
+  const n = s.pageSize ? s.pageSize : 15, a = n instanceof Array ? n[0] : n, r = () => {
     const t = JSON.stringify(e);
-    sessionStorage.setItem(n.lsKey, t);
-  }, i = () => {
-    const t = sessionStorage.getItem(n.lsKey);
+    sessionStorage.setItem(s.lsKey, t);
+  }, c = () => {
+    const t = sessionStorage.getItem(s.lsKey);
     if (t)
       try {
         return JSON.parse(t);
       } catch {
-        console.error("invalid data for tableFilter ", n.lsKey);
+        console.error("invalid data for tableFilter ", s.lsKey);
       }
     return {};
-  }, e = i();
-  return {
+  }, e = c();
+  return e.limit == null && (e.limit = a), {
     getLSOptions: () => e,
     setSortColumns: (t) => {
-      t ? e.sort = t : delete e.sort, o();
+      t ? e.sort = t : delete e.sort, r();
     },
     setQuickSearch: (t) => {
     },
     setFilter: (t) => {
-      t ? e.filter = t : delete e.filter, o();
+      t ? e.filter = t : delete e.filter, r();
     },
     setPage: (t) => {
-      const r = i().limit || 15, s = t || 0;
-      e.offset = s * r, o();
+      const i = c().limit || a || 15, o = t || 0;
+      e.offset = o * i, r();
     },
     setPageSize: (t) => {
-      const r = i().offset || 0, s = t > 0 || t == -1 ? t : 15, c = Math.floor(r / s) * s;
-      e.limit = s, e.offset = c, o();
+      const i = c().offset || 0, o = t > 0 || t == -1 ? t : 15, l = Math.floor(i / o) * o;
+      e.limit = o, e.offset = l, r();
     },
     resetSortOptions: () => {
     },

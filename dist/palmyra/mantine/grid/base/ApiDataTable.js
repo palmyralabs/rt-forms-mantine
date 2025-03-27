@@ -1,12 +1,12 @@
 import { jsx as y } from "react/jsx-runtime";
-import { forwardRef as k, useRef as Q, useImperativeHandle as R } from "react";
-import { NoopGridCustomizer as v, useServerQuery as z, generateColumns as d, EmptyChildTable as w } from "@palmyralabs/rt-forms";
+import { forwardRef as k, useRef as z, useImperativeHandle as Q } from "react";
+import { NoopGridCustomizer as R, useServerQuery as v, generateColumns as d, EmptyChildTable as w } from "@palmyralabs/rt-forms";
 import x from "./BaseTable.js";
 import { useLSQueryOptions as D } from "./useLSQueryOptions.js";
-const G = k(function(s, m) {
-  var i;
-  const { columns: u, EmptyChild: l } = s, g = "hello", P = l || w, r = s.customizer || v, o = D({ lsKey: g }), C = { ...s.initParams, ...o.getLSOptions() }, n = { ...s, initParams: C }, t = z(n), a = m || Q();
-  R(a, () => ({ ...t, setQuickSearch: (e) => {
+const H = k(function(s, u) {
+  var c;
+  const { columns: l, EmptyChild: g, lsKey: r } = s, P = g || w, n = s.customizer || R, o = D({ lsKey: r, pageSize: s.pageSize }), S = { ...s.initParams, ...o.getLSOptions() }, a = { ...s, initParams: S }, t = v(a), i = u || z();
+  Q(i, () => r ? { ...t, setQuickSearch: (e) => {
     o.setQuickSearch(e), t.setQuickSearch(e);
   }, setFilter: (e) => {
     o.setFilter(e), t.setFilter(e);
@@ -22,24 +22,24 @@ const G = k(function(s, m) {
     o.setPageSize(e), t.setPageSize(e);
   }, setSortColumns: (e) => {
     o.setSortColumns(e), t.setSortColumns(e);
-  } }), [t]);
-  const S = d(u, r), f = s.onRowClick ? (c) => {
-    s.onRowClick(c);
+  } } : t, [t]);
+  const C = d(l, n), f = s.onRowClick ? (m) => {
+    s.onRowClick(m);
   } : () => {
-  }, p = t.getCurrentData(), h = ((i = a.current) == null ? void 0 : i.setSortColumns) || t.setSortColumns;
+  }, p = t.getCurrentData(), h = ((c = i.current) == null ? void 0 : c.setSortColumns) || t.setSortColumns;
   return /* @__PURE__ */ y(
     x,
     {
-      columnDefs: S,
+      columnDefs: C,
       EmptyChild: P,
-      customizer: r,
+      customizer: n,
       rowData: p,
       onRowClick: f,
       onColumnSort: h,
-      initParams: n.initParams
+      initParams: a.initParams
     }
   );
 });
 export {
-  G as ApiDataTable
+  H as ApiDataTable
 };

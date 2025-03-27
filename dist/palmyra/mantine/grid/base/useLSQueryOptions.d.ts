@@ -1,5 +1,6 @@
 interface LSQueryConfig {
     lsKey: string;
+    pageSize: number | number[];
 }
 interface LSQueryOptions {
     setSortColumns: (d: any) => void;
