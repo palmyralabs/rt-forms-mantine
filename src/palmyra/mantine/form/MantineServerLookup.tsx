@@ -27,7 +27,10 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
 
     const handleToggleDropdown = () => {
         setIconClick(true);
-        !dropdownOpened ? open() : close();
+        if (!dropdownOpened) {
+            open();
+            delay(refreshOptions)
+        } else close()
     };
 
     useImperativeHandle(currentRef, () => {
@@ -44,6 +47,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         onValueChange: (d: any, label: string) => {
             setValue(d);
             props.onChange && props.onChange(label, d)
+            close();
         },
         onChange: (label: string) => {
             delay(setSearchText, label);
@@ -70,7 +74,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             }
         }
     }
-    
+
     const handleClearValue = () => {
         setValue(null);
         props.onChange && props.onChange('', null);

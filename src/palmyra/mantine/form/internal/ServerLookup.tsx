@@ -43,6 +43,7 @@ const ServerLookup = (function MantineServerLookup(props: AutocompleteProps & he
         {...o}
         filter={({ options }) => options}
         data={data}
+        dropdownOpened={props.dropdownOpened}
         value={displayValue}
         {...callbacks}>
     </Autocomplete>
