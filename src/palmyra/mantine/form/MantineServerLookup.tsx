@@ -1,7 +1,8 @@
 import { AutocompleteProps } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager } from '@palmyralabs/rt-forms';
 import { delayGenerator } from "@palmyralabs/ts-utils";
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react";
+import { forwardRef, MutableRefObject, useImperativeHandle, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { ServerLookup } from "./internal/ServerLookup";
@@ -18,8 +19,16 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
     const error: IFormFieldError = getError();
     const currentRef = ref ? ref : useRef<IServerLookupField>(null);
 
+    const [iconClick, setIconClick] = useState<any>(false)
+    const [dropdownOpened, { open, close }] = useDisclosure(false);
+
     const value = getValue();
     const label = value ? getOptionValue(value) : '';
+
+    const handleToggleDropdown = () => {
+        setIconClick(true);
+        !dropdownOpened ? open() : close();
+    };
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager)
@@ -41,9 +50,17 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             props.onChange && props.onChange(label)
         },
         onDropdownOpen: () => {
+            if (!iconClick) {
+                open()
+            }
+            setIconClick(false);
             delay(refreshOptions)
         },
         onDropdownClose: () => {
+            if (!iconClick) {
+                close()
+            }
+            setIconClick(false);
         },
         onBlur: (e: any) => {
             refreshError();
@@ -53,6 +70,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             }
         }
     }
+    
     const handleClearValue = () => {
         setValue(null);
         props.onChange && props.onChange('', null);
@@ -62,7 +80,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
     const disabled = props.disabled;
 
     const rightSectionIcon = value && !readOnly && !disabled ? <RxCross2 onClick={handleClearValue} style={{ cursor: 'pointer' }} /> :
-        <IoMdArrowDropdown />
+        <IoMdArrowDropdown onClick={handleToggleDropdown} style={{ cursor: 'pointer' }} />
 
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
         customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -74,6 +92,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             getOptionKey={getOptionKey}
             getOptionValue={getOptionValue}
             data={options}
+            dropdownOpened={dropdownOpened}
             label={props.label}
             error={error.message}
             {...callbacks}>
@@ -83,3 +102,4 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
 });
 
 export { MantineServerLookup };
+
