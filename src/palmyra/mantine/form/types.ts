@@ -23,7 +23,7 @@ interface ILayoutOptions {
 interface TextViewAttributeDefinition {
     attribute: string,
     textAlign?: 'left' | 'right' | 'center',
-    variant?: 'standard' | 'outlined' |  'filled'
+    variant?: 'standard' | 'outlined' | 'filled'
 }
 
 interface MantineInputFieldOptions extends FieldOptions {
@@ -42,6 +42,10 @@ interface ValueLabel {
 }
 
 interface ITextFieldDefinition extends MantineInputFieldOptions, ILayoutOptions {
+
+}
+
+interface IPinInputDefinition extends MantineInputFieldOptions, ILayoutOptions {
 
 }
 
@@ -90,7 +94,7 @@ interface IServerAutoCompleteDefinition extends MantineInputFieldOptions, ILayou
 interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
     defaultValue?: any,
-    multiple?: boolean,    
+    multiple?: boolean,
     queryOptions: {
         delay?: number,
         endPoint: IEndPoint;
@@ -99,7 +103,7 @@ interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptio
         idAttribute?: string;
         storeOptions?: StoreOptions;
     },
-    onChange?: (value: string, d?:any) => void;
+    onChange?: (value: string, d?: any) => void;
     renderOption?: (
         props: React.HTMLAttributes<HTMLLIElement> & { key: any },
         option: any,
@@ -169,7 +173,8 @@ export type {
     ITextFieldDefinition, ISelectDefinition, IDatePickerDefinition, IServerLookupDefinition,
     ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition,
     ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition,
-    IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition
+    IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition,
+    IPinInputDefinition
 }
 
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }

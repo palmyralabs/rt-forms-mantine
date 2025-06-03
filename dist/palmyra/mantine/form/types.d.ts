@@ -37,6 +37,8 @@ interface ValueLabel {
 }
 interface ITextFieldDefinition extends MantineInputFieldOptions, ILayoutOptions {
 }
+interface IPinInputDefinition extends MantineInputFieldOptions, ILayoutOptions {
+}
 interface IDatePickerDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
     serverPattern?: string;
     displayPattern?: string;
@@ -123,5 +125,5 @@ interface IEventListeners {
     onValueChange: (data: any) => void;
     onSearch?: (searchKey: string, limt?: number, offset?: number) => void;
 }
-export type { ITextFieldDefinition, ISelectDefinition, IDatePickerDefinition, IServerLookupDefinition, ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition, ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition, IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition };
+export type { ITextFieldDefinition, ISelectDefinition, IDatePickerDefinition, IServerLookupDefinition, ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition, ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition, IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition, IPinInputDefinition };
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition };

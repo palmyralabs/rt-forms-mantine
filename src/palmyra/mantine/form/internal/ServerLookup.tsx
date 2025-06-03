@@ -21,7 +21,8 @@ const ServerLookup = (function MantineServerLookup(props: AutocompleteProps & he
             label: getOptionValue(option) + '',
             value: getOptionKey(option) + ''
         }
-        return sOptions;
+
+        return sOptions || "No Data Available";
     })
 
     const callbacks = {

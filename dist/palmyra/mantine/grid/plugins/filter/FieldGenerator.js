@@ -20,6 +20,7 @@ import { MantineSwitch as b } from "../../../form/MantineSwitch.js";
 import { MantineTextArea as h } from "../../../form/MantineTextArea.js";
 import { MantineTextField as k } from "../../../form/MantineTextField.js";
 import "../../../form/MantineTimeInput.js";
+import "../../../form/MantinePinInput.js";
 import "../../../form/view/MantineTextView.js";
 import "../../../form/view/MantineOptionsView.js";
 import "../../../form/view/MantineDateView.js";
@@ -27,7 +28,7 @@ import "../../../form/view/MantineLookupView.js";
 import "../../../form/view/MantineINRView.js";
 import "react";
 import "@mantine/core";
-const Z = (e, i) => {
+const _ = (e, i) => {
   const { type: n } = e, t = { fieldDef: e, title: i }, { getReactField: r, getInvalidField: a } = p();
   switch (n) {
     case "string":
@@ -64,5 +65,5 @@ const Z = (e, i) => {
   }
 };
 export {
-  Z as default
+  _ as default
 };
