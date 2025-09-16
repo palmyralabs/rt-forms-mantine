@@ -1,11 +1,11 @@
 import { ComboboxItem, Select, SelectProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, ISelectField, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from 'react';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { ISelectDefinition } from './types';
 import { getFieldLabel, keyToString } from './util';
 
-const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition & SelectProps, ref: MutableRefObject<ISelectField>) {
+const MantineSelect = forwardRef(function MantineSelect(props: ISelectDefinition & SelectProps, ref: RefObject<ISelectField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);

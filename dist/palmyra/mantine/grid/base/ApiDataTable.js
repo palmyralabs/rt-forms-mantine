@@ -1,12 +1,11 @@
-import { jsx as y } from "react/jsx-runtime";
-import { forwardRef as k, useRef as z, useImperativeHandle as Q } from "react";
-import { NoopGridCustomizer as R, useServerQuery as v, generateColumns as d, EmptyChildTable as w } from "@palmyralabs/rt-forms";
-import x from "./BaseTable.js";
-import { useLSQueryOptions as D } from "./useLSQueryOptions.js";
-const H = k(function(s, u) {
-  var c;
-  const { columns: l, EmptyChild: g, lsKey: r } = s, P = g || w, n = s.customizer || R, o = D({ lsKey: r, pageSize: s.pageSize }), S = { ...s.initParams, ...o.getLSOptions() }, a = { ...s, initParams: S }, t = v(a), i = u || z();
-  Q(i, () => r ? { ...t, setQuickSearch: (e) => {
+import { jsx as h } from "react/jsx-runtime";
+import { NoopGridCustomizer as y, useServerQuery as k, generateColumns as z, EmptyChildTable as Q } from "@palmyralabs/rt-forms";
+import { forwardRef as R, useRef as v, useImperativeHandle as d } from "react";
+import w from "./BaseTable.js";
+import { useLSQueryOptions as x } from "./useLSQueryOptions.js";
+const G = R(function(s, u) {
+  const { columns: m, EmptyChild: l, lsKey: r } = s, g = l || Q, n = s.customizer || y, o = x({ lsKey: r, pageSize: s.pageSize }), P = { ...s.initParams, ...o.getLSOptions() }, a = { ...s, initParams: P }, t = k(a), i = u || v(null);
+  d(i, () => r ? { ...t, setQuickSearch: (e) => {
     o.setQuickSearch(e), t.setQuickSearch(e);
   }, setFilter: (e) => {
     o.setFilter(e), t.setFilter(e);
@@ -23,23 +22,23 @@ const H = k(function(s, u) {
   }, setSortColumns: (e) => {
     o.setSortColumns(e), t.setSortColumns(e);
   } } : t, [t]);
-  const C = d(l, n), f = s.onRowClick ? (m) => {
-    s.onRowClick(m);
+  const S = z(m, n), C = s.onRowClick ? (c) => {
+    s.onRowClick(c);
   } : () => {
-  }, p = t.getCurrentData(), h = ((c = i.current) == null ? void 0 : c.setSortColumns) || t.setSortColumns;
-  return /* @__PURE__ */ y(
-    x,
+  }, f = t.getCurrentData(), p = i.current?.setSortColumns || t.setSortColumns;
+  return /* @__PURE__ */ h(
+    w,
     {
-      columnDefs: C,
-      EmptyChild: P,
+      columnDefs: S,
+      EmptyChild: g,
       customizer: n,
-      rowData: p,
-      onRowClick: f,
-      onColumnSort: h,
+      rowData: f,
+      onRowClick: C,
+      onColumnSort: p,
       initParams: a.initParams
     }
   );
 });
 export {
-  H as ApiDataTable
+  G as ApiDataTable
 };

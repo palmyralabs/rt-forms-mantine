@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 interface IDropdownButtonOptions {
     title: string;
     className?: string;
@@ -12,4 +13,4 @@ interface IDropdown {
 }
 declare const DropdownButton: import('react').ForwardRefExoticComponent<IDropdownButtonOptions & import('react').RefAttributes<IDropdown>>;
 export { DropdownButton };
-export type { IDropdownButtonOptions, IDropdown };
+export type { IDropdown, IDropdownButtonOptions };

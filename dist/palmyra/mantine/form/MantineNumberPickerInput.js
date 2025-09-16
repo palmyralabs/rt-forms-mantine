@@ -1,13 +1,13 @@
 import { jsx as r, Fragment as b } from "react/jsx-runtime";
-import { forwardRef as g, useRef as C, useImperativeHandle as F } from "react";
-import { useFieldManager as h, getFieldHandler as v, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { getFieldLabel as V } from "./util.js";
-import { NumberPickerInput as B } from "./internal/NumberPickerInput.js";
-const E = g(function(e, n) {
-  const a = h(e.attribute, e), { getError: o, getValue: u, setValue: i, mutateOptions: s, refreshError: L } = a, c = n || C(null), m = o(), d = e.variant || "default";
+import { useFieldManager as g, getFieldHandler as C, FieldDecorator as F } from "@palmyralabs/rt-forms";
+import { forwardRef as h, useRef as v, useImperativeHandle as M } from "react";
+import { NumberPickerInput as V } from "./internal/NumberPickerInput.js";
+import { getFieldLabel as B } from "./util.js";
+const E = h(function(e, n) {
+  const a = g(e.attribute, e), { getError: o, getValue: u, setValue: i, mutateOptions: s, refreshError: L } = a, c = n || v(null), m = o(), d = e.variant || "default";
   var f = u();
-  F(c, () => ({
-    ...v(a),
+  M(c, () => ({
+    ...C(a),
     focus() {
     }
   }), [a]);
@@ -17,15 +17,15 @@ const E = g(function(e, n) {
   }, t.onBlur = (l) => {
     e.onBlur && e.onBlur(l);
   }, /* @__PURE__ */ r(b, { children: !s.visible && /* @__PURE__ */ r(
-    M,
+    F,
     {
-      label: V(e),
+      label: B(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ r(
-        B,
+        V,
         {
           defaultValue: e.defaultValue,
           label: e.label,

@@ -1,10 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { IFormFieldError, ISliderField, getFieldHandler, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from './util';
-import { ISliderDefinition } from './types';
 import { Slider, SliderProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, IFormFieldError, ISliderField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { ISliderDefinition } from './types';
+import { getFieldLabel } from './util';
 
-const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition & SliderProps, ref: MutableRefObject<ISliderField>) {
+const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition & SliderProps, ref: RefObject<ISliderField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISliderField>(null);

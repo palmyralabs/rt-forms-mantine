@@ -1,10 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldHandler, IFormFieldError, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
+import { PasswordInput, PasswordInputProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import { ITextFieldDefinition } from './types';
 import { getFieldLabel } from './util';
-import { PasswordInput, PasswordInputProps } from '@mantine/core';
 
-const MantinePasswordField = forwardRef(function MantinePasswordField(props: ITextFieldDefinition & PasswordInputProps, ref: MutableRefObject<ITextField>) {
+const MantinePasswordField = forwardRef(function MantinePasswordField(props: ITextFieldDefinition & PasswordInputProps, ref: RefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);

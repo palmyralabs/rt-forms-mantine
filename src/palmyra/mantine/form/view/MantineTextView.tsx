@@ -1,7 +1,7 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldHandler, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from '../util'
+import { FieldDecorator, getFieldHandler, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import { ITextFieldDefinition } from '../types';
+import { getFieldLabel } from '../util';
 import { getVariantClassName } from './variantClassName';
 
 interface TextViewAttributeDefinition {
@@ -11,7 +11,7 @@ interface TextViewAttributeDefinition {
 }
 
 const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition,
-    ref: MutableRefObject<ITextField>) {
+    ref: RefObject<ITextField>) {
 
     const fieldManager = useFieldManager(props.attribute, props);
     const { getValue, mutateOptions } = fieldManager;

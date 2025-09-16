@@ -1,10 +1,10 @@
 import { jsx as c, Fragment as u } from "react/jsx-runtime";
-import { forwardRef as m, useRef as a, useEffect as b } from "react";
-import { GridX as d } from "./GridX.js";
 import { topic as e } from "@palmyralabs/ts-utils";
+import { forwardRef as m, useRef as l, useEffect as a } from "react";
+import { GridX as b } from "./GridX.js";
 const g = m(function(t, f) {
-  const i = t.topic, r = f || a();
-  return b(() => {
+  const i = t.topic, r = f || l(null);
+  return a(() => {
     if (t.topic) {
       const n = e.subscribe(i + "/refresh", () => {
         r.current && r.current.refresh();
@@ -15,7 +15,7 @@ const g = m(function(t, f) {
         e.unsubscribe(n), e.unsubscribe(o);
       };
     }
-  }, [i]), /* @__PURE__ */ c(u, { children: /* @__PURE__ */ c(d, { ...t, ref: r }) });
+  }, [i]), /* @__PURE__ */ c(u, { children: /* @__PURE__ */ c(b, { ...t, ref: r }) });
 });
 export {
   g as PalmyraGrid

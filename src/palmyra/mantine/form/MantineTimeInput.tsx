@@ -1,12 +1,12 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldLabel } from './util';
-import { IDatePickerDefinition } from './types';
-import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { TimeInput, TimeInputProps } from '@mantine/dates';
+import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { IDatePickerDefinition } from './types';
+import { getFieldLabel } from './util';
 
 const MantineTimeInput = forwardRef(function MantineTimeInput(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & TimeInputProps,
-    ref: MutableRefObject<IDateField>) {
+    ref: RefObject<IDateField>) {
 
     const fieldManager = useFieldManager(props.attribute, props);
 

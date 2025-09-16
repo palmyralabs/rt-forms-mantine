@@ -2,7 +2,7 @@ import { AutocompleteProps } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager } from '@palmyralabs/rt-forms';
 import { delayGenerator } from "@palmyralabs/ts-utils";
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, RefObject, useImperativeHandle, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { ServerLookup } from "./internal/ServerLookup";
@@ -10,7 +10,7 @@ import { IServerLookupDefinition } from "./types";
 import { getFieldLabel } from "./util";
 
 const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteProps, 'defaultValue'>,
-    ref: MutableRefObject<IServerLookupField>) {
+    ref: RefObject<IServerLookupField>) {
     const delay = delayGenerator(props.queryOptions.delay || 200);
     const inputRef: any = useRef(null);
     const fieldManager = useServerLookupFieldManager(props.attribute, props);

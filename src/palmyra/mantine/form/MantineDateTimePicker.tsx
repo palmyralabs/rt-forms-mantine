@@ -1,14 +1,14 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldLabel } from './util';
-import { IDatePickerDefinition } from './types';
-import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { DateTimePicker, DateTimePickerProps } from '@mantine/dates';
+import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
 import dayjs from "dayjs";
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import { getDefaultDateTimePattern } from './DateUtils';
+import { IDatePickerDefinition } from './types';
+import { getFieldLabel } from './util';
 
 const MantineDateTimePicker = forwardRef(function MantineDateTimePicker(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DateTimePickerProps, 'defaultValue'>,
-    ref: MutableRefObject<IDateField>) {
+    ref: RefObject<IDateField>) {
     const displayFormat: string = props.valueFormat || props.serverPattern || getDefaultDateTimePattern();
 
     const parse = (rawData: any) => {

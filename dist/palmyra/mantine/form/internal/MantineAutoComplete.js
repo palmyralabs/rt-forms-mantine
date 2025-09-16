@@ -1,7 +1,7 @@
 import { jsx as m } from "react/jsx-runtime";
 import { Autocomplete as r } from "@mantine/core";
 import { useState as d, useEffect as g, useMemo as h } from "react";
-const v = [], E = function(e) {
+const v = [], E = (function(e) {
   const [i, u] = d(e.value), o = e.data || v, { onValueChange: V, getOptionValue: c, ...l } = e;
   g(() => {
     u(e.value);
@@ -27,7 +27,7 @@ const v = [], E = function(e) {
       }
     }
   );
-};
+});
 export {
   E as MantineAutoComplete
 };

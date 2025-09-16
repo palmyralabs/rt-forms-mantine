@@ -53,6 +53,11 @@ export interface DateInputSharedProps
 
     /** Input placeholder */
     placeholder?: string;
+
+    wrapperProps?: {
+        label: import("react").ReactNode;
+        error: import("react").ReactNode;
+    }
 }
 
 export interface PickerInputBaseProps

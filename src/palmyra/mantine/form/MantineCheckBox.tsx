@@ -1,10 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { FieldDecorator, ICheckBoxField, IFormFieldError, getFieldHandler, useFieldManager } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from './util';
-import { ICheckBoxDefinition } from './types';
 import { Checkbox, CheckboxProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, ICheckBoxField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { ICheckBoxDefinition } from './types';
+import { getFieldLabel } from './util';
 
-const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps & ICheckBoxDefinition, ref: MutableRefObject<ICheckBoxField>) {
+const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps & ICheckBoxDefinition, ref: RefObject<ICheckBoxField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ICheckBoxField>(null);

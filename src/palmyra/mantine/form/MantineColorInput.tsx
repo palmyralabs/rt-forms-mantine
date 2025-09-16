@@ -1,10 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldHandler, IFormFieldError, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
+import { ColorInput, ColorInputProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import { ITextFieldDefinition } from './types';
 import { getFieldLabel } from './util';
-import { ColorInput, ColorInputProps } from '@mantine/core';
 
-const MantineColorInput = forwardRef(function MantineColorInput(props: ITextFieldDefinition & ColorInputProps, ref: MutableRefObject<ITextField>) {
+const MantineColorInput = forwardRef(function MantineColorInput(props: ITextFieldDefinition & ColorInputProps, ref: RefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);

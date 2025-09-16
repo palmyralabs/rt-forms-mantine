@@ -9,7 +9,7 @@ interface IFilterInput extends DataGridPluginOptions{
 }
 
 const FilterButton = (o: IFilterInput) => {
-    const buttonRef = useRef<IDropdown>();
+    const buttonRef = useRef<IDropdown>(null);
 
     return (<DropdownButton title="Filter" ref={buttonRef}
         PrefixAdornment={<TbFilterShare />} width={o.width || '650'}>

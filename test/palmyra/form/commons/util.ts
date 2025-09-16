@@ -1,11 +1,11 @@
 import { IInputField } from '@palmyralabs/rt-forms';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { MutableRefObject } from 'react';
+import { RefObject } from 'react';
 import { expect } from 'vitest';
 
 
 const testOptional2Mandatory = (textField: HTMLElement,
-    fieldRef: MutableRefObject<IInputField>, missingMessage: string) => {
+    fieldRef: RefObject<IInputField>, missingMessage: string) => {
     expect(textField).toHaveProperty('required', false)
     expect(fieldRef.current.isValid()).toBeTruthy();
     expect(() => screen.getByText(missingMessage)).toThrow();
@@ -21,7 +21,7 @@ const testOptional2Mandatory = (textField: HTMLElement,
 }
 
 const testMandatory2Optional = (textField: HTMLElement,
-    fieldRef: MutableRefObject<IInputField>, missingMessage: string) => {
+    fieldRef: RefObject<IInputField>, missingMessage: string) => {
     expect(textField).toHaveProperty('required', true)
     expect(fieldRef.current.isValid()).toBeTruthy();
     expect(() => screen.getByText("Blank not allowed")).toThrow();

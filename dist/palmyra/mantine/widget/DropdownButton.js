@@ -1,9 +1,9 @@
 import { jsx as o, Fragment as d, jsxs as m } from "react/jsx-runtime";
-import { M as u } from "../../../chunks/index4.js";
+import { Popover as r, Button as u } from "@mantine/core";
 import { forwardRef as w, useState as h, useRef as p, useImperativeHandle as b } from "react";
-import { Popover as r, Button as x } from "@mantine/core";
+import { M as x } from "../../../chunks/index4.js";
 import '../../../assets/DropdownButton.css';const B = w(function(e, i) {
-  const [n, t] = h(!1), s = i || p(), a = e.className || "py-dropdown-button";
+  const [n, t] = h(!1), s = i || p(null), l = e.className || "py-dropdown-button";
   b(s, () => ({
     open() {
       t(!0);
@@ -12,8 +12,8 @@ import '../../../assets/DropdownButton.css';const B = w(function(e, i) {
       t(!1);
     }
   }), []);
-  const c = e.PrefixAdornment || /* @__PURE__ */ o(d, {}), l = /* @__PURE__ */ o(
-    u,
+  const a = e.PrefixAdornment || /* @__PURE__ */ o(d, {}), c = /* @__PURE__ */ o(
+    x,
     {
       className: `py-dropdown-button-arrow ${n ? "open" : ""} `
     }
@@ -31,13 +31,13 @@ import '../../../assets/DropdownButton.css';const B = w(function(e, i) {
       onChange: f,
       children: [
         /* @__PURE__ */ o(r.Target, { children: /* @__PURE__ */ o(
-          x,
+          u,
           {
-            className: a,
+            className: l,
             disabled: e.disabled,
             fullWidth: !1,
-            rightSection: l,
-            leftSection: c,
+            rightSection: c,
+            leftSection: a,
             onClick: () => t(!n),
             children: /* @__PURE__ */ o("span", { children: e.title })
           }

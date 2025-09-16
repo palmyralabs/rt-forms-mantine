@@ -1,7 +1,7 @@
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef, useState } from "react"
-import './DropDownButton.css'
 import { Button, Popover } from "@mantine/core";
+import { forwardRef, JSX, RefObject, useImperativeHandle, useRef, useState } from "react";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import './DropDownButton.css';
 
 interface IDropdownButtonOptions {
     title: string,
@@ -17,9 +17,9 @@ interface IDropdown {
     close: () => void
 }
 
-const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButtonOptions, ref: MutableRefObject<IDropdown>) {
+const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButtonOptions, ref: RefObject<IDropdown>) {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-    const currentRef = ref || useRef<IDropdown>();
+    const currentRef = ref || useRef<IDropdown>(null);
     const className = props.className || "py-dropdown-button"
 
     useImperativeHandle(currentRef, () => {
@@ -61,5 +61,5 @@ const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButton
     </>
 });
 
-export { DropdownButton }
-export type { IDropdownButtonOptions, IDropdown }
+export { DropdownButton };
+export type { IDropdown, IDropdownButtonOptions };

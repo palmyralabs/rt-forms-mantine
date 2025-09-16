@@ -1,16 +1,16 @@
-import { IPageQueryable, DataGridPluginOptions, GridXOptions } from "@palmyralabs/rt-forms";
-import { forwardRef, MutableRefObject, useMemo, useRef } from "react";
-import { DropdownButton } from "../widget/DropdownButton";
+import { DataGridPluginOptions, GridXOptions, IPageQueryable } from "@palmyralabs/rt-forms";
+import { forwardRef, JSX, RefObject, useMemo, useRef } from "react";
 import { TbFilterShare } from "react-icons/tb";
+import { renderTitle } from "../widget";
+import { DropdownButton } from "../widget/DropdownButton";
+import { ApiDataTable } from "./base/ApiDataTable";
+import './DataGrid.css';
 import { FilterForm } from "./plugins/filter/FilterForm";
 import { SelectablePagination } from "./plugins/pagination/SelectablePagination";
-import './DataGrid.css'
-import { renderTitle } from "../widget";
-import { ApiDataTable } from "./base/ApiDataTable";
 
-const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType>, ref: MutableRefObject<IPageQueryable>) {
-    const queryRef = ref || useRef<IPageQueryable>();
-    const paginationRef = useRef<IPagination>();
+const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType>, ref: RefObject<IPageQueryable>) {
+    const queryRef = ref || useRef<IPageQueryable>(null);
+    const paginationRef = useRef<IPagination>(null);
     const topic: string = props.topic || useMemo(() => 'id' + Math.random(), []);
 
     const onDataChange = (newData: any[], oldData?: any[]) => {
@@ -61,4 +61,4 @@ const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<Co
     </>
 });
 
-export { GridX }
+export { GridX };

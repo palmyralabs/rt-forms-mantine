@@ -1,12 +1,12 @@
-import { jsx as i, Fragment as R } from "react/jsx-runtime";
-import { forwardRef as v, useRef as c, useImperativeHandle as O } from "react";
-import { useFieldManager as M, getFieldHandler as S, FieldDecorator as B } from "@palmyralabs/rt-forms";
-import { getFieldLabel as L } from "./util.js";
-import { Rating as x } from "@mantine/core";
-const I = v(function(e, u) {
-  const n = M(e.attribute, e), { getError: o, getValue: r, setValue: f, mutateOptions: m, refreshError: E } = n, s = u || c(null), d = o(), a = c(null), g = e.variant || "default", C = (e == null ? void 0 : e.autoFocus) || !1, b = (e == null ? void 0 : e.fractions) || 1, F = e == null ? void 0 : e.fullSymbol, y = e == null ? void 0 : e.emptySymbol;
-  O(s, () => ({
-    ...S(n),
+import { jsx as o, Fragment as R } from "react/jsx-runtime";
+import { Rating as v } from "@mantine/core";
+import { useFieldManager as O, getFieldHandler as M, FieldDecorator as S } from "@palmyralabs/rt-forms";
+import { forwardRef as B, useRef as i, useImperativeHandle as L } from "react";
+import { getFieldLabel as x } from "./util.js";
+const I = B(function(e, r) {
+  const n = O(e.attribute, e), { getError: s, getValue: u, setValue: c, mutateOptions: f, refreshError: E } = n, m = r || i(null), d = s(), a = i(null), g = e.variant || "default", C = e?.autoFocus || !1, b = e?.fractions || 1, F = e?.fullSymbol, y = e?.emptySymbol;
+  L(m, () => ({
+    ...M(n),
     focus() {
       a.current && a.current.focus && a.current.focus();
     },
@@ -17,19 +17,19 @@ const I = v(function(e, u) {
   }), [n]);
   var l = n.getFieldProps();
   return l.onChange = (t, h) => {
-    e.readOnly || (f(t), e.onChange && e.onChange(t));
+    e.readOnly || (c(t), e.onChange && e.onChange(t));
   }, l.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
-  }, /* @__PURE__ */ i(R, { children: !m.visible && /* @__PURE__ */ i(
-    B,
+  }, /* @__PURE__ */ o(R, { children: !f.visible && /* @__PURE__ */ o(
+    S,
     {
-      label: L(e),
+      label: x(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ i(
-        x,
+      children: /* @__PURE__ */ o(
+        v,
         {
           variant: g,
           readOnly: e.readOnly,
@@ -39,7 +39,7 @@ const I = v(function(e, u) {
           ...l,
           fullSymbol: F,
           emptySymbol: y,
-          value: r(),
+          value: u(),
           error: d.message,
           autoFocus: C
         }

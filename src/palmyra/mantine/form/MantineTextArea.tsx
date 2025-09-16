@@ -1,11 +1,11 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldHandler, IFormFieldError, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from './util'
-import { ITextFieldDefinition } from './types';
 import { Textarea, TextareaProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { ITextFieldDefinition } from './types';
+import { getFieldLabel } from './util';
 
 
-const MantineTextArea = forwardRef(function MantineTextArea(props: ITextFieldDefinition & TextareaProps, ref: MutableRefObject<ITextField>) {
+const MantineTextArea = forwardRef(function MantineTextArea(props: ITextFieldDefinition & TextareaProps, ref: RefObject<ITextField>) {
 
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;

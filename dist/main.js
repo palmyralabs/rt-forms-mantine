@@ -29,12 +29,12 @@ import { ApiDataTable as xt } from "./palmyra/mantine/grid/base/ApiDataTable.js"
 import { FilterForm as Mt } from "./palmyra/mantine/grid/plugins/filter/FilterForm.js";
 import { SelectablePagination as lt } from "./palmyra/mantine/grid/plugins/pagination/SelectablePagination.js";
 import "react/jsx-runtime";
+import "@mantine/core";
+import "@palmyralabs/rt-forms";
+import "@tanstack/react-table";
 import "react";
 import './assets/ColumnHeader.css';import './assets/BaseTable.css';/* empty css                 */
 /* empty css                    */
-import "@palmyralabs/rt-forms";
-import "@mantine/core";
-import "@tanstack/react-table";
 import { DataGridDefaultControls as dt } from "./palmyra/mantine/grid/controls/DataGridDefaultControls.js";
 import { ActionButton as Dt, DeleteButton as kt, EditButton as wt, NewButton as Bt } from "./palmyra/mantine/grid/controls/ActionButton.js";
 import { ExportDataButton as Tt } from "./palmyra/mantine/grid/controls/ExportDataButton.js";

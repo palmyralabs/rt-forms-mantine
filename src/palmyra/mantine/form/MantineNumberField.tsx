@@ -1,10 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldHandler, IFormFieldError, ITextField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
+import { NumberInput, NumberInputProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import { ITextFieldDefinition } from './types';
 import { getFieldLabel } from './util';
-import { NumberInput, NumberInputProps } from '@mantine/core';
 
-const MantineNumberField = forwardRef(function MantineNumberField(props: ITextFieldDefinition & NumberInputProps, ref: MutableRefObject<ITextField>) {
+const MantineNumberField = forwardRef(function MantineNumberField(props: ITextFieldDefinition & NumberInputProps, ref: RefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);

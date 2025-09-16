@@ -1,14 +1,14 @@
-import { jsx as l, Fragment as O } from "react/jsx-runtime";
-import { forwardRef as M, useRef as o, useImperativeHandle as R } from "react";
-import { useFieldManager as V, getFieldHandler as x, FieldDecorator as y } from "@palmyralabs/rt-forms";
-import { getFieldLabel as B } from "./util.js";
-import { MultiSelect as L } from "@mantine/core";
-const k = M(function(e, r) {
-  const u = (t) => t || [], s = (t) => t, a = V(e.attribute, e, { format: s, parse: u }), { getError: c, getValue: d, setValue: f, mutateOptions: m, refreshError: j } = a, g = r || o(null), C = c(), i = o(null), b = e.variant || "default";
-  R(g, () => ({
-    ...x(a),
+import { jsx as r, Fragment as O } from "react/jsx-runtime";
+import { MultiSelect as M } from "@mantine/core";
+import { useFieldManager as R, getFieldHandler as V, FieldDecorator as x } from "@palmyralabs/rt-forms";
+import { forwardRef as y, useRef as i, useImperativeHandle as B } from "react";
+import { getFieldLabel as L } from "./util.js";
+const k = y(function(e, l) {
+  const s = (t) => t || [], u = (t) => t, a = R(e.attribute, e, { format: u, parse: s }), { getError: c, getValue: d, setValue: f, mutateOptions: m, refreshError: j } = a, g = l || i(null), C = c(), o = i(null), b = e.variant || "default";
+  B(g, () => ({
+    ...V(a),
     focus() {
-      i && i.current.focus();
+      o && o.current.focus();
     },
     setOptions(v) {
     },
@@ -28,18 +28,18 @@ const k = M(function(e, r) {
     };
     return F;
   });
-  return /* @__PURE__ */ l(O, { children: !m.visible && /* @__PURE__ */ l(
-    y,
+  return /* @__PURE__ */ r(O, { children: !m.visible && /* @__PURE__ */ r(
+    x,
     {
-      label: B(e),
+      label: L(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ l(
-        L,
+      children: /* @__PURE__ */ r(
+        M,
         {
-          defaultValue: e == null ? void 0 : e.defaultValue,
+          defaultValue: e?.defaultValue,
           data: h,
           value: d(),
           ...n,

@@ -12,7 +12,7 @@ interface IExportDataOptions extends Pick<DataGridPluginOptions, 'queryRef'>, IP
 }
 const ExportDataButton = (props: IExportDataOptions) => {
     const { exportOption } = props;
-    const dropDownRef = useRef<IDropdown>();
+    const dropDownRef = useRef<IDropdown>(null);
     const visible = props.visible != false;
 
     const exportData = (format: EXPORT_FORMAT) => {

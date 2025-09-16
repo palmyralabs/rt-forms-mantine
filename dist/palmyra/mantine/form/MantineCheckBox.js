@@ -1,12 +1,12 @@
 import { jsx as r, Fragment as g } from "react/jsx-runtime";
-import { forwardRef as b, useRef as o, useImperativeHandle as k } from "react";
-import { useFieldManager as F, getFieldHandler as O, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { getFieldLabel as B } from "./util.js";
-import { Checkbox as v } from "@mantine/core";
-const T = b(function(e, c) {
-  const n = F(e.attribute, e), { getError: i, getValue: d, setValue: s, mutateOptions: f, refreshError: R } = n, m = c || o(null), u = d() == !0, a = o(null), h = i();
-  k(m, () => ({
-    ...O(n),
+import { Checkbox as b } from "@mantine/core";
+import { useFieldManager as k, getFieldHandler as F, FieldDecorator as O } from "@palmyralabs/rt-forms";
+import { forwardRef as x, useRef as o, useImperativeHandle as B } from "react";
+import { getFieldLabel as v } from "./util.js";
+const T = x(function(e, c) {
+  const n = k(e.attribute, e), { getError: i, getValue: d, setValue: s, mutateOptions: f, refreshError: R } = n, m = c || o(null), u = d() == !0, a = o(null), h = i();
+  B(m, () => ({
+    ...F(n),
     focus() {
       a.current.checked = !0, a.current.focus();
     },
@@ -21,15 +21,15 @@ const T = b(function(e, c) {
   }, l.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
   }, /* @__PURE__ */ r(g, { children: !f.visible && /* @__PURE__ */ r(
-    x,
+    O,
     {
-      label: B(e),
+      label: v(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ r(
-        v,
+        b,
         {
           ...l,
           defaultChecked: e.defaultChecked,

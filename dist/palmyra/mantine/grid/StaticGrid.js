@@ -1,9 +1,9 @@
 import { jsx as a } from "react/jsx-runtime";
-import { forwardRef as C } from "react";
-import { NoopGridCustomizer as s, generateColumns as d, EmptyChildTable as u } from "@palmyralabs/rt-forms";
+import { NoopGridCustomizer as C, generateColumns as s, EmptyChildTable as d } from "@palmyralabs/rt-forms";
+import { forwardRef as u } from "react";
 import f from "./base/BaseTable.js";
-const S = C(function(o, h) {
-  const { columns: n, EmptyChild: i } = o, r = i || u, t = o.customizer || s, m = d(n, t), c = o.onRowClick ? (l) => {
+const S = u(function(o, h) {
+  const { columns: n, EmptyChild: i } = o, r = i || d, t = o.customizer || C, m = s(n, t), c = o.onRowClick ? (l) => {
     o.onRowClick(l);
   } : () => {
   }, e = o.rowData;

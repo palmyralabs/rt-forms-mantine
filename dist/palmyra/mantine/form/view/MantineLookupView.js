@@ -1,30 +1,30 @@
-import { jsx as t, Fragment as v, jsxs as h } from "react/jsx-runtime";
-import { forwardRef as x, useRef as r, useImperativeHandle as C } from "react";
+import { jsx as t, Fragment as g, jsxs as v } from "react/jsx-runtime";
+import { forwardRef as h, useRef as c, useImperativeHandle as x } from "react";
 import '../../../../assets/TextView.css';/* empty css                          */
-import { getFieldLabel as F } from "../util.js";
-import { useFieldManager as A, getFieldHandler as N, FieldDecorator as w } from "@palmyralabs/rt-forms";
-import { getVariantClassName as d } from "./variantClassName.js";
-const I = x(function(e, n) {
-  const l = A(e.attribute, e), { getValue: m, mutateOptions: u } = l, f = n || r(null), i = m(), a = e.lookupOptions, s = (a == null ? void 0 : a.labelAttribute) || "name", b = e.textAlign || "left", c = e.variant || "standard", g = r(null);
-  C(f, () => ({
-    ...N(l),
+import { getFieldLabel as C } from "../util.js";
+import { useFieldManager as F, getFieldHandler as L, FieldDecorator as k } from "@palmyralabs/rt-forms";
+import { getVariantClassName as r } from "./variantClassName.js";
+const I = h(function(e, a) {
+  const l = F(e.attribute, e), { getValue: d, mutateOptions: u } = l, m = a || c(null), n = d(), i = e.lookupOptions?.labelAttribute || "name", f = e.textAlign || "left", s = e.variant || "standard", b = c(null);
+  x(m, () => ({
+    ...L(l),
     focus() {
-      g.current.focus();
+      b.current.focus();
     }
   }), [l]);
-  var { lookupOptions: M, textAlign: R, ...o } = l.getFieldProps();
-  return /* @__PURE__ */ t(v, { children: !u.visible && /* @__PURE__ */ t(
-    w,
+  var { lookupOptions: O, textAlign: w, ...o } = l.getFieldProps();
+  return /* @__PURE__ */ t(g, { children: !u.visible && /* @__PURE__ */ t(
+    k,
     {
-      label: F(e),
+      label: C(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: e.label ? /* @__PURE__ */ h("div", { ...o, className: "text-view-field-container", children: [
+      children: e.label ? /* @__PURE__ */ v("div", { ...o, className: "text-view-field-container", children: [
         /* @__PURE__ */ t("div", { className: "text-view-label", children: e.label }),
-        /* @__PURE__ */ t("div", { className: d(c, e.label), children: i[s] || "--" })
-      ] }) : /* @__PURE__ */ t("div", { ...o, style: { textAlign: b }, children: /* @__PURE__ */ t("div", { className: d(c, e.title), children: i[s] || "--" }) })
+        /* @__PURE__ */ t("div", { className: r(s, e.label), children: n[i] || "--" })
+      ] }) : /* @__PURE__ */ t("div", { ...o, style: { textAlign: f }, children: /* @__PURE__ */ t("div", { className: r(s, e.title), children: n[i] || "--" }) })
     }
   ) });
 });

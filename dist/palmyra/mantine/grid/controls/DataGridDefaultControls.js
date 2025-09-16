@@ -1,14 +1,13 @@
-import { jsxs as s, Fragment as u, jsx as r } from "react/jsx-runtime";
-import { QuickSearch as c } from "./QuickSearch.js";
-import { FilterButton as l } from "./FilterButton.js";
-import { NewButton as a } from "./ActionButton.js";
-import { ExportDataButton as m } from "./ExportDataButton.js";
-const h = (p) => {
-  var i, n;
-  const { getPluginOptions: e, ...t } = p, o = e ? e() : {};
-  return /* @__PURE__ */ s(u, { children: [
+import { jsxs as n, Fragment as p, jsx as r } from "react/jsx-runtime";
+import { QuickSearch as s } from "./QuickSearch.js";
+import { FilterButton as u } from "./FilterButton.js";
+import { NewButton as c } from "./ActionButton.js";
+import { ExportDataButton as l } from "./ExportDataButton.js";
+const q = (i) => {
+  const { getPluginOptions: e, ...t } = i, o = e ? e() : {};
+  return /* @__PURE__ */ n(p, { children: [
     t.quickSearch && /* @__PURE__ */ r(
-      c,
+      s,
       {
         width: "200",
         queryRef: t.queryRef,
@@ -16,14 +15,14 @@ const h = (p) => {
         ...o.quickSearch
       }
     ),
-    /* @__PURE__ */ r(l, { ...t }),
-    /* @__PURE__ */ r(a, { label: "Add", topic: t.topic, ...o.add }),
+    /* @__PURE__ */ r(u, { ...t }),
+    /* @__PURE__ */ r(c, { label: "Add", topic: t.topic, ...o.add }),
     /* @__PURE__ */ r(
-      m,
+      l,
       {
         exportOption: { csv: "CSV" },
-        visible: (i = o.export) == null ? void 0 : i.visible,
-        disabled: (n = o.export) == null ? void 0 : n.disabled,
+        visible: o.export?.visible,
+        disabled: o.export?.disabled,
         queryRef: t.queryRef,
         ...o.export
       }
@@ -31,5 +30,5 @@ const h = (p) => {
   ] });
 };
 export {
-  h as DataGridDefaultControls
+  q as DataGridDefaultControls
 };

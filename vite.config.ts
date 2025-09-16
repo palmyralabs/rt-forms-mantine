@@ -18,7 +18,7 @@ export default defineConfig({
     port: 7000
   },
   build: {
-    target: 'modules',
+    target: 'esnext',
     modulePreload: {
       polyfill: false,
     },

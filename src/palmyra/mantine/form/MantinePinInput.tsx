@@ -1,10 +1,10 @@
 import { PinInput, PinInputProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from 'react';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import { IPinInputDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantinePinInput = forwardRef(function MantinePinInput(props: IPinInputDefinition & PinInputProps, ref: MutableRefObject<ITextField>) {
+const MantinePinInput = forwardRef(function MantinePinInput(props: IPinInputDefinition & PinInputProps, ref: RefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);

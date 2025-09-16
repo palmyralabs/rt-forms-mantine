@@ -1,20 +1,20 @@
 /**
  * Basic structure to draw the table
  */
-import { MutableRefObject, useRef } from 'react'
-import './BaseTable.css';
-import ColumnHeader from './ColumnHeader'
-import { flexRender, useReactTable, } from '@tanstack/react-table'
-import LoadingChild from './LoadingChild';
-import { BaseTableOptions, IReactTanstackTable, useBaseGridManager } from '@palmyralabs/rt-forms';
 import { Table } from '@mantine/core';
+import { BaseTableOptions, IReactTanstackTable, useBaseGridManager } from '@palmyralabs/rt-forms';
+import { flexRender, useReactTable, } from '@tanstack/react-table';
+import { RefObject, useRef } from 'react';
+import './BaseTable.css';
+import ColumnHeader from './ColumnHeader';
+import LoadingChild from './LoadingChild';
 
 export default function BaseTable(props: BaseTableOptions) {
 
   const { rowData, customizer } = props;
   const sortParams = props.initParams?.sort || {};
   const { onColumnSort, options, EmptyChildren, onRowClick } = useBaseGridManager(props);
-  const tableRef: MutableRefObject<IReactTanstackTable> = customizer?.getTableRef ? customizer?.getTableRef() : useRef();
+  const tableRef: RefObject<IReactTanstackTable> = customizer?.getTableRef ? customizer?.getTableRef() : useRef(null);
 
   const table = useReactTable(options);
   tableRef.current = table;

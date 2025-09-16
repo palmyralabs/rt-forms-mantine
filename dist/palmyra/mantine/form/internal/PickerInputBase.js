@@ -1,109 +1,108 @@
-import { jsx as t, jsxs as w, Fragment as T } from "react/jsx-runtime";
-import { factory as v, useInputProps as D, CloseButton as H, Modal as M, Input as u, Popover as c } from "@mantine/core";
-const N = {}, G = v((I, B) => {
+import { jsx as e, jsxs as C, Fragment as A } from "react/jsx-runtime";
+import { factory as O, useInputProps as R, CloseButton as T, Modal as D, Input as s, Popover as d } from "@mantine/core";
+const H = {}, E = O((P, f) => {
   const {
-    inputProps: l,
-    wrapperProps: P,
-    placeholder: k,
-    classNames: r,
-    styles: d,
-    unstyled: a,
-    popoverProps: e,
-    modalProps: x,
+    inputProps: a,
+    wrapperProps: b,
+    placeholder: v,
+    classNames: i,
+    styles: w,
+    unstyled: o,
+    popoverProps: n,
+    modalProps: I,
     dropdownType: p,
-    children: h,
-    formattedValue: z,
-    dropdownHandlers: m,
-    dropdownOpened: g,
-    onClick: s,
-    clearable: F,
-    onClear: f,
-    clearButtonProps: S,
-    rightSection: V,
-    shouldClear: j,
-    readOnly: n,
-    disabled: y,
-    value: i,
-    name: W,
-    form: _,
-    type: A,
-    ...O
-  } = D("PickerInputBase", N, I), R = V || (F && j && !n && !y ? /* @__PURE__ */ t(
-    H,
+    children: c,
+    formattedValue: k,
+    dropdownHandlers: u,
+    dropdownOpened: h,
+    onClick: B,
+    clearable: x,
+    onClear: m,
+    clearButtonProps: z,
+    rightSection: F,
+    shouldClear: N,
+    readOnly: r,
+    disabled: g,
+    value: l,
+    name: M,
+    form: W,
+    type: S,
+    ...V
+  } = R("PickerInputBase", H, P), j = F || (x && N && !r && !g ? /* @__PURE__ */ e(
+    T,
     {
       variant: "transparent",
-      onClick: f,
-      unstyled: a,
-      size: l.size || "sm",
-      ...S
+      onClick: m,
+      unstyled: o,
+      size: a.size || "sm",
+      ...z
     }
-  ) : null), C = () => {
-    A === "range" && Array.isArray(i) && i[0] && !i[1] && f(), m.close();
+  ) : null), y = () => {
+    S === "range" && Array.isArray(l) && l[0] && !l[1] && m(), u.close();
   };
-  return /* @__PURE__ */ w(T, { children: [
-    p === "modal" && !n && /* @__PURE__ */ t(
-      M,
+  return /* @__PURE__ */ C(A, { children: [
+    p === "modal" && !r && /* @__PURE__ */ e(
+      D,
       {
-        opened: g,
-        onClose: C,
+        opened: h,
+        onClose: y,
         withCloseButton: !1,
         size: "auto",
         "data-dates-modal": !0,
-        unstyled: a,
-        ...x,
-        children: h
+        unstyled: o,
+        ...I,
+        children: c
       }
     ),
-    /* @__PURE__ */ t(u.Wrapper, { ...P, children: /* @__PURE__ */ w(
-      c,
+    /* @__PURE__ */ e(s.Wrapper, { ...b, children: /* @__PURE__ */ C(
+      d,
       {
         position: "bottom-start",
-        opened: g,
+        opened: h,
         trapFocus: !0,
         returnFocus: !0,
-        unstyled: a,
-        ...e,
-        disabled: (e == null ? void 0 : e.disabled) || p === "modal" || n,
-        onChange: (o) => {
-          var b;
-          o || ((b = e == null ? void 0 : e.onClose) == null || b.call(e), C());
+        unstyled: o,
+        ...n,
+        disabled: n?.disabled || p === "modal" || r,
+        onChange: (t) => {
+          t || (n?.onClose?.(), y());
         },
         children: [
-          /* @__PURE__ */ t(c.Target, { children: /* @__PURE__ */ t(
-            u,
+          /* @__PURE__ */ e(d.Target, { children: /* @__PURE__ */ e(
+            s,
             {
               "data-dates-input": !0,
-              "data-read-only": n || void 0,
-              disabled: y,
+              "data-read-only": r || void 0,
+              disabled: g,
               component: "button",
               type: "button",
               multiline: !0,
-              onClick: (o) => {
-                s == null || s(o), m.toggle();
+              onClick: (t) => {
+                B?.(t), u.toggle();
               },
-              rightSection: R,
-              ...l,
-              ref: B,
-              classNames: { ...r },
-              ...O,
-              children: z || /* @__PURE__ */ t(
-                u.Placeholder,
+              rightSection: j,
+              ...a,
+              ref: f,
+              classNames: { ...i },
+              ...V,
+              children: k || /* @__PURE__ */ e(
+                s.Placeholder,
                 {
-                  error: l.error,
-                  unstyled: a,
-                  className: r == null ? void 0 : r.placeholder,
-                  style: d == null ? void 0 : d.placeholder,
-                  children: k
+                  error: a.error,
+                  unstyled: o,
+                  className: i?.placeholder,
+                  style: w?.placeholder,
+                  children: v
                 }
               )
             }
           ) }),
-          /* @__PURE__ */ t(c.Dropdown, { "data-dates-dropdown": !0, children: h })
+          /* @__PURE__ */ e(d.Dropdown, { "data-dates-dropdown": !0, children: c })
         ]
       }
     ) })
   ] });
 });
 export {
-  G as PickerInputBase
+  E as PickerInputBase
 };

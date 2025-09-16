@@ -1,7 +1,7 @@
-import { forwardRef, MutableRefObject, useEffect, useRef } from "react";
-import { GridX } from "./GridX";
-import { topic } from "@palmyralabs/ts-utils";
 import { IPageQueryable, IPalmyraGrid, PalmyraGridOptions } from "@palmyralabs/rt-forms";
+import { topic } from "@palmyralabs/ts-utils";
+import { forwardRef, RefObject, useEffect, useRef } from "react";
+import { GridX } from "./GridX";
 
 /**
  * 
@@ -13,10 +13,10 @@ import { IPageQueryable, IPalmyraGrid, PalmyraGridOptions } from "@palmyralabs/r
  * ${topic}/filter - apply filter based on the incoming data
  * 
  */
-const PalmyraGrid = forwardRef(function PalmyraGrid<ControlPropsType>(props: PalmyraGridOptions<ControlPropsType>, ref: MutableRefObject<IPalmyraGrid>) {
+const PalmyraGrid = forwardRef(function PalmyraGrid<ControlPropsType>(props: PalmyraGridOptions<ControlPropsType>, ref: RefObject<IPalmyraGrid>) {
 
     const gridTopic = props.topic;
-    const queryRef = ref || useRef<IPageQueryable>();
+    const queryRef = ref || useRef<IPageQueryable>(null);
 
 
     useEffect(() => {
@@ -47,4 +47,4 @@ const PalmyraGrid = forwardRef(function PalmyraGrid<ControlPropsType>(props: Pal
 })
 
 
-export { PalmyraGrid }
+export { PalmyraGrid };

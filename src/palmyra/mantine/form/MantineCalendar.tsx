@@ -1,12 +1,12 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { getFieldLabel } from './util';
-import { IDatePickerDefinition } from './types';
-import { IDateField, IFormFieldError, useFieldManager, getFieldHandler, FieldDecorator } from '@palmyralabs/rt-forms';
 import { Calendar, CalendarProps } from '@mantine/dates';
+import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { IDatePickerDefinition } from './types';
+import { getFieldLabel } from './util';
 
 const MantineCalendar = forwardRef(function MantineCalendar(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & CalendarProps,
-    ref: MutableRefObject<IDateField>) {
+    ref: RefObject<IDateField>) {
 
     const fieldManager = useFieldManager(props.attribute, props);
 

@@ -1,17 +1,17 @@
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react";
-import { IServerAutoCompleteDefinition } from "./types";
-import { getFieldHandler, IFormFieldError, IServerLookupField, FieldDecorator, useServerAutoComplete } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from "./util";
 import { AutocompleteProps } from "@mantine/core";
+import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, useServerAutoComplete } from '@palmyralabs/rt-forms';
 import { delayGenerator } from "@palmyralabs/ts-utils";
+import { forwardRef, RefObject, useImperativeHandle, useRef } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MantineAutoComplete } from "./internal/MantineAutoComplete";
+import { IServerAutoCompleteDefinition } from "./types";
+import { getFieldLabel } from "./util";
 
 
 
 const MantineServerAutoComplete = forwardRef(function MantineServerLookup
     (props: IServerAutoCompleteDefinition & AutocompleteProps & { onChange?: (value: string, data?: any) => void; },
-        ref: MutableRefObject<IServerLookupField>) {
+        ref: RefObject<IServerLookupField>) {
     const delay = delayGenerator(props.queryOptions.delay || 250);
     const inputRef: any = useRef(null);
     const fieldManager = useServerAutoComplete(props.attribute, props);

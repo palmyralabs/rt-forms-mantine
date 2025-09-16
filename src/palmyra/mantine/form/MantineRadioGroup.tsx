@@ -1,10 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { IFormFieldError, IRadioGroupField, ISwitchField, getFieldHandler, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from './util';
-import { IRadioGroupDefinition } from './types';
 import { Group, Radio, RadioProps } from '@mantine/core';
+import { FieldDecorator, getFieldHandler, IFormFieldError, IRadioGroupField, ISwitchField, useFieldManager } from '@palmyralabs/rt-forms';
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { IRadioGroupDefinition } from './types';
+import { getFieldLabel } from './util';
 
-const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGroupDefinition & RadioProps, ref: MutableRefObject<IRadioGroupField>) {
+const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGroupDefinition & RadioProps, ref: RefObject<IRadioGroupField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ISwitchField>(null);

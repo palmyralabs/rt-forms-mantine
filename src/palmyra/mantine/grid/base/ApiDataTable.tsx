@@ -1,12 +1,16 @@
-import { MutableRefObject, forwardRef, useImperativeHandle, useRef } from 'react';
 import {
-  IPageQueryable, useServerQuery, NoopGridCustomizer, EmptyChildTable,
-  ApiDataTableOptions, generateColumns, GridCustomizer
-} from "@palmyralabs/rt-forms"
+  ApiDataTableOptions,
+  EmptyChildTable,
+  generateColumns, GridCustomizer,
+  IPageQueryable,
+  NoopGridCustomizer,
+  useServerQuery
+} from "@palmyralabs/rt-forms";
+import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
 import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 
-const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions, ref: MutableRefObject<IPageQueryable>) {
+const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions, ref: RefObject<IPageQueryable>) {
   const { columns, EmptyChild, lsKey } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -17,7 +21,7 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
 
   const serverQuery = useServerQuery(queryParams);
 
-  const currentRef = ref || useRef<IPageQueryable>();
+  const currentRef = ref || useRef<IPageQueryable>(null);
   useImperativeHandle(currentRef, () => {
     if (lsKey) {
       const setSortColumns = (d: any) => {

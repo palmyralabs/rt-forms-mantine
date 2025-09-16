@@ -1,11 +1,11 @@
-import { useRef, useImperativeHandle, forwardRef, useMemo, useEffect, MutableRefObject } from 'react';
-import { ISwitchDefinition } from './types';
-import { IFormFieldError, ISwitchField, getFieldHandler, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
-import { getFieldLabel } from './util';
-import parseOptions from '../options/OptionsParser';
 import { Switch, SwitchProps } from '@mantine/core';
+import { FieldDecorator, IFormFieldError, ISwitchField, getFieldHandler, useFieldManager } from '@palmyralabs/rt-forms';
+import { RefObject, forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import parseOptions from '../options/OptionsParser';
+import { ISwitchDefinition } from './types';
+import { getFieldLabel } from './util';
 
-const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition & SwitchProps, ref: MutableRefObject<ISwitchField>) {
+const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition & SwitchProps, ref: RefObject<ISwitchField>) {
 
     const parsedOptions = useMemo(() => parseOptions(props.options, props.label),
         [props.options, props.label]);

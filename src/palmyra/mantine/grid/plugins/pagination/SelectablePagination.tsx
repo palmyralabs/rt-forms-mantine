@@ -1,10 +1,10 @@
-import { delayGenerator } from "@palmyralabs/ts-utils";
-import { forwardRef, MutableRefObject, useCallback, useImperativeHandle, useRef, useState } from "react";
-import './SelectablePagination.css';
-import { DataGridPluginOptions } from "@palmyralabs/rt-forms";
 import { Pagination, Select } from "@mantine/core";
+import { DataGridPluginOptions } from "@palmyralabs/rt-forms";
+import { delayGenerator } from "@palmyralabs/ts-utils";
+import { forwardRef, RefObject, useCallback, useImperativeHandle, useRef, useState } from "react";
+import './SelectablePagination.css';
 
-const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOptions, ref: MutableRefObject<IPagination>) {
+const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOptions, ref: RefObject<IPagination>) {
 
     const delay = useCallback(delayGenerator(50), [])
     const pageQuery = o.queryRef?.current;
@@ -95,4 +95,4 @@ const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOpt
 
 });
 
-export { SelectablePagination }
+export { SelectablePagination };

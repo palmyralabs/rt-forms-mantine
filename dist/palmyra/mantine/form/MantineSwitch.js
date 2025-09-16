@@ -1,19 +1,19 @@
 import { jsx as o, Fragment as w } from "react/jsx-runtime";
-import { forwardRef as y, useMemo as V, useRef as d, useImperativeHandle as L, useEffect as R } from "react";
-import { useFieldManager as S, getFieldHandler as B, FieldDecorator as E } from "@palmyralabs/rt-forms";
-import { getFieldLabel as x } from "./util.js";
+import { Switch as y } from "@mantine/core";
+import { useFieldManager as V, getFieldHandler as L, FieldDecorator as R } from "@palmyralabs/rt-forms";
+import { forwardRef as S, useMemo as B, useRef as d, useImperativeHandle as E, useEffect as x } from "react";
 import H from "../options/OptionsParser.js";
-import { Switch as I } from "@mantine/core";
-const K = y(function(e, s) {
-  const n = V(
+import { getFieldLabel as I } from "./util.js";
+const K = S(function(e, s) {
+  const n = B(
     () => H(e.options, e.label),
     [e.options, e.label]
   ), f = (t) => {
     if (n)
       return t ? n.checked.value : n.unchecked.value;
-  }, m = (t) => n ? t == n.checked.value : !1, r = S(e.attribute, e, { format: f, parse: m }), { getError: h, getValue: g, setValue: i, mutateOptions: k, refreshError: D } = r, C = s || d(null), b = h(), a = g(), l = d(null);
-  L(C, () => ({
-    ...B(r),
+  }, m = (t) => n ? t == n.checked.value : !1, r = V(e.attribute, e, { format: f, parse: m }), { getError: h, getValue: g, setValue: i, mutateOptions: k, refreshError: D } = r, C = s || d(null), b = h(), a = g(), l = d(null);
+  E(C, () => ({
+    ...L(r),
     focus() {
       l.current.checked = !0, l.current.focus();
     },
@@ -25,7 +25,7 @@ const K = y(function(e, s) {
   const v = () => {
     i(!a);
   };
-  R(() => {
+  x(() => {
     c.onChange = () => u();
   }, [a]);
   const u = () => {
@@ -45,15 +45,15 @@ const K = y(function(e, s) {
   };
   const F = n ? b.message : "Invalid options, must contain two keys";
   return /* @__PURE__ */ o(w, { children: !k.visible && /* @__PURE__ */ o(
-    E,
+    R,
     {
-      label: x(e),
+      label: I(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ o(
-        I,
+        y,
         {
           checked: a,
           onClick: v,

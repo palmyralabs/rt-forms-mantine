@@ -1,17 +1,17 @@
 import { jsx as a, Fragment as b } from "react/jsx-runtime";
-import { forwardRef as v, useRef as l, useImperativeHandle as D } from "react";
-import { getFieldLabel as M } from "./util.js";
-import { useFieldManager as R, getFieldHandler as T, FieldDecorator as V } from "@palmyralabs/rt-forms";
-import { DateTimePicker as k } from "@mantine/dates";
-import y from "dayjs";
-import { getDefaultDateTimePattern as B } from "./DateUtils.js";
-const z = v(function(e, o) {
-  const s = e.valueFormat || e.serverPattern || B(), u = (t) => {
+import { DateTimePicker as v } from "@mantine/dates";
+import { useFieldManager as D, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
+import T from "dayjs";
+import { forwardRef as V, useRef as l, useImperativeHandle as k } from "react";
+import { getDefaultDateTimePattern as y } from "./DateUtils.js";
+import { getFieldLabel as B } from "./util.js";
+const z = V(function(e, o) {
+  const s = e.valueFormat || e.serverPattern || y(), u = (t) => {
     if (t)
-      return y(t, i);
-  }, m = (t) => t && t.isValid && t.isValid() ? t.format(i) : null, r = R(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: j } = r, C = o || l(null), F = c(), h = l(null);
-  D(C, () => ({
-    ...T(r),
+      return T(t, i);
+  }, m = (t) => t && t.isValid && t.isValid() ? t.format(i) : null, r = D(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: j } = r, C = o || l(null), F = c(), h = l(null);
+  k(C, () => ({
+    ...M(r),
     focus() {
       h.current.focus();
     },
@@ -26,15 +26,15 @@ const z = v(function(e, o) {
   };
   const P = f();
   return /* @__PURE__ */ a(b, { children: !g.visible && /* @__PURE__ */ a(
-    V,
+    R,
     {
-      label: M(e),
+      label: B(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        k,
+        v,
         {
           ...n,
           value: P,

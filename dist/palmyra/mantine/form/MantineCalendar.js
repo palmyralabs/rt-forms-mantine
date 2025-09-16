@@ -1,12 +1,12 @@
 import { jsx as o, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as F, useRef as i, useImperativeHandle as b } from "react";
-import { getFieldLabel as v } from "./util.js";
-import { useFieldManager as w, getFieldHandler as D, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { Calendar as R } from "@mantine/dates";
-const H = F(function(e, s) {
-  const n = w(e.attribute, e), { getError: u, getValue: a, setValue: c, mutateOptions: d, refreshError: f } = n, m = s || i(null), C = u(), g = i(null);
-  b(m, () => ({
-    ...D(n),
+import { Calendar as F } from "@mantine/dates";
+import { useFieldManager as b, getFieldHandler as v, FieldDecorator as w } from "@palmyralabs/rt-forms";
+import { forwardRef as D, useRef as i, useImperativeHandle as M } from "react";
+import { getFieldLabel as R } from "./util.js";
+const H = D(function(e, s) {
+  const n = b(e.attribute, e), { getError: u, getValue: a, setValue: c, mutateOptions: d, refreshError: f } = n, m = s || i(null), C = u(), g = i(null);
+  M(m, () => ({
+    ...v(n),
     focus() {
       g.current.focus();
     },
@@ -19,15 +19,15 @@ const H = F(function(e, s) {
   }, r.onBlur = f;
   var t;
   return a() != "" && (Array.isArray(a()) ? t = [new Date(a()[0]), new Date(a()[1])] : t = new Date(a())), /* @__PURE__ */ o(h, { children: !d.visible && /* @__PURE__ */ o(
-    M,
+    w,
     {
-      label: v(e),
+      label: R(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ o(
-        R,
+        F,
         {
           defaultValue: e.defaultValue,
           ...r,

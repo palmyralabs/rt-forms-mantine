@@ -5,7 +5,7 @@ import { DropdownButton as y } from "../../widget/DropdownButton.js";
 import { b as P } from "../../../../chunks/index2.js";
 import { useRef as v } from "react";
 import '../../../../assets/ExportDataButton.css';const q = (e) => {
-  const { exportOption: r } = e, n = v(), c = e.visible != !1, s = (o) => {
+  const { exportOption: r } = e, n = v(null), c = e.visible != !1, s = (o) => {
     const i = e.queryRef.current, p = { ...i.getQueryRequest(), format: o, limit: -1 };
     i.export(p), n.current.close();
   }, l = {

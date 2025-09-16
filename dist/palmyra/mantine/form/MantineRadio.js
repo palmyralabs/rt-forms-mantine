@@ -1,12 +1,12 @@
 import { jsx as a, Fragment as g } from "react/jsx-runtime";
-import { forwardRef as C, useRef as l, useImperativeHandle as h } from "react";
-import { useFieldManager as F, getFieldHandler as R, FieldDecorator as b } from "@palmyralabs/rt-forms";
-import { getFieldLabel as O } from "./util.js";
-import { Radio as M } from "@mantine/core";
-const k = C(function(e, o) {
-  const t = F(e.attribute, e), { getError: i, getValue: s, setValue: u, mutateOptions: c, refreshError: L } = t, d = o || l(null), m = i(), f = l(null);
-  h(d, () => ({
-    ...R(t),
+import { Radio as C } from "@mantine/core";
+import { useFieldManager as h, getFieldHandler as F, FieldDecorator as R } from "@palmyralabs/rt-forms";
+import { forwardRef as b, useRef as l, useImperativeHandle as O } from "react";
+import { getFieldLabel as M } from "./util.js";
+const k = b(function(e, o) {
+  const t = h(e.attribute, e), { getError: i, getValue: s, setValue: u, mutateOptions: c, refreshError: L } = t, d = o || l(null), m = i(), f = l(null);
+  O(d, () => ({
+    ...F(t),
     focus() {
       f.current.focus();
     },
@@ -21,15 +21,15 @@ const k = C(function(e, o) {
   }, r.onBlur = (n) => {
     e.onBlur && e.onBlur(n);
   }, /* @__PURE__ */ a(g, { children: !c.visible && /* @__PURE__ */ a(
-    b,
+    R,
     {
-      label: O(e),
+      label: M(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        M,
+        C,
         {
           checked: s(),
           ...r,

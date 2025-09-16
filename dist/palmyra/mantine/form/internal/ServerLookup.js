@@ -1,7 +1,7 @@
 import { jsx as f } from "react/jsx-runtime";
 import { Autocomplete as v } from "@mantine/core";
 import { useState as m, useEffect as g } from "react";
-const x = function(e) {
+const x = (function(e) {
   const [l, o] = m(e.value), u = e.data || [], { onValueChange: C, getOptionKey: r, getOptionValue: i, ...c } = e;
   g(() => {
     o(e.value);
@@ -29,7 +29,7 @@ const x = function(e) {
       ...s
     }
   );
-};
+});
 export {
   x as ServerLookup
 };

@@ -1,14 +1,13 @@
+import { Button } from "@mantine/core";
 import {
-    FieldGroupContainer, IForm, PalmyraForm, convertToField,
-    ColumnDefinition, DataGridPluginOptions
+    ColumnDefinition, DataGridPluginOptions,
+    FieldGroupContainer, IForm, PalmyraForm, convertToField
 } from "@palmyralabs/rt-forms";
 import { setValueByKey } from "@palmyralabs/ts-utils";
-import { MutableRefObject, useRef } from "react";
-import { TbRefresh, TbFilterShare } from "react-icons/tb";
+import { RefObject, useRef } from "react";
+import { TbFilterShare, TbRefresh } from "react-icons/tb";
 import getField from "./FieldGenerator";
 import './FilterForm.css';
-import { Button } from "@mantine/core";
-
 
 interface FilterOptions extends DataGridPluginOptions {
     onClose?: (filter: any) => void,
@@ -18,7 +17,7 @@ interface FilterOptions extends DataGridPluginOptions {
 
 const FilterForm = (o: FilterOptions) => {
     const formattedFilterValue = o.queryRef.current.getCurrentFilter() || {};
-    const filterRef: MutableRefObject<IForm> = useRef<IForm>();
+    const filterRef: RefObject<IForm> = useRef<IForm>(null);
     const defaultFilter = o.defaultFilter || {};
 
     const columns: ColumnDefinition[] = convertToField(o.columns);

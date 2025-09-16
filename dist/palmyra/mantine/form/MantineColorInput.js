@@ -1,12 +1,12 @@
 import { jsx as a, Fragment as h } from "react/jsx-runtime";
-import { forwardRef as b, useRef as i, useImperativeHandle as F } from "react";
-import { useFieldManager as v, getFieldHandler as I, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { getFieldLabel as R } from "./util.js";
-import { ColorInput as B } from "@mantine/core";
-const w = b(function(e, r) {
-  const t = v(e.attribute, e), { getError: u, getValue: s, setValue: c, mutateOptions: m, refreshError: x } = t, d = r || i(null), f = u(), o = i(null), C = e.variant || "default";
-  F(d, () => ({
-    ...I(t),
+import { ColorInput as b } from "@mantine/core";
+import { useFieldManager as F, getFieldHandler as v, FieldDecorator as I } from "@palmyralabs/rt-forms";
+import { forwardRef as M, useRef as i, useImperativeHandle as R } from "react";
+import { getFieldLabel as B } from "./util.js";
+const w = M(function(e, r) {
+  const t = F(e.attribute, e), { getError: u, getValue: s, setValue: c, mutateOptions: m, refreshError: x } = t, d = r || i(null), f = u(), o = i(null), C = e.variant || "default";
+  R(d, () => ({
+    ...v(t),
     focus() {
       o.current.focus();
     }
@@ -19,15 +19,15 @@ const w = b(function(e, r) {
   };
   const g = s();
   return /* @__PURE__ */ a(h, { children: !m.visible && /* @__PURE__ */ a(
-    M,
+    I,
     {
-      label: R(e),
+      label: B(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        B,
+        b,
         {
           label: e.label,
           variant: C,

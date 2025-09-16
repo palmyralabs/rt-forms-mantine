@@ -1,17 +1,17 @@
 import { jsx as a, Fragment as v } from "react/jsx-runtime";
-import { forwardRef as y, useRef as i, useImperativeHandle as D } from "react";
-import { getFieldLabel as I } from "./util.js";
-import { useFieldManager as M, getFieldHandler as P, FieldDecorator as R } from "@palmyralabs/rt-forms";
-import { DateInput as V } from "@mantine/dates";
-import B from "dayjs";
-import { getDefaultDatePattern as L } from "./DateUtils.js";
-const A = y(function(e, o) {
-  const s = e.valueFormat || e.serverPattern || L(), u = (t) => {
+import { DateInput as y } from "@mantine/dates";
+import { useFieldManager as D, getFieldHandler as I, FieldDecorator as M } from "@palmyralabs/rt-forms";
+import P from "dayjs";
+import { forwardRef as R, useRef as i, useImperativeHandle as V } from "react";
+import { getDefaultDatePattern as B } from "./DateUtils.js";
+import { getFieldLabel as L } from "./util.js";
+const A = R(function(e, o) {
+  const s = e.valueFormat || e.serverPattern || B(), u = (t) => {
     if (t)
-      return B(t, l);
-  }, m = (t) => t && t.isValid && t.isValid() ? t.format(l) : null, r = M(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: x } = r, C = o || i(null), F = c(), h = i(null), b = f();
-  D(C, () => ({
-    ...P(r),
+      return P(t, l);
+  }, m = (t) => t && t.isValid && t.isValid() ? t.format(l) : null, r = D(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: x } = r, C = o || i(null), F = c(), h = i(null), b = f();
+  V(C, () => ({
+    ...I(r),
     focus() {
       h.current.focus();
     },
@@ -24,15 +24,15 @@ const A = y(function(e, o) {
   }, n.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
   }, /* @__PURE__ */ a(v, { children: !g.visible && /* @__PURE__ */ a(
-    R,
+    M,
     {
-      label: I(e),
+      label: L(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        V,
+        y,
         {
           ...n,
           value: b,

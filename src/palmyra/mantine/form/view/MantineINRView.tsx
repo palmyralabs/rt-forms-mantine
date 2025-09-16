@@ -1,12 +1,12 @@
+import { Tooltip } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, RefObject, useImperativeHandle, useRef, useState } from 'react';
 import { GoNumber } from "react-icons/go";
 import { MdOutlineCurrencyRupee, MdTextFields } from "react-icons/md";
 import { formatAmount } from '../../FormatCurrency';
 import { ITextFieldDefinition } from '../types';
 import { getFieldLabel } from '../util';
 import { getVariantClassName } from './variantClassName';
-import { Tooltip } from '@mantine/core';
 
 interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center',
@@ -15,7 +15,7 @@ interface TextViewAttributeDefinition {
 }
 
 const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition,
-    ref: MutableRefObject<ITextField>) {
+    ref: RefObject<ITextField>) {
 
     const fieldManager = useFieldManager(props.attribute, props);
     const { getValue, mutateOptions } = fieldManager;

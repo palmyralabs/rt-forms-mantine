@@ -22,6 +22,10 @@ export interface DateInputSharedProps extends Omit<__BaseInputProps, 'size'>, El
     labelSeparator?: string;
     /** Input placeholder */
     placeholder?: string;
+    wrapperProps?: {
+        label: import('react').ReactNode;
+        error: import('react').ReactNode;
+    };
 }
 export interface PickerInputBaseProps extends BoxProps, DateInputSharedProps, Omit<StylesApiProps<PickerInputBaseFactory>, 'classNames' | 'styles'> {
     classNames?: Partial<Record<string, string>>;
