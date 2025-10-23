@@ -4,6 +4,7 @@ interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center';
     variant?: 'standard' | 'outlined' | 'filled';
     valueFormat?: 'number' | 'text';
+    maxFraction?: number;
 }
 declare const MantineINRView: import('react').ForwardRefExoticComponent<ITextFieldDefinition & TextViewAttributeDefinition & import('react').RefAttributes<ITextField>>;
 export { MantineINRView };
