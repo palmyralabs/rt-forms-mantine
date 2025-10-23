@@ -22,9 +22,9 @@ function formatCurrency(): CellGetter {
     };
 }
 
-function formatAmount(input: any) {
+function formatAmount(input: any, maxFraction?: number) {
     if (input !== 0 && input !== undefined && input !== null) {
-        const options = { minimumFractionDigits: 0, maximumFractionDigits: 0 };
+        const options = { minimumFractionDigits: 0, maximumFractionDigits: maxFraction ? maxFraction : 0 };
         const formattedAmount = Number(input).toLocaleString('en-IN', options);
         return formattedAmount;
     } else {

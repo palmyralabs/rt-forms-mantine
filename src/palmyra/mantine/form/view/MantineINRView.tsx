@@ -12,6 +12,7 @@ interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center',
     variant?: 'standard' | 'outlined' | 'filled',
     valueFormat?: 'number' | 'text';
+    maxFraction?: number
 }
 
 const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition,
@@ -79,7 +80,7 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
         </Tooltip>
         <div style={{ display: 'flex', alignItems: 'center' }}>
             <MdOutlineCurrencyRupee />
-            {showInWords ? formatAmountText(value) : formatAmount(value)}
+            {showInWords ? formatAmountText(value) : formatAmount(value, props.maxFraction)}
         </div>
     </>;
 
