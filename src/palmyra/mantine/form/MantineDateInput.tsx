@@ -1,7 +1,7 @@
 import { DateInput, DateInputProps } from '@mantine/dates';
 import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
-import dayjs from "dayjs";
 import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 import { getDefaultDatePattern } from './DateUtils';
 import { IDatePickerDefinition } from './types';
 import { getFieldLabel } from './util';
@@ -11,18 +11,18 @@ const MantineDateInput = forwardRef(function MantineDateInput(
     ref: RefObject<IDateField>) {
     const displayFormat: string = props.valueFormat || props.serverPattern || getDefaultDatePattern();;
 
-    const parse = (rawData: any) => {
-        if (rawData)
-            return dayjs(rawData, serverPattern)
-        return undefined;
-    };
-    const format = (v: any) => {
-        if (v && v.isValid && v.isValid())
-            return v.format(serverPattern);
-        return null;
-    };
+    // const parse = (rawData: any) => {
+    //     if (rawData)
+    //         return dayjs(rawData, serverPattern)
+    //     return undefined;
+    // };
+    // const format = (v: any) => {
+    //     if (v && v.isValid && v.isValid())
+    //         return v.format(serverPattern);
+    //     return null;
+    // };
 
-    const fieldManager = useFieldManager(props.attribute, props, { format, parse });
+    const fieldManager = useFieldManager(props.attribute, props);
 
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
@@ -61,7 +61,7 @@ const MantineDateInput = forwardRef(function MantineDateInput(
         }
     }
 
-
+    const fieldIcon = props.rightSection ? props.rightSection : <FaRegCalendarAlt />;
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -71,6 +71,7 @@ const MantineDateInput = forwardRef(function MantineDateInput(
                 type={props.type}
                 valueFormat={displayFormat}
                 error={error.message}
+                rightSection={fieldIcon}
             />
         </FieldDecorator>}
     </>
