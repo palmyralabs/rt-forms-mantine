@@ -82,7 +82,7 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
   const setSortColumns = currentRef.current?.setSortColumns || serverQuery.setSortColumns;
 
   return (
-    <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer}
+    <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer} showFooter={props.showFooter}
       rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
     />
   )
