@@ -58,6 +58,11 @@ interface IDateTimePickerDefinition extends IDatePickerDefinition, MantineInputF
 
 }
 
+interface IMonthInputDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
+    serverPattern?: string,
+    displayPattern?: string
+}
+
 interface ICalendarDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
     serverPattern?: string
 }
@@ -174,7 +179,7 @@ export type {
     ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition,
     ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition,
     IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition,
-    IPinInputDefinition
+    IPinInputDefinition, IMonthInputDefinition
 }
 
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }

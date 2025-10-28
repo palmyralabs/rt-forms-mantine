@@ -1,35 +1,28 @@
-import { DateInput, DateInputProps } from '@mantine/dates';
+import { DateInput, DatePickerInputProps } from '@mantine/dates';
 import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
 import dayjs from "dayjs";
 import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
-import { getDefaultDatePattern } from './DateUtils';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { DateUtils, getDefaultDatePattern } from './DateUtils';
 import { IDatePickerDefinition } from './types';
 import { getFieldLabel } from './util';
 
 const MantineDateInput = forwardRef(function MantineDateInput(
-    props: Omit<IDatePickerDefinition, 'displayPattern'> & DateInputProps,
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DatePickerInputProps, 'defaultValue'>,
     ref: RefObject<IDateField>) {
-    const displayFormat: string = props.valueFormat || props.serverPattern || getDefaultDatePattern();;
+    const displayFormat: string = props.valueFormat || getDefaultDatePattern();
+    const type = props.type;
 
-    const parse = (rawData: any) => {
-        if (rawData)
-            return dayjs(rawData, serverPattern)
-        return undefined;
-    };
-    const format = (v: any) => {
-        if (v && v.isValid && v.isValid())
-            return v.format(serverPattern);
-        return null;
-    };
+    const { parse, format, revert } = DateUtils(props);
 
     const fieldManager = useFieldManager(props.attribute, props, { format, parse });
 
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
+    const value = getValue();
 
     const inputRef: any = useRef(null);
-    const value = getValue();
 
     useImperativeHandle(currentRef, () => {
         const handler = getFieldHandler(fieldManager)
@@ -48,7 +41,19 @@ const MantineDateInput = forwardRef(function MantineDateInput(
 
     options.onChange = (d: any) => {
         if (!props.readOnly) {
-            setValue(d);
+            if (type == 'range') {
+                if (d) {
+                    setValue([dayjs(d[0]), dayjs(d[1])]);
+                } else {
+                    setValue(undefined)
+                }
+            } else {
+                if (d) {
+                    setValue(dayjs(d));
+                } else {
+                    setValue(undefined)
+                }
+            }
             if (props.onChange)
                 props.onChange(d);
         }
@@ -61,16 +66,19 @@ const MantineDateInput = forwardRef(function MantineDateInput(
         }
     }
 
-
+    const dateValue = revert(value);
+    const fieldIcon = props.rightSection ? props.rightSection : <FaRegCalendarAlt />;
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <DateInput
                 {...options}
-                value={value}
+                value={dateValue}
                 type={props.type}
                 valueFormat={displayFormat}
                 error={error.message}
+                label={props.label}
+                rightSection={fieldIcon}
             />
         </FieldDecorator>}
     </>
