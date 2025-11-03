@@ -11,7 +11,7 @@ import { getVariantClassName } from './variantClassName';
 interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center',
     variant?: 'standard' | 'outlined' | 'filled',
-    valueFormat?: 'number' | 'text';
+    valueFormat?: 'amount' | 'number' | 'text' | 'percentage';
     maxFraction?: number
 }
 
@@ -40,7 +40,9 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
     const value = getValue();
 
     const toggleView = () => {
-        setShowInWords(!showInWords);
+        if (valueFormat !== 'percentage') {
+            setShowInWords(!showInWords);
+        }
     };
     const formatAmountText = (input: any) => {
         if (input >= 10000000) {
@@ -69,21 +71,34 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
         formatAmount(input)
     };
 
-
     var options = fieldManager.getFieldProps();
+    let displayContent: any = null;
 
-    const INRField = <>
-        <Tooltip label={showInWords ? 'Switch to Digits' : 'Switch to Words'} withArrow>
-            <div onClick={toggleView} style={{ cursor: 'pointer' }}>
-                {showInWords ? <GoNumber /> : <MdTextFields />}
+    if (!['amount', 'text'].includes(valueFormat)) {
+        displayContent = (<>
+            <div></div>
+            <div></div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
+                {Number(value)?.toFixed(props.maxFraction || 2)} {valueFormat == 'percentage' && '%'}
             </div>
-        </Tooltip>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <MdOutlineCurrencyRupee />
-            {showInWords ? formatAmountText(value) : formatAmount(value, props.maxFraction)}
-        </div>
-    </>;
-
+        </>);
+    } else {
+        displayContent = (
+            <>
+                <Tooltip label={showInWords ? 'Switch to Digits' : 'Switch to Words'} withArrow>
+                    <div onClick={toggleView} style={{ cursor: 'pointer' }}>
+                        {showInWords ? <GoNumber /> : <MdTextFields />}
+                    </div>
+                </Tooltip>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <MdOutlineCurrencyRupee />
+                    {showInWords
+                        ? formatAmountText(value)
+                        : formatAmount(value, props.maxFraction)}
+                </div>
+            </>
+        );
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
@@ -94,14 +109,14 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
                     <div className={getVariantClassName(variant, props.label)} style={{
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between'
                     }}>
-                        {INRField}
+                        {displayContent}
                     </div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlign }}>
                     <div className={getVariantClassName(variant, props.title)} style={{
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between'
                     }}>
-                        {INRField}
+                        {displayContent}
                     </div>
                 </div>
             }
