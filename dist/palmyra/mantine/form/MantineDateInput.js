@@ -1,49 +1,51 @@
-import { jsx as a, Fragment as v } from "react/jsx-runtime";
-import { DateInput as y } from "@mantine/dates";
-import { useFieldManager as D, getFieldHandler as I, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import P from "dayjs";
-import { forwardRef as R, useRef as i, useImperativeHandle as V } from "react";
-import { getDefaultDatePattern as B } from "./DateUtils.js";
-import { getFieldLabel as L } from "./util.js";
-const A = R(function(e, o) {
-  const s = e.valueFormat || e.serverPattern || B(), u = (t) => {
-    if (t)
-      return P(t, l);
-  }, m = (t) => t && t.isValid && t.isValid() ? t.format(l) : null, r = D(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: x } = r, C = o || i(null), F = c(), h = i(null), b = f();
-  V(C, () => ({
-    ...I(r),
+import { jsx as r, Fragment as R } from "react/jsx-runtime";
+import { DateInput as M } from "@mantine/dates";
+import { useFieldManager as B, getFieldHandler as L, FieldDecorator as P } from "@palmyralabs/rt-forms";
+import o from "dayjs";
+import { forwardRef as S, useRef as s, useImperativeHandle as V } from "react";
+import { F as j } from "../../../chunks/index3.js";
+import { getDefaultDatePattern as x, DateUtils as E } from "./DateUtils.js";
+import { getFieldLabel as H } from "./util.js";
+const Q = S(function(e, i) {
+  const u = e.valueFormat || x(), c = e.type, { parse: m, format: f, revert: d } = E(e), a = B(e.attribute, e, { format: f, parse: m }), { getError: g, getValue: C, setValue: n, mutateOptions: F, refreshError: w } = a, h = i || s(null), v = g(), b = C(), y = s(null);
+  V(h, () => ({
+    ...L(a),
     focus() {
-      h.current.focus();
+      y.current.focus();
     },
     setCurrent() {
     }
-  }), [r]);
-  var { serverPattern: l, ...n } = r.getFieldProps();
-  return n.onChange = (t) => {
-    e.readOnly || (d(t), e.onChange && e.onChange(t));
-  }, n.onBlur = (t) => {
+  }), [a]);
+  var { serverPattern: A, ...l } = a.getFieldProps();
+  l.onChange = (t) => {
+    e.readOnly || (c == "range" ? n(t ? [o(t[0]), o(t[1])] : void 0) : n(t ? o(t) : void 0), e.onChange && e.onChange(t));
+  }, l.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
-  }, /* @__PURE__ */ a(v, { children: !g.visible && /* @__PURE__ */ a(
-    M,
+  };
+  const D = d(b), I = e.rightSection ? e.rightSection : /* @__PURE__ */ r(j, {});
+  return /* @__PURE__ */ r(R, { children: !F.visible && /* @__PURE__ */ r(
+    P,
     {
-      label: L(e),
+      label: H(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ a(
-        y,
+      children: /* @__PURE__ */ r(
+        M,
         {
-          ...n,
-          value: b,
+          ...l,
+          value: D,
           type: e.type,
-          valueFormat: s,
-          error: F.message
+          valueFormat: u,
+          error: v.message,
+          label: e.label,
+          rightSection: I
         }
       )
     }
   ) });
 });
 export {
-  A as MantineDateInput
+  Q as MantineDateInput
 };
