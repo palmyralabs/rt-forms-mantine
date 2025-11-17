@@ -43,13 +43,17 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
         }
     };
 
+    const isMatch = (v:any) => {
+        return v == getValue();
+    }
+
     const getOptions = (options: any) => {
         if (options) {
             if (options instanceof Array) {
                 const o: { value: any, label: string }[] = options;
                 const result = o.map((v: { value: any, label: string }, index: number) => (
                     <Radio ref={inputRef} key={v.label + index} label={v.label} value={v.value} error={error.message}
-                        defaultValue={props.defaultValue} checked={getValue()}
+                        defaultValue={props.defaultValue} checked={isMatch(v.value)}
                     />
                 ))
                 return result;
@@ -58,7 +62,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
             if (typeof options == 'object') {
                 return Object.keys(options).map((key, index) => (
                     <Radio ref={inputRef} key={options[key] + index} label={options[key]} value={key} error={error.message}
-                        defaultValue={props.defaultValue} checked={getValue()}
+                        defaultValue={props.defaultValue} checked={isMatch(key)}
                     />
                 ))
             }
