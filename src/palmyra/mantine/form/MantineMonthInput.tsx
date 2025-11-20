@@ -1,4 +1,4 @@
-import { ActionIcon, TextInput } from '@mantine/core';
+import { ActionIcon, Popover, TextInput } from '@mantine/core';
 import { MonthPicker, MonthPickerInputProps } from '@mantine/dates';
 import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
 import dayjs from "dayjs";
@@ -14,7 +14,7 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
     ref: RefObject<IDateField>
 ) {
     const displayFormat: string = props.valueFormat || getDefaultDatePattern();
-    const type = props.type;
+    // const type = props.type;
 
     const { parse, format, revert } = DateUtils(props);
     const fieldManager = useFieldManager(props.attribute, props, { format, parse });
@@ -23,7 +23,6 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
     const currentRef = ref ?? useRef<IDateField>(null);
     const error: IFormFieldError = getError();
     const value = getValue();
-    const [opened, setOpened] = useState(false);
     const [inputValue, setInputValue] = useState('');
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -56,12 +55,12 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
 
     options.onChange = (d: any) => {
         if (props.readOnly) return;
-
-        if (type === 'range') {
-            setValue(d ? [dayjs(d[0]), dayjs(d[1])] : undefined);
-        } else {
-            setValue(d ? dayjs(d) : undefined);
-        }
+        setValue(d ? dayjs(d) : undefined);
+        // if (type === 'range') {
+        //     setValue(d ? [dayjs(d[0]), dayjs(d[1])] : undefined);
+        // } else {
+        //     setValue(d ? dayjs(d) : undefined);
+        // }
 
         props.onChange?.(d);
     };
@@ -81,13 +80,6 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
         }
     };
 
-    const handlePicker = (date: any) => {
-
-        setValue(date);
-        setInputValue(date ? dayjs(date).format(displayFormat) : '');
-        setOpened(false);
-    };
-
     const dateValue = revert(value);
     const fieldIcon = props.rightSection ?? <FaRegCalendarAlt />;
 
@@ -96,28 +88,23 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
             {!mutateOptions.visible && (
                 <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
                     colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
-                    <TextInput ref={inputRef}
-                        value={inputValue}
-                        onChange={(e) => handleInput(e.currentTarget.value)}
-                        rightSection={
-                            <ActionIcon variant="subtle" onClick={() => setOpened((prev) => !prev)}>
-                                {fieldIcon}
-                            </ActionIcon>
-                        }
-                        onFocus={() => setOpened((prev) => !prev)}
-                        // onBlur={() => setOpened(false)}
-                        error={error?.message}
-                        label={props.label}
-                    // {...options}
-                    />
-
-                    {opened && (
-                        <MonthPicker
-                            value={dateValue}
-                            onChange={handlePicker}
-                            {...options}
-                        />
-                    )}
+                    <Popover width={'auto'} position="bottom-start">
+                        <Popover.Target>
+                            <TextInput ref={inputRef}
+                                value={inputValue}
+                                onChange={(e) => handleInput(e.currentTarget.value)}
+                                rightSection={
+                                    <ActionIcon variant="subtle">
+                                        {fieldIcon}
+                                    </ActionIcon>
+                                }
+                                error={error?.message}
+                                label={props.label} />
+                        </Popover.Target>
+                        <Popover.Dropdown>
+                            <MonthPicker value={dateValue} {...options} />
+                        </Popover.Dropdown>
+                    </Popover>
                 </FieldDecorator>
             )}
         </>

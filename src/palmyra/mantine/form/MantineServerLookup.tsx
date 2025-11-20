@@ -77,6 +77,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
 
     const handleClearValue = () => {
         setValue(null);
+        setSearchText(null)
         props.onChange && props.onChange('', null);
     };
 
@@ -95,7 +96,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             value={label}
             getOptionKey={getOptionKey}
             getOptionValue={getOptionValue}
-            data={options || "No Data Available"}
+            data={options}
             dropdownOpened={dropdownOpened}
             label={props.label}
             error={error.message}

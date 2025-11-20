@@ -1,78 +1,68 @@
-import { jsx as o, Fragment as L, jsxs as S } from "react/jsx-runtime";
-import { TextInput as p, ActionIcon as A } from "@mantine/core";
-import { MonthPicker as B } from "@mantine/dates";
-import { useFieldManager as H, getFieldHandler as T, FieldDecorator as w } from "@palmyralabs/rt-forms";
-import n from "dayjs";
-import { forwardRef as U, useRef as d, useState as g, useEffect as q, useImperativeHandle as z } from "react";
-import { F as G } from "../../../chunks/index3.js";
-import { getDefaultDatePattern as J, DateUtils as K } from "./DateUtils.js";
-import { getFieldLabel as N } from "./util.js";
-const oe = U(function(t, h) {
-  const i = t.valueFormat || J(), C = t.type, { parse: F, format: v, revert: b } = K(t), a = H(t.attribute, t, { format: v, parse: F }), { getError: I, getValue: M, setValue: r, mutateOptions: V, refreshError: y } = a, P = h ?? d(null), R = I(), l = M(), [x, c] = g(!1), [D, s] = g(""), f = d(null);
-  q(() => {
-    if (l) {
-      const e = n(l).format(i);
-      s(e);
+import { jsx as n, Fragment as p, jsxs as w } from "react/jsx-runtime";
+import { Popover as s, TextInput as y, ActionIcon as E } from "@mantine/core";
+import { MonthPicker as L } from "@mantine/dates";
+import { useFieldManager as O, getFieldHandler as S, FieldDecorator as T } from "@palmyralabs/rt-forms";
+import u from "dayjs";
+import { forwardRef as A, useRef as d, useState as B, useEffect as H, useImperativeHandle as k } from "react";
+import { F as U } from "../../../chunks/index3.js";
+import { getDefaultDatePattern as q, DateUtils as z } from "./DateUtils.js";
+import { getFieldLabel as G } from "./util.js";
+const te = A(function(e, h) {
+  const c = e.valueFormat || q(), { parse: g, format: C, revert: F } = z(e), r = O(e.attribute, e, { format: C, parse: g }), { getError: v, getValue: b, setValue: a, mutateOptions: I, refreshError: M } = r, V = h ?? d(null), D = v(), o = b(), [P, l] = B(""), m = d(null);
+  H(() => {
+    if (o) {
+      const t = u(o).format(c);
+      l(t);
     } else
-      s("");
-  }, [l]), z(
-    P,
+      l("");
+  }, [o]), k(
+    V,
     () => ({
-      ...T(a),
+      ...S(r),
       focus() {
-        f.current?.focus();
+        m.current?.focus();
       },
       setCurrent() {
       }
     }),
-    [a]
+    [r]
   );
-  const { serverPattern: W, ...u } = a.getFieldProps();
-  u.onChange = (e) => {
-    t.readOnly || (r(C === "range" ? e ? [n(e[0]), n(e[1])] : void 0 : e ? n(e) : void 0), t.onChange?.(e));
-  }, u.onBlur = (e) => {
-    y(), t.onBlur?.(e);
+  const { serverPattern: K, ...i } = r.getFieldProps();
+  i.onChange = (t) => {
+    e.readOnly || (a(t ? u(t) : void 0), e.onChange?.(t));
+  }, i.onBlur = (t) => {
+    M(), e.onBlur?.(t);
   };
-  const O = (e) => {
-    s(e);
-    const m = n(e, [i], !1);
-    m?.isValid() ? r(m.endOf("month")) : e.trim() === "" && r(void 0);
-  }, j = (e) => {
-    r(e), s(e ? n(e).format(i) : ""), c(!1);
-  }, k = b(l), E = t.rightSection ?? /* @__PURE__ */ o(G, {});
-  return /* @__PURE__ */ o(L, { children: !V.visible && /* @__PURE__ */ S(
-    w,
+  const R = (t) => {
+    l(t);
+    const f = u(t, [c], !1);
+    f?.isValid() ? a(f.endOf("month")) : t.trim() === "" && a(void 0);
+  }, x = F(o), j = e.rightSection ?? /* @__PURE__ */ n(U, {});
+  return /* @__PURE__ */ n(p, { children: !I.visible && /* @__PURE__ */ n(
+    T,
     {
-      label: N(t),
-      customContainerClass: t.customContainerClass,
-      colspan: t.colspan,
-      customFieldClass: t.customFieldClass,
-      customLabelClass: t.customLabelClass,
-      children: [
-        /* @__PURE__ */ o(
-          p,
+      label: G(e),
+      customContainerClass: e.customContainerClass,
+      colspan: e.colspan,
+      customFieldClass: e.customFieldClass,
+      customLabelClass: e.customLabelClass,
+      children: /* @__PURE__ */ w(s, { width: "auto", position: "bottom-start", children: [
+        /* @__PURE__ */ n(s.Target, { children: /* @__PURE__ */ n(
+          y,
           {
-            ref: f,
-            value: D,
-            onChange: (e) => O(e.currentTarget.value),
-            rightSection: /* @__PURE__ */ o(A, { variant: "subtle", onClick: () => c((e) => !e), children: E }),
-            onFocus: () => c((e) => !e),
-            error: R?.message,
-            label: t.label
+            ref: m,
+            value: P,
+            onChange: (t) => R(t.currentTarget.value),
+            rightSection: /* @__PURE__ */ n(E, { variant: "subtle", children: j }),
+            error: D?.message,
+            label: e.label
           }
-        ),
-        x && /* @__PURE__ */ o(
-          B,
-          {
-            value: k,
-            onChange: j,
-            ...u
-          }
-        )
-      ]
+        ) }),
+        /* @__PURE__ */ n(s.Dropdown, { children: /* @__PURE__ */ n(L, { value: x, ...i }) })
+      ] })
     }
   ) });
 });
 export {
-  oe as MantineMonthInput
+  te as MantineMonthInput
 };
