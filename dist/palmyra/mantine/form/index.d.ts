@@ -2,6 +2,7 @@ export * from './MantineCheckBox';
 export * from './MantineDateInput';
 export * from './MantineDatePickerInput';
 export * from './MantineDateTimePicker';
+export * from './MantineMonthInput';
 export * from './MantineMultiSelect';
 export * from './MantineNumberField';
 export * from './MantineNumberPickerInput';

@@ -4,6 +4,7 @@ import { MantineCheckBox as s } from "../../../form/MantineCheckBox.js";
 import { MantineDateInput as c } from "../../../form/MantineDateInput.js";
 import { MantineDatePickerInput as u } from "../../../form/MantineDatePickerInput.js";
 import "../../../form/MantineDateTimePicker.js";
+import "../../../form/MantineMonthInput.js";
 import { MantineMultiSelect as l } from "../../../form/MantineMultiSelect.js";
 import { MantineNumberField as f } from "../../../form/MantineNumberField.js";
 import "../../../form/MantineNumberPickerInput.js";
@@ -28,7 +29,7 @@ import "../../../form/view/MantineLookupView.js";
 import "../../../form/view/MantineINRView.js";
 import "react";
 import "@mantine/core";
-const _ = (e, i) => {
+const $ = (e, i) => {
   const { type: n } = e, t = { fieldDef: e, title: i }, { getReactField: r, getInvalidField: a } = p();
   switch (n) {
     case "string":
@@ -66,5 +67,5 @@ const _ = (e, i) => {
   }
 };
 export {
-  _ as default
+  $ as default
 };
