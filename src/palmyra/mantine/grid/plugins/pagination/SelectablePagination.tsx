@@ -86,6 +86,7 @@ const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOpt
                     <div className="py-selectable-pagination-right-container">
                         <Pagination total={totalPages}
                             onChange={nextPage}
+                            value={pageQuery.getPageNo() + 1}
                         />
                     </div>
                 </div>
