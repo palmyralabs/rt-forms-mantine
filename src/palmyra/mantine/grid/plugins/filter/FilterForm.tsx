@@ -65,13 +65,16 @@ const FilterForm = (o: FilterOptions) => {
 
     const fieldGroupColumn = o.column || 2;
 
-    return <div onMouseDown={(e) => e.stopPropagation()}>
-        <PalmyraForm formData={formattedFilterValue} ref={filterRef}>
-            <FieldGroupContainer columns={fieldGroupColumn}>
-                {getFilterColumns()}
-            </FieldGroupContainer>
-        </PalmyraForm>
-        <div className="py-filter-button-container">
+    return <div onMouseDown={(e) => e.stopPropagation()} className="filter-container">
+        <div className="filter-form-scroll">
+            <PalmyraForm formData={formattedFilterValue} ref={filterRef}>
+                <FieldGroupContainer columns={fieldGroupColumn}>
+                    {getFilterColumns()}
+                </FieldGroupContainer>
+            </PalmyraForm>
+        </div>
+
+        <div className="py-filter-button-container fixed-buttons">
             <Button className='py-reset-button' onClick={reset} leftSection={<TbRefresh size={14} />}>
                 Reset
             </Button>
@@ -80,6 +83,7 @@ const FilterForm = (o: FilterOptions) => {
             </Button>
         </div>
     </div>
+
 }
 
 export { FilterForm };

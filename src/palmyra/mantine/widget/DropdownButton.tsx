@@ -54,7 +54,7 @@ const DropdownButton = forwardRef(function DropDownButton(props: IDropdownButton
                     <span>{props.title}</span>
                 </Button>
             </Popover.Target>
-            <Popover.Dropdown>
+            <Popover.Dropdown className="py-popover-dropdown">
                 {props.children}
             </Popover.Dropdown>
         </Popover>

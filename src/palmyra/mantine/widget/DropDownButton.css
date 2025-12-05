@@ -10,6 +10,12 @@
   background-color: white;
 }
 
+.py-popover-dropdown {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0px;
+}
+
 .py-dropdown-button-container {
   position: relative;
 }
