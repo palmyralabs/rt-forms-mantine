@@ -1,9 +1,9 @@
-import { jsx as o, Fragment as d, jsxs as m } from "react/jsx-runtime";
-import { Popover as r, Button as u } from "@mantine/core";
-import { forwardRef as w, useState as h, useRef as p, useImperativeHandle as b } from "react";
+import { jsx as o, Fragment as d, jsxs as f } from "react/jsx-runtime";
+import { Popover as r, Button as p } from "@mantine/core";
+import { forwardRef as u, useState as w, useRef as h, useImperativeHandle as b } from "react";
 import { M as x } from "../../../chunks/index5.js";
-import '../../../assets/DropdownButton.css';const B = w(function(e, i) {
-  const [n, t] = h(!1), s = i || p(null), l = e.className || "py-dropdown-button";
+import '../../../assets/DropdownButton.css';const S = u(function(e, i) {
+  const [n, t] = w(!1), s = i || h(null), l = e.className || "py-dropdown-button";
   b(s, () => ({
     open() {
       t(!0);
@@ -17,10 +17,10 @@ import '../../../assets/DropdownButton.css';const B = w(function(e, i) {
     {
       className: `py-dropdown-button-arrow ${n ? "open" : ""} `
     }
-  ), f = () => {
+  ), m = () => {
     t(!n);
   };
-  return /* @__PURE__ */ o(d, { children: /* @__PURE__ */ m(
+  return /* @__PURE__ */ o(d, { children: /* @__PURE__ */ f(
     r,
     {
       withArrow: !0,
@@ -28,10 +28,10 @@ import '../../../assets/DropdownButton.css';const B = w(function(e, i) {
       position: "bottom-end",
       width: e.width,
       opened: n,
-      onChange: f,
+      onChange: m,
       children: [
         /* @__PURE__ */ o(r.Target, { children: /* @__PURE__ */ o(
-          u,
+          p,
           {
             className: l,
             disabled: e.disabled,
@@ -42,11 +42,11 @@ import '../../../assets/DropdownButton.css';const B = w(function(e, i) {
             children: /* @__PURE__ */ o("span", { children: e.title })
           }
         ) }),
-        /* @__PURE__ */ o(r.Dropdown, { children: e.children })
+        /* @__PURE__ */ o(r.Dropdown, { className: "py-popover-dropdown", children: e.children })
       ]
     }
   ) });
 });
 export {
-  B as DropdownButton
+  S as DropdownButton
 };
