@@ -64,7 +64,7 @@ const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOpt
                     <div className="py-selectable-pagination-left-container">
                         {pageSizeOptions && pageSizeOptions.length > 1 ? (
                             <div className="py-selectable-pagination-left-content-container">
-                                <div><span>Showing</span></div>
+                                <div className="py-selectable-pagination-text"><span>Showing</span></div>
                                 <div className="py-selectable-pagination-select-field">
                                     <div style={{ width: '100px' }}>
                                         <Select
@@ -78,7 +78,8 @@ const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOpt
                                         </Select>
                                     </div>
                                 </div>
-                                <div className="py-selectable-pagination-show-result"><span>{startRecord} - {endRecord} of {totalRecords} Results</span></div>
+                                <div className="py-selectable-pagination-show-result"><span>{startRecord} - {endRecord} of {totalRecords}</span>
+                                    <span className="py-selectable-pagination-text">Results</span></div>
                             </div>
                         ) : null
                         }
