@@ -99,6 +99,7 @@ interface IServerAutoCompleteDefinition extends MantineInputFieldOptions, ILayou
 interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptions, IServerLookupOptions, ITextFieldProps {
     displayAttribute?: string,
     defaultValue?: any,
+    noOptionsLabel?: string | ((input: string) => string);
     multiple?: boolean,
     queryOptions: {
         delay?: number,

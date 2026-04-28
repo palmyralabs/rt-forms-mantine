@@ -96,6 +96,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
             value={label}
             getOptionKey={getOptionKey}
             getOptionValue={getOptionValue}
+            noOptionsLabel={props.noOptionsLabel}
             data={options}
             dropdownOpened={dropdownOpened}
             label={props.label}

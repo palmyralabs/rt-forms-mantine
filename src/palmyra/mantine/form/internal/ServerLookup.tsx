@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 interface helper {
     onValueChange: (d: any, label: string) => void,
     getOptionKey: (d: any) => any,
-    getOptionValue: (d: any) => any
+    getOptionValue: (d: any) => any,
+    noOptionsLabel?: string | ((input: string) => string);
 }
 
 const ServerLookup = (function MantineServerLookup(props: AutocompleteProps & helper) {
@@ -16,14 +17,23 @@ const ServerLookup = (function MantineServerLookup(props: AutocompleteProps & he
         setDisplayValue(props.value);
     }, [props.value]);
 
-    const data = options.map((option, index) => {
-        var sOptions = {
-            label: getOptionValue(option) + '',
-            value: getOptionKey(option) + ''
-        }
+    const isEmpty = !options || options.length === 0;
+    const noDataText =
+        typeof props.noOptionsLabel === 'function'
+            ? props.noOptionsLabel(displayValue)
+            : props.noOptionsLabel || '--No options available--';
 
-        return sOptions || "No Data Available";
-    })
+
+    const data = (isEmpty ? [{
+        label: noDataText,
+        value: '__empty__',
+        inputValue: displayValue,
+        disabled: props.renderOption ? false : true
+    }] : options.map((option) => ({
+        label: getOptionValue(option) + '',
+        value: getOptionKey(option) + '',
+        disabled: option?.disabled || false
+    })));
 
     const callbacks = {
         onChange: (label: any) => {
