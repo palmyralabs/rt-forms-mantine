@@ -7,30 +7,30 @@ import { a as J } from "../../../chunks/index.js";
 import { R as N } from "../../../chunks/index4.js";
 import { ServerLookup as Q } from "./internal/ServerLookup.js";
 import { getFieldLabel as U } from "./util.js";
-const le = K(function(e, c) {
-  const l = G(e.queryOptions.delay || 200), y = h(null), t = j(e.attribute, e), {
-    getError: b,
-    getValue: O,
-    setValue: i,
+const le = K(function(e, i) {
+  const l = G(e.queryOptions.delay || 200), b = h(null), t = j(e.attribute, e), {
+    getError: O,
+    getValue: y,
+    setValue: c,
     options: k,
-    getFieldProps: F,
+    getFieldProps: L,
     setSearchText: u,
     refreshOptions: d,
     getOptionValue: f,
-    getOptionKey: S,
-    refreshError: v
-  } = t, w = b(), L = c || h(null), [m, r] = P(!1), [g, { open: C, close: a }] = T(!1), s = O(), D = s ? f(s) : "", R = () => {
+    getOptionKey: F,
+    refreshError: S
+  } = t, v = O(), w = i || h(null), [m, r] = P(!1), [g, { open: C, close: a }] = T(!1), s = y(), D = s ? f(s) : "", R = () => {
     r(!0), g ? a() : (C(), l(d));
   };
-  z(L, () => ({
+  z(w, () => ({
     ...q(t),
     focus() {
-      y.current.focus();
+      b.current.focus();
     }
   }), [t]);
   const M = {
     onValueChange: (n, E) => {
-      i(n), e.onChange && e.onChange(E, n), a();
+      c(n), e.onChange && e.onChange(E, n), a();
     },
     onChange: (n) => {
       l(u, n), e.onChange && e.onChange(n);
@@ -42,10 +42,10 @@ const le = K(function(e, c) {
       m || a(), r(!1);
     },
     onBlur: (n) => {
-      v(), e.onBlur && e.onBlur(n);
+      S(), e.onBlur && e.onBlur(n);
     }
   }, V = () => {
-    i(null), u(null), e.onChange && e.onChange("", null);
+    c(null), u(null), e.onChange && e.onChange("", null);
   }, x = e.readOnly, I = e.disabled, B = s && !x && !I ? /* @__PURE__ */ o(N, { onClick: V, style: { cursor: "pointer" } }) : /* @__PURE__ */ o(J, { onClick: R, style: { cursor: "pointer" } });
   return /* @__PURE__ */ o(H, { children: /* @__PURE__ */ o(
     A,
@@ -60,14 +60,15 @@ const le = K(function(e, c) {
         {
           readOnly: e.readOnly,
           rightSection: B,
-          ...F(),
+          ...L(),
           value: D,
-          getOptionKey: S,
+          getOptionKey: F,
           getOptionValue: f,
+          noOptionsLabel: e.noOptionsLabel,
           data: k,
           dropdownOpened: g,
           label: e.label,
-          error: w.message,
+          error: v.message,
           ...M
         }
       )

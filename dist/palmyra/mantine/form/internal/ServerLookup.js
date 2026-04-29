@@ -1,35 +1,38 @@
-import { jsx as f } from "react/jsx-runtime";
-import { Autocomplete as v } from "@mantine/core";
-import { useState as m, useEffect as g } from "react";
-const x = (function(e) {
-  const [l, o] = m(e.value), u = e.data || [], { onValueChange: C, getOptionKey: r, getOptionValue: i, ...c } = e;
-  g(() => {
+import { jsx as v } from "react/jsx-runtime";
+import { Autocomplete as g } from "@mantine/core";
+import { useState as O, useEffect as b } from "react";
+const _ = (function(e) {
+  const [a, o] = O(e.value), t = e.data || [], { onValueChange: y, getOptionKey: u, getOptionValue: l, ...d } = e;
+  b(() => {
     o(e.value);
   }, [e.value]);
-  const d = u.map((n, t) => {
-    var a = {
-      label: i(n) + "",
-      value: r(n) + ""
-    };
-    return a || "No Data Available";
-  }), s = {
+  const s = !t || t.length === 0, c = typeof e.noOptionsLabel == "function" ? e.noOptionsLabel(a) : e.noOptionsLabel || "--No options available--", f = s ? [{
+    label: c,
+    value: "__empty__",
+    inputValue: a,
+    disabled: !e.renderOption
+  }] : t.map((n) => ({
+    label: l(n) + "",
+    value: u(n) + "",
+    disabled: n?.disabled || !1
+  })), m = {
     onChange: (n) => {
-      const t = u.find((a) => n == i(a));
-      o(n), t ? e.onValueChange(t, n) : e.onChange && e.onChange(n);
+      const i = t.find((r) => n == l(r));
+      o(n), i ? e.onValueChange(i, n) : e.onChange && e.onChange(n);
     }
   };
-  return /* @__PURE__ */ f(
-    v,
+  return /* @__PURE__ */ v(
+    g,
     {
-      ...c,
+      ...d,
       filter: ({ options: n }) => n,
-      data: d,
+      data: f,
       dropdownOpened: e.dropdownOpened,
-      value: l,
-      ...s
+      value: a,
+      ...m
     }
   );
 });
 export {
-  x as ServerLookup
+  _ as ServerLookup
 };
