@@ -1,7 +1,7 @@
 {
   "name": "@palmyralabs/rt-forms-mantine",
   "private": true,
-  "version": "0.3.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -16,7 +16,7 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "vitest --root test/ && tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
+    "build": "tsc --p ./build.tsconfig.json && vitest --root test/ && vite --config vite.config.js build",
     "compile": "tsc --p ./demo.tsconfig.json && tsc --p ./build.tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
@@ -45,9 +45,9 @@
     "**/*.css"
   ],
   "dependencies": {
-    "@mantine/core": "^8.3.5",
-    "@mantine/dates": "^8.3.5",
-    "@mantine/hooks": "^8.3.5",
+    "@mantine/core": "^9.1.1",
+    "@mantine/dates": "^9.1.1",
+    "@mantine/hooks": "^9.1.1",
     "@tanstack/react-table": "^8.21.3",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.18",

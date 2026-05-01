@@ -1,5 +1,5 @@
 import {
-    __InputStylesNames, Button, NumberInputProps
+    Button, NumberInputProps
 } from '@mantine/core';
 import { PickerInputBase } from './PickerInputBase';
 import { useDisclosure } from '@mantine/hooks';
@@ -49,7 +49,8 @@ const NumberPickerInput = (props: NumberInputProps) => {
             dropdownOpened={dropdownOpened}
             dropdownHandlers={dropdownHandlers}
             onClear={onClear}
-            wrapperProps={{ label: props.label, error: props.error }}
+            label={props.label}
+            error={props.error}
             shouldClear={false}
             value={value}
             dropdownType={'popover'}

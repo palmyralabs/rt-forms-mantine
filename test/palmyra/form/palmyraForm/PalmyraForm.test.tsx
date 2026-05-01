@@ -9,8 +9,8 @@ describe("Form", () => {
 
     const initProps = () => {
         const getById = queryByAttribute.bind(null, 'id');
-        const formRef = renderHook(() => useRef<IForm>()).result.current;
-        const fieldRef = renderHook(() => useRef<IInputField>()).result.current;
+        const formRef = renderHook(() => useRef<IForm>(null)).result.current;
+        const fieldRef = renderHook(() => useRef<IInputField>(null)).result.current;
         return { getById, formRef, fieldRef }
     }
 
@@ -28,10 +28,10 @@ describe("Form", () => {
         };
 
         render(<Wrapper />);
-        expect(formRef.current.getData().email).toBe("sample@gmail.com")
-        expect(fieldRef.current.getValue()).toBe("sample@gmail.com")
-        expect(formRef.current.isValid()).toBeTruthy();
-        expect(fieldRef.current.isValid()).toBeTruthy();
+        expect(formRef.current!.getData().email).toBe("sample@gmail.com")
+        expect(fieldRef.current!.getValue()).toBe("sample@gmail.com")
+        expect(formRef.current!.isValid()).toBeTruthy();
+        expect(fieldRef.current!.isValid()).toBeTruthy();
     });
 
 
@@ -51,13 +51,13 @@ describe("Form", () => {
         render(<Wrapper />);
 
         act(() => {
-            fieldRef.current.setValue("hello@gmail.com");
+            fieldRef.current!.setValue("hello@gmail.com");
         })
 
-        expect(formRef.current.getData().email).toBe("hello@gmail.com")
-        expect(fieldRef.current.getValue()).toBe("hello@gmail.com")
-        expect(formRef.current.isValid()).toBeTruthy();
-        expect(fieldRef.current.isValid()).toBeTruthy();
+        expect(formRef.current!.getData().email).toBe("hello@gmail.com")
+        expect(fieldRef.current!.getValue()).toBe("hello@gmail.com")
+        expect(formRef.current!.isValid()).toBeTruthy();
+        expect(fieldRef.current!.isValid()).toBeTruthy();
     });
 
     test('onChange value', () => {
@@ -81,10 +81,10 @@ describe("Form", () => {
             fireEvent.change(textField, { target: { value: 'hello@gmail.com' } });
         });
 
-        expect(formRef.current.getData().email).toBe("hello@gmail.com")
-        expect(fieldRef.current.getValue()).toBe("hello@gmail.com")
-        expect(formRef.current.isValid()).toBeTruthy();
-        expect(fieldRef.current.isValid()).toBeTruthy();
+        expect(formRef.current!.getData().email).toBe("hello@gmail.com")
+        expect(fieldRef.current!.getValue()).toBe("hello@gmail.com")
+        expect(formRef.current!.isValid()).toBeTruthy();
+        expect(fieldRef.current!.isValid()).toBeTruthy();
     });
 
     // test('required validation', () => {
@@ -133,8 +133,8 @@ describe("Form", () => {
         const errorMessage = screen.getByText(/Email is invalid/i);
         expect(button).toHaveProperty('disabled', true);
         expect(errorMessage).toBeTruthy();
-        expect(formRef.current.isValid()).toBeFalsy();
-        expect(fieldRef.current.isValid()).toBeFalsy();
+        expect(formRef.current!.isValid()).toBeFalsy();
+        expect(fieldRef.current!.isValid()).toBeFalsy();
     });
 
     test('rule validation', () => {
@@ -161,11 +161,11 @@ describe("Form", () => {
 
         expect(button).toHaveProperty('disabled', false);
 
-        expect(formRef.current.getData().email).toBe("example@gmail.com")
-        expect(fieldRef.current.getValue()).toBe("example@gmail.com")
+        expect(formRef.current!.getData().email).toBe("example@gmail.com")
+        expect(fieldRef.current!.getValue()).toBe("example@gmail.com")
 
-        expect(formRef.current.isValid()).toBeTruthy();
-        expect(fieldRef.current.isValid()).toBeTruthy();
+        expect(formRef.current!.isValid()).toBeTruthy();
+        expect(fieldRef.current!.isValid()).toBeTruthy();
     });
 
     test('length validation', () => {
@@ -194,8 +194,8 @@ describe("Form", () => {
         expect(button).toHaveProperty('disabled', true);
         expect(errorMessage).toBeTruthy();
 
-        expect(formRef.current.isValid()).toBeFalsy();
-        expect(fieldRef.current.isValid()).toBeFalsy();
+        expect(formRef.current!.isValid()).toBeFalsy();
+        expect(fieldRef.current!.isValid()).toBeFalsy();
     });
 
     test('length validation', () => {
@@ -222,8 +222,8 @@ describe("Form", () => {
 
         expect(button).toHaveProperty('disabled', false);
 
-        expect(formRef.current.isValid()).toBeTruthy();
-        expect(fieldRef.current.isValid()).toBeTruthy();
+        expect(formRef.current!.isValid()).toBeTruthy();
+        expect(fieldRef.current!.isValid()).toBeTruthy();
     });
 
     test('range validation', () => {
@@ -250,8 +250,8 @@ describe("Form", () => {
 
         expect(button).toHaveProperty('disabled', false);
 
-        expect(formRef.current.isValid()).toBeTruthy();
-        expect(fieldRef.current.isValid()).toBeTruthy();
+        expect(formRef.current!.isValid()).toBeTruthy();
+        expect(fieldRef.current!.isValid()).toBeTruthy();
     });
 
     test('range validation', () => {
@@ -279,8 +279,8 @@ describe("Form", () => {
         expect(button).toHaveProperty('disabled', true);
         expect(errorMessage).toBeTruthy();
 
-        expect(formRef.current.isValid()).toBeFalsy();
-        expect(fieldRef.current.isValid()).toBeFalsy();
+        expect(formRef.current!.isValid()).toBeFalsy();
+        expect(fieldRef.current!.isValid()).toBeFalsy();
     });
 
 
@@ -309,7 +309,7 @@ describe("Form", () => {
         expect(button).toHaveProperty('disabled', true);
         expect(errorMessage).toBeTruthy();
 
-        expect(formRef.current.isValid()).toBeFalsy();
-        expect(fieldRef.current.isValid()).toBeFalsy();
+        expect(formRef.current!.isValid()).toBeFalsy();
+        expect(fieldRef.current!.isValid()).toBeFalsy();
     });
 })

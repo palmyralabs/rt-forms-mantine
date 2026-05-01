@@ -53,11 +53,6 @@ export interface DateInputSharedProps
 
     /** Input placeholder */
     placeholder?: string;
-
-    wrapperProps?: {
-        label: import("react").ReactNode;
-        error: import("react").ReactNode;
-    }
 }
 
 export interface PickerInputBaseProps
@@ -87,7 +82,7 @@ export type PickerInputBaseFactory = Factory<{
 
 const defaultProps: Partial<PickerInputBaseProps> = {};
 
-export const PickerInputBase = factory<PickerInputBaseFactory>((_props, ref) => {
+export const PickerInputBase = factory<PickerInputBaseFactory>((_props) => {
     const {
         inputProps,
         wrapperProps,
@@ -184,7 +179,6 @@ export const PickerInputBase = factory<PickerInputBaseFactory>((_props, ref) => 
                             }}
                             rightSection={_rightSection}
                             {...inputProps}
-                            ref={ref}
                             classNames={{ ...classNames }}
                             {...others}
                         >
