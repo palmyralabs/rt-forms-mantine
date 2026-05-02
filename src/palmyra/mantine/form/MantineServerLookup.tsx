@@ -2,22 +2,20 @@ import { AutocompleteProps } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager } from '@palmyralabs/rt-forms';
 import { delayGenerator } from "@palmyralabs/ts-utils";
-import { forwardRef, RefObject, useImperativeHandle, useRef, useState } from "react";
+import { Ref, useImperativeHandle, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { ServerLookup } from "./internal/ServerLookup";
 import { IServerLookupDefinition } from "./types";
 import { getFieldLabel } from "./util";
 
-const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteProps, 'defaultValue'>,
-    ref: RefObject<IServerLookupField>) {
+function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteProps, 'defaultValue' | 'ref'> & { ref?: Ref<IServerLookupField> }) {
     const delay = delayGenerator(props.queryOptions.delay || 200);
     const inputRef: any = useRef(null);
     const fieldManager = useServerLookupFieldManager(props.attribute, props);
     const { getError, getValue, setValue, options, getFieldProps, setSearchText,
         refreshOptions, getOptionValue, getOptionKey, refreshError } = fieldManager;
     const error: IFormFieldError = getError();
-    const currentRef = ref ? ref : useRef<IServerLookupField>(null);
 
     const [iconClick, setIconClick] = useState<any>(false)
     const [dropdownOpened, { open, close }] = useDisclosure(false);
@@ -33,7 +31,7 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         } else close()
     };
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -105,7 +103,6 @@ const MantineServerLookup = forwardRef(function MantineServerLookup(props: IServ
         </ServerLookup>
     </FieldDecorator>
     </>
-});
+}
 
 export { MantineServerLookup };
-

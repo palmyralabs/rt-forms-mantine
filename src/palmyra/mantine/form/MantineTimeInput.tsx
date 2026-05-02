@@ -1,23 +1,21 @@
 import { TimeInput, TimeInputProps } from '@mantine/dates';
 import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { IDatePickerDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineTimeInput = forwardRef(function MantineTimeInput(
-    props: Omit<IDatePickerDefinition, 'displayPattern'> & TimeInputProps,
-    ref: RefObject<IDateField>) {
+function MantineTimeInput(
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<TimeInputProps, 'ref'> & { ref?: Ref<IDateField> }) {
 
     const fieldManager = useFieldManager(props.attribute, props);
 
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
 
     const inputRef: any = useRef(null);
     const value = getValue();
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -59,6 +57,6 @@ const MantineTimeInput = forwardRef(function MantineTimeInput(
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineTimeInput };

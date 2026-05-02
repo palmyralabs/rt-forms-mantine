@@ -1,20 +1,19 @@
 import { Slider, SliderProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, ISliderField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { ISliderDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition & SliderProps, ref: RefObject<ISliderField>) {
+function MantineSlider(props: ISliderDefinition & Omit<SliderProps, 'ref'> & { ref?: Ref<ISliderField> }) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ISliderField>(null);
     const error: IFormFieldError = getError();
     const label = props.label || '';
     const min = props.min || 0;
     const max = props.max || 100;
     const inputRef = useRef(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -69,6 +68,6 @@ const MantineSlider = forwardRef(function MantineSlider(props: ISliderDefinition
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineSlider };

@@ -1,22 +1,20 @@
 import { Calendar, CalendarProps } from '@mantine/dates';
 import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { IDatePickerDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineCalendar = forwardRef(function MantineCalendar(
-    props: Omit<IDatePickerDefinition, 'displayPattern'> & CalendarProps,
-    ref: RefObject<IDateField>) {
+function MantineCalendar(
+    props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<CalendarProps, 'ref'> & { ref?: Ref<IDateField> }) {
 
     const fieldManager = useFieldManager(props.attribute, props);
 
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
 
     const inputRef: any = useRef(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -62,6 +60,6 @@ const MantineCalendar = forwardRef(function MantineCalendar(
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineCalendar };

@@ -1,18 +1,17 @@
 import { Group, Radio, RadioProps } from '@mantine/core';
-import { FieldDecorator, getFieldHandler, IFormFieldError, IRadioGroupField, ISwitchField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { FieldDecorator, getFieldHandler, IFormFieldError, IRadioGroupField, useFieldManager } from '@palmyralabs/rt-forms';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { IRadioGroupDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGroupDefinition & RadioProps, ref: RefObject<IRadioGroupField>) {
+function MantineRadioGroup(props: IRadioGroupDefinition & Omit<RadioProps, 'ref'> & { ref?: Ref<IRadioGroupField> }) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ISwitchField>(null);
     const error: IFormFieldError = getError();
     // const autoFocus = props.autoFocus || false;
     const inputRef: any = useRef(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -43,7 +42,7 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
         }
     };
 
-    const isMatch = (v:any) => {
+    const isMatch = (v: any) => {
         return v == getValue();
     }
 
@@ -87,6 +86,6 @@ const MantineRadioGroup = forwardRef(function MantineRadioGroup(props: IRadioGro
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineRadioGroup };

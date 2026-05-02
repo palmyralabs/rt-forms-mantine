@@ -1,5 +1,5 @@
 import { DataGridPluginOptions, GridXOptions, IPageQueryable } from "@palmyralabs/rt-forms";
-import { forwardRef, JSX, RefObject, useMemo, useRef } from "react";
+import { JSX, RefObject, useMemo, useRef } from "react";
 import { TbFilterShare } from "react-icons/tb";
 import { renderTitle } from "../widget";
 import { DropdownButton } from "../widget/DropdownButton";
@@ -8,8 +8,9 @@ import './DataGrid.css';
 import { FilterForm } from "./plugins/filter/FilterForm";
 import { SelectablePagination } from "./plugins/pagination/SelectablePagination";
 
-const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType>, ref: RefObject<IPageQueryable>) {
-    const queryRef = ref || useRef<IPageQueryable>(null);
+function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType> & { ref?: RefObject<IPageQueryable> }) {
+    const internalRef = useRef<IPageQueryable>(null);
+    const queryRef = props.ref ?? internalRef;
     const paginationRef = useRef<IPagination>(null);
     const topic: string = props.topic || useMemo(() => 'id' + Math.random(), []);
 
@@ -43,7 +44,8 @@ const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<Co
         ((o: DataGridPluginOptions) => <><DropdownButton title="Filter" PrefixAdornment={<TbFilterShare />}>
             <FilterForm {...o} />
         </DropdownButton></>)
-    const Pagination = props.DataGridPagination || SelectablePagination;
+    const Pagination: (props: DataGridPluginOptions & { ref?: RefObject<IPagination> }) => JSX.Element =
+        (props.DataGridPagination || SelectablePagination) as any;
 
     return <>
         <div className='py-datagrid-header'>
@@ -59,6 +61,6 @@ const GridX = forwardRef(function GridX<ControlPropsType>(props: GridXOptions<Co
         </div>
         <Pagination {...pluginOptions} ref={paginationRef} />
     </>
-});
+}
 
 export { GridX };

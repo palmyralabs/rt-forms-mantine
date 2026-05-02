@@ -3,10 +3,10 @@ import {
   GridCustomizer, IPageQueryable, NoopGridCustomizer, StaticGridOptions,
   generateColumns
 } from "@palmyralabs/rt-forms";
-import { RefObject, forwardRef } from 'react';
+import { RefObject } from 'react';
 import BaseTable from './base/BaseTable';
 
-const StaticGrid = forwardRef(function StaticGrid(props: StaticGridOptions, ref: RefObject<IPageQueryable>) {
+function StaticGrid(props: StaticGridOptions & { ref?: RefObject<IPageQueryable> }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -23,6 +23,6 @@ const StaticGrid = forwardRef(function StaticGrid(props: StaticGridOptions, ref:
     <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer}
       rowData={data} onRowClick={handleRowClick} onColumnSort={props.setSortColumns} />
   )
-});
+}
 
 export { StaticGrid };

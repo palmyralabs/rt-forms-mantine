@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import './TextView.css';
 import { FieldDecorator, IDateField, getFieldHandler, useFieldManager } from '@palmyralabs/rt-forms';
 import { getFieldLabel } from '../util';
@@ -7,11 +7,10 @@ import { IDatePickerDefinition, TextViewAttributeDefinition } from '../types';
 import { getVariantClassName } from "./variantClassName";
 import { getDefaultDatePattern } from "../DateUtils";
 
-const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePickerDefinition & TextViewAttributeDefinition, ref) {
+function MantineDateView(props: IDatePickerDefinition & TextViewAttributeDefinition & { ref?: Ref<IDateField> }) {
 
     const fieldManager = useFieldManager(props.attribute, props);
     const { getValue, mutateOptions } = fieldManager;
-    const currentRef: any = ref ? ref : useRef<IDateField>(null);
     const value = getValue();
     const textAlignment: any = props.textAlign || 'left';
     const variant: string = props.variant || 'standard';
@@ -19,13 +18,14 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
     const displayFormat: string = props.displayPattern || props.serverPattern || getDefaultDatePattern();
     const inputRef: any = useRef(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
             focus() {
                 inputRef.current.focus();
-            }
+            },
+            setCurrent() { }
         };
     }, [fieldManager]);
 
@@ -73,6 +73,6 @@ const MantineDateView = forwardRef(function MantineLabelDisplay(props: IDatePick
             }
         </FieldDecorator>}
     </>);
-});
+}
 
 export { MantineDateView };

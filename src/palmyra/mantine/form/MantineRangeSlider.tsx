@@ -1,16 +1,16 @@
 import { RangeSlider, RangeSliderProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, ISliderField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { ISliderDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineRangeSlider = forwardRef(function MantineRangeSlider(props: ISliderDefinition & RangeSliderProps, ref: RefObject<ISliderField>) {
-    
+function MantineRangeSlider(props: ISliderDefinition & Omit<RangeSliderProps, 'ref'> & { ref?: Ref<ISliderField> }) {
+
     const min = props.min || 0;
     const max = props.max || 100;
 
     const parse = (rawData: any) => {
-        if (rawData){            
+        if (rawData) {
             return rawData;
         }
         return [min, min+1];
@@ -18,15 +18,14 @@ const MantineRangeSlider = forwardRef(function MantineRangeSlider(props: ISlider
     const format = (v: any) => {
         return v;
     };
-    
+
     const fieldManager = useFieldManager(props.attribute, props, {format, parse});
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ISliderField>(null);
     const error: IFormFieldError = getError();
-    const label = props.label || '';    
+    const label = props.label || '';
     const inputRef = useRef(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -79,6 +78,6 @@ const MantineRangeSlider = forwardRef(function MantineRangeSlider(props: ISlider
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineRangeSlider };

@@ -1,11 +1,11 @@
 import { MultiSelect, MultiSelectProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, ISelectField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { ISelectDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelectDefinition & MultiSelectProps, ref: RefObject<ISelectField>) {
-    
+function MantineMultiSelect(props: ISelectDefinition & Omit<MultiSelectProps, 'ref'> & { ref?: Ref<ISelectField> }) {
+
     const parse = (rawData: any) => {
         if (rawData)
             return rawData;
@@ -14,15 +14,14 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
     const format = (v: any) => {
         return v;
     };
-    
+
     const fieldManager = useFieldManager(props.attribute, props, {format, parse});
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ISelectField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager);
         return {
             ...handler,
@@ -57,7 +56,7 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
             refreshError
         }
     }
-    
+
     const sData = Object.keys(options.options).map((key, index) => {
         var sOptions = {
             label: options.options[key],
@@ -80,6 +79,6 @@ const MantineMultiSelect = forwardRef(function MantineMultiSelect(props: ISelect
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineMultiSelect };

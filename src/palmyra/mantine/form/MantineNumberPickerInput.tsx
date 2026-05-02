@@ -1,20 +1,19 @@
 import { NumberInputProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle } from 'react';
 import { NumberPickerInput } from './internal/NumberPickerInput';
 import { ITextFieldDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineNumberPickerInput = forwardRef(function MantineNumberField(props: ITextFieldDefinition & NumberInputProps, ref: RefObject<ITextField>) {
+function MantineNumberPickerInput(props: ITextFieldDefinition & Omit<NumberInputProps, 'ref'> & { ref?: Ref<ITextField> }) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ITextField>(null);
 
     const error: IFormFieldError = getError();
     const variant = props.variant || 'default';
     var value = getValue();
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -26,7 +25,7 @@ const MantineNumberPickerInput = forwardRef(function MantineNumberField(props: I
 
     var options = fieldManager.getFieldProps();
 
-    options.onChange = (event: any) => { 
+    options.onChange = (event: any) => {
         setValue(event);
     }
     options.onBlur = (event: any) => {
@@ -41,7 +40,7 @@ const MantineNumberPickerInput = forwardRef(function MantineNumberField(props: I
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <NumberPickerInput defaultValue={props.defaultValue}
-                label={props.label}                
+                label={props.label}
                 variant={variant}
                 {...options}
                 placeholder={props.placeholder}
@@ -50,6 +49,6 @@ const MantineNumberPickerInput = forwardRef(function MantineNumberField(props: I
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineNumberPickerInput };

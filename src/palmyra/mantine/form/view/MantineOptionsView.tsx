@@ -1,19 +1,18 @@
-import { useRef, useImperativeHandle, forwardRef } from 'react';
+import { Ref, useImperativeHandle } from 'react';
 import './TextView.css';
-import { ISelectField, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
+import { useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { ISelectDefinition, TextViewAttributeDefinition } from '../types';
 import { getFieldLabel } from '../util'
 import { getVariantClassName } from './variantClassName';
 
-const MantineOptionsView = forwardRef(function MantineOptionsView(props: ISelectDefinition & TextViewAttributeDefinition, ref) {
+function MantineOptionsView(props: ISelectDefinition & TextViewAttributeDefinition & { ref?: Ref<any> }) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const currentRef = ref ? ref : useRef<ISelectField>(null);
     const textAlign: any = props.textAlign || 'left';
     const variant: string = props.variant || 'standard';
 
     const { getValue } = fieldManager;
 
-    useImperativeHandle(currentRef, () => ({
+    useImperativeHandle(props.ref, () => ({
         getValue
     }), [fieldManager]);
 
@@ -38,6 +37,6 @@ const MantineOptionsView = forwardRef(function MantineOptionsView(props: ISelect
             </FieldDecorator>}
         </>
     );
-});
+}
 
 export { MantineOptionsView };

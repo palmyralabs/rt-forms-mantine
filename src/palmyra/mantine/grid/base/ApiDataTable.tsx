@@ -6,11 +6,11 @@ import {
   NoopGridCustomizer,
   useServerQuery
 } from "@palmyralabs/rt-forms";
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { RefObject, useImperativeHandle, useRef } from 'react';
 import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 
-const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions, ref: RefObject<IPageQueryable>) {
+function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQueryable> }) {
   const { columns, EmptyChild, lsKey } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -21,7 +21,8 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
 
   const serverQuery = useServerQuery(queryParams);
 
-  const currentRef = ref || useRef<IPageQueryable>(null);
+  const internalRef = useRef<IPageQueryable>(null);
+  const currentRef = props.ref ?? internalRef;
   useImperativeHandle(currentRef, () => {
     if (lsKey) {
       const setSortColumns = (d: any) => {
@@ -86,6 +87,6 @@ const ApiDataTable = forwardRef(function ApiDataTable(props: ApiDataTableOptions
       rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
     />
   )
-});
+}
 
 export { ApiDataTable };

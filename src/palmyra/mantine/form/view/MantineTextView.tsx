@@ -1,5 +1,5 @@
 import { FieldDecorator, getFieldHandler, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { ITextFieldDefinition } from '../types';
 import { getFieldLabel } from '../util';
 import { getVariantClassName } from './variantClassName';
@@ -10,18 +10,16 @@ interface TextViewAttributeDefinition {
     viewType?: 'preformatted' | 'normal'
 }
 
-const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition,
-    ref: RefObject<ITextField>) {
+function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition & { ref?: Ref<ITextField> }) {
 
     const fieldManager = useFieldManager(props.attribute, props);
     const { getValue, mutateOptions } = fieldManager;
-    const currentRef = ref ? ref : useRef<ITextField>(null);
     const textAlignment: any = props.textAlign || 'left';
     const viewType: any = props.viewType || 'normal';
     const inputRef: any = useRef(null);
     const variant = props.variant || 'standard';
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -32,7 +30,7 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
     }, [fieldManager]);
 
     var { textAlign, ...options } = fieldManager.getFieldProps();
-    
+
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -51,6 +49,6 @@ const MantineTextView = forwardRef(function MantineTextView(props: ITextFieldDef
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineTextView };

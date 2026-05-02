@@ -23,7 +23,7 @@ import { MantineTimeInput } from "../../src/palmyra/mantine/form/MantineTimeInpu
 const SampleForm = () => {
 
     const storeFactory = new PalmyraStoreFactory({ baseUrl: "/demo/testdata/form/" });
-    const formRef = useRef<ISaveForm>();
+    const formRef = useRef<ISaveForm>(null);
     const endPoint: IEndPoint = {
         get: '1.json',
         query: '1.json', put: '1.json',
@@ -31,7 +31,7 @@ const SampleForm = () => {
     }
 
     const saveFormData = () => {
-        const s = formRef.current.saveData();
+        const s = formRef.current!.saveData();
         s.then((d: any) => {
             console.log(d)
         }).catch((e) => {
@@ -40,6 +40,11 @@ const SampleForm = () => {
             }
         });
     }
+
+    const consoleData = () => {
+        console.log(formRef.current!.getData())
+    }
+
     console.log(formRef?.current?.getData())
 
     return (
@@ -139,8 +144,9 @@ const SampleForm = () => {
                     defaultValue={new Date("2022-01-02")} label={"Date Time Input"}
                 /> */}
             </PalmyraEditForm>
+            <Button onClick={consoleData}>Submit</Button>
 
-            <SectionContainer title={"Form"} variant="separated" defaultValue="Form">
+            {/* <SectionContainer title={"Form"} variant="separated" defaultValue="Form">
                 <PalmyraEditForm id="1" endPoint={endPoint}
                     storeFactory={storeFactory} ref={formRef}>
                     <MantineDatePickerInput attribute='date' title={"Date"} valueFormat='DD-MM-YYYY'
@@ -148,7 +154,7 @@ const SampleForm = () => {
                     />
                     <MantineTriStateCheckBox attribute='check' size="xl" />
                 </PalmyraEditForm>
-            </SectionContainer>
+            </SectionContainer> */}
         </>)
 }
 

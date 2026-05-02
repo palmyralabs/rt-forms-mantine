@@ -1,18 +1,17 @@
 import { TextInput, TextInputProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { ITextFieldDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldDefinition & TextInputProps, ref: RefObject<ITextField>) {
+function MantineTextField(props: ITextFieldDefinition & Omit<TextInputProps, 'ref'> & { ref?: Ref<ITextField> }) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
     const inputRef: any = useRef(null);
     const variant = props.variant || 'default';
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -56,6 +55,6 @@ const MantineTextField = forwardRef(function MantineTextField(props: ITextFieldD
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineTextField };

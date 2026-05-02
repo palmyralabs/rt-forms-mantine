@@ -1,18 +1,17 @@
 import { Checkbox, CheckboxProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, ICheckBoxField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { ICheckBoxDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps & ICheckBoxDefinition, ref: RefObject<ICheckBoxField>) {
+function MantineCheckBox(props: Omit<CheckboxProps, 'ref'> & ICheckBoxDefinition & { ref?: Ref<ICheckBoxField> }) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ICheckBoxField>(null);
     const value: boolean = getValue() == true;
     const inputRef: any = useRef(null);
     const error: IFormFieldError = getError();
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -62,6 +61,6 @@ const MantineCheckBox = forwardRef(function MantineCheckBox(props: CheckboxProps
         </FieldDecorator>}
     </>
     )
-});
+}
 
 export { MantineCheckBox };

@@ -1,29 +1,25 @@
 import { AutocompleteProps } from "@mantine/core";
 import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, useServerAutoComplete } from '@palmyralabs/rt-forms';
 import { delayGenerator } from "@palmyralabs/ts-utils";
-import { forwardRef, RefObject, useImperativeHandle, useRef } from "react";
+import { Ref, useImperativeHandle, useRef } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MantineAutoComplete } from "./internal/MantineAutoComplete";
 import { IServerAutoCompleteDefinition } from "./types";
 import { getFieldLabel } from "./util";
 
-
-
-const MantineServerAutoComplete = forwardRef(function MantineServerLookup
-    (props: IServerAutoCompleteDefinition & AutocompleteProps & { onChange?: (value: string, data?: any) => void; },
-        ref: RefObject<IServerLookupField>) {
+function MantineServerAutoComplete(
+    props: IServerAutoCompleteDefinition & Omit<AutocompleteProps, 'ref'> & { onChange?: (value: string, data?: any) => void; ref?: Ref<IServerLookupField> }) {
     const delay = delayGenerator(props.queryOptions.delay || 250);
     const inputRef: any = useRef(null);
     const fieldManager = useServerAutoComplete(props.attribute, props);
     const { getError, getValue, setValue, options, getFieldProps, setSearchText,
         refreshOptions, getOptionValue } = fieldManager;
     const error: IFormFieldError = getError();
-    const currentRef = ref ? ref : useRef<IServerLookupField>(null);
 
     const value = getValue();
     const label = value ? value : '';
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -66,6 +62,6 @@ const MantineServerAutoComplete = forwardRef(function MantineServerLookup
         </MantineAutoComplete>
     </FieldDecorator>
     </>
-});
+}
 
 export { MantineServerAutoComplete };

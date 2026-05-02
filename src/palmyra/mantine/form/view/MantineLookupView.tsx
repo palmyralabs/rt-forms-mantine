@@ -1,15 +1,14 @@
-import { forwardRef, useRef, useImperativeHandle } from 'react';
+import { Ref, useRef, useImperativeHandle } from 'react';
 import './TextView.css';
 import { ILookupViewOptions, TextViewAttributeDefinition } from '../types';
 import { getFieldLabel } from '../util';
 import { getFieldHandler, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { getVariantClassName } from './variantClassName';
 
-const MantineLookupView = forwardRef(function MantineLabelDisplay(props: ILookupViewOptions & TextViewAttributeDefinition, ref) {
+function MantineLookupView(props: ILookupViewOptions & TextViewAttributeDefinition & { ref?: Ref<any> }) {
 
     const fieldManager = useFieldManager(props.attribute, props);
     const { getValue, mutateOptions } = fieldManager;
-    const currentRef: any = ref ? ref : useRef(null);
     const data = getValue();
     const lookupOptionList = props.lookupOptions;
     const labelKey = lookupOptionList?.labelAttribute || 'name';
@@ -17,7 +16,7 @@ const MantineLookupView = forwardRef(function MantineLabelDisplay(props: ILookup
     const variant: string = props.variant || 'standard';
     const inputRef: any = useRef(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -46,6 +45,6 @@ const MantineLookupView = forwardRef(function MantineLabelDisplay(props: ILookup
             }
         </FieldDecorator>}
     </>);
-});
+}
 
 export { MantineLookupView };

@@ -1,25 +1,23 @@
 import { Pagination, Select } from "@mantine/core";
 import { DataGridPluginOptions } from "@palmyralabs/rt-forms";
 import { delayGenerator } from "@palmyralabs/ts-utils";
-import { forwardRef, RefObject, useCallback, useImperativeHandle, useRef, useState } from "react";
+import { RefObject, useCallback, useImperativeHandle, useState } from "react";
 import './SelectablePagination.css';
 
-const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOptions, ref: RefObject<IPagination>) {
+function SelectablePagination(o: DataGridPluginOptions & { ref?: RefObject<IPagination> }) {
 
     const delay = useCallback(delayGenerator(50), [])
     const pageQuery = o.queryRef?.current;
     const [_count, setCount] = useState<number>(0); // Counter used to refresh the state of pagination
     const [_value, setValue] = useState<any>();
 
-    const currentRef = ref ? ref : useRef<IPagination>(null);
-
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(o.ref, () => {
         return {
             refresh() {
                 delay(() => setCount((d: number) => d + 1));
             }
         };
-    }, [currentRef]);
+    }, [o.ref]);
 
     const handleRowsPerPageChange = (event, option) => {
         const limit = parseInt(option.value, 10);
@@ -95,6 +93,6 @@ const SelectablePagination = forwardRef(function pagination(o: DataGridPluginOpt
         )}
     </div>
 
-});
+}
 
 export { SelectablePagination };

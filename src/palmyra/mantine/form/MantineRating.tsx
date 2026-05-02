@@ -1,14 +1,13 @@
 import { Rating, RatingProps } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, IFormFieldError, IRatingField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { IRatingDefinition } from './types';
 import { getFieldLabel } from './util';
 
 
-const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition & RatingProps, ref: RefObject<IRatingField>) {
+function MantineRating(props: IRatingDefinition & Omit<RatingProps, 'ref'> & { ref?: Ref<IRatingField> }) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<IRatingField>(null);
     const error: IFormFieldError = getError();
     const inputRef = useRef<HTMLDivElement>(null);
     const variant = props.variant || 'default';
@@ -17,7 +16,7 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
     const fullSymbol: any = props?.fullSymbol;
     const emptySymbol: any = props?.emptySymbol;
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -71,6 +70,6 @@ const MantineRating = forwardRef(function MantineRating(props: IRatingDefinition
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineRating };

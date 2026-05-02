@@ -2,16 +2,15 @@ import { ActionIcon, Popover, TextInput } from '@mantine/core';
 import { MonthPicker, MonthPickerInputProps } from '@mantine/dates';
 import { FieldDecorator, getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '@palmyralabs/rt-forms';
 import dayjs from "dayjs";
-import { forwardRef, RefObject, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { Ref, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { DateUtils, getDefaultDatePattern } from './DateUtils';
 import { IMonthInputDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineMonthInput = forwardRef(function MantineMonthInput(
+function MantineMonthInput(
     props: Omit<IMonthInputDefinition, 'displayPattern'> &
-        Omit<MonthPickerInputProps, 'defaultValue'>,
-    ref: RefObject<IDateField>
+        Omit<MonthPickerInputProps, 'defaultValue' | 'ref'> & { ref?: Ref<IDateField> }
 ) {
     const displayFormat: string = props.valueFormat || getDefaultDatePattern();
     // const type = props.type;
@@ -20,7 +19,6 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
     const fieldManager = useFieldManager(props.attribute, props, { format, parse });
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
 
-    const currentRef = ref ?? useRef<IDateField>(null);
     const error: IFormFieldError = getError();
     const value = getValue();
     const [inputValue, setInputValue] = useState('');
@@ -37,7 +35,7 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
     }, [value]);
 
     useImperativeHandle(
-        currentRef,
+        props.ref,
         () => {
             const handler = getFieldHandler(fieldManager);
             return {
@@ -109,6 +107,6 @@ const MantineMonthInput = forwardRef(function MantineMonthInput(
             )}
         </>
     );
-});
+}
 
 export { MantineMonthInput };

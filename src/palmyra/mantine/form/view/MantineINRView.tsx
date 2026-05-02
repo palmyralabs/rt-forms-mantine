@@ -1,6 +1,6 @@
 import { Tooltip } from '@mantine/core';
 import { FieldDecorator, getFieldHandler, ITextField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef, useState } from 'react';
+import { Ref, useImperativeHandle, useRef, useState } from 'react';
 import { GoNumber } from "react-icons/go";
 import { MdOutlineCurrencyRupee, MdTextFields } from "react-icons/md";
 import { formatAmount } from '../../FormatCurrency';
@@ -15,18 +15,16 @@ interface TextViewAttributeDefinition {
     maxFraction?: number
 }
 
-const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition,
-    ref: RefObject<ITextField>) {
+function MantineINRView(props: ITextFieldDefinition & TextViewAttributeDefinition & { ref?: Ref<ITextField> }) {
 
     const fieldManager = useFieldManager(props.attribute, props);
     const { getValue, mutateOptions } = fieldManager;
-    const currentRef = ref ? ref : useRef<ITextField>(null);
     const textAlign: any = props.textAlign || 'left';
     const inputRef: any = useRef(null);
     const variant = props.variant || 'standard';
     const valueFormat = props.valueFormat || 'text';
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -123,6 +121,6 @@ const MantineINRView = forwardRef(function MantineTextView(props: ITextFieldDefi
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineINRView };

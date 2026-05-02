@@ -1,18 +1,17 @@
 import { Radio, RadioProps } from '@mantine/core';
-import { FieldDecorator, getFieldHandler, IFormFieldError, IRadioGroupField, ISwitchField, useFieldManager } from '@palmyralabs/rt-forms';
-import { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import { FieldDecorator, getFieldHandler, IFormFieldError, IRadioGroupField, useFieldManager } from '@palmyralabs/rt-forms';
+import { Ref, useImperativeHandle, useRef } from 'react';
 import { IRadioDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & RadioProps, ref: RefObject<IRadioGroupField>) {
+function MantineRadio(props: IRadioDefinition & Omit<RadioProps, 'ref'> & { ref?: Ref<IRadioGroupField> }) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ISwitchField>(null);
     const error: IFormFieldError = getError();
     // const autoFocus = props.autoFocus || false;
     const inputRef: any = useRef(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
@@ -35,7 +34,7 @@ const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & 
                 props.onChange(v);
         }
     }
-    
+
     fieldOptions.onBlur = (event: any) => {
         refreshError;
         if (props.onBlur) {
@@ -55,6 +54,6 @@ const MantineRadio = forwardRef(function MantineRadio(props: IRadioDefinition & 
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineRadio };

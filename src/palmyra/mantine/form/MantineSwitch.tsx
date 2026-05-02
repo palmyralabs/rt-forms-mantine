@@ -1,11 +1,11 @@
 import { Switch, SwitchProps } from '@mantine/core';
 import { FieldDecorator, IFormFieldError, ISwitchField, getFieldHandler, useFieldManager } from '@palmyralabs/rt-forms';
-import { RefObject, forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { Ref, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import parseOptions from '../options/OptionsParser';
 import { ISwitchDefinition } from './types';
 import { getFieldLabel } from './util';
 
-const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition & SwitchProps, ref: RefObject<ISwitchField>) {
+function MantineSwitch(props: ISwitchDefinition & Omit<SwitchProps, 'ref'> & { ref?: Ref<ISwitchField> }) {
 
     const parsedOptions = useMemo(() => parseOptions(props.options, props.label),
         [props.options, props.label]);
@@ -25,20 +25,21 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
     const fieldManager = useFieldManager(props.attribute, props, { format, parse });
 
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
-    const currentRef = ref ? ref : useRef<ISwitchField>(null);
     const error: IFormFieldError = getError();
 
     const isOn = getValue();
 
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    useImperativeHandle(currentRef, () => {
+    useImperativeHandle(props.ref, () => {
         const handler = getFieldHandler(fieldManager)
         return {
             ...handler,
             focus() {
-                inputRef.current.checked = true;
-                inputRef.current.focus();
+                if (inputRef.current) {
+                    inputRef.current.checked = true;
+                    inputRef.current.focus();
+                }
             },
             getOptions() {
 
@@ -58,13 +59,13 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
     }, [isOn])
 
     const getLabel = () => {
-        var key = isOn ? 'checked' : 'unchecked';
+        const key: 'checked' | 'unchecked' = isOn ? 'checked' : 'unchecked';
         if (parsedOptions)
             return parsedOptions[key].title;
     }
 
     const getOptionValue = () => {
-        var key = isOn ? 'checked' : 'unchecked';
+        const key: 'checked' | 'unchecked' = isOn ? 'checked' : 'unchecked';
         if (parsedOptions)
             return parsedOptions[key].value;
     }
@@ -98,6 +99,6 @@ const MantineSwitch = forwardRef(function MantineSwitch(props: ISwitchDefinition
         </FieldDecorator>}
     </>
     );
-});
+}
 
 export { MantineSwitch };
