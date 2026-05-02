@@ -1,5 +1,8 @@
 import { TimeInputProps } from '@mantine/dates';
 import { IDateField } from '@palmyralabs/rt-forms';
+import { Ref } from 'react';
 import { IDatePickerDefinition } from './types';
-declare const MantineTimeInput: import('react').ForwardRefExoticComponent<Omit<IDatePickerDefinition, "displayPattern"> & TimeInputProps & import('react').RefAttributes<IDateField>>;
+declare function MantineTimeInput(props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<TimeInputProps, 'ref'> & {
+    ref?: Ref<IDateField>;
+}): import("react/jsx-runtime").JSX.Element;
 export { MantineTimeInput };

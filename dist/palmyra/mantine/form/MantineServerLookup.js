@@ -1,80 +1,80 @@
-import { jsx as o, Fragment as H } from "react/jsx-runtime";
-import { useDisclosure as T } from "@mantine/hooks";
-import { useServerLookupFieldManager as j, getFieldHandler as q, FieldDecorator as A } from "@palmyralabs/rt-forms";
-import { delayGenerator as G } from "@palmyralabs/ts-utils";
-import { forwardRef as K, useRef as h, useState as P, useImperativeHandle as z } from "react";
-import { a as J } from "../../../chunks/index.js";
-import { R as N } from "../../../chunks/index4.js";
-import { ServerLookup as Q } from "./internal/ServerLookup.js";
-import { getFieldLabel as U } from "./util.js";
-const le = K(function(e, i) {
-  const l = G(e.queryOptions.delay || 200), b = h(null), t = j(e.attribute, e), {
-    getError: O,
-    getValue: y,
-    setValue: c,
-    options: k,
-    getFieldProps: L,
-    setSearchText: u,
-    refreshOptions: d,
-    getOptionValue: f,
-    getOptionKey: F,
-    refreshError: S
-  } = t, v = O(), w = i || h(null), [m, r] = P(!1), [g, { open: C, close: a }] = T(!1), s = y(), D = s ? f(s) : "", R = () => {
-    r(!0), g ? a() : (C(), l(d));
+import { jsx as o, Fragment as R } from "react/jsx-runtime";
+import { useDisclosure as B } from "@mantine/hooks";
+import { useServerLookupFieldManager as E, getFieldHandler as H, FieldDecorator as T } from "@palmyralabs/rt-forms";
+import { delayGenerator as j } from "@palmyralabs/ts-utils";
+import { useRef as q, useState as A, useImperativeHandle as G } from "react";
+import { a as K } from "../../../chunks/index.js";
+import { R as P } from "../../../chunks/index4.js";
+import { ServerLookup as z } from "./internal/ServerLookup.js";
+import { getFieldLabel as J } from "./util.js";
+function p(e) {
+  const l = j(e.queryOptions.delay || 200), C = q(null), t = E(e.attribute, e), {
+    getError: h,
+    getValue: b,
+    setValue: i,
+    options: O,
+    getFieldProps: y,
+    setSearchText: c,
+    refreshOptions: u,
+    getOptionValue: d,
+    getOptionKey: k,
+    refreshError: F
+  } = t, L = h(), [m, a] = A(!1), [f, { open: g, close: r }] = B(!1), s = b(), S = s ? d(s) : "", v = () => {
+    a(!0), f ? r() : (g(), l(u));
   };
-  z(w, () => ({
-    ...q(t),
+  G(e.ref, () => ({
+    ...H(t),
     focus() {
-      b.current.focus();
+      C.current.focus();
     }
   }), [t]);
-  const M = {
-    onValueChange: (n, E) => {
-      c(n), e.onChange && e.onChange(E, n), a();
+  const w = {
+    onValueChange: (n, M) => {
+      i(n), e.onChange && e.onChange(M, n), r();
     },
     onChange: (n) => {
-      l(u, n), e.onChange && e.onChange(n);
+      l(c, n), e.onChange && e.onChange(n);
     },
     onDropdownOpen: () => {
-      m || C(), r(!1), l(d);
+      m || g(), a(!1), l(u);
     },
     onDropdownClose: () => {
-      m || a(), r(!1);
+      m || r(), a(!1);
     },
     onBlur: (n) => {
-      S(), e.onBlur && e.onBlur(n);
+      F(), e.onBlur && e.onBlur(n);
     }
-  }, V = () => {
-    c(null), u(null), e.onChange && e.onChange("", null);
-  }, x = e.readOnly, I = e.disabled, B = s && !x && !I ? /* @__PURE__ */ o(N, { onClick: V, style: { cursor: "pointer" } }) : /* @__PURE__ */ o(J, { onClick: R, style: { cursor: "pointer" } });
-  return /* @__PURE__ */ o(H, { children: /* @__PURE__ */ o(
-    A,
+  }, D = () => {
+    i(null), c(null), e.onChange && e.onChange("", null);
+  }, V = e.readOnly, x = e.disabled, I = s && !V && !x ? /* @__PURE__ */ o(P, { onClick: D, style: { cursor: "pointer" } }) : /* @__PURE__ */ o(K, { onClick: v, style: { cursor: "pointer" } });
+  return /* @__PURE__ */ o(R, { children: /* @__PURE__ */ o(
+    T,
     {
-      label: U(e),
+      label: J(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ o(
-        Q,
+        z,
         {
           readOnly: e.readOnly,
-          rightSection: B,
-          ...L(),
-          value: D,
-          getOptionKey: F,
-          getOptionValue: f,
+          rightSection: I,
+          ...y(),
+          value: S,
+          getOptionKey: k,
+          getOptionValue: d,
           noOptionsLabel: e.noOptionsLabel,
-          data: k,
-          dropdownOpened: g,
+          data: O,
+          dropdownOpened: f,
           label: e.label,
-          error: v.message,
-          ...M
+          error: L.message,
+          ...w
         }
       )
     }
   ) });
-});
+}
 export {
-  le as MantineServerLookup
+  p as MantineServerLookup
 };

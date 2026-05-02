@@ -1,43 +1,43 @@
-import { jsx as o, Fragment as h } from "react/jsx-runtime";
-import { Calendar as F } from "@mantine/dates";
-import { useFieldManager as b, getFieldHandler as v, FieldDecorator as w } from "@palmyralabs/rt-forms";
-import { forwardRef as D, useRef as i, useImperativeHandle as M } from "react";
-import { getFieldLabel as R } from "./util.js";
-const H = D(function(e, s) {
-  const n = b(e.attribute, e), { getError: u, getValue: a, setValue: c, mutateOptions: d, refreshError: f } = n, m = s || i(null), C = u(), g = i(null);
-  M(m, () => ({
-    ...v(n),
+import { jsx as o, Fragment as d } from "react/jsx-runtime";
+import { Calendar as C } from "@mantine/dates";
+import { useFieldManager as g, getFieldHandler as h, FieldDecorator as F } from "@palmyralabs/rt-forms";
+import { useRef as b, useImperativeHandle as v } from "react";
+import { getFieldLabel as D } from "./util.js";
+function x(e) {
+  const r = g(e.attribute, e), { getError: i, getValue: a, setValue: s, mutateOptions: u, refreshError: c } = r, m = i(), f = b(null);
+  v(e.ref, () => ({
+    ...h(r),
     focus() {
-      g.current.focus();
+      f.current.focus();
     },
     setCurrent() {
     }
-  }), [n]);
-  var r = n.getFieldProps();
-  r.onChange = (l) => {
-    e.readOnly || (c(l), e.onChange && e.onChange(l));
-  }, r.onBlur = f;
-  var t;
-  return a() != "" && (Array.isArray(a()) ? t = [new Date(a()[0]), new Date(a()[1])] : t = new Date(a())), /* @__PURE__ */ o(h, { children: !d.visible && /* @__PURE__ */ o(
-    w,
+  }), [r]);
+  var t = r.getFieldProps();
+  t.onChange = (l) => {
+    e.readOnly || (s(l), e.onChange && e.onChange(l));
+  }, t.onBlur = c;
+  var n;
+  return a() != "" && (Array.isArray(a()) ? n = [new Date(a()[0]), new Date(a()[1])] : n = new Date(a())), /* @__PURE__ */ o(d, { children: !u.visible && /* @__PURE__ */ o(
+    F,
     {
-      label: R(e),
+      label: D(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ o(
-        F,
+        C,
         {
           defaultValue: e.defaultValue,
-          ...r,
-          value: t,
-          error: C.message
+          ...t,
+          value: n,
+          error: m.message
         }
       )
     }
   ) });
-});
+}
 export {
-  H as MantineCalendar
+  x as MantineCalendar
 };

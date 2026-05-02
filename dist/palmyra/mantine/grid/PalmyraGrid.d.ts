@@ -1,4 +1,5 @@
 import { IPalmyraGrid, PalmyraGridOptions } from '@palmyralabs/rt-forms';
+import { RefObject } from 'react';
 /**
  *
  * Emitters
@@ -9,5 +10,7 @@ import { IPalmyraGrid, PalmyraGridOptions } from '@palmyralabs/rt-forms';
  * ${topic}/filter - apply filter based on the incoming data
  *
  */
-declare const PalmyraGrid: import('react').ForwardRefExoticComponent<PalmyraGridOptions<unknown> & import('react').RefAttributes<IPalmyraGrid>>;
+declare function PalmyraGrid<ControlPropsType>(props: PalmyraGridOptions<ControlPropsType> & {
+    ref?: RefObject<IPalmyraGrid>;
+}): import("react/jsx-runtime").JSX.Element;
 export { PalmyraGrid };

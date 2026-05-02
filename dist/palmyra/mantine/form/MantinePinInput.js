@@ -1,46 +1,46 @@
-import { jsx as l, Fragment as h } from "react/jsx-runtime";
-import { PinInput as b } from "@mantine/core";
-import { useFieldManager as F, getFieldHandler as v, FieldDecorator as I } from "@palmyralabs/rt-forms";
-import { forwardRef as M, useRef as i, useImperativeHandle as P } from "react";
-import { getFieldLabel as R } from "./util.js";
-const j = M(function(e, r) {
-  const t = F(e.attribute, e), { getError: u, getValue: s, setValue: c, mutateOptions: m, refreshError: L } = t, d = r || i(null), f = u(), o = i(null), g = e.variant || "default";
-  P(d, () => ({
-    ...v(t),
+import { jsx as l, Fragment as f } from "react/jsx-runtime";
+import { PinInput as g } from "@mantine/core";
+import { useFieldManager as C, getFieldHandler as h, FieldDecorator as b } from "@palmyralabs/rt-forms";
+import { useRef as F, useImperativeHandle as v } from "react";
+import { getFieldLabel as B } from "./util.js";
+function H(e) {
+  const t = C(e.attribute, e), { getError: o, getValue: i, setValue: u, mutateOptions: s, refreshError: I } = t, c = o(), r = F(null), m = e.variant || "default";
+  v(e.ref, () => ({
+    ...h(t),
     focus() {
-      o.current.focus();
+      r.current.focus();
     }
   }), [t]);
   var a = t.getFieldProps();
   a.onChange = (n) => {
-    e.readOnly || (c(n), e.onChange && e.onChange(n));
+    e.readOnly || (u(n), e.onChange && e.onChange(n));
   }, a.onBlur = (n) => {
     e.onBlur && e.onBlur(n);
   };
-  const C = s();
-  return /* @__PURE__ */ l(h, { children: !m.visible && /* @__PURE__ */ l(
-    I,
+  const d = i();
+  return /* @__PURE__ */ l(f, { children: !s.visible && /* @__PURE__ */ l(
+    b,
     {
-      label: R(e),
+      label: B(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ l(
-        b,
+        g,
         {
           label: e.label,
-          variant: g,
-          ref: o,
+          variant: m,
+          ref: r,
           ...a,
-          value: C,
+          value: d,
           placeholder: e.placeholder,
-          error: f.message
+          error: c.message
         }
       )
     }
   ) });
-});
+}
 export {
-  j as MantinePinInput
+  H as MantinePinInput
 };

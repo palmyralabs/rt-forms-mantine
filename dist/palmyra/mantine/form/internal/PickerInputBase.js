@@ -1,48 +1,48 @@
-import { jsx as e, jsxs as C, Fragment as A } from "react/jsx-runtime";
-import { factory as O, useInputProps as R, CloseButton as T, Modal as D, Input as s, Popover as d } from "@mantine/core";
-const H = {}, E = O((P, f) => {
+import { jsx as e, jsxs as C, Fragment as j } from "react/jsx-runtime";
+import { factory as A, useInputProps as O, CloseButton as R, Modal as T, Input as s, Popover as d } from "@mantine/core";
+const D = {}, q = A((P) => {
   const {
     inputProps: a,
-    wrapperProps: b,
-    placeholder: v,
+    wrapperProps: f,
+    placeholder: b,
     classNames: i,
-    styles: w,
+    styles: v,
     unstyled: o,
     popoverProps: n,
-    modalProps: I,
+    modalProps: w,
     dropdownType: p,
     children: c,
-    formattedValue: k,
+    formattedValue: I,
     dropdownHandlers: u,
     dropdownOpened: h,
-    onClick: B,
-    clearable: x,
+    onClick: k,
+    clearable: B,
     onClear: m,
-    clearButtonProps: z,
-    rightSection: F,
-    shouldClear: N,
+    clearButtonProps: x,
+    rightSection: z,
+    shouldClear: F,
     readOnly: r,
     disabled: g,
     value: l,
-    name: M,
-    form: W,
-    type: S,
-    ...V
-  } = R("PickerInputBase", H, P), j = F || (x && N && !r && !g ? /* @__PURE__ */ e(
-    T,
+    name: H,
+    form: M,
+    type: N,
+    ...S
+  } = O("PickerInputBase", D, P), V = z || (B && F && !r && !g ? /* @__PURE__ */ e(
+    R,
     {
       variant: "transparent",
       onClick: m,
       unstyled: o,
       size: a.size || "sm",
-      ...z
+      ...x
     }
   ) : null), y = () => {
-    S === "range" && Array.isArray(l) && l[0] && !l[1] && m(), u.close();
+    N === "range" && Array.isArray(l) && l[0] && !l[1] && m(), u.close();
   };
-  return /* @__PURE__ */ C(A, { children: [
+  return /* @__PURE__ */ C(j, { children: [
     p === "modal" && !r && /* @__PURE__ */ e(
-      D,
+      T,
       {
         opened: h,
         onClose: y,
@@ -50,11 +50,11 @@ const H = {}, E = O((P, f) => {
         size: "auto",
         "data-dates-modal": !0,
         unstyled: o,
-        ...I,
+        ...w,
         children: c
       }
     ),
-    /* @__PURE__ */ e(s.Wrapper, { ...b, children: /* @__PURE__ */ C(
+    /* @__PURE__ */ e(s.Wrapper, { ...f, children: /* @__PURE__ */ C(
       d,
       {
         position: "bottom-start",
@@ -78,21 +78,20 @@ const H = {}, E = O((P, f) => {
               type: "button",
               multiline: !0,
               onClick: (t) => {
-                B?.(t), u.toggle();
+                k?.(t), u.toggle();
               },
-              rightSection: j,
+              rightSection: V,
               ...a,
-              ref: f,
               classNames: { ...i },
-              ...V,
-              children: k || /* @__PURE__ */ e(
+              ...S,
+              children: I || /* @__PURE__ */ e(
                 s.Placeholder,
                 {
                   error: a.error,
                   unstyled: o,
                   className: i?.placeholder,
-                  style: w?.placeholder,
-                  children: v
+                  style: v?.placeholder,
+                  children: b
                 }
               )
             }
@@ -104,5 +103,5 @@ const H = {}, E = O((P, f) => {
   ] });
 });
 export {
-  E as PickerInputBase
+  q as PickerInputBase
 };

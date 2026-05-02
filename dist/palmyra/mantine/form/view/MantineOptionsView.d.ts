@@ -1,3 +1,6 @@
+import { Ref } from 'react';
 import { ISelectDefinition, TextViewAttributeDefinition } from '../types';
-declare const MantineOptionsView: import('react').ForwardRefExoticComponent<ISelectDefinition & TextViewAttributeDefinition & import('react').RefAttributes<unknown>>;
+declare function MantineOptionsView(props: ISelectDefinition & TextViewAttributeDefinition & {
+    ref?: Ref<any>;
+}): import("react/jsx-runtime").JSX.Element;
 export { MantineOptionsView };

@@ -1,44 +1,44 @@
-import { jsx as a, Fragment as g } from "react/jsx-runtime";
-import { Radio as C } from "@mantine/core";
-import { useFieldManager as h, getFieldHandler as F, FieldDecorator as R } from "@palmyralabs/rt-forms";
-import { forwardRef as b, useRef as l, useImperativeHandle as O } from "react";
-import { getFieldLabel as M } from "./util.js";
-const k = b(function(e, o) {
-  const t = h(e.attribute, e), { getError: i, getValue: s, setValue: u, mutateOptions: c, refreshError: L } = t, d = o || l(null), m = i(), f = l(null);
-  O(d, () => ({
-    ...F(t),
+import { jsx as a, Fragment as d } from "react/jsx-runtime";
+import { Radio as m } from "@mantine/core";
+import { useFieldManager as f, getFieldHandler as g, FieldDecorator as C } from "@palmyralabs/rt-forms";
+import { useRef as h, useImperativeHandle as F } from "react";
+import { getFieldLabel as b } from "./util.js";
+function E(e) {
+  const n = f(e.attribute, e), { getError: l, getValue: o, setValue: i, mutateOptions: s, refreshError: O } = n, u = l(), c = h(null);
+  F(e.ref, () => ({
+    ...g(n),
     focus() {
-      f.current.focus();
+      c.current.focus();
     },
-    setOptions(v) {
+    setOptions(R) {
     },
     getOptions() {
     }
-  }), [t]);
-  var r = t.getFieldProps();
-  return r.onChange = (n) => {
-    e.readOnly || (u(n), e.onChange && e.onChange(n));
-  }, r.onBlur = (n) => {
-    e.onBlur && e.onBlur(n);
-  }, /* @__PURE__ */ a(g, { children: !c.visible && /* @__PURE__ */ a(
-    R,
+  }), [n]);
+  var r = n.getFieldProps();
+  return r.onChange = (t) => {
+    e.readOnly || (i(t), e.onChange && e.onChange(t));
+  }, r.onBlur = (t) => {
+    e.onBlur && e.onBlur(t);
+  }, /* @__PURE__ */ a(d, { children: !s.visible && /* @__PURE__ */ a(
+    C,
     {
-      label: M(e),
+      label: b(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        C,
+        m,
         {
-          checked: s(),
+          checked: o(),
           ...r,
-          error: m.message
+          error: u.message
         }
       )
     }
   ) });
-});
+}
 export {
-  k as MantineRadio
+  E as MantineRadio
 };

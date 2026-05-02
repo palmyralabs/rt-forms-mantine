@@ -1,3 +1,6 @@
 import { ApiDataTableOptions, IPageQueryable } from '@palmyralabs/rt-forms';
-declare const ApiDataTable: import('react').ForwardRefExoticComponent<ApiDataTableOptions & import('react').RefAttributes<IPageQueryable>>;
+import { RefObject } from 'react';
+declare function ApiDataTable(props: ApiDataTableOptions & {
+    ref?: RefObject<IPageQueryable>;
+}): import("react/jsx-runtime").JSX.Element;
 export { ApiDataTable };

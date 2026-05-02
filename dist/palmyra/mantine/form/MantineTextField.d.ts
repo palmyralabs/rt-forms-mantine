@@ -1,5 +1,8 @@
 import { TextInputProps } from '@mantine/core';
 import { ITextField } from '@palmyralabs/rt-forms';
+import { Ref } from 'react';
 import { ITextFieldDefinition } from './types';
-declare const MantineTextField: import('react').ForwardRefExoticComponent<ITextFieldDefinition & TextInputProps & import('react').RefAttributes<ITextField>>;
+declare function MantineTextField(props: ITextFieldDefinition & Omit<TextInputProps, 'ref'> & {
+    ref?: Ref<ITextField>;
+}): import("react/jsx-runtime").JSX.Element;
 export { MantineTextField };

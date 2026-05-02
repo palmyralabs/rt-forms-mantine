@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { JSX, RefObject } from 'react';
 interface IDropdownButtonOptions {
     title: string;
     className?: string;
@@ -11,6 +11,8 @@ interface IDropdown {
     open: () => void;
     close: () => void;
 }
-declare const DropdownButton: import('react').ForwardRefExoticComponent<IDropdownButtonOptions & import('react').RefAttributes<IDropdown>>;
+declare function DropdownButton(props: IDropdownButtonOptions & {
+    ref?: RefObject<IDropdown>;
+}): import("react/jsx-runtime").JSX.Element;
 export { DropdownButton };
 export type { IDropdown, IDropdownButtonOptions };

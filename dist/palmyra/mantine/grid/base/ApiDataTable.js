@@ -1,45 +1,45 @@
-import { jsx as p } from "react/jsx-runtime";
-import { NoopGridCustomizer as y, useServerQuery as k, generateColumns as z, EmptyChildTable as w } from "@palmyralabs/rt-forms";
-import { forwardRef as Q, useRef as R, useImperativeHandle as v } from "react";
-import F from "./BaseTable.js";
-import { useLSQueryOptions as d } from "./useLSQueryOptions.js";
-const G = Q(function(s, u) {
-  const { columns: m, EmptyChild: l, lsKey: r } = s, g = l || w, n = s.customizer || y, o = d({ lsKey: r, pageSize: s.pageSize }), P = { ...s.initParams, ...o.getLSOptions() }, a = { ...s, initParams: P }, t = k(a), i = u || R(null);
+import { jsx as y } from "react/jsx-runtime";
+import { NoopGridCustomizer as k, useServerQuery as z, generateColumns as p, EmptyChildTable as Q } from "@palmyralabs/rt-forms";
+import { useRef as R, useImperativeHandle as v } from "react";
+import w from "./BaseTable.js";
+import { useLSQueryOptions as F } from "./useLSQueryOptions.js";
+function A(o) {
+  const { columns: u, EmptyChild: m, lsKey: r } = o, l = m || Q, n = o.customizer || k, s = F({ lsKey: r, pageSize: o.pageSize }), g = { ...o.initParams, ...s.getLSOptions() }, a = { ...o, initParams: g }, t = z(a), P = R(null), i = o.ref ?? P;
   v(i, () => r ? { ...t, setQuickSearch: (e) => {
-    o.setQuickSearch(e), t.setQuickSearch(e);
+    s.setQuickSearch(e), t.setQuickSearch(e);
   }, setFilter: (e) => {
-    o.setFilter(e), t.setFilter(e);
+    s.setFilter(e), t.setFilter(e);
   }, gotoPage: (e) => {
-    o.setPage(e), t.gotoPage(e);
+    s.setPage(e), t.gotoPage(e);
   }, nextPage: () => {
     const e = t.nextPage();
-    return e >= 0 && o.setPage(e), e;
+    return e >= 0 && s.setPage(e), e;
   }, prevPage: () => {
     const e = t.prevPage();
-    return e >= 0 ? o.setPage(e) : o.resetPage(), e;
+    return e >= 0 ? s.setPage(e) : s.resetPage(), e;
   }, setPageSize: (e) => {
-    o.setPageSize(e), t.setPageSize(e);
+    s.setPageSize(e), t.setPageSize(e);
   }, setSortColumns: (e) => {
-    o.setSortColumns(e), t.setSortColumns(e);
+    s.setSortColumns(e), t.setSortColumns(e);
   } } : t, [t]);
-  const S = z(m, n), C = s.onRowClick ? (c) => {
-    s.onRowClick(c);
+  const S = p(u, n), C = o.onRowClick ? (c) => {
+    o.onRowClick(c);
   } : () => {
   }, f = t.getCurrentData(), h = i.current?.setSortColumns || t.setSortColumns;
-  return /* @__PURE__ */ p(
-    F,
+  return /* @__PURE__ */ y(
+    w,
     {
       columnDefs: S,
-      EmptyChild: g,
+      EmptyChild: l,
       customizer: n,
-      showFooter: s.showFooter,
+      showFooter: o.showFooter,
       rowData: f,
       onRowClick: C,
       onColumnSort: h,
       initParams: a.initParams
     }
   );
-});
+}
 export {
-  G as ApiDataTable
+  A as ApiDataTable
 };

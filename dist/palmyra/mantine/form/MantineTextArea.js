@@ -1,46 +1,46 @@
-import { jsx as l, Fragment as b } from "react/jsx-runtime";
-import { Textarea as h } from "@mantine/core";
-import { useFieldManager as F, getFieldHandler as v, FieldDecorator as x } from "@palmyralabs/rt-forms";
-import { forwardRef as M, useRef as u, useImperativeHandle as R } from "react";
-import { getFieldLabel as V } from "./util.js";
-const j = M(function(e, r) {
-  const t = F(e.attribute, e), { getError: i, getValue: s, setValue: c, mutateOptions: f, refreshError: L } = t, m = r || u(null), d = i(), o = u(null), g = e.variant || "default";
-  R(m, () => ({
-    ...v(t),
+import { jsx as n, Fragment as d } from "react/jsx-runtime";
+import { Textarea as g } from "@mantine/core";
+import { useFieldManager as C, getFieldHandler as b, FieldDecorator as h } from "@palmyralabs/rt-forms";
+import { useRef as F, useImperativeHandle as v } from "react";
+import { getFieldLabel as x } from "./util.js";
+function O(e) {
+  const t = C(e.attribute, e), { getError: o, getValue: i, setValue: u, mutateOptions: s, refreshError: V } = t, c = o(), r = F(null), f = e.variant || "default";
+  v(e.ref, () => ({
+    ...b(t),
     focus() {
-      o.current.focus();
+      r.current.focus();
     }
   }), [t]);
-  var n = t.getFieldProps();
-  n.onChange = (a) => {
-    e.readOnly || (c(a.target.value), e.onChange && e.onChange(a));
-  }, n.onBlur = (a) => {
+  var l = t.getFieldProps();
+  l.onChange = (a) => {
+    e.readOnly || (u(a.target.value), e.onChange && e.onChange(a));
+  }, l.onBlur = (a) => {
     e.onBlur && e.onBlur(a);
   };
-  const C = s();
-  return /* @__PURE__ */ l(b, { children: !f.visible && /* @__PURE__ */ l(
-    x,
+  const m = i();
+  return /* @__PURE__ */ n(d, { children: !s.visible && /* @__PURE__ */ n(
+    h,
     {
-      label: V(e),
+      label: x(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ l(
-        h,
+      children: /* @__PURE__ */ n(
+        g,
         {
-          variant: g,
+          variant: f,
           label: e.label,
-          ref: o,
+          ref: r,
           defaultValue: e.defaultValue,
-          ...n,
-          value: C,
-          error: d.message
+          ...l,
+          value: m,
+          error: c.message
         }
       )
     }
   ) });
-});
+}
 export {
-  j as MantineTextArea
+  O as MantineTextArea
 };

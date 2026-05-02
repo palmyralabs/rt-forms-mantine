@@ -1,43 +1,43 @@
-import { jsx as a, Fragment as C } from "react/jsx-runtime";
-import { TimeInput as h } from "@mantine/dates";
-import { useFieldManager as F, getFieldHandler as b, FieldDecorator as v } from "@palmyralabs/rt-forms";
-import { forwardRef as I, useRef as o, useImperativeHandle as M } from "react";
-import { getFieldLabel as R } from "./util.js";
-const P = I(function(e, l) {
-  const n = F(e.attribute, e), { getError: i, getValue: s, setValue: u, mutateOptions: c, refreshError: B } = n, m = l || o(null), f = i(), d = o(null), g = s();
-  M(m, () => ({
-    ...b(n),
+import { jsx as a, Fragment as f } from "react/jsx-runtime";
+import { TimeInput as d } from "@mantine/dates";
+import { useFieldManager as g, getFieldHandler as C, FieldDecorator as h } from "@palmyralabs/rt-forms";
+import { useRef as F, useImperativeHandle as b } from "react";
+import { getFieldLabel as v } from "./util.js";
+function H(e) {
+  const n = g(e.attribute, e), { getError: l, getValue: o, setValue: i, mutateOptions: s, refreshError: y } = n, u = l(), m = F(null), c = o();
+  b(e.ref, () => ({
+    ...C(n),
     focus() {
-      d.current.focus();
+      m.current.focus();
     },
     setCurrent() {
     }
   }), [n]);
-  var { serverPattern: L, ...r } = n.getFieldProps();
+  var { serverPattern: B, ...r } = n.getFieldProps();
   return r.onChange = (t) => {
-    e.readOnly || (u(t.target.value), e.onChange && e.onChange(t));
+    e.readOnly || (i(t.target.value), e.onChange && e.onChange(t));
   }, r.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
-  }, /* @__PURE__ */ a(C, { children: !c.visible && /* @__PURE__ */ a(
-    v,
+  }, /* @__PURE__ */ a(f, { children: !s.visible && /* @__PURE__ */ a(
+    h,
     {
-      label: R(e),
+      label: v(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        h,
+        d,
         {
           ...r,
-          value: g,
+          value: c,
           type: e.type,
-          error: f.message
+          error: u.message
         }
       )
     }
   ) });
-});
+}
 export {
-  P as MantineTimeInput
+  H as MantineTimeInput
 };

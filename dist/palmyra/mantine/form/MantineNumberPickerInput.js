@@ -1,13 +1,13 @@
-import { jsx as r, Fragment as b } from "react/jsx-runtime";
-import { useFieldManager as g, getFieldHandler as C, FieldDecorator as F } from "@palmyralabs/rt-forms";
-import { forwardRef as h, useRef as v, useImperativeHandle as M } from "react";
-import { NumberPickerInput as V } from "./internal/NumberPickerInput.js";
-import { getFieldLabel as B } from "./util.js";
-const E = h(function(e, n) {
-  const a = g(e.attribute, e), { getError: o, getValue: u, setValue: i, mutateOptions: s, refreshError: L } = a, c = n || v(null), m = o(), d = e.variant || "default";
-  var f = u();
-  M(c, () => ({
-    ...C(a),
+import { jsx as r, Fragment as d } from "react/jsx-runtime";
+import { useFieldManager as f, getFieldHandler as b, FieldDecorator as g } from "@palmyralabs/rt-forms";
+import { useImperativeHandle as C } from "react";
+import { NumberPickerInput as h } from "./internal/NumberPickerInput.js";
+import { getFieldLabel as F } from "./util.js";
+function P(e) {
+  const a = f(e.attribute, e), { getError: n, getValue: o, setValue: i, mutateOptions: u, refreshError: v } = a, s = n(), c = e.variant || "default";
+  var m = o();
+  C(e.ref, () => ({
+    ...b(a),
     focus() {
     }
   }), [a]);
@@ -16,29 +16,29 @@ const E = h(function(e, n) {
     i(l);
   }, t.onBlur = (l) => {
     e.onBlur && e.onBlur(l);
-  }, /* @__PURE__ */ r(b, { children: !s.visible && /* @__PURE__ */ r(
-    F,
+  }, /* @__PURE__ */ r(d, { children: !u.visible && /* @__PURE__ */ r(
+    g,
     {
-      label: B(e),
+      label: F(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ r(
-        V,
+        h,
         {
           defaultValue: e.defaultValue,
           label: e.label,
-          variant: d,
+          variant: c,
           ...t,
           placeholder: e.placeholder,
-          value: f,
-          error: m.message
+          value: m,
+          error: s.message
         }
       )
     }
   ) });
-});
+}
 export {
-  E as MantineNumberPickerInput
+  P as MantineNumberPickerInput
 };

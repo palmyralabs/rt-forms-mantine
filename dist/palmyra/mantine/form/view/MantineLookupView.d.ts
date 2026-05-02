@@ -1,3 +1,6 @@
+import { Ref } from 'react';
 import { ILookupViewOptions, TextViewAttributeDefinition } from '../types';
-declare const MantineLookupView: import('react').ForwardRefExoticComponent<ILookupViewOptions & TextViewAttributeDefinition & import('react').RefAttributes<unknown>>;
+declare function MantineLookupView(props: ILookupViewOptions & TextViewAttributeDefinition & {
+    ref?: Ref<any>;
+}): import("react/jsx-runtime").JSX.Element;
 export { MantineLookupView };

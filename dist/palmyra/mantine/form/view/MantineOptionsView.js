@@ -1,35 +1,35 @@
-import { jsx as t, Fragment as m, jsxs as r } from "react/jsx-runtime";
-import { forwardRef as d, useRef as u, useImperativeHandle as f } from "react";
+import { jsx as t, Fragment as c, jsxs as m } from "react/jsx-runtime";
+import { useImperativeHandle as d } from "react";
 import '../../../../assets/TextView.css';/* empty css                          */
-import { useFieldManager as v, FieldDecorator as b } from "@palmyralabs/rt-forms";
-import { getFieldLabel as C } from "../util.js";
-import { getVariantClassName as c } from "./variantClassName.js";
-const V = d(function(e, i) {
-  const a = v(e.attribute, e), o = i || u(null), n = e.textAlign || "left", s = e.variant || "standard", { getValue: l } = a;
-  return f(o, () => ({
+import { useFieldManager as o, FieldDecorator as r } from "@palmyralabs/rt-forms";
+import { getFieldLabel as u } from "../util.js";
+import { getVariantClassName as s } from "./variantClassName.js";
+function x(e) {
+  const a = o(e.attribute, e), i = e.textAlign || "left", n = e.variant || "standard", { getValue: l } = a;
+  return d(e.ref, () => ({
     getValue: l
-  }), [a]), /* @__PURE__ */ t(m, { children: !a.mutateOptions.visible && /* @__PURE__ */ t(
-    b,
+  }), [a]), /* @__PURE__ */ t(c, { children: !a.mutateOptions.visible && /* @__PURE__ */ t(
+    r,
     {
-      label: C(e),
+      label: u(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: e.label ? /* @__PURE__ */ r("div", { className: "text-view-field-container", children: [
+      children: e.label ? /* @__PURE__ */ m("div", { className: "text-view-field-container", children: [
         /* @__PURE__ */ t("div", { className: "text-view-label", children: e.label }),
         /* @__PURE__ */ t(
           "div",
           {
-            style: { textAlign: n },
-            className: c(s, e.label),
+            style: { textAlign: i },
+            className: s(n, e.label),
             children: e.options[l()] || "--"
           }
         )
-      ] }) : /* @__PURE__ */ t("div", { style: { textAlign: n }, children: /* @__PURE__ */ t("div", { className: c(s, e.title), children: e.options[l()] || "--" }) })
+      ] }) : /* @__PURE__ */ t("div", { style: { textAlign: i }, children: /* @__PURE__ */ t("div", { className: s(n, e.title), children: e.options[l()] || "--" }) })
     }
   ) });
-});
+}
 export {
-  V as MantineOptionsView
+  x as MantineOptionsView
 };

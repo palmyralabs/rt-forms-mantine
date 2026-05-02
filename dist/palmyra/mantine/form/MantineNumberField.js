@@ -1,46 +1,46 @@
-import { jsx as n, Fragment as C } from "react/jsx-runtime";
-import { NumberInput as h } from "@mantine/core";
-import { useFieldManager as F, getFieldHandler as v, FieldDecorator as M } from "@palmyralabs/rt-forms";
-import { forwardRef as R, useRef as u, useImperativeHandle as V } from "react";
-import { getFieldLabel as B } from "./util.js";
-const j = R(function(e, r) {
-  const a = F(e.attribute, e), { getError: i, getValue: s, setValue: c, mutateOptions: d, refreshError: N } = a, m = r || u(null), f = i(), o = u(null), g = e.variant || "default";
-  var b = s();
-  V(m, () => ({
-    ...v(a),
+import { jsx as n, Fragment as f } from "react/jsx-runtime";
+import { NumberInput as g } from "@mantine/core";
+import { useFieldManager as C, getFieldHandler as b, FieldDecorator as h } from "@palmyralabs/rt-forms";
+import { useRef as F, useImperativeHandle as v } from "react";
+import { getFieldLabel as V } from "./util.js";
+function I(e) {
+  const l = C(e.attribute, e), { getError: u, getValue: i, setValue: o, mutateOptions: s, refreshError: B } = l, c = u(), r = F(null), m = e.variant || "default";
+  var d = i();
+  v(e.ref, () => ({
+    ...b(l),
     focus() {
-      o.current.focus();
+      r.current.focus();
     }
-  }), [a]);
-  var t = a.getFieldProps();
-  return t.onChange = (l) => {
-    e.readOnly || (c(l), e.onChange && e.onChange(l));
-  }, t.onBlur = (l) => {
-    e.onBlur && e.onBlur(l);
-  }, /* @__PURE__ */ n(C, { children: !d.visible && /* @__PURE__ */ n(
-    M,
+  }), [l]);
+  var t = l.getFieldProps();
+  return t.onChange = (a) => {
+    e.readOnly || (o(a), e.onChange && e.onChange(a));
+  }, t.onBlur = (a) => {
+    e.onBlur && e.onBlur(a);
+  }, /* @__PURE__ */ n(f, { children: !s.visible && /* @__PURE__ */ n(
+    h,
     {
-      label: B(e),
+      label: V(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ n(
-        h,
+        g,
         {
           defaultValue: e.defaultValue,
           label: e.label,
-          variant: g,
-          ref: o,
+          variant: m,
+          ref: r,
           ...t,
           placeholder: e.placeholder,
-          value: b,
-          error: f.message
+          value: d,
+          error: c.message
         }
       )
     }
   ) });
-});
+}
 export {
-  j as MantineNumberField
+  I as MantineNumberField
 };

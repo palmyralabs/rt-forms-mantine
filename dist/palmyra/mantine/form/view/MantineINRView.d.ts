@@ -1,4 +1,5 @@
 import { ITextField } from '@palmyralabs/rt-forms';
+import { Ref } from 'react';
 import { ITextFieldDefinition } from '../types';
 interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center';
@@ -6,5 +7,7 @@ interface TextViewAttributeDefinition {
     valueFormat?: 'amount' | 'number' | 'text' | 'percentage';
     maxFraction?: number;
 }
-declare const MantineINRView: import('react').ForwardRefExoticComponent<ITextFieldDefinition & TextViewAttributeDefinition & import('react').RefAttributes<ITextField>>;
+declare function MantineINRView(props: ITextFieldDefinition & TextViewAttributeDefinition & {
+    ref?: Ref<ITextField>;
+}): import("react/jsx-runtime").JSX.Element;
 export { MantineINRView };

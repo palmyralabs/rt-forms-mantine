@@ -1,5 +1,8 @@
 import { DatePickerInputProps } from '@mantine/dates';
 import { IDateField } from '@palmyralabs/rt-forms';
+import { Ref } from 'react';
 import { IDatePickerDefinition } from './types';
-declare const MantineDatePickerInput: import('react').ForwardRefExoticComponent<Omit<IDatePickerDefinition, "displayPattern"> & Omit<DatePickerInputProps<"default">, "defaultValue"> & import('react').RefAttributes<IDateField>>;
+declare function MantineDatePickerInput(props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DatePickerInputProps, 'defaultValue' | 'ref'> & {
+    ref?: Ref<IDateField>;
+}): import("react/jsx-runtime").JSX.Element;
 export { MantineDatePickerInput };

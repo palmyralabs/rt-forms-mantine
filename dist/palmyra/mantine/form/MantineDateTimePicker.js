@@ -1,50 +1,50 @@
-import { jsx as a, Fragment as b } from "react/jsx-runtime";
-import { DateTimePicker as v } from "@mantine/dates";
-import { useFieldManager as D, getFieldHandler as M, FieldDecorator as R } from "@palmyralabs/rt-forms";
-import T from "dayjs";
-import { forwardRef as V, useRef as l, useImperativeHandle as k } from "react";
-import { getDefaultDateTimePattern as y } from "./DateUtils.js";
-import { getFieldLabel as B } from "./util.js";
-const z = V(function(e, o) {
-  const s = e.valueFormat || e.serverPattern || y(), u = (t) => {
+import { jsx as a, Fragment as F } from "react/jsx-runtime";
+import { DateTimePicker as h } from "@mantine/dates";
+import { useFieldManager as b, getFieldHandler as v, FieldDecorator as P } from "@palmyralabs/rt-forms";
+import D from "dayjs";
+import { useRef as V, useImperativeHandle as y } from "react";
+import { getDefaultDateTimePattern as B } from "./DateUtils.js";
+import { getFieldLabel as L } from "./util.js";
+function R(e) {
+  const o = e.valueFormat || e.serverPattern || B(), i = (t) => {
     if (t)
-      return T(t, i);
-  }, m = (t) => t && t.isValid && t.isValid() ? t.format(i) : null, r = D(e.attribute, e, { format: m, parse: u }), { getError: c, getValue: f, setValue: d, mutateOptions: g, refreshError: j } = r, C = o || l(null), F = c(), h = l(null);
-  k(C, () => ({
-    ...M(r),
+      return D(t, l);
+  }, s = (t) => t && t.isValid && t.isValid() ? t.format(l) : null, r = b(e.attribute, e, { format: s, parse: i }), { getError: u, getValue: m, setValue: c, mutateOptions: f, refreshError: M } = r, d = u(), g = V(null);
+  y(e.ref, () => ({
+    ...v(r),
     focus() {
-      h.current.focus();
+      g.current.focus();
     },
     setCurrent() {
     }
   }), [r]);
-  var { serverPattern: i, ...n } = r.getFieldProps();
+  var { serverPattern: l, ...n } = r.getFieldProps();
   n.onChange = (t) => {
-    e.readOnly || (d(t), e.onChange && e.onChange(t));
+    e.readOnly || (c(t), e.onChange && e.onChange(t));
   }, n.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
   };
-  const P = f();
-  return /* @__PURE__ */ a(b, { children: !g.visible && /* @__PURE__ */ a(
-    R,
+  const C = m();
+  return /* @__PURE__ */ a(F, { children: !f.visible && /* @__PURE__ */ a(
+    P,
     {
-      label: B(e),
+      label: L(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        v,
+        h,
         {
           ...n,
-          value: P,
-          valueFormat: s,
-          error: F.message
+          value: C,
+          valueFormat: o,
+          error: d.message
         }
       )
     }
   ) });
-});
+}
 export {
-  z as MantineDateTimePicker
+  R as MantineDateTimePicker
 };

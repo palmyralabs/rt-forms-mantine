@@ -1,25 +1,25 @@
-import { jsx as a, Fragment as h } from "react/jsx-runtime";
-import { ColorInput as b } from "@mantine/core";
-import { useFieldManager as F, getFieldHandler as v, FieldDecorator as I } from "@palmyralabs/rt-forms";
-import { forwardRef as M, useRef as i, useImperativeHandle as R } from "react";
+import { jsx as a, Fragment as f } from "react/jsx-runtime";
+import { ColorInput as C } from "@mantine/core";
+import { useFieldManager as g, getFieldHandler as h, FieldDecorator as b } from "@palmyralabs/rt-forms";
+import { useRef as F, useImperativeHandle as v } from "react";
 import { getFieldLabel as B } from "./util.js";
-const w = M(function(e, r) {
-  const t = F(e.attribute, e), { getError: u, getValue: s, setValue: c, mutateOptions: m, refreshError: x } = t, d = r || i(null), f = u(), o = i(null), C = e.variant || "default";
-  R(d, () => ({
-    ...v(t),
+function O(e) {
+  const t = g(e.attribute, e), { getError: o, getValue: i, setValue: u, mutateOptions: s, refreshError: I } = t, c = o(), r = F(null), m = e.variant || "default";
+  v(e.ref, () => ({
+    ...h(t),
     focus() {
-      o.current.focus();
+      r.current.focus();
     }
   }), [t]);
-  var l = t.getFieldProps();
-  l.onChange = (n) => {
-    e.readOnly || (c(n), e.onChange && e.onChange(n));
-  }, l.onBlur = (n) => {
-    e.onBlur && e.onBlur(n);
+  var n = t.getFieldProps();
+  n.onChange = (l) => {
+    e.readOnly || (u(l), e.onChange && e.onChange(l));
+  }, n.onBlur = (l) => {
+    e.onBlur && e.onBlur(l);
   };
-  const g = s();
-  return /* @__PURE__ */ a(h, { children: !m.visible && /* @__PURE__ */ a(
-    I,
+  const d = i();
+  return /* @__PURE__ */ a(f, { children: !s.visible && /* @__PURE__ */ a(
+    b,
     {
       label: B(e),
       customContainerClass: e.customContainerClass,
@@ -27,20 +27,20 @@ const w = M(function(e, r) {
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
       children: /* @__PURE__ */ a(
-        b,
+        C,
         {
           label: e.label,
-          variant: C,
-          ref: o,
-          ...l,
-          value: g,
+          variant: m,
+          ref: r,
+          ...n,
+          value: d,
           placeholder: e.placeholder,
-          error: f.message
+          error: c.message
         }
       )
     }
   ) });
-});
+}
 export {
-  w as MantineColorInput
+  O as MantineColorInput
 };

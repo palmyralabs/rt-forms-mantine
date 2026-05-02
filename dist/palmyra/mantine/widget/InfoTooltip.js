@@ -1,4 +1,4 @@
-import { jsxs as c, jsx as r, Fragment as a } from "react/jsx-runtime";
+import { jsx as r, jsxs as c, Fragment as a } from "react/jsx-runtime";
 import { Tooltip as o } from "@mantine/core";
 import { G as i } from "../../../chunks/iconBase.js";
 function s(e) {

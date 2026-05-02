@@ -1,65 +1,65 @@
-import { jsx as o, Fragment as w } from "react/jsx-runtime";
-import { useServerAutoComplete as M, getFieldHandler as S, FieldDecorator as A } from "@palmyralabs/rt-forms";
-import { delayGenerator as D } from "@palmyralabs/ts-utils";
-import { forwardRef as L, useRef as i, useImperativeHandle as R } from "react";
-import { a as V } from "../../../chunks/index.js";
-import { MantineAutoComplete as x } from "./internal/MantineAutoComplete.js";
-import { getFieldLabel as k } from "./util.js";
-const z = L(function(e, a) {
-  const r = D(e.queryOptions.delay || 250), u = i(null), t = M(e.attribute, e), {
-    getError: m,
-    getValue: d,
-    setValue: l,
-    options: C,
-    getFieldProps: f,
-    setSearchText: g,
-    refreshOptions: h,
-    getOptionValue: F
-  } = t, b = m(), v = a || i(null), s = d(), y = s || "";
-  R(v, () => ({
-    ...S(t),
+import { jsx as n, Fragment as y } from "react/jsx-runtime";
+import { useServerAutoComplete as O, getFieldHandler as v, FieldDecorator as w } from "@palmyralabs/rt-forms";
+import { delayGenerator as A } from "@palmyralabs/ts-utils";
+import { useRef as D, useImperativeHandle as M } from "react";
+import { a as S } from "../../../chunks/index.js";
+import { MantineAutoComplete as V } from "./internal/MantineAutoComplete.js";
+import { getFieldLabel as x } from "./util.js";
+function E(e) {
+  const a = A(e.queryOptions.delay || 250), i = D(null), o = O(e.attribute, e), {
+    getError: c,
+    getValue: u,
+    setValue: r,
+    options: m,
+    getFieldProps: d,
+    setSearchText: C,
+    refreshOptions: g,
+    getOptionValue: f
+  } = o, h = c(), l = u(), F = l || "";
+  M(e.ref, () => ({
+    ...v(o),
     focus() {
-      u.current.focus();
+      i.current.focus();
     }
-  }), [t]);
-  const O = {
-    onValueChange: (n, c) => {
-      l(c), e.onChange && e.onChange(c, n);
+  }), [o]);
+  const b = {
+    onValueChange: (t, s) => {
+      r(s), e.onChange && e.onChange(s, t);
     },
-    onChange: (n) => {
-      r(g, n), l(n), e.onChange && e.onChange(n);
+    onChange: (t) => {
+      a(C, t), r(t), e.onChange && e.onChange(t);
     },
     onDropdownOpen: () => {
-      r(h);
+      a(g);
     },
     onDropdownClose: () => {
     }
   };
-  return /* @__PURE__ */ o(w, { children: /* @__PURE__ */ o(
-    A,
+  return /* @__PURE__ */ n(y, { children: /* @__PURE__ */ n(
+    w,
     {
-      label: k(e),
+      label: x(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ o(
-        x,
+      children: /* @__PURE__ */ n(
+        V,
         {
           readOnly: e.readOnly,
-          ...f(),
-          value: y,
-          rightSection: /* @__PURE__ */ o(V, {}),
-          data: C,
-          getOptionValue: F,
+          ...d(),
+          value: F,
+          rightSection: /* @__PURE__ */ n(S, {}),
+          data: m,
+          getOptionValue: f,
           label: e.label,
-          error: b.message,
-          ...O
+          error: h.message,
+          ...b
         }
       )
     }
   ) });
-});
+}
 export {
-  z as MantineServerAutoComplete
+  E as MantineServerAutoComplete
 };

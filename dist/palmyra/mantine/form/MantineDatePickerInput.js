@@ -1,51 +1,51 @@
-import { jsx as r, Fragment as I } from "react/jsx-runtime";
-import { DatePickerInput as R } from "@mantine/dates";
-import { useFieldManager as M, getFieldHandler as k, FieldDecorator as B } from "@palmyralabs/rt-forms";
-import o from "dayjs";
-import { forwardRef as L, useRef as s, useImperativeHandle as S } from "react";
-import { F as V } from "../../../chunks/index3.js";
-import { getDefaultDatePattern as j, DateUtils as x } from "./DateUtils.js";
-import { getFieldLabel as E } from "./util.js";
-const Q = L(function(e, i) {
-  const c = e.valueFormat || j(), u = e.type, { parse: m, format: f, revert: d } = x(e), a = M(e.attribute, e, { format: f, parse: m }), { getError: g, getValue: C, setValue: n, mutateOptions: F, refreshError: O } = a, h = i || s(null), v = g(), b = C(), y = s(null);
-  S(h, () => ({
-    ...k(a),
+import { jsx as n, Fragment as y } from "react/jsx-runtime";
+import { DatePickerInput as D } from "@mantine/dates";
+import { useFieldManager as P, getFieldHandler as I, FieldDecorator as B } from "@palmyralabs/rt-forms";
+import i from "dayjs";
+import { useRef as L, useImperativeHandle as M } from "react";
+import { F as R } from "../../../chunks/index3.js";
+import { getDefaultDatePattern as S, DateUtils as V } from "./DateUtils.js";
+import { getFieldLabel as j } from "./util.js";
+function G(e) {
+  const o = e.valueFormat || S(), s = e.type, { parse: u, format: c, revert: m } = V(e), a = P(e.attribute, e, { format: c, parse: u }), { getError: f, getValue: g, setValue: r, mutateOptions: d, refreshError: k } = a, C = f(), F = g(), h = L(null);
+  M(e.ref, () => ({
+    ...I(a),
     focus() {
-      y.current.focus();
+      h.current.focus();
     },
     setCurrent() {
     }
   }), [a]);
-  var { serverPattern: w, ...l } = a.getFieldProps();
+  var { serverPattern: x, ...l } = a.getFieldProps();
   l.onChange = (t) => {
-    e.readOnly || (u == "range" ? n(t ? [o(t[0]), o(t[1])] : void 0) : n(t ? o(t) : void 0), e.onChange && e.onChange(t));
+    e.readOnly || (s == "range" ? r(t ? [i(t[0]), i(t[1])] : void 0) : r(t ? i(t) : void 0), e.onChange && e.onChange(t));
   }, l.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
   };
-  const D = d(b), P = e.rightSection ? e.rightSection : /* @__PURE__ */ r(V, {});
-  return /* @__PURE__ */ r(I, { children: !F.visible && /* @__PURE__ */ r(
+  const v = m(F), b = e.rightSection ? e.rightSection : /* @__PURE__ */ n(R, {});
+  return /* @__PURE__ */ n(y, { children: !d.visible && /* @__PURE__ */ n(
     B,
     {
-      label: E(e),
+      label: j(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ r(
-        R,
+      children: /* @__PURE__ */ n(
+        D,
         {
           ...l,
-          value: D,
+          value: v,
           type: e.type,
-          valueFormat: c,
-          error: v.message,
+          valueFormat: o,
+          error: C.message,
           label: e.label,
-          rightSection: P
+          rightSection: b
         }
       )
     }
   ) });
-});
+}
 export {
-  Q as MantineDatePickerInput
+  G as MantineDatePickerInput
 };

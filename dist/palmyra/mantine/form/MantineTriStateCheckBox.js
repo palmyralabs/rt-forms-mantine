@@ -1,37 +1,37 @@
-import { jsx as r, Fragment as C } from "react/jsx-runtime";
-import { useFieldManager as h, getFieldHandler as F, FieldDecorator as b } from "@palmyralabs/rt-forms";
-import { forwardRef as B, useRef as c, useImperativeHandle as k } from "react";
-import { TriStateCheckBox as v } from "../ext/TriStateCheckBox.js";
-import { getFieldLabel as x } from "./util.js";
-const V = B(function(e, a) {
-  const n = h(e.attribute, e), { getError: s, getValue: o, setValue: u, mutateOptions: m, refreshError: O } = n, d = a || c(null), f = o() ? o() : void 0, l = c(null), g = s();
-  k(d, () => ({
-    ...F(n),
+import { jsx as n, Fragment as d } from "react/jsx-runtime";
+import { useFieldManager as f, getFieldHandler as g, FieldDecorator as C } from "@palmyralabs/rt-forms";
+import { useRef as h, useImperativeHandle as F } from "react";
+import { TriStateCheckBox as b } from "../ext/TriStateCheckBox.js";
+import { getFieldLabel as v } from "./util.js";
+function E(e) {
+  const r = f(e.attribute, e), { getError: i, getValue: a, setValue: s, mutateOptions: c, refreshError: B } = r, u = a() ? a() : void 0, o = h(null), m = i();
+  F(e.ref, () => ({
+    ...g(r),
     focus() {
-      l.current.checked = !0, l.current.focus();
+      o.current.checked = !0, o.current.focus();
     },
-    setOptions(R) {
+    setOptions(k) {
     },
     getOptions() {
     }
-  }), [n]);
-  var i = n.getFieldProps();
-  return i.onChange = (t) => {
-    e.readOnly || (u(t), e.onChange && e.onChange(t.currentTarget.checked));
-  }, i.onBlur = (t) => {
+  }), [r]);
+  var l = r.getFieldProps();
+  return l.onChange = (t) => {
+    e.readOnly || (s(t), e.onChange && e.onChange(t.currentTarget.checked));
+  }, l.onBlur = (t) => {
     e.onBlur && e.onBlur(t);
-  }, /* @__PURE__ */ r(C, { children: !m.visible && /* @__PURE__ */ r(
-    b,
+  }, /* @__PURE__ */ n(d, { children: !c.visible && /* @__PURE__ */ n(
+    C,
     {
-      label: x(e),
+      label: v(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ r(v, { value: f, error: g.message, ...e })
+      children: /* @__PURE__ */ n(b, { value: u, error: m.message, ...e })
     }
   ) });
-});
+}
 export {
-  V as MantineTriStateCheckBox
+  E as MantineTriStateCheckBox
 };

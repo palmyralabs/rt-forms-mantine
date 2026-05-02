@@ -1,54 +1,54 @@
-import { jsx as a, Fragment as v, jsxs as x } from "react/jsx-runtime";
-import { RangeSlider as M } from "@mantine/core";
-import { useFieldManager as O, getFieldHandler as B, FieldDecorator as L } from "@palmyralabs/rt-forms";
-import { forwardRef as S, useRef as s, useImperativeHandle as j } from "react";
-import { getFieldLabel as y } from "./util.js";
-const P = S(function(e, i) {
-  const l = e.min || 0, c = e.max || 100, u = (n) => n || [l, l + 1], m = (n) => n, t = O(e.attribute, e, { format: m, parse: u }), { getError: d, getValue: f, setValue: g, mutateOptions: C, refreshError: E } = t, b = i || s(null), h = d(), F = e.label || "", o = s(null);
-  j(b, () => ({
-    ...B(t),
+import { jsx as a, Fragment as h, jsxs as F } from "react/jsx-runtime";
+import { RangeSlider as v } from "@mantine/core";
+import { useFieldManager as x, getFieldHandler as O, FieldDecorator as R } from "@palmyralabs/rt-forms";
+import { useRef as B, useImperativeHandle as L } from "react";
+import { getFieldLabel as M } from "./util.js";
+function A(e) {
+  const l = e.min || 0, o = e.max || 100, s = (n) => n || [l, l + 1], u = (n) => n, t = x(e.attribute, e, { format: u, parse: s }), { getError: c, getValue: m, setValue: d, mutateOptions: f, refreshError: j } = t, g = c(), C = e.label || "", i = B(null);
+  L(e.ref, () => ({
+    ...O(t),
     focus() {
-      o.current.focus();
+      i.current.focus();
     },
     getOptions() {
     },
-    setOptions(H) {
+    setOptions(y) {
     }
   }), [t]);
   var r = t.getFieldProps();
   r.onChange = (n) => {
-    e.readOnly || (g(n), e.onChange && e.onChange(n));
+    e.readOnly || (d(n), e.onChange && e.onChange(n));
   }, r.onBlur = (n) => {
     e.onBlur && e.onBlur(n);
   };
-  var R = f();
-  return /* @__PURE__ */ a(v, { children: !C.visible && /* @__PURE__ */ a(
-    L,
+  var b = m();
+  return /* @__PURE__ */ a(h, { children: !f.visible && /* @__PURE__ */ a(
+    R,
     {
-      label: y(e),
+      label: M(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ x("div", { style: { width: "100%", textAlign: "center" }, children: [
-        F,
+      children: /* @__PURE__ */ F("div", { style: { width: "100%", textAlign: "center" }, children: [
+        C,
         /* @__PURE__ */ a(
-          M,
+          v,
           {
             ...r,
-            ref: o,
-            value: R,
+            ref: i,
+            value: b,
             label: e.labelName,
             min: l,
-            max: c,
+            max: o,
             size: e.size,
-            error: h.message
+            error: g.message
           }
         )
       ] })
     }
   ) });
-});
+}
 export {
-  P as MantineRangeSlider
+  A as MantineRangeSlider
 };

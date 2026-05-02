@@ -1,10 +1,10 @@
-import { jsx as o, Fragment as d, jsxs as f } from "react/jsx-runtime";
-import { Popover as r, Button as p } from "@mantine/core";
-import { forwardRef as u, useState as w, useRef as h, useImperativeHandle as b } from "react";
-import { M as x } from "../../../chunks/index5.js";
-import '../../../assets/DropdownButton.css';const S = u(function(e, i) {
-  const [n, t] = w(!1), s = i || h(null), l = e.className || "py-dropdown-button";
-  b(s, () => ({
+import { jsx as e, Fragment as d, jsxs as c } from "react/jsx-runtime";
+import { Popover as r, Button as m } from "@mantine/core";
+import { useState as f, useImperativeHandle as w } from "react";
+import { M as h } from "../../../chunks/index6.js";
+import '../../../assets/DropdownButton.css';function A(o) {
+  const [n, t] = f(!1), i = o.className || "py-dropdown-button";
+  w(o.ref, () => ({
     open() {
       t(!0);
     },
@@ -12,41 +12,41 @@ import '../../../assets/DropdownButton.css';const S = u(function(e, i) {
       t(!1);
     }
   }), []);
-  const a = e.PrefixAdornment || /* @__PURE__ */ o(d, {}), c = /* @__PURE__ */ o(
-    x,
+  const a = o.PrefixAdornment || /* @__PURE__ */ e(d, {}), l = /* @__PURE__ */ e(
+    h,
     {
       className: `py-dropdown-button-arrow ${n ? "open" : ""} `
     }
-  ), m = () => {
+  ), s = () => {
     t(!n);
   };
-  return /* @__PURE__ */ o(d, { children: /* @__PURE__ */ f(
+  return /* @__PURE__ */ e(d, { children: /* @__PURE__ */ c(
     r,
     {
       withArrow: !0,
       shadow: "md",
       position: "bottom-end",
-      width: e.width,
+      width: o.width,
       opened: n,
-      onChange: m,
+      onChange: s,
       children: [
-        /* @__PURE__ */ o(r.Target, { children: /* @__PURE__ */ o(
-          p,
+        /* @__PURE__ */ e(r.Target, { children: /* @__PURE__ */ e(
+          m,
           {
-            className: l,
-            disabled: e.disabled,
+            className: i,
+            disabled: o.disabled,
             fullWidth: !1,
-            rightSection: c,
+            rightSection: l,
             leftSection: a,
             onClick: () => t(!n),
-            children: /* @__PURE__ */ o("span", { children: e.title })
+            children: /* @__PURE__ */ e("span", { children: o.title })
           }
         ) }),
-        /* @__PURE__ */ o(r.Dropdown, { className: "py-popover-dropdown", children: e.children })
+        /* @__PURE__ */ e(r.Dropdown, { className: "py-popover-dropdown", children: o.children })
       ]
     }
   ) });
-});
+}
 export {
-  S as DropdownButton
+  A as DropdownButton
 };

@@ -1,22 +1,22 @@
-import { jsx as c, Fragment as u } from "react/jsx-runtime";
-import { topic as e } from "@palmyralabs/ts-utils";
-import { forwardRef as m, useRef as l, useEffect as a } from "react";
+import { jsx as n, Fragment as u } from "react/jsx-runtime";
+import { topic as t } from "@palmyralabs/ts-utils";
+import { useRef as l, useEffect as m } from "react";
 import { GridX as b } from "./GridX.js";
-const g = m(function(t, f) {
-  const i = t.topic, r = f || l(null);
-  return a(() => {
-    if (t.topic) {
-      const n = e.subscribe(i + "/refresh", () => {
+function g(e) {
+  const i = e.topic, c = l(null), r = e.ref ?? c;
+  return m(() => {
+    if (e.topic) {
+      const f = t.subscribe(i + "/refresh", () => {
         r.current && r.current.refresh();
-      }), o = e.subscribe(i + "/filter", (p, s) => {
+      }), o = t.subscribe(i + "/filter", (a, s) => {
         r.current && r.current.setFilter(s);
       });
       return () => {
-        e.unsubscribe(n), e.unsubscribe(o);
+        t.unsubscribe(f), t.unsubscribe(o);
       };
     }
-  }, [i]), /* @__PURE__ */ c(u, { children: /* @__PURE__ */ c(b, { ...t, ref: r }) });
-});
+  }, [i]), /* @__PURE__ */ n(u, { children: /* @__PURE__ */ n(b, { ...e, ref: r }) });
+}
 export {
   g as PalmyraGrid
 };

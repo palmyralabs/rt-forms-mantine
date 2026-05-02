@@ -1,3 +1,6 @@
 import { IPageQueryable, StaticGridOptions } from '@palmyralabs/rt-forms';
-declare const StaticGrid: import('react').ForwardRefExoticComponent<StaticGridOptions & import('react').RefAttributes<IPageQueryable>>;
+import { RefObject } from 'react';
+declare function StaticGrid(props: StaticGridOptions & {
+    ref?: RefObject<IPageQueryable>;
+}): import("react/jsx-runtime").JSX.Element;
 export { StaticGrid };

@@ -1,7 +1,9 @@
 import { AutocompleteProps } from '@mantine/core';
 import { IServerLookupField } from '@palmyralabs/rt-forms';
+import { Ref } from 'react';
 import { IServerAutoCompleteDefinition } from './types';
-declare const MantineServerAutoComplete: import('react').ForwardRefExoticComponent<IServerAutoCompleteDefinition & AutocompleteProps & {
+declare function MantineServerAutoComplete(props: IServerAutoCompleteDefinition & Omit<AutocompleteProps, 'ref'> & {
     onChange?: (value: string, data?: any) => void;
-} & import('react').RefAttributes<IServerLookupField>>;
+    ref?: Ref<IServerLookupField>;
+}): import("react/jsx-runtime").JSX.Element;
 export { MantineServerAutoComplete };

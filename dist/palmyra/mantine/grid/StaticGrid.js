@@ -1,24 +1,23 @@
 import { jsx as a } from "react/jsx-runtime";
-import { NoopGridCustomizer as C, generateColumns as s, EmptyChildTable as d } from "@palmyralabs/rt-forms";
-import { forwardRef as u } from "react";
-import f from "./base/BaseTable.js";
-const S = u(function(o, h) {
-  const { columns: n, EmptyChild: i } = o, r = i || d, t = o.customizer || C, m = s(n, t), c = o.onRowClick ? (l) => {
-    o.onRowClick(l);
+import { NoopGridCustomizer as C, generateColumns as s, EmptyChildTable as u } from "@palmyralabs/rt-forms";
+import d from "./base/BaseTable.js";
+function k(o) {
+  const { columns: n, EmptyChild: i } = o, m = i || u, t = o.customizer || C, c = s(n, t), l = o.onRowClick ? (r) => {
+    o.onRowClick(r);
   } : () => {
   }, e = o.rowData;
   return /* @__PURE__ */ a(
-    f,
+    d,
     {
-      columnDefs: m,
-      EmptyChild: r,
+      columnDefs: c,
+      EmptyChild: m,
       customizer: t,
       rowData: e,
-      onRowClick: c,
+      onRowClick: l,
       onColumnSort: o.setSortColumns
     }
   );
-});
+}
 export {
-  S as StaticGrid
+  k as StaticGrid
 };

@@ -1,36 +1,36 @@
-import { jsx as t, Fragment as r, jsxs as c } from "react/jsx-runtime";
-import { useFieldManager as h, getFieldHandler as x, FieldDecorator as b } from "@palmyralabs/rt-forms";
-import { forwardRef as C, useRef as d, useImperativeHandle as F } from "react";
-import { getFieldLabel as w } from "../util.js";
-import { getVariantClassName as o } from "./variantClassName.js";
-const j = C(function(e, a) {
-  const l = h(e.attribute, e), { getValue: n, mutateOptions: m } = l, u = a || d(null), f = e.textAlign || "left", v = e.viewType || "normal", g = d(null), i = e.variant || "standard";
-  F(u, () => ({
-    ...x(l),
+import { jsx as t, Fragment as s, jsxs as r } from "react/jsx-runtime";
+import { useFieldManager as f, getFieldHandler as v, FieldDecorator as g } from "@palmyralabs/rt-forms";
+import { useRef as h, useImperativeHandle as b } from "react";
+import { getFieldLabel as x } from "../util.js";
+import { getVariantClassName as c } from "./variantClassName.js";
+function M(e) {
+  const l = f(e.attribute, e), { getValue: a, mutateOptions: d } = l, m = e.textAlign || "left", o = e.viewType || "normal", u = h(null), i = e.variant || "standard";
+  b(e.ref, () => ({
+    ...v(l),
     focus() {
-      g.current.focus();
+      u.current.focus();
     }
   }), [l]);
-  var { textAlign: A, ...s } = l.getFieldProps();
-  return /* @__PURE__ */ t(r, { children: !m.visible && /* @__PURE__ */ t(
-    b,
+  var { textAlign: C, ...n } = l.getFieldProps();
+  return /* @__PURE__ */ t(s, { children: !d.visible && /* @__PURE__ */ t(
+    g,
     {
-      label: w(e),
+      label: x(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: e.label ? /* @__PURE__ */ c("div", { ...s, className: "text-view-field-container", children: [
+      children: e.label ? /* @__PURE__ */ r("div", { ...n, className: "text-view-field-container", children: [
         /* @__PURE__ */ t("div", { className: "text-view-label", children: e.label }),
-        /* @__PURE__ */ t("div", { className: o(i, e.label), children: n() || "--" })
-      ] }) : /* @__PURE__ */ t("div", { ...s, style: { textAlign: f }, children: /* @__PURE__ */ t("div", { className: o(i, e.title), children: v == "preformatted" ? /* @__PURE__ */ c("pre", { children: [
+        /* @__PURE__ */ t("div", { className: c(i, e.label), children: a() || "--" })
+      ] }) : /* @__PURE__ */ t("div", { ...n, style: { textAlign: m }, children: /* @__PURE__ */ t("div", { className: c(i, e.title), children: o == "preformatted" ? /* @__PURE__ */ r("pre", { children: [
         " ",
-        n() || "--",
+        a() || "--",
         " "
-      ] }) : /* @__PURE__ */ t(r, { children: n() || "--" }) }) })
+      ] }) : /* @__PURE__ */ t(s, { children: a() || "--" }) }) })
     }
   ) });
-});
+}
 export {
-  j as MantineTextView
+  M as MantineTextView
 };
