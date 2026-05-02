@@ -8,7 +8,7 @@ export default mergeConfig(viteConfig, defineConfig({
         watch: false,
         globals: true,
         environment: 'jsdom',
-        setupFiles: './setupTest.ts',
+        setupFiles: './test/setupTest.ts',
         server: {
             deps: {
                 inline: ['@palmyralabs/rt-forms']

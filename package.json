@@ -16,11 +16,11 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "tsc --p ./build.tsconfig.json && vitest --root test/ && vite --config vite.config.js build",
+    "build": "tsc --p ./build.tsconfig.json && vitest  && vite --config vite.config.js build",
     "compile": "tsc --p ./demo.tsconfig.json && tsc --p ./build.tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
-    "test": "tsc --p ./test.tsconfig.json && vitest --root test/",
+    "test": "tsc --p ./test.tsconfig.json && vitest ",
     "demoBuild": "tsc --p ./demo.tsconfig.json",
     "testScript": "vitest --root test/"
   },
