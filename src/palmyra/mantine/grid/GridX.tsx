@@ -7,11 +7,19 @@ import { ApiDataTable } from "./base/ApiDataTable";
 import './DataGrid.css';
 import { FilterForm } from "./plugins/filter/FilterForm";
 import { SelectablePagination } from "./plugins/pagination/SelectablePagination";
+import { buildFetchFailureStoreOptions } from "./util/buildFetchFailureHook";
 
-function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType> & { ref?: RefObject<IPageQueryable> }) {
+type GridXProps<ControlPropsType> =
+    GridXOptions<ControlPropsType>
+    & { ref?: RefObject<IPageQueryable> }
+    & { onFetchFailure?: (error: any) => void };
+
+function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
     const internalRef = useRef<IPageQueryable>(null);
     const queryRef = props.ref ?? internalRef;
     const paginationRef = useRef<IPagination>(null);
+    // Live TanStack table instance, shared with header controls (e.g. the Column Chooser).
+    const tableRef = useRef<any>(null);
     const topic: string = props.topic || useMemo(() => 'id' + Math.random(), []);
 
     const onDataChange = (newData: any[], oldData?: any[]) => {
@@ -38,7 +46,9 @@ function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType> & { ref?:
     const pluginOptions: DataGridPluginOptions = {
         ...props.DataGridControlProps, queryRef, columns: props.columns, getPluginOptions: props.getPluginOptions,
         pageSize: props.pageSize, quickSearch: props.quickSearch, topic, ignoreSinglePage
-    }
+    };
+    // expose the live table to controls (Column Chooser). Not part of the shared type.
+    (pluginOptions as any).tableRef = tableRef;
 
     const Controls: (props: any) => JSX.Element = props.DataGridControls ||
         ((o: DataGridPluginOptions) => <><DropdownButton title="Filter" PrefixAdornment={<TbFilterShare />}>
@@ -46,6 +56,11 @@ function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType> & { ref?:
         </DropdownButton></>)
     const Pagination: (props: DataGridPluginOptions & { ref?: RefObject<IPagination> }) => JSX.Element =
         (props.DataGridPagination || SelectablePagination) as any;
+
+    const storeOptions = useMemo(
+        () => buildFetchFailureStoreOptions(props.onFetchFailure, (props as any).storeOptions),
+        [props.onFetchFailure, (props as any).storeOptions]
+    );
 
     return <>
         <div className='py-datagrid-header'>
@@ -57,7 +72,7 @@ function GridX<ControlPropsType>(props: GridXOptions<ControlPropsType> & { ref?:
             </div>
         </div>
         <div className="py-data-grid-table">
-            <ApiDataTable {...props} onDataChange={onDataChange} ref={queryRef} />
+            <ApiDataTable {...props} storeOptions={storeOptions} onDataChange={onDataChange} ref={queryRef} tableRef={tableRef} />
         </div>
         <Pagination {...pluginOptions} ref={paginationRef} />
     </>

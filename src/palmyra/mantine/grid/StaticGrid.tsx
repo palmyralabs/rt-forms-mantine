@@ -11,7 +11,8 @@ function StaticGrid(props: StaticGridOptions & { ref?: RefObject<IPageQueryable>
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
 
-  const columnDefs = generateColumns(columns, customizer);
+  const visibleColumns = (columns || []).filter((c: any) => !c.hideColumn);
+  const columnDefs = generateColumns(visibleColumns, customizer);
 
   const handleRowClick = props.onRowClick ? (rowData: any) => {
     props.onRowClick(rowData);
@@ -21,7 +22,8 @@ function StaticGrid(props: StaticGridOptions & { ref?: RefObject<IPageQueryable>
 
   return (
     <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer}
-      rowData={data} onRowClick={handleRowClick} onColumnSort={props.setSortColumns} />
+      rowData={data} onRowClick={handleRowClick} onColumnSort={props.setSortColumns}
+      tableOptions={(props as any).tableOptions} onTableReady={(props as any).onTableReady} />
   )
 }
 

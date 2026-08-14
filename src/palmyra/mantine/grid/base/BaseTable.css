@@ -7,6 +7,42 @@
   justify-content: center;
 }
 
+
+@keyframes py-row-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.py-grid-data-row {
+  animation: py-row-in 320ms ease both;
+}
+
+@keyframes py-col-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@supports not (view-transition-name: none) {
+  .py-baseGrid-header-cell,
+  .py-grid-data-cell {
+    animation: py-col-fade-in 200ms ease both;
+  }
+}
+
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .py-grid-data-row,
+  .py-baseGrid-header-cell,
+  .py-grid-data-cell {
+    animation: none;
+  }
+}
+
 .py-grid-footer {
   justify-content: right;
   margin-left: auto;

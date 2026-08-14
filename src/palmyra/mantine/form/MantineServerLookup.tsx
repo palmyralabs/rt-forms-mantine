@@ -1,8 +1,8 @@
 import { AutocompleteProps } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, useServerLookupFieldManager } from '@palmyralabs/rt-forms';
+import { FieldDecorator, getFieldHandler, IFormFieldError, IServerLookupField, StoreFactoryContext, useServerLookupFieldManager } from '@palmyralabs/rt-forms';
 import { delayGenerator } from "@palmyralabs/ts-utils";
-import { Ref, useImperativeHandle, useRef, useState } from "react";
+import { Ref, useContext, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { ServerLookup } from "./internal/ServerLookup";
@@ -22,6 +22,28 @@ function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteP
 
     const value = getValue();
     const label = value ? getOptionValue(value) : '';
+
+    const storeFactory: any = useContext(StoreFactoryContext);
+    const resolvedIdRef = useRef<any>(undefined);
+    useEffect(() => {
+        if (value == null || value === '') return;
+        if (typeof value === 'object') return;           
+        if (resolvedIdRef.current === value) return;     
+        resolvedIdRef.current = value;
+        try {
+            const idAttr = (props.lookupOptions as any)?.idAttribute || 'id';
+            const store: any = storeFactory?.getLookupStore?.({}, props.queryOptions.endPoint, idAttr);
+            if (!store?.query) return;
+            store.query({ filter: { [idAttr]: value } })
+                .then((res: any) => {
+                    const rec = res?.result?.[0];
+                    if (rec && typeof rec === 'object') setValue(rec);
+                })
+                .catch(() => { });
+        } catch (e) {
+           console.error('Error resolving lookup value', e);
+        }
+    }, [value]);
 
     const handleToggleDropdown = () => {
         setIconClick(true);
@@ -75,7 +97,7 @@ function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteP
 
     const handleClearValue = () => {
         setValue(null);
-        setSearchText(null)
+        setSearchText?.('');
         props.onChange && props.onChange('', null);
     };
 

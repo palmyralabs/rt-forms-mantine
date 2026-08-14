@@ -3,10 +3,17 @@ import { LuArrowDownUp, LuArrowUpDown } from "react-icons/lu";
 import './ColumnHeader.css';
 import { useSortColumn } from '@palmyralabs/rt-forms';
 import { Table } from '@mantine/core';
-const ColumnHeader = ({ header, children, sortMode, onSortChange }) => {
+const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled }) => {
     const columnAttribute = header.column.columnDef.meta?.attribute || header.id;
-    const sortDisabled = !header.column.columnDef.enableSorting;
-    const width = header.column.columnDef.meta?.columnDef?.width || 'auto';
+   
+    const original: any = header.column.columnDef.meta?.columnDef || {};
+    const disableColumn = !!original.disableColumn;
+    
+    const canResize = !!resizeEnabled && original.enableResizing === true && !disableColumn
+        && (header.column.getCanResize ? header.column.getCanResize() : true);
+
+    const sortDisabled = !header.column.columnDef.enableSorting || disableColumn;
+    const width = resizeEnabled ? header.getSize() : (original.width || 'auto');
 
     const { sortColumn, order, sortOrder } = useSortColumn({ sortDisabled, onSortChange, initMode: sortMode })
 
@@ -16,25 +23,38 @@ const ColumnHeader = ({ header, children, sortMode, onSortChange }) => {
 
     const meta: any = header.column.columnDef.meta;
     const isTypeNumber = meta?.columnDef?.type === 'number';
-    const cellClassName = 'py-dataGrid-header-text' + (isTypeNumber ? ' py-dataGrid-header-text-type-number' : '')
+    const cellClassName = 'py-dataGrid-header-text'
+        + (isTypeNumber ? ' py-dataGrid-header-text-type-number' : '')
+        + (disableColumn ? ' py-dataGrid-header-text-disabled' : '')
+
+    const resizer = canResize ? (
+        <div
+            className={'py-grid-resizer' + (header.column.getIsResizing() ? ' py-grid-resizer-active' : '')}
+            onMouseDown={header.getResizeHandler()}
+            onTouchStart={header.getResizeHandler()}
+            onClick={(e) => e.stopPropagation()}
+        />
+    ) : null;
 
     if (header.column.columnDef.columns) {
-        // Render Grouped Columns
+        // Grouped column (columnGroup): header text is centered over its child columns
         return (
-            <Table.Td className='py-baseGrid-header-cell' key={header.id} colSpan={header.colSpan}>
-                <div className={cellClassName} style={{ width: width }}>
+            <Table.Td className='py-baseGrid-header-cell py-baseGrid-header-group-cell' key={header.id} colSpan={header.colSpan}
+                style={{ width, position: 'relative' }}>
+                <div className={cellClassName + ' py-dataGrid-header-text-group'}>
                     {children}
                 </div>
+                {resizer}
             </Table.Td>
         )
     } else
         return (
             <Table.Td key={header.id} colSpan={header.colSpan}
-                className='py-baseGrid-header-cell'>
+                className='py-baseGrid-header-cell'
+                style={{ width, position: 'relative' }}>
                 <div
                     className={cellClassName}
-                    style={{ width: width }}
-                    onClick={() => sortColumn()}>
+                    onClick={() => { if (!disableColumn) sortColumn() }}>
                     {children}
                     {sortOrder === 'asc' ? (
                         <LuArrowUpDown className='py-baseGrid-header-sort-icon' />
@@ -44,6 +64,7 @@ const ColumnHeader = ({ header, children, sortMode, onSortChange }) => {
                         ) : null}
 
                 </div>
+                {resizer}
             </Table.Td>
         )
 }

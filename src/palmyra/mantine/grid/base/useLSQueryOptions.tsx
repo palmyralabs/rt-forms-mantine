@@ -1,8 +1,10 @@
 import { IServerQueryInput } from "@palmyralabs/rt-forms";
+import { getGridStore, GridPersistenceMode } from "./gridPersistence";
 
 interface LSQueryConfig {
     lsKey: string;
     pageSize: number | number[];
+    mode?: GridPersistenceMode;
 }
 
 interface LSQueryOptions {
@@ -21,33 +23,18 @@ interface LSQueryOptions {
 }
 type initParams = IServerQueryInput["initParams"];
 
-// interface storedParams {
-//     filter?: Record<any, any>;
-//     sort?: strings;
-//     page?: number;
-//     pageSize?: number;
-// };
-
-
 const useLSQueryOptions = (props: LSQueryConfig): LSQueryOptions => {
     const pageSize = props.pageSize ? props.pageSize : 15;
     const initialLimit = pageSize instanceof Array ? pageSize[0] : pageSize;
-    
+
+    const store = getGridStore(props.mode);
+
     const storeData = () => {
-        const v = JSON.stringify(params);
-        sessionStorage.setItem(props.lsKey, v);
+        store.write(props.lsKey, params);
     }
 
     const getData = (): initParams => {
-        const v = sessionStorage.getItem(props.lsKey);
-        if (v) {
-            try {
-                return JSON.parse(v);
-            } catch (error) {
-                console.error('invalid data for tableFilter ', props.lsKey);
-            }
-        }
-        return {};
+        return store.read(props.lsKey) || {};
     }
 
     const params: initParams = getData();
@@ -67,7 +54,8 @@ const useLSQueryOptions = (props: LSQueryConfig): LSQueryOptions => {
     };
 
     const setQuickSearch = (d: any) => {
-
+        params.offset = 0;
+        storeData();
     };
 
     const setFilter = (d: any) => {
@@ -75,6 +63,7 @@ const useLSQueryOptions = (props: LSQueryConfig): LSQueryOptions => {
             params.filter = d;
         else
             delete params.filter;
+        params.offset = 0;
         storeData();
     };
 

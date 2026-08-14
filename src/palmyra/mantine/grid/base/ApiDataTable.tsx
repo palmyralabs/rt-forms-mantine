@@ -9,14 +9,19 @@ import {
 import { RefObject, useImperativeHandle, useRef } from 'react';
 import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
+import { resolveGridPersistence } from './gridPersistence';
 
-function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQueryable> }) {
-  const { columns, EmptyChild, lsKey } = props;
+function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any> }) {
+  const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
 
-  const LSOptions = useLSQueryOptions({ lsKey: lsKey, pageSize: props.pageSize });
-  const lsParams = { ...props.initParams, ...LSOptions.getLSOptions() };
+  const persist = resolveGridPersistence(props);
+
+  const LSOptions = useLSQueryOptions({ lsKey: persist.key, pageSize: props.pageSize, mode: persist.mode });
+  const lsParams = persist.enabled
+    ? { ...props.initParams, ...LSOptions.getLSOptions() }
+    : { ...props.initParams };
   const queryParams = { ...props, initParams: lsParams };
 
   const serverQuery = useServerQuery(queryParams);
@@ -24,7 +29,7 @@ function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQuerya
   const internalRef = useRef<IPageQueryable>(null);
   const currentRef = props.ref ?? internalRef;
   useImperativeHandle(currentRef, () => {
-    if (lsKey) {
+    if (persist.enabled) {
       const setSortColumns = (d: any) => {
         LSOptions.setSortColumns(d);
         serverQuery.setSortColumns(d);
@@ -73,7 +78,8 @@ function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQuerya
     }
   }, [serverQuery]);
 
-  const columnDefs = generateColumns(columns, customizer);
+  const visibleColumns = (columns || []).filter((c: any) => !c.hideColumn);
+  const columnDefs = generateColumns(visibleColumns, customizer);
 
   const handleRowClick = props.onRowClick ? (rowData: any) => {
     props.onRowClick(rowData);
@@ -85,6 +91,7 @@ function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQuerya
   return (
     <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer} showFooter={props.showFooter}
       rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
+      tableOptions={props.tableOptions} onTableReady={props.onTableReady} tableRef={props.tableRef}
     />
   )
 }
