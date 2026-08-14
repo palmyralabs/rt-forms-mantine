@@ -9,12 +9,18 @@ import './BaseTable.css';
 import ColumnHeader from './ColumnHeader';
 import LoadingChild from './LoadingChild';
 
-export default function BaseTable(props: BaseTableOptions & { tableRef?: RefObject<any> }) {
+// tableOptions/onTableReady are declared here (not relied upon from BaseTableOptions) so the
+// grid compiles against any @palmyralabs/rt-forms version, including ones without them.
+type BaseTableExtra = { tableRef?: RefObject<any>; tableOptions?: any; onTableReady?: (table: any) => void };
+
+export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
 
   const { rowData, customizer } = props;
   const sortParams = props.initParams?.sort || {};
   const { onColumnSort, options, EmptyChildren, onRowClick } = useBaseGridManager(props);
-  const tableRef: RefObject<IReactTanstackTable> = customizer?.getTableRef ? customizer?.getTableRef() : useRef(null);
+  // useRef must be called unconditionally (Rules of Hooks); pick the customizer's ref if it has one.
+  const localTableRef = useRef<IReactTanstackTable>(null);
+  const tableRef: RefObject<IReactTanstackTable> = customizer?.getTableRef ? customizer.getTableRef() : localTableRef;
 
 
   const tableOptions: any = props.tableOptions || {};

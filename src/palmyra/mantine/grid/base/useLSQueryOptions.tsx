@@ -21,7 +21,7 @@ interface LSQueryOptions {
     reset: () => void;
     getLSOptions: () => any;
 }
-type initParams = IServerQueryInput["initParams"];
+type initParams = NonNullable<IServerQueryInput["initParams"]>;
 
 const useLSQueryOptions = (props: LSQueryConfig): LSQueryOptions => {
     const pageSize = props.pageSize ? props.pageSize : 15;

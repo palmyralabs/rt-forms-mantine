@@ -11,7 +11,7 @@ import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
 
-function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any> }) {
+function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
