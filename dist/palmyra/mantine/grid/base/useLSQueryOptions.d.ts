@@ -1,6 +1,8 @@
+import { GridPersistenceMode } from './gridPersistence';
 interface LSQueryConfig {
     lsKey: string;
     pageSize: number | number[];
+    mode?: GridPersistenceMode;
 }
 interface LSQueryOptions {
     setSortColumns: (d: any) => void;

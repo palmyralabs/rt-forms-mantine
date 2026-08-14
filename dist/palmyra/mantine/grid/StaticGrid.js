@@ -1,23 +1,25 @@
-import { jsx as a } from "react/jsx-runtime";
-import { NoopGridCustomizer as C, generateColumns as s, EmptyChildTable as u } from "@palmyralabs/rt-forms";
-import d from "./base/BaseTable.js";
-function k(o) {
-  const { columns: n, EmptyChild: i } = o, m = i || u, t = o.customizer || C, c = s(n, t), l = o.onRowClick ? (r) => {
-    o.onRowClick(r);
+import { jsx as r } from "react/jsx-runtime";
+import { NoopGridCustomizer as s, generateColumns as u, EmptyChildTable as d } from "@palmyralabs/rt-forms";
+import b from "./base/BaseTable.js";
+function y(o) {
+  const { columns: i, EmptyChild: e } = o, l = e || d, n = o.customizer || s, m = (i || []).filter((t) => !t.hideColumn), a = u(m, n), c = o.onRowClick ? (t) => {
+    o.onRowClick(t);
   } : () => {
-  }, e = o.rowData;
-  return /* @__PURE__ */ a(
-    d,
+  }, C = o.rowData;
+  return /* @__PURE__ */ r(
+    b,
     {
-      columnDefs: c,
-      EmptyChild: m,
-      customizer: t,
-      rowData: e,
-      onRowClick: l,
-      onColumnSort: o.setSortColumns
+      columnDefs: a,
+      EmptyChild: l,
+      customizer: n,
+      rowData: C,
+      onRowClick: c,
+      onColumnSort: o.setSortColumns,
+      tableOptions: o.tableOptions,
+      onTableReady: o.onTableReady
     }
   );
 }
 export {
-  k as StaticGrid
+  y as StaticGrid
 };

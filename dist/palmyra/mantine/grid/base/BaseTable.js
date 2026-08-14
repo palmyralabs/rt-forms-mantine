@@ -1,60 +1,80 @@
-import { jsx as e, Fragment as m, jsxs as c } from "react/jsx-runtime";
-import { Table as t } from "@mantine/core";
-import { useBaseGridManager as C } from "@palmyralabs/rt-forms";
-import { useReactTable as w, flexRender as s } from "@tanstack/react-table";
-import { useRef as R } from "react";
+import { jsx as t, Fragment as c, jsxs as h } from "react/jsx-runtime";
+import { Table as n } from "@mantine/core";
+import { useBaseGridManager as P } from "@palmyralabs/rt-forms";
+import { useReactTable as E, flexRender as u } from "@tanstack/react-table";
+import { useRef as y, useEffect as F } from "react";
 import '../../../../assets/BaseTable.css';/* empty css                           */
-import v from "./ColumnHeader.js";
-import x from "./LoadingChild.js";
-function S(a) {
-  const { rowData: r, customizer: d } = a, u = a.initParams?.sort || {}, { onColumnSort: g, options: f, EmptyChildren: h, onRowClick: p } = C(a), b = d?.getTableRef ? d?.getTableRef() : R(null), n = w(f);
-  b.current = n;
-  const y = (o) => {
-    const l = o.column?.columnDef?.meta?.attribute;
-    if (l)
-      return u[l];
+import O from "./ColumnHeader.js";
+import j from "./LoadingChild.js";
+function J(o) {
+  const { rowData: a, customizer: f } = o, T = o.initParams?.sort || {}, { onColumnSort: R, options: d, EmptyChildren: p, onRowClick: C } = P(o), N = y(null), w = f?.getTableRef ? f.getTableRef() : N, g = o.tableOptions || {}, s = !!g.enableColumnResizing, m = {
+    ...d,
+    ...g,
+    columns: d.columns,
+    data: d.data
   };
-  return /* @__PURE__ */ e(m, { children: /* @__PURE__ */ c("div", { className: a.className, children: [
-    /* @__PURE__ */ c(t, { "aria-label": a["aria-label"], className: "py-baseGrid", children: [
-      /* @__PURE__ */ e(t.Thead, { className: "py-grid-header", children: n.getHeaderGroups().map((o) => /* @__PURE__ */ e(t.Tr, { className: "py-grid-header-row", children: o.headers.map((l) => l.isPlaceholder ? null : /* @__PURE__ */ e(
-        v,
+  s && !m.columnResizeMode && (m.columnResizeMode = "onChange");
+  const r = E(m);
+  w.current = r, o.tableRef && (o.tableRef.current = r);
+  const b = y(!1);
+  F(() => {
+    if (o.onTableReady && !b.current) {
+      b.current = !0;
+      try {
+        o.onTableReady(r);
+      } catch (l) {
+        console.error(l);
+      }
+    }
+  }, [r]);
+  const v = (l) => {
+    const e = l.column?.columnDef?.meta?.attribute;
+    if (e)
+      return T[e];
+  }, D = s ? { layout: "fixed", style: { width: r.getTotalSize(), minWidth: "100%" } } : {};
+  return /* @__PURE__ */ t(c, { children: /* @__PURE__ */ h("div", { className: o.className, children: [
+    /* @__PURE__ */ h(n, { "aria-label": o["aria-label"], className: "py-baseGrid", ...D, children: [
+      /* @__PURE__ */ t(n.Thead, { className: "py-grid-header", children: r.getHeaderGroups().map((l) => /* @__PURE__ */ t(n.Tr, { className: "py-grid-header-row", children: l.headers.map((e) => e.isPlaceholder ? null : /* @__PURE__ */ t(
+        O,
         {
-          header: l,
-          sortMode: y(l),
-          onSortChange: g,
-          children: s(
-            l.column.columnDef.header,
-            l.getContext()
+          header: e,
+          sortMode: v(e),
+          onSortChange: R,
+          resizeEnabled: s,
+          children: u(
+            e.column.columnDef.header,
+            e.getContext()
           )
         },
-        l.id
-      )) }, o.id)) }),
-      r == null || r == null || r.length == 0 ? /* @__PURE__ */ e(m, {}) : /* @__PURE__ */ e(t.Tbody, { children: n.getRowModel().rows.map((o, l) => {
-        const T = "py-grid-data-row py-grid-data-row-" + (l % 2 == 1 ? "even" : "odd");
-        return /* @__PURE__ */ e(t.Tr, { className: T, children: o.getVisibleCells().map((i) => {
-          const N = "py-grid-data-cell " + (i.column.columnDef.meta?.columnDef?.type === "number" ? " py-grid-data-cell-type-number" : "");
-          return /* @__PURE__ */ e(
-            t.Td,
+        e.id
+      )) }, l.id)) }),
+      a == null || a == null || a.length == 0 ? /* @__PURE__ */ t(c, {}) : /* @__PURE__ */ t(n.Tbody, { children: r.getRowModel().rows.map((l, e) => {
+        const x = "py-grid-data-row py-grid-data-row-" + (e % 2 == 1 ? "even" : "odd"), z = { animationDelay: Math.min(e, 14) * 18 + "ms" };
+        return /* @__PURE__ */ t(n.Tr, { className: x, style: z, children: l.getVisibleCells().map((i) => {
+          const M = "py-grid-data-cell " + (i.column.columnDef.meta?.columnDef?.type === "number" ? " py-grid-data-cell-type-number" : ""), S = s ? { width: i.column.getSize() } : void 0;
+          return /* @__PURE__ */ t(
+            n.Td,
             {
-              className: N,
-              onClick: () => p(o.original),
-              children: s(
+              className: M,
+              style: S,
+              onClick: () => C(l.original),
+              children: u(
                 i.column.columnDef.cell,
                 i.getContext()
               )
             },
             i.id
           );
-        }) }, o.id);
+        }) }, l.id);
       }) }),
-      !a.showFooter || r == null || r == null || r.length == 0 ? /* @__PURE__ */ e(m, {}) : /* @__PURE__ */ e(t.Tfoot, { className: "py-grid-footer", children: n.getFooterGroups().map((o) => /* @__PURE__ */ e(t.Tr, { className: "py-grid-footer-row", children: o.headers.map((l) => /* @__PURE__ */ e(t.Td, { className: "py-grid-footer-cell", children: l.isPlaceholder ? null : s(
-        l.column.columnDef.footer,
-        l.getContext()
-      ) }, l.id)) }, o.id)) })
+      !o.showFooter || a == null || a == null || a.length == 0 ? /* @__PURE__ */ t(c, {}) : /* @__PURE__ */ t(n.Tfoot, { className: "py-grid-footer", children: r.getFooterGroups().map((l) => /* @__PURE__ */ t(n.Tr, { className: "py-grid-footer-row", children: l.headers.map((e) => /* @__PURE__ */ t(n.Td, { className: "py-grid-footer-cell", children: e.isPlaceholder ? null : u(
+        e.column.columnDef.footer,
+        e.getContext()
+      ) }, e.id)) }, l.id)) })
     ] }),
-    r == null ? /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e(x, {}) }) : r == null ? /* @__PURE__ */ e("div", { children: "Error while loading data" }) : r.length == 0 ? /* @__PURE__ */ e(h, {}) : /* @__PURE__ */ e(m, {})
+    a == null ? /* @__PURE__ */ t("div", { children: /* @__PURE__ */ t(j, {}) }) : a == null ? /* @__PURE__ */ t("div", { children: "Error while loading data" }) : a.length == 0 ? /* @__PURE__ */ t(p, {}) : /* @__PURE__ */ t(c, {})
   ] }) });
 }
 export {
-  S as default
+  J as default
 };

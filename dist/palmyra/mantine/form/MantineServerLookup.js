@@ -1,80 +1,97 @@
-import { jsx as o, Fragment as R } from "react/jsx-runtime";
-import { useDisclosure as B } from "@mantine/hooks";
-import { useServerLookupFieldManager as E, getFieldHandler as H, FieldDecorator as T } from "@palmyralabs/rt-forms";
-import { delayGenerator as j } from "@palmyralabs/ts-utils";
-import { useRef as q, useState as A, useImperativeHandle as G } from "react";
-import { a as K } from "../../../chunks/index.js";
-import { R as P } from "../../../chunks/index4.js";
-import { ServerLookup as z } from "./internal/ServerLookup.js";
-import { getFieldLabel as J } from "./util.js";
-function p(e) {
-  const l = j(e.queryOptions.delay || 200), C = q(null), t = E(e.attribute, e), {
-    getError: h,
-    getValue: b,
-    setValue: i,
-    options: O,
-    getFieldProps: y,
-    setSearchText: c,
-    refreshOptions: u,
-    getOptionValue: d,
-    getOptionKey: k,
-    refreshError: F
-  } = t, L = h(), [m, a] = A(!1), [f, { open: g, close: r }] = B(!1), s = b(), S = s ? d(s) : "", v = () => {
-    a(!0), f ? r() : (g(), l(u));
-  };
-  G(e.ref, () => ({
-    ...H(t),
-    focus() {
-      C.current.focus();
+import { jsx as n, Fragment as B } from "react/jsx-runtime";
+import { useDisclosure as H } from "@mantine/hooks";
+import { useServerLookupFieldManager as P, StoreFactoryContext as T, getFieldHandler as G, FieldDecorator as K } from "@palmyralabs/rt-forms";
+import { delayGenerator as z } from "@palmyralabs/ts-utils";
+import { useRef as b, useState as J, useContext as N, useEffect as Q, useImperativeHandle as U } from "react";
+import { a as W } from "../../../chunks/index.js";
+import { R as X } from "../../../chunks/index4.js";
+import { ServerLookup as Y } from "./internal/ServerLookup.js";
+import { getFieldLabel as Z } from "./util.js";
+function ae(e) {
+  const l = z(e.queryOptions.delay || 200), O = b(null), a = P(e.attribute, e), {
+    getError: k,
+    getValue: v,
+    setValue: s,
+    options: F,
+    getFieldProps: L,
+    setSearchText: d,
+    refreshOptions: f,
+    getOptionValue: m,
+    getOptionKey: S,
+    refreshError: w
+  } = a, x = k(), [g, i] = J(!1), [C, { open: h, close: c }] = H(!1), t = v(), D = t ? m(t) : "", I = N(T), y = b(void 0);
+  Q(() => {
+    if (!(t == null || t === "") && typeof t != "object" && y.current !== t) {
+      y.current = t;
+      try {
+        const o = e.lookupOptions?.idAttribute || "id", r = I?.getLookupStore?.({}, e.queryOptions.endPoint, o);
+        if (!r?.query) return;
+        r.query({ filter: { [o]: t } }).then((A) => {
+          const u = A?.result?.[0];
+          u && typeof u == "object" && s(u);
+        }).catch(() => {
+        });
+      } catch (o) {
+        console.error("Error resolving lookup value", o);
+      }
     }
-  }), [t]);
-  const w = {
-    onValueChange: (n, M) => {
-      i(n), e.onChange && e.onChange(M, n), r();
+  }, [t]);
+  const R = () => {
+    i(!0), C ? c() : (h(), l(f));
+  };
+  U(e.ref, () => ({
+    ...G(a),
+    focus() {
+      O.current.focus();
+    }
+  }), [a]);
+  const V = {
+    onValueChange: (o, r) => {
+      s(o), e.onChange && e.onChange(r, o), c();
     },
-    onChange: (n) => {
-      l(c, n), e.onChange && e.onChange(n);
+    onChange: (o) => {
+      l(d, o), e.onChange && e.onChange(o);
     },
     onDropdownOpen: () => {
-      m || g(), a(!1), l(u);
+      g || h(), i(!1), l(f);
     },
     onDropdownClose: () => {
-      m || r(), a(!1);
+      g || c(), i(!1);
     },
-    onBlur: (n) => {
-      F(), e.onBlur && e.onBlur(n);
+    onBlur: (o) => {
+      w(), e.onBlur && e.onBlur(o);
     }
-  }, D = () => {
-    i(null), c(null), e.onChange && e.onChange("", null);
-  }, V = e.readOnly, x = e.disabled, I = s && !V && !x ? /* @__PURE__ */ o(P, { onClick: D, style: { cursor: "pointer" } }) : /* @__PURE__ */ o(K, { onClick: v, style: { cursor: "pointer" } });
-  return /* @__PURE__ */ o(R, { children: /* @__PURE__ */ o(
-    T,
+  }, q = () => {
+    s(null), d?.(""), e.onChange && e.onChange("", null);
+  }, E = e.readOnly, M = e.disabled, j = t && !E && !M ? /* @__PURE__ */ n(X, { onClick: q, style: { cursor: "pointer" } }) : /* @__PURE__ */ n(W, { onClick: R, style: { cursor: "pointer" } });
+  return /* @__PURE__ */ n(B, { children: /* @__PURE__ */ n(
+    K,
     {
-      label: J(e),
+      label: Z(e),
       customContainerClass: e.customContainerClass,
       colspan: e.colspan,
       customFieldClass: e.customFieldClass,
       customLabelClass: e.customLabelClass,
-      children: /* @__PURE__ */ o(
-        z,
+      children: /* @__PURE__ */ n(
+        Y,
         {
           readOnly: e.readOnly,
-          rightSection: I,
-          ...y(),
-          value: S,
-          getOptionKey: k,
-          getOptionValue: d,
+          rightSection: j,
+          ...L(),
+          value: D,
+          getOptionKey: S,
+          getOptionValue: m,
           noOptionsLabel: e.noOptionsLabel,
-          data: O,
-          dropdownOpened: f,
+          data: F,
+          dropdownOpened: C,
           label: e.label,
-          error: L.message,
-          ...w
+          error: x.message,
+          ...V
         }
       )
     }
   ) });
 }
 export {
-  p as MantineServerLookup
+  ae as MantineServerLookup
 };

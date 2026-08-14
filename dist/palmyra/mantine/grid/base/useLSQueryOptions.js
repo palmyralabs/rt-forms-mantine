@@ -1,34 +1,26 @@
-const Q = (s) => {
-  const n = s.pageSize ? s.pageSize : 15, a = n instanceof Array ? n[0] : n, r = () => {
-    const t = JSON.stringify(e);
-    sessionStorage.setItem(s.lsKey, t);
-  }, c = () => {
-    const t = sessionStorage.getItem(s.lsKey);
-    if (t)
-      try {
-        return JSON.parse(t);
-      } catch {
-        console.error("invalid data for tableFilter ", s.lsKey);
-      }
-    return {};
-  }, e = c();
-  return e.limit == null && (e.limit = a), {
-    getLSOptions: () => e,
-    setSortColumns: (t) => {
-      t ? e.sort = t : delete e.sort, r();
+import { getGridStore as S } from "./gridPersistence.js";
+const p = (s) => {
+  const r = s.pageSize ? s.pageSize : 15, a = r instanceof Array ? r[0] : r, l = S(s.mode), o = () => {
+    l.write(s.lsKey, t);
+  }, n = () => l.read(s.lsKey) || {}, t = n();
+  return t.limit == null && (t.limit = a), {
+    getLSOptions: () => t,
+    setSortColumns: (e) => {
+      e ? t.sort = e : delete t.sort, o();
     },
-    setQuickSearch: (t) => {
+    setQuickSearch: (e) => {
+      t.offset = 0, o();
     },
-    setFilter: (t) => {
-      t ? e.filter = t : delete e.filter, r();
+    setFilter: (e) => {
+      e ? t.filter = e : delete t.filter, t.offset = 0, o();
     },
-    setPage: (t) => {
-      const i = c().limit || a || 15, o = t || 0;
-      e.offset = o * i, r();
+    setPage: (e) => {
+      const c = n().limit || a || 15, i = e || 0;
+      t.offset = i * c, o();
     },
-    setPageSize: (t) => {
-      const i = c().offset || 0, o = t > 0 || t == -1 ? t : 15, l = Math.floor(i / o) * o;
-      e.limit = o, e.offset = l, r();
+    setPageSize: (e) => {
+      const c = n().offset || 0, i = e > 0 || e == -1 ? e : 15, f = Math.floor(c / i) * i;
+      t.limit = i, t.offset = f, o();
     },
     resetSortOptions: () => {
     },
@@ -45,5 +37,5 @@ const Q = (s) => {
   };
 };
 export {
-  Q as useLSQueryOptions
+  p as useLSQueryOptions
 };
