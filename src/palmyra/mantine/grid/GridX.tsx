@@ -8,17 +8,19 @@ import './DataGrid.css';
 import { FilterForm } from "./plugins/filter/FilterForm";
 import { SelectablePagination } from "./plugins/pagination/SelectablePagination";
 import { buildFetchFailureStoreOptions } from "./util/buildFetchFailureHook";
+import { useGridFilter } from "./base/useGridFilter";
 
 type GridXProps<ControlPropsType> =
     GridXOptions<ControlPropsType>
     & { ref?: RefObject<IPageQueryable> }
-    & { onFetchFailure?: (error: any) => void };
+    & { onFetchFailure?: (error: any) => void }
+    & { filter?: any };
 
 function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
     const internalRef = useRef<IPageQueryable>(null);
     const queryRef = props.ref ?? internalRef;
+    useGridFilter(queryRef, props.filter);
     const paginationRef = useRef<IPagination>(null);
-    // Live TanStack table instance, shared with header controls (e.g. the Column Chooser).
     const tableRef = useRef<any>(null);
     const topic: string = props.topic || useMemo(() => 'id' + Math.random(), []);
 
@@ -47,7 +49,6 @@ function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
         ...props.DataGridControlProps, queryRef, columns: props.columns, getPluginOptions: props.getPluginOptions,
         pageSize: props.pageSize, quickSearch: props.quickSearch, topic, ignoreSinglePage
     };
-    // expose the live table to controls (Column Chooser). Not part of the shared type.
     (pluginOptions as any).tableRef = tableRef;
 
     const Controls: (props: any) => JSX.Element = props.DataGridControls ||

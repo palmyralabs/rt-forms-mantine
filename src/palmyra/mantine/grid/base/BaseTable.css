@@ -7,6 +7,12 @@
   justify-content: center;
 }
 
+.py-baseGrid-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
 
 @keyframes py-row-in {
   from { opacity: 0; transform: translateY(-8px); }

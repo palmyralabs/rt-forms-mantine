@@ -26,4 +26,5 @@ export type {
 } from './base/gridPersistence'
 export { useGridPersistedFilter } from './base/usePersistedFilter'
 export type { UseGridPersistedFilterResult } from './base/usePersistedFilter'
+export { useGridFilter, useUpdateEffect } from './base/useGridFilter'
 export { DataGrid }

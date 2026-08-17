@@ -1,6 +1,3 @@
-/**
- * Basic structure to draw the table
- */
 import { Table } from '@mantine/core';
 import { BaseTableOptions, IReactTanstackTable, useBaseGridManager } from '@palmyralabs/rt-forms';
 import { flexRender, useReactTable, } from '@tanstack/react-table';
@@ -22,10 +19,28 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
 
   const tableOptions: any = props.tableOptions || {};
   const resizeEnabled = !!tableOptions.enableColumnResizing;
+
+  const parsePx = (w: any): number | undefined => {
+    if (typeof w === 'number') return w;
+    if (typeof w === 'string') {
+      const m = w.match(/^(\d+(?:\.\d+)?)\s*px$/) || w.match(/^(\d+(?:\.\d+)?)$/);
+      if (m) return parseFloat(m[1]);
+    }
+    return undefined;
+  };
+  const seedSizes = (cols: any[]): any[] => (cols || []).map((c) => {
+    if (c?.size != null) return c;                
+    const px = parsePx(c?.meta?.columnDef?.width);
+    if (px == null) return c;
+    const next: any = { ...c, size: px };
+    if (px < 20) next.minSize = px;                
+    return next;
+  });
+
   const mergedOptions: any = {
     ...options,
     ...tableOptions,
-    columns: (options as any).columns,
+    columns: resizeEnabled ? seedSizes((options as any).columns) : (options as any).columns,
     data: (options as any).data,
   };
   if (resizeEnabled && !mergedOptions.columnResizeMode) {
@@ -61,6 +76,7 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
 
   return (<>
     <div className={props.className}>
+      <div className='py-baseGrid-scroll'>
       <Table aria-label={props['aria-label']} className='py-baseGrid' {...tableProps}>
         <Table.Thead className='py-grid-header'>
           {table.getHeaderGroups().map(headerGroup => (
@@ -99,7 +115,7 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
                         const isTypeNumber = meta?.columnDef?.type === 'number';
                         const cellClassName = 'py-grid-data-cell ' + (isTypeNumber ? ' py-grid-data-cell-type-number' : '');
                         const colWidth = resizeEnabled ? cell.column.getSize() : meta?.columnDef?.width;
-                        const cellStyle: any = colWidth ? { width: colWidth } : undefined;
+                        const cellStyle: any = colWidth ? { width: colWidth, minWidth: colWidth } : undefined;
                         return (
                           <Table.Td key={cell.id}
                             className={cellClassName}
@@ -136,6 +152,7 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
           </Table.Tfoot>)}
 
       </Table>
+      </div>
       {(null == rowData) ? (<div>
         <LoadingChild />
       </div>) :

@@ -5,15 +5,19 @@ import { useSortColumn } from '@palmyralabs/rt-forms';
 import { Table } from '@mantine/core';
 const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled }) => {
     const columnAttribute = header.column.columnDef.meta?.attribute || header.id;
-   
+
     const original: any = header.column.columnDef.meta?.columnDef || {};
     const disableColumn = !!original.disableColumn;
-    
+
     const canResize = !!resizeEnabled && original.enableResizing === true && !disableColumn
         && (header.column.getCanResize ? header.column.getCanResize() : true);
 
     const sortDisabled = !header.column.columnDef.enableSorting || disableColumn;
-    const width = resizeEnabled ? header.getSize() : (original.width || 'auto');
+    const rawWidth = resizeEnabled ? header.getSize() : original.width;
+    const hasWidth = rawWidth != null && rawWidth !== '' && rawWidth !== 'auto';
+    const width = rawWidth || 'auto';
+    const widthStyle: any = { width, position: 'relative' };
+    if (hasWidth) widthStyle.minWidth = rawWidth;
 
     const { sortColumn, order, sortOrder } = useSortColumn({ sortDisabled, onSortChange, initMode: sortMode })
 
@@ -37,10 +41,9 @@ const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled 
     ) : null;
 
     if (header.column.columnDef.columns) {
-        // Grouped column (columnGroup): header text is centered over its child columns
         return (
             <Table.Td className='py-baseGrid-header-cell py-baseGrid-header-group-cell' key={header.id} colSpan={header.colSpan}
-                style={{ width, position: 'relative' }}>
+                style={widthStyle}>
                 <div className={cellClassName + ' py-dataGrid-header-text-group'}>
                     {children}
                 </div>
@@ -51,8 +54,9 @@ const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled 
         return (
             <Table.Td key={header.id} colSpan={header.colSpan}
                 className='py-baseGrid-header-cell'
-                style={{ width, position: 'relative' }}>
+                style={widthStyle}>
                 <div
+                    // style={{ width: width }}
                     className={cellClassName}
                     onClick={() => { if (!disableColumn) sortColumn() }}>
                     {children}
