@@ -9,8 +9,6 @@ import './BaseTable.css';
 import ColumnHeader from './ColumnHeader';
 import LoadingChild from './LoadingChild';
 
-// tableOptions/onTableReady are declared here (not relied upon from BaseTableOptions) so the
-// grid compiles against any @palmyralabs/rt-forms version, including ones without them.
 type BaseTableExtra = { tableRef?: RefObject<any>; tableOptions?: any; onTableReady?: (table: any) => void };
 
 export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
@@ -18,7 +16,6 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
   const { rowData, customizer } = props;
   const sortParams = props.initParams?.sort || {};
   const { onColumnSort, options, EmptyChildren, onRowClick } = useBaseGridManager(props);
-  // useRef must be called unconditionally (Rules of Hooks); pick the customizer's ref if it has one.
   const localTableRef = useRef<IReactTanstackTable>(null);
   const tableRef: RefObject<IReactTanstackTable> = customizer?.getTableRef ? customizer.getTableRef() : localTableRef;
 
@@ -100,8 +97,9 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
                       {row.getVisibleCells().map(cell => {
                         const meta: any = cell.column.columnDef.meta;
                         const isTypeNumber = meta?.columnDef?.type === 'number';
-                        const cellClassName = 'py-grid-data-cell ' + (isTypeNumber ? ' py-grid-data-cell-type-number' : '')
-                        const cellStyle: any = resizeEnabled ? { width: cell.column.getSize() } : undefined;
+                        const cellClassName = 'py-grid-data-cell ' + (isTypeNumber ? ' py-grid-data-cell-type-number' : '');
+                        const colWidth = resizeEnabled ? cell.column.getSize() : meta?.columnDef?.width;
+                        const cellStyle: any = colWidth ? { width: colWidth } : undefined;
                         return (
                           <Table.Td key={cell.id}
                             className={cellClassName}
