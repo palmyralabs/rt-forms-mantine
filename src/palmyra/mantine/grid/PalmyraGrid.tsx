@@ -6,7 +6,8 @@ import { GridX } from "./GridX";
 type PalmyraGridProps<ControlPropsType> =
     PalmyraGridOptions<ControlPropsType>
     & { ref?: RefObject<IPalmyraGrid> }
-    & { onFetchFailure?: (error: any) => void };
+    & { onFetchFailure?: (error: any) => void }
+    & { filter?: any };
 
 function PalmyraGrid<ControlPropsType>(props: PalmyraGridProps<ControlPropsType>) {
 
