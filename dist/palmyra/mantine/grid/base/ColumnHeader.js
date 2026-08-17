@@ -1,67 +1,69 @@
-import { jsx as o, jsxs as n } from "react/jsx-runtime";
-import { useEffect as G } from "react";
-import { G as g } from "../../../../chunks/iconBase.js";
+import { jsx as n, jsxs as a } from "react/jsx-runtime";
+import { useEffect as k } from "react";
+import { G as f } from "../../../../chunks/iconBase.js";
 import '../../../../assets/ColumnHeader.css';/* empty css                              */
-import { useSortColumn as k } from "@palmyralabs/rt-forms";
-import { Table as p } from "@mantine/core";
+import { useSortColumn as z } from "@palmyralabs/rt-forms";
+import { Table as h } from "@mantine/core";
+function N(t) {
+  return f({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "path", attr: { d: "m3 16 4 4 4-4" }, child: [] }, { tag: "path", attr: { d: "M7 20V4" }, child: [] }, { tag: "path", attr: { d: "m21 8-4-4-4 4" }, child: [] }, { tag: "path", attr: { d: "M17 4v16" }, child: [] }] })(t);
+}
 function v(t) {
-  return g({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "path", attr: { d: "m3 16 4 4 4-4" }, child: [] }, { tag: "path", attr: { d: "M7 20V4" }, child: [] }, { tag: "path", attr: { d: "m21 8-4-4-4 4" }, child: [] }, { tag: "path", attr: { d: "M17 4v16" }, child: [] }] })(t);
+  return f({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "path", attr: { d: "m21 16-4 4-4-4" }, child: [] }, { tag: "path", attr: { d: "M17 20V4" }, child: [] }, { tag: "path", attr: { d: "m3 8 4-4 4 4" }, child: [] }, { tag: "path", attr: { d: "M7 4v16" }, child: [] }] })(t);
 }
-function z(t) {
-  return g({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "path", attr: { d: "m21 16-4 4-4-4" }, child: [] }, { tag: "path", attr: { d: "M17 20V4" }, child: [] }, { tag: "path", attr: { d: "m3 8 4-4 4 4" }, child: [] }, { tag: "path", attr: { d: "M7 4v16" }, child: [] }] })(t);
-}
-const j = ({ header: t, children: i, sortMode: f, onSortChange: a, resizeEnabled: l }) => {
-  const h = t.column.columnDef.meta?.attribute || t.id, r = t.column.columnDef.meta?.columnDef || {}, e = !!r.disableColumn, b = !!l && r.enableResizing === !0 && !e && (t.column.getCanResize ? t.column.getCanResize() : !0), y = !t.column.columnDef.enableSorting || e, s = l ? t.getSize() : r.width || "auto", { sortColumn: C, order: c, sortOrder: d } = k({ sortDisabled: y, onSortChange: a, initMode: f });
-  G(() => {
-    a(h, c);
-  }, [c]);
-  const m = "py-dataGrid-header-text" + (t.column.columnDef.meta?.columnDef?.type === "number" ? " py-dataGrid-header-text-type-number" : "") + (e ? " py-dataGrid-header-text-disabled" : ""), u = b ? /* @__PURE__ */ o(
+const H = ({ header: t, children: l, sortMode: g, onSortChange: s, resizeEnabled: c }) => {
+  const y = t.column.columnDef.meta?.attribute || t.id, i = t.column.columnDef.meta?.columnDef || {}, o = !!i.disableColumn, b = !!c && i.enableResizing === !0 && !o && (t.column.getCanResize ? t.column.getCanResize() : !0), w = !t.column.columnDef.enableSorting || o, e = c ? t.getSize() : i.width, C = e != null && e !== "" && e !== "auto", r = { width: e || "auto", position: "relative" };
+  C && (r.minWidth = e);
+  const { sortColumn: D, order: d, sortOrder: u } = z({ sortDisabled: w, onSortChange: s, initMode: g });
+  k(() => {
+    s(y, d);
+  }, [d]);
+  const m = "py-dataGrid-header-text" + (t.column.columnDef.meta?.columnDef?.type === "number" ? " py-dataGrid-header-text-type-number" : "") + (o ? " py-dataGrid-header-text-disabled" : ""), p = b ? /* @__PURE__ */ n(
     "div",
     {
       className: "py-grid-resizer" + (t.column.getIsResizing() ? " py-grid-resizer-active" : ""),
       onMouseDown: t.getResizeHandler(),
       onTouchStart: t.getResizeHandler(),
-      onClick: (D) => D.stopPropagation()
+      onClick: (G) => G.stopPropagation()
     }
   ) : null;
-  return t.column.columnDef.columns ? /* @__PURE__ */ n(
-    p.Td,
+  return t.column.columnDef.columns ? /* @__PURE__ */ a(
+    h.Td,
     {
       className: "py-baseGrid-header-cell py-baseGrid-header-group-cell",
       colSpan: t.colSpan,
-      style: { width: s, position: "relative" },
+      style: r,
       children: [
-        /* @__PURE__ */ o("div", { className: m + " py-dataGrid-header-text-group", children: i }),
-        u
+        /* @__PURE__ */ n("div", { className: m + " py-dataGrid-header-text-group", children: l }),
+        p
       ]
     },
     t.id
-  ) : /* @__PURE__ */ n(
-    p.Td,
+  ) : /* @__PURE__ */ a(
+    h.Td,
     {
       colSpan: t.colSpan,
       className: "py-baseGrid-header-cell",
-      style: { width: s, position: "relative" },
+      style: r,
       children: [
-        /* @__PURE__ */ n(
+        /* @__PURE__ */ a(
           "div",
           {
             className: m,
             onClick: () => {
-              e || C();
+              o || D();
             },
             children: [
-              i,
-              d === "asc" ? /* @__PURE__ */ o(z, { className: "py-baseGrid-header-sort-icon" }) : d === "desc" ? /* @__PURE__ */ o(v, { className: "py-baseGrid-header-sort-icon" }) : null
+              l,
+              u === "asc" ? /* @__PURE__ */ n(v, { className: "py-baseGrid-header-sort-icon" }) : u === "desc" ? /* @__PURE__ */ n(N, { className: "py-baseGrid-header-sort-icon" }) : null
             ]
           }
         ),
-        u
+        p
       ]
     },
     t.id
   );
 };
 export {
-  j as default
+  H as default
 };

@@ -9,4 +9,5 @@ export { configureGridPersistence, getGridPersistenceMode, getGridStore, resolve
 export type { GridPersistenceMode, GridStateStore, GridPersistOptions, ResolvedGridPersistence } from './base/gridPersistence';
 export { useGridPersistedFilter } from './base/usePersistedFilter';
 export type { UseGridPersistedFilterResult } from './base/usePersistedFilter';
+export { useGridFilter, useUpdateEffect } from './base/useGridFilter';
 export { DataGrid };

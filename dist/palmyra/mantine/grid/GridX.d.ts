@@ -4,6 +4,8 @@ type GridXProps<ControlPropsType> = GridXOptions<ControlPropsType> & {
     ref?: RefObject<IPageQueryable>;
 } & {
     onFetchFailure?: (error: any) => void;
+} & {
+    filter?: any;
 };
 declare function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>): import("react/jsx-runtime").JSX.Element;
 export { GridX };

@@ -1,80 +1,92 @@
-import { jsx as t, Fragment as s, jsxs as T } from "react/jsx-runtime";
+import { jsx as n, Fragment as u, jsxs as R } from "react/jsx-runtime";
 import { Table as a } from "@mantine/core";
-import { useBaseGridManager as F } from "@palmyralabs/rt-forms";
-import { useReactTable as O, flexRender as u } from "@tanstack/react-table";
-import { useRef as R, useEffect as j } from "react";
+import { useBaseGridManager as G } from "@palmyralabs/rt-forms";
+import { useReactTable as O, flexRender as h } from "@tanstack/react-table";
+import { useRef as C, useEffect as W } from "react";
 import '../../../../assets/BaseTable.css';/* empty css                           */
-import k from "./ColumnHeader.js";
-import B from "./LoadingChild.js";
-function K(o) {
-  const { rowData: n, customizer: f } = o, p = o.initParams?.sort || {}, { onColumnSort: C, options: d, EmptyChildren: N, onRowClick: w } = F(o), D = R(null), v = f?.getTableRef ? f.getTableRef() : D, g = o.tableOptions || {}, c = !!g.enableColumnResizing, m = {
+import j from "./ColumnHeader.js";
+import k from "./LoadingChild.js";
+function Q(l) {
+  const { rowData: o, customizer: b } = l, N = l.initParams?.sort || {}, { onColumnSort: z, options: d, EmptyChildren: x, onRowClick: v } = G(l), w = C(null), D = b?.getTableRef ? b.getTableRef() : w, y = l.tableOptions || {}, s = !!y.enableColumnResizing, S = (t) => {
+    if (typeof t == "number") return t;
+    if (typeof t == "string") {
+      const e = t.match(/^(\d+(?:\.\d+)?)\s*px$/) || t.match(/^(\d+(?:\.\d+)?)$/);
+      if (e) return parseFloat(e[1]);
+    }
+  }, f = {
     ...d,
-    ...g,
-    columns: d.columns,
+    ...y,
+    columns: s ? ((t) => (t || []).map((e) => {
+      if (e?.size != null) return e;
+      const i = S(e?.meta?.columnDef?.width);
+      if (i == null) return e;
+      const m = { ...e, size: i };
+      return i < 20 && (m.minSize = i), m;
+    }))(d.columns) : d.columns,
     data: d.data
   };
-  c && !m.columnResizeMode && (m.columnResizeMode = "onChange");
-  const r = O(m);
-  v.current = r, o.tableRef && (o.tableRef.current = r);
-  const h = R(!1);
-  j(() => {
-    if (o.onTableReady && !h.current) {
-      h.current = !0;
+  s && !f.columnResizeMode && (f.columnResizeMode = "onChange");
+  const r = O(f);
+  D.current = r, l.tableRef && (l.tableRef.current = r);
+  const p = C(!1);
+  W(() => {
+    if (l.onTableReady && !p.current) {
+      p.current = !0;
       try {
-        o.onTableReady(r);
-      } catch (l) {
-        console.error(l);
+        l.onTableReady(r);
+      } catch (t) {
+        console.error(t);
       }
     }
   }, [r]);
-  const x = (l) => {
-    const e = l.column?.columnDef?.meta?.attribute;
+  const M = (t) => {
+    const e = t.column?.columnDef?.meta?.attribute;
     if (e)
-      return p[e];
-  }, z = c ? { layout: "fixed", style: { width: r.getTotalSize(), minWidth: "100%" } } : {};
-  return /* @__PURE__ */ t(s, { children: /* @__PURE__ */ T("div", { className: o.className, children: [
-    /* @__PURE__ */ T(a, { "aria-label": o["aria-label"], className: "py-baseGrid", ...z, children: [
-      /* @__PURE__ */ t(a.Thead, { className: "py-grid-header", children: r.getHeaderGroups().map((l) => /* @__PURE__ */ t(a.Tr, { className: "py-grid-header-row", children: l.headers.map((e) => e.isPlaceholder ? null : /* @__PURE__ */ t(
-        k,
+      return N[e];
+  }, P = s ? { layout: "fixed", style: { width: r.getTotalSize(), minWidth: "100%" } } : {};
+  return /* @__PURE__ */ n(u, { children: /* @__PURE__ */ R("div", { className: l.className, children: [
+    /* @__PURE__ */ n("div", { className: "py-baseGrid-scroll", children: /* @__PURE__ */ R(a, { "aria-label": l["aria-label"], className: "py-baseGrid", ...P, children: [
+      /* @__PURE__ */ n(a.Thead, { className: "py-grid-header", children: r.getHeaderGroups().map((t) => /* @__PURE__ */ n(a.Tr, { className: "py-grid-header-row", children: t.headers.map((e) => e.isPlaceholder ? null : /* @__PURE__ */ n(
+        j,
         {
           header: e,
-          sortMode: x(e),
-          onSortChange: C,
-          resizeEnabled: c,
-          children: u(
+          sortMode: M(e),
+          onSortChange: z,
+          resizeEnabled: s,
+          children: h(
             e.column.columnDef.header,
             e.getContext()
           )
         },
         e.id
-      )) }, l.id)) }),
-      n == null || n == null || n.length == 0 ? /* @__PURE__ */ t(s, {}) : /* @__PURE__ */ t(a.Tbody, { children: r.getRowModel().rows.map((l, e) => {
-        const M = "py-grid-data-row py-grid-data-row-" + (e % 2 == 1 ? "even" : "odd"), S = { animationDelay: Math.min(e, 14) * 18 + "ms" };
-        return /* @__PURE__ */ t(a.Tr, { className: M, style: S, children: l.getVisibleCells().map((i) => {
-          const b = i.column.columnDef.meta, P = "py-grid-data-cell " + (b?.columnDef?.type === "number" ? " py-grid-data-cell-type-number" : ""), y = c ? i.column.getSize() : b?.columnDef?.width, E = y ? { width: y } : void 0;
-          return /* @__PURE__ */ t(
+      )) }, t.id)) }),
+      o == null || o == null || o.length == 0 ? /* @__PURE__ */ n(u, {}) : /* @__PURE__ */ n(a.Tbody, { children: r.getRowModel().rows.map((t, e) => {
+        const i = "py-grid-data-row py-grid-data-row-" + (e % 2 == 1 ? "even" : "odd"), m = { animationDelay: Math.min(e, 14) * 18 + "ms" };
+        return /* @__PURE__ */ n(a.Tr, { className: i, style: m, children: t.getVisibleCells().map((c) => {
+          const T = c.column.columnDef.meta, E = "py-grid-data-cell " + (T?.columnDef?.type === "number" ? " py-grid-data-cell-type-number" : ""), g = s ? c.column.getSize() : T?.columnDef?.width, F = g ? { width: g, minWidth: g } : void 0;
+          return /* @__PURE__ */ n(
             a.Td,
             {
-              className: P,
-              style: E,
-              onClick: () => w(l.original),
-              children: u(
-                i.column.columnDef.cell,
-                i.getContext()
+              className: E,
+              style: F,
+              onClick: () => v(t.original),
+              children: h(
+                c.column.columnDef.cell,
+                c.getContext()
               )
             },
-            i.id
+            c.id
           );
-        }) }, l.id);
+        }) }, t.id);
       }) }),
-      !o.showFooter || n == null || n == null || n.length == 0 ? /* @__PURE__ */ t(s, {}) : /* @__PURE__ */ t(a.Tfoot, { className: "py-grid-footer", children: r.getFooterGroups().map((l) => /* @__PURE__ */ t(a.Tr, { className: "py-grid-footer-row", children: l.headers.map((e) => /* @__PURE__ */ t(a.Td, { className: "py-grid-footer-cell", children: e.isPlaceholder ? null : u(
+      !l.showFooter || o == null || o == null || o.length == 0 ? /* @__PURE__ */ n(u, {}) : /* @__PURE__ */ n(a.Tfoot, { className: "py-grid-footer", children: r.getFooterGroups().map((t) => /* @__PURE__ */ n(a.Tr, { className: "py-grid-footer-row", children: t.headers.map((e) => /* @__PURE__ */ n(a.Td, { className: "py-grid-footer-cell", children: e.isPlaceholder ? null : h(
         e.column.columnDef.footer,
         e.getContext()
-      ) }, e.id)) }, l.id)) })
-    ] }),
-    n == null ? /* @__PURE__ */ t("div", { children: /* @__PURE__ */ t(B, {}) }) : n == null ? /* @__PURE__ */ t("div", { children: "Error while loading data" }) : n.length == 0 ? /* @__PURE__ */ t(N, {}) : /* @__PURE__ */ t(s, {})
+      ) }, e.id)) }, t.id)) })
+    ] }) }),
+    o == null ? /* @__PURE__ */ n("div", { children: /* @__PURE__ */ n(k, {}) }) : o == null ? /* @__PURE__ */ n("div", { children: "Error while loading data" }) : o.length == 0 ? /* @__PURE__ */ n(x, {}) : /* @__PURE__ */ n(u, {})
   ] }) });
 }
 export {
-  K as default
+  Q as default
 };
