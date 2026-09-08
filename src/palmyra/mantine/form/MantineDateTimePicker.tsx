@@ -8,16 +8,18 @@ import { getFieldLabel } from './util';
 
 function MantineDateTimePicker(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DateTimePickerProps, 'defaultValue' | 'ref'> & { ref?: Ref<IDateField> }) {
+
     const displayFormat: string = props.valueFormat || props.serverPattern || getDefaultDateTimePattern();
+    const outputPattern: string = props.serverPattern || props.valueFormat || getDefaultDateTimePattern();
 
     const parse = (rawData: any) => {
         if (rawData)
-            return dayjs(rawData, serverPattern)
+            return dayjs(rawData, outputPattern)
         return undefined;
     };
     const format = (v: any) => {
         if (v && v.isValid && v.isValid())
-            return v.format(serverPattern);
+            return v.format(outputPattern);
         return null;
     };
 
@@ -40,13 +42,15 @@ function MantineDateTimePicker(
         };
     }, [fieldManager]);
 
-    var { serverPattern, ...options } = fieldManager.getFieldProps();
+    const options: any = { ...fieldManager.getFieldProps() };
+    delete options.serverPattern; 
 
     options.onChange = (d: any,) => {
         if (!props.readOnly) {
-            setValue(d);
+            const val = d ? dayjs(d) : null;
+            setValue(val);
             if (props.onChange)
-                props.onChange(d);
+                (props.onChange as any)(val);
         }
     }
     options.onBlur = (event: any) => {
@@ -56,7 +60,11 @@ function MantineDateTimePicker(
             refreshError
         }
     }
-    const value = getValue();
+    
+    const raw: any = getValue();
+    const value = raw
+        ? (raw.isValid ? (raw.isValid() ? raw.toDate() : null) : raw)
+        : null;
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
