@@ -3,10 +3,9 @@ import { Table as a } from "@mantine/core";
 import { useBaseGridManager as G } from "@palmyralabs/rt-forms";
 import { useReactTable as O, flexRender as h } from "@tanstack/react-table";
 import { useRef as C, useEffect as W } from "react";
-import '../../../../assets/BaseTable.css';/* empty css                           */
 import j from "./ColumnHeader.js";
 import k from "./LoadingChild.js";
-function Q(l) {
+import '../../../../assets/BaseTable.css';function K(l) {
   const { rowData: o, customizer: b } = l, N = l.initParams?.sort || {}, { onColumnSort: z, options: d, EmptyChildren: x, onRowClick: v } = G(l), w = C(null), D = b?.getTableRef ? b.getTableRef() : w, y = l.tableOptions || {}, s = !!y.enableColumnResizing, S = (t) => {
     if (typeof t == "number") return t;
     if (typeof t == "string") {
@@ -88,5 +87,5 @@ function Q(l) {
   ] }) });
 }
 export {
-  Q as default
+  K as default
 };

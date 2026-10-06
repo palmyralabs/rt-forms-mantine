@@ -2,10 +2,10 @@ import { jsx as c, jsxs as h } from "react/jsx-runtime";
 import { Checkbox as N, TextInput as K } from "@mantine/core";
 import { useRef as O, useState as v, useMemo as W } from "react";
 import { flushSync as F } from "react-dom";
-import { M as A } from "../../../../chunks/index6.js";
+import { M as A } from "../../../../chunks/index5.js";
 import { c as H, d as J } from "../../../../chunks/index2.js";
-import { DropdownButton as Q } from "../../widget/DropdownButton.js";
 import { getColumnId as u } from "./useColumnChooser.js";
+import { DropdownButton as Q } from "../../widget/DropdownButton.js";
 import '../../../../assets/ColumnChooserButton.css';const X = (s) => {
   const l = typeof document < "u" ? document : null, o = typeof window < "u" && !!window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   l && typeof l.startViewTransition == "function" && !o ? l.startViewTransition(() => F(s)) : s();

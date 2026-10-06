@@ -43,8 +43,6 @@ export default defineConfig({
         'react',
         'html2canvas',
         'react-dom',
-        'react-icons',
-        'react-router-dom',
         'react/jsx-runtime',
         'react-chartjs-2',        
         '@emotion/react',

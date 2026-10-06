@@ -1,10 +1,9 @@
 import { jsx as r } from "react/jsx-runtime";
 import { useRef as e } from "react";
 import { T as i } from "../../../../chunks/index2.js";
-import "@mantine/core";
-import { DropdownButton as m } from "../../widget/DropdownButton.js";
 import { FilterForm as n } from "../plugins/filter/FilterForm.js";
-const d = (t) => {
+import { DropdownButton as m } from "../../widget/DropdownButton.js";
+const c = (t) => {
   const o = e(null);
   return /* @__PURE__ */ r(
     m,
@@ -18,5 +17,5 @@ const d = (t) => {
   );
 };
 export {
-  d as FilterButton
+  c as FilterButton
 };
