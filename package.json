@@ -67,7 +67,7 @@
     "@mantine/dates": "^9.1.1",
     "@mantine/hooks": "^9.1.1",
     "@palmyralabs/palmyra-wire": "^1.2.0",
-    "@palmyralabs/rt-forms": "^0.3.0",
+    "@palmyralabs/rt-forms": "github:palmyralabs/rt-forms",
     "@palmyralabs/ts-predicates": "^0.3.0",
     "@palmyralabs/ts-utils": "^0.3.0",
     "@tanstack/react-table": "^8.21.3",
