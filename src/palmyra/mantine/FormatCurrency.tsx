@@ -11,14 +11,10 @@ function formatCurrency(): CellGetter {
         if (!isFinite(data) || data === 0) {
             return '0';
         }
-        if (data !== 0) {
-            const convertAmount = data.toFixed(0);
-            const options = { minimumFractionDigits: 0, maximumFractionDigits: 0 };
-            const formattedAmount = Number(convertAmount).toLocaleString('en-IN', options);
-            return formattedAmount;
-        } else {
-            return '0';
-        }
+        const convertAmount = data.toFixed(2);
+        const options = { minimumFractionDigits: 0, maximumFractionDigits: 2 };
+        const formattedAmount = Number(convertAmount).toLocaleString('en-IN', options);
+        return formattedAmount;
     };
 }
 

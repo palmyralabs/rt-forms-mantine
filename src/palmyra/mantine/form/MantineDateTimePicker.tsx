@@ -9,8 +9,9 @@ import { getFieldLabel } from './util';
 function MantineDateTimePicker(
     props: Omit<IDatePickerDefinition, 'displayPattern'> & Omit<DateTimePickerProps, 'defaultValue' | 'ref'> & { ref?: Ref<IDateField> }) {
 
-    const displayFormat: string = props.valueFormat || props.serverPattern || getDefaultDateTimePattern();
-    const outputPattern: string = props.serverPattern || props.valueFormat || getDefaultDateTimePattern();
+    const vf: string | undefined = typeof props.valueFormat === 'string' ? props.valueFormat : undefined;
+    const displayFormat: string = vf || props.serverPattern || getDefaultDateTimePattern();
+    const outputPattern: string = props.serverPattern || vf || getDefaultDateTimePattern();
 
     const parse = (rawData: any) => {
         if (rawData)

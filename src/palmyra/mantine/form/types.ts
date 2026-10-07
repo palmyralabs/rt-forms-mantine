@@ -63,6 +63,11 @@ interface IMonthInputDefinition extends MantineInputFieldOptions, ILayoutOptions
     displayPattern?: string
 }
 
+interface IYearInputDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
+    serverPattern?: string,
+    displayPattern?: string
+}
+
 interface ICalendarDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
     serverPattern?: string
 }
@@ -180,7 +185,7 @@ export type {
     ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition,
     ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition,
     IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition,
-    IPinInputDefinition, IMonthInputDefinition
+    IPinInputDefinition, IMonthInputDefinition, IYearInputDefinition
 }
 
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }

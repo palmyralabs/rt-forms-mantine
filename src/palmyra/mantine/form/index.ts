@@ -1,10 +1,12 @@
 // export * from './MantineCalendar';
 export * from './MantineCheckBox';
+export * from './MantineCurrencyField';
 // export * from './MantineCheckBoxGroup';
 export * from './MantineDateInput';
 export * from './MantineDatePickerInput';
 export * from './MantineDateTimePicker';
 export * from './MantineMonthInput';
+export * from './MantineYearInput';
 export * from './MantineMultiSelect';
 export * from './MantineNumberField';
 export * from './MantineNumberPickerInput'
