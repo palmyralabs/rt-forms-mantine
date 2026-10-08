@@ -1,6 +1,6 @@
 import { IEndPoint, PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { ISaveForm, PalmyraEditForm } from "@palmyralabs/rt-forms";
-import { Button, Fieldset, SimpleGrid } from "@mantine/core";
+import { Button, SimpleGrid } from "@mantine/core";
 import { useMemo, useRef, useState } from "react";
 import {
     MantineDatePickerInput, MantineDateTimePicker, MantineMultiSelect,
@@ -9,6 +9,7 @@ import {
     MantineTextArea, MantineTextField, MantineTimeInput
 } from "../../src/main";
 import { DemoShell } from "./DemoShell";
+import { DemoSection } from "./DemoSection";
 import { LookupConfig } from "./LookupConfig";
 
 const SampleForm = () => {
@@ -42,15 +43,15 @@ const SampleForm = () => {
                 onBaseUrl={setBaseUrl} onEndPoint={setLookupEndPoint} />
 
             <PalmyraEditForm key={baseUrl} id="1" endPoint={endPoint} storeFactory={storeFactory} ref={formRef}>
-                <Fieldset legend="Basic details" radius="md" p="sm">
+                <DemoSection title="Basic details">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineTextField attribute="name" label="Name" />
                         <MantinePasswordField attribute="password" label="Password" />
                         <MantineTextArea attribute="area" label="About" />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Choices" radius="md" p="sm">
+                <DemoSection title="Choices">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineNumberField attribute="population" label="Population" />
                         <MantineSelect attribute="select" required label="State"
@@ -60,32 +61,32 @@ const SampleForm = () => {
                         <MantineSwitch attribute="switch" label="Switch" options={{ True: true, False: false }} />
                         <MantineRadioGroup attribute="radio" label="Flag" options={{ 1: 'true', 0: 'false' }} />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Date & time" radius="md" p="sm">
+                <DemoSection title="Date & time">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineDatePickerInput attribute="dates" label="Date range" valueFormat="DD-MMM-YYYY" type="range" />
                         <MantineDatePickerInput attribute="date" label="Date" valueFormat="DD-MM-YYYY" />
                         <MantineTimeInput attribute="time" label="Time" />
                         <MantineDateTimePicker attribute="dateTime" label="Date time" valueFormat="DD-MM-YYYY hh:mm:ss" />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Ratings & sliders" radius="md" p="sm">
+                <DemoSection title="Ratings & sliders">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineRating attribute="rating" fractions={2} />
                         <MantineSlider attribute="slider" label="Slider" />
                         <MantineRangeSlider attribute="rangeSlider" label="Range slider" />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Lookup" radius="md" p="sm">
+                <DemoSection title="Lookup">
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm" verticalSpacing="xs">
                         <MantineServerLookup attribute="serverLookup" title="Country"
                             lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
                             queryOptions={{ endPoint: lookupEndPoint as any, labelAttribute: 'name', idAttribute: 'id' }} />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
             </PalmyraEditForm>
         </DemoShell>
     );

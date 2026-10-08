@@ -1,6 +1,6 @@
 import { IEndPoint, PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { ISaveForm, PalmyraNewForm } from "@palmyralabs/rt-forms";
-import { Button, Fieldset, SimpleGrid, Text } from "@mantine/core";
+import { Button, SimpleGrid, Text } from "@mantine/core";
 import { useMemo, useRef, useState } from "react";
 import {
     LookupSelect, MantineCurrencyField, MantineDateInput, MantineDatePickerInput,
@@ -9,6 +9,7 @@ import {
     MantineTextField, MantineYearInput
 } from "../../src/main";
 import { DemoShell } from "./DemoShell";
+import { DemoSection } from "./DemoSection";
 import { LookupConfig } from "./LookupConfig";
 
 const SampleNewForm = () => {
@@ -42,23 +43,23 @@ const SampleNewForm = () => {
                 onBaseUrl={setBaseUrl} onEndPoint={setLookupEndPoint} />
 
             <PalmyraNewForm key={baseUrl} endPoint={endPoint} storeFactory={storeFactory} ref={formRef}>
-                <Fieldset legend="Basic details" radius="md" p="sm">
+                <DemoSection title="Basic details">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineTextField attribute="name" label="Name" placeholder="Full name" />
                         <MantinePasswordField attribute="password" label="Password" placeholder="••••••" />
                         <MantineSwitch attribute="active" label="Active" options={{ True: true, False: false }} />
                         <MantineTextArea attribute="area" label="About" placeholder="Short description" />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Numbers & money" radius="md" p="sm">
+                <DemoSection title="Numbers & money">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineNumberField attribute="population" label="Population" defaultValue={212} />
                         <MantineCurrencyField attribute="amount" label="Payable amount" />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Choices" radius="md" p="sm">
+                <DemoSection title="Choices">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineSelect attribute="state" required label="State"
                             options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }} />
@@ -66,18 +67,18 @@ const SampleNewForm = () => {
                             options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }} />
                         <MantineRadioGroup attribute="gender" label="Gender" options={{ 1: 'Male', 0: 'Female' }} />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Date & time" radius="md" p="sm">
+                <DemoSection title="Date & time">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineDatePickerInput attribute="date" label="Date" valueFormat="DD-MM-YYYY" />
                         <MantineDateInput attribute="dateInput" label="Date input" valueFormat="DD-MM-YYYY" />
                         <MantineDateTimePicker attribute="dateTime" label="Date time" valueFormat="DD-MM-YYYY hh:mm:ss" />
                         <MantineYearInput attribute="year" label="Year" valueFormat="YYYY" serverPattern="YYYY" />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
 
-                <Fieldset legend="Lookups" radius="md" p="sm">
+                <DemoSection title="Lookups">
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm" verticalSpacing="xs">
                         <LookupSelect attribute="userId" label="User (LookupSelect)"
                             endPoint={lookupEndPoint} idAttribute="id" labelAttribute="email"
@@ -103,7 +104,7 @@ const SampleNewForm = () => {
                                 </Text>
                             )} />
                     </SimpleGrid>
-                </Fieldset>
+                </DemoSection>
             </PalmyraNewForm>
         </DemoShell>
     );

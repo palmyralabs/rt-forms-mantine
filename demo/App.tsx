@@ -8,6 +8,7 @@ import { SampleForm } from './components/SampleForm';
 import { SampleNewForm } from './components/SampleNewForm';
 import { SampleGrid } from './components/SampleGrid';
 import { SampleViewForm } from './components/SampleViewForm';
+import { SampleUpload } from './components/SampleUpload';
 
 function App() {
   const [tab, setTab] = useState<string | null>('new');
@@ -34,6 +35,7 @@ function App() {
               <Tabs.Tab value="edit">Edit Form</Tabs.Tab>
               <Tabs.Tab value="view">View Form</Tabs.Tab>
               <Tabs.Tab value="grid">Data Grid</Tabs.Tab>
+              <Tabs.Tab value="upload">Upload</Tabs.Tab>
             </Tabs.List>
           </Container>
         </div>
@@ -43,6 +45,7 @@ function App() {
           <Tabs.Panel value="edit"><SampleForm /></Tabs.Panel>
           <Tabs.Panel value="view"><SampleViewForm /></Tabs.Panel>
           <Tabs.Panel value="grid"><SampleGrid /></Tabs.Panel>
+          <Tabs.Panel value="upload"><SampleUpload /></Tabs.Panel>
         </Container>
       </Tabs>
     </div>

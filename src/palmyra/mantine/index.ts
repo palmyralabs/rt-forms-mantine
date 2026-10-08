@@ -1,5 +1,6 @@
 export * from './form/index'
 export * from './grid/index'
 export * from './container/index'
+export * from './upload/index'
 export * from './FormatCurrency'
 export * from './ColumnSum'
