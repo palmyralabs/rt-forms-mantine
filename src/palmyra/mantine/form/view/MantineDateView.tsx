@@ -6,6 +6,7 @@ import { getFieldLabel } from '../util';
 import { IDatePickerDefinition, TextViewAttributeDefinition } from '../types';
 import { getVariantClassName } from "./variantClassName";
 import { getDefaultDatePattern } from "../DateUtils";
+import { CopyableValue } from './CopyableValue';
 
 function MantineDateView(props: IDatePickerDefinition & TextViewAttributeDefinition & { ref?: Ref<IDateField> }) {
 
@@ -63,11 +64,13 @@ function MantineDateView(props: IDatePickerDefinition & TextViewAttributeDefinit
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={getVariantClassName(variant, props.label)}>{formatValue(value) || "--"}</div>
+                    <div className={getVariantClassName(variant, props.label)}>
+                        <CopyableValue copyable={props.copyable} value={formatValue(value)}>{formatValue(value) || "--"}</CopyableValue>
+                    </div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlignment }}>
                     <div className={getVariantClassName(variant, props.title)}>
-                        {formatValue(value) || "--"}
+                        <CopyableValue copyable={props.copyable} value={formatValue(value)}>{formatValue(value) || "--"}</CopyableValue>
                     </div>
                 </div>
             }

@@ -3,11 +3,13 @@ import { Ref, useImperativeHandle, useRef } from 'react';
 import { ITextFieldDefinition } from '../types';
 import { getFieldLabel } from '../util';
 import { getVariantClassName } from './variantClassName';
+import { CopyableValue } from './CopyableValue';
 
 interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center',
     variant?: 'standard' | 'outlined' | 'filled',
-    viewType?: 'preformatted' | 'normal'
+    viewType?: 'preformatted' | 'normal',
+    copyable?: boolean
 }
 
 function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefinition & { ref?: Ref<ITextField> }) {
@@ -37,12 +39,16 @@ function MantineTextView(props: ITextFieldDefinition & TextViewAttributeDefiniti
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={getVariantClassName(variant, props.label)}>{getValue() || '--'}</div>
+                    <div className={getVariantClassName(variant, props.label)}>
+                        <CopyableValue copyable={props.copyable} value={getValue()}>{getValue() || '--'}</CopyableValue>
+                    </div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlignment }}>
                     <div className={getVariantClassName(variant, props.title)}>
-                        {viewType == 'preformatted' ?
-                            <pre> {getValue() || "--"} </pre> : <>{getValue() || "--"}</>}
+                        <CopyableValue copyable={props.copyable} value={getValue()}>
+                            {viewType == 'preformatted' ?
+                                <pre> {getValue() || "--"} </pre> : <>{getValue() || "--"}</>}
+                        </CopyableValue>
                     </div>
                 </div>
             }

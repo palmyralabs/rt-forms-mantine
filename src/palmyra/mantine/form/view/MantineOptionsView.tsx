@@ -4,6 +4,7 @@ import { useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { ISelectDefinition, TextViewAttributeDefinition } from '../types';
 import { getFieldLabel } from '../util'
 import { getVariantClassName } from './variantClassName';
+import { CopyableValue } from './CopyableValue';
 
 function MantineOptionsView(props: ISelectDefinition & TextViewAttributeDefinition & { ref?: Ref<any> }) {
     const fieldManager = useFieldManager(props.attribute, props);
@@ -25,12 +26,12 @@ function MantineOptionsView(props: ISelectDefinition & TextViewAttributeDefiniti
                         <div className="text-view-label">{props.label}</div>
                         <div style={{ textAlign: textAlign }}
                             className={getVariantClassName(variant, props.label)}>
-                            {props.options[getValue()] || '--'}
+                            <CopyableValue copyable={props.copyable} value={props.options[getValue()]}>{props.options[getValue()] || '--'}</CopyableValue>
                         </div>
                     </div> :
                     <div style={{ textAlign: textAlign }}>
                         <div className={getVariantClassName(variant, props.title)}>
-                            {props.options[getValue()] || '--'}
+                            <CopyableValue copyable={props.copyable} value={props.options[getValue()]}>{props.options[getValue()] || '--'}</CopyableValue>
                         </div>
                     </div>
                 }

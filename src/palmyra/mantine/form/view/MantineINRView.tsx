@@ -7,12 +7,14 @@ import { formatAmount } from '../../FormatCurrency';
 import { ITextFieldDefinition } from '../types';
 import { getFieldLabel } from '../util';
 import { getVariantClassName } from './variantClassName';
+import { CopyableValue } from './CopyableValue';
 
 interface TextViewAttributeDefinition {
     textAlign?: 'left' | 'right' | 'center',
     variant?: 'standard' | 'outlined' | 'filled',
     valueFormat?: 'amount' | 'number' | 'text' | 'percentage';
-    maxFraction?: number
+    maxFraction?: number,
+    copyable?: boolean
 }
 
 function MantineINRView(props: ITextFieldDefinition & TextViewAttributeDefinition & { ref?: Ref<ITextField> }) {
@@ -90,9 +92,11 @@ function MantineINRView(props: ITextFieldDefinition & TextViewAttributeDefinitio
                 </Tooltip>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <MdOutlineCurrencyRupee />
-                    {showInWords
-                        ? formatAmountText(value)
-                        : formatAmount(value, props.maxFraction)}
+                    <CopyableValue copyable={props.copyable} value={value}>
+                        {showInWords
+                            ? formatAmountText(value)
+                            : formatAmount(value, props.maxFraction)}
+                    </CopyableValue>
                 </div>
             </>
         );

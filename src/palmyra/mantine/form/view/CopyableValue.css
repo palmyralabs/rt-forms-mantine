@@ -1,0 +1,17 @@
+.py-copyable {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.py-copyable-btn {
+  flex: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+
+.py-copyable:hover .py-copyable-btn {
+  opacity: 1;
+  pointer-events: auto;
+}

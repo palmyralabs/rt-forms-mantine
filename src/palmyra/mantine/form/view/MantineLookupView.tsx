@@ -4,6 +4,7 @@ import { ILookupViewOptions, TextViewAttributeDefinition } from '../types';
 import { getFieldLabel } from '../util';
 import { getFieldHandler, useFieldManager, FieldDecorator } from '@palmyralabs/rt-forms';
 import { getVariantClassName } from './variantClassName';
+import { CopyableValue } from './CopyableValue';
 
 function MantineLookupView(props: ILookupViewOptions & TextViewAttributeDefinition & { ref?: Ref<any> }) {
 
@@ -35,11 +36,13 @@ function MantineLookupView(props: ILookupViewOptions & TextViewAttributeDefiniti
             {(props.label) ?
                 <div {...options} className='text-view-field-container'>
                     <div className="text-view-label">{props.label}</div>
-                    <div className={getVariantClassName(variant, props.label)}>{data[labelKey] || '--'}</div>
+                    <div className={getVariantClassName(variant, props.label)}>
+                        <CopyableValue copyable={props.copyable} value={data?.[labelKey]}>{data?.[labelKey] || '--'}</CopyableValue>
+                    </div>
                 </div> :
                 <div {...options} style={{ textAlign: textAlignment }}>
                     <div className={getVariantClassName(variant, props.title)}>
-                        {data[labelKey] || '--'}
+                        <CopyableValue copyable={props.copyable} value={data?.[labelKey]}>{data?.[labelKey] || '--'}</CopyableValue>
                     </div>
                 </div>
             }

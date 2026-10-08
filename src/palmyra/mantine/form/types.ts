@@ -23,7 +23,8 @@ interface ILayoutOptions {
 interface TextViewAttributeDefinition {
     attribute: string,
     textAlign?: 'left' | 'right' | 'center',
-    variant?: 'standard' | 'outlined' | 'filled'
+    variant?: 'standard' | 'outlined' | 'filled',
+    copyable?: boolean
 }
 
 interface MantineInputFieldOptions extends FieldOptions {
