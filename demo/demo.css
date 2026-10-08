@@ -1,0 +1,48 @@
+.demo-root {
+    min-height: 100vh;
+    background: var(--mantine-color-gray-0);
+}
+
+[data-mantine-color-scheme='dark'] .demo-root {
+    background: var(--mantine-color-dark-8);
+}
+
+.demo-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, var(--mantine-color-indigo-6), var(--mantine-color-grape-6));
+    color: var(--mantine-color-white);
+    padding: 12px 0;
+    box-shadow: var(--mantine-shadow-sm);
+}
+
+.demo-header-title {
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.1;
+}
+
+.demo-header-sub {
+    opacity: 0.85;
+}
+
+.demo-tabs {
+    position: sticky;
+    top: 62px;
+    z-index: 99;
+    background: var(--mantine-color-gray-0);
+    padding: 10px 0;
+}
+
+[data-mantine-color-scheme='dark'] .demo-tabs {
+    background: var(--mantine-color-dark-8);
+}
+
+.demo-config {
+    background: var(--mantine-color-gray-0);
+}
+
+[data-mantine-color-scheme='dark'] .demo-config {
+    background: var(--mantine-color-dark-6);
+}

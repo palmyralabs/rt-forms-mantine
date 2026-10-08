@@ -1,161 +1,94 @@
 import { IEndPoint, PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
-import { ISaveForm, PalmyraEditForm, PalmyraNewForm } from "@palmyralabs/rt-forms";
-import { MantineCheckBox, MantineNumberPickerInput, MantinePasswordField, MantineRadio, MantineRadioGroup, MantineSwitch, MantineTextArea, MantineTextField, SectionContainer } from "../../src/main";
-import { Button } from "@mantine/core";
-import { useEffect, useRef } from "react";
-import { MantineServerLookup } from "../../src/palmyra/mantine/form/MantineServerLookup";
-import { MantineSelect } from "../../src/palmyra/mantine/form/MantineSelect";
-import { MantineMultiSelect } from "../../src/palmyra/mantine/form/MantineMultiSelect";
-import { MantineNumberField } from "../../src/palmyra/mantine/form/MantineNumberField";
-import { MantineDatePickerInput } from "../../src/palmyra/mantine/form/MantineDatePickerInput";
-import { DatePicker, DatePickerInput } from "@mantine/dates";
-import { MantineRating } from "../../src/palmyra/mantine/form/MantineRating";
-import { MantineSlider } from "../../src/palmyra/mantine/form/MantineSlider";
-import { MantineRangeSlider } from "../../src/palmyra/mantine/form/MantineRangeSlider";
-import { MantineCalendar } from "../../src/palmyra/mantine/form/MantineCalendar";
-import { MantineDateInput } from "../../src/palmyra/mantine/form/MantineDateInput";
-import { MantineDateTimePicker } from "../../src/palmyra/mantine/form/MantineDateTimePicker";
-import { MantineTriStateCheckBox } from "../../src/palmyra/mantine/form/MantineTriStateCheckBox";
-import { MantineColorInput } from "../../src/palmyra/mantine/form/MantineColorInput";
-import { MantineTimeInput } from "../../src/palmyra/mantine/form/MantineTimeInput";
-// import { MantineJsonInput } from "../../src/palmyra/mantine/form/MantineJsonInput";
+import { ISaveForm, PalmyraEditForm } from "@palmyralabs/rt-forms";
+import { Button, Fieldset, SimpleGrid } from "@mantine/core";
+import { useMemo, useRef, useState } from "react";
+import {
+    MantineDatePickerInput, MantineDateTimePicker, MantineMultiSelect,
+    MantineNumberField, MantinePasswordField, MantineRadioGroup, MantineRangeSlider,
+    MantineRating, MantineSelect, MantineServerLookup, MantineSlider, MantineSwitch,
+    MantineTextArea, MantineTextField, MantineTimeInput
+} from "../../src/main";
+import { DemoShell } from "./DemoShell";
+import { LookupConfig } from "./LookupConfig";
 
 const SampleForm = () => {
+    const [baseUrl, setBaseUrl] = useState("/demo/testdata/form/");
+    const [lookupEndPoint, setLookupEndPoint] = useState("/serverlookupData.json");
 
-    const storeFactory = new PalmyraStoreFactory({ baseUrl: "/demo/testdata/form/" });
+    const storeFactory = useMemo(() => new PalmyraStoreFactory({ baseUrl }), [baseUrl]);
     const formRef = useRef<ISaveForm>(null);
+
     const endPoint: IEndPoint = {
-        get: '1.json',
-        query: '1.json', put: '1.json',
-        post: '1.json'
-    }
+        get: '1.json', query: '1.json', put: '1.json', post: '1.json'
+    };
 
-    const saveFormData = () => {
-        const s = formRef.current!.saveData();
-        s.then((d: any) => {
-            console.log(d)
-        }).catch((e) => {
-            if (e.response && e.response.status === 500) {
-                console.log(e.response.status)
-            }
-        });
-    }
+    const logData = () => console.log(formRef.current?.getData());
+    const saveData = () => formRef.current?.saveData()
+        .then((d: any) => console.log('saved', d))
+        .catch((e: any) => console.error(e));
 
-    const consoleData = () => {
-        console.log(formRef.current!.getData())
-    }
+    const actions = (
+        <>
+            <Button size="xs" variant="default" onClick={logData}>Log Data</Button>
+            <Button size="xs" onClick={saveData}>Update</Button>
+        </>
+    );
 
-    console.log(formRef?.current?.getData())
+    const cols = { base: 1, sm: 2, lg: 3 };
 
     return (
-        <><h1>Edit</h1>
-            <PalmyraEditForm id="1" endPoint={endPoint}
-                storeFactory={storeFactory} ref={formRef}>
-                    <MantineNumberPickerInput attribute="picker" label="Number Picker"/>
-                <MantineDatePickerInput attribute='dates' label={"Date Range"}
-                    valueFormat='DD-MMM-YYYY' type="range" />
-                <MantineDatePickerInput attribute='date' label={"Date"}
-                    valueFormat='DD-MM-YYYY' />
-                <MantineTimeInput attribute='time' label={"Time"} />
-                {/* <MantineTimeInput attribute='times' label={"Time Range"} type="range"/> */}
+        <DemoShell title="Edit Form" description="Loads record id 1 and binds every field to existing values" actions={actions}>
+            <LookupConfig baseUrl={baseUrl} endPoint={lookupEndPoint}
+                onBaseUrl={setBaseUrl} onEndPoint={setLookupEndPoint} />
 
+            <PalmyraEditForm key={baseUrl} id="1" endPoint={endPoint} storeFactory={storeFactory} ref={formRef}>
+                <Fieldset legend="Basic details" radius="md" p="sm">
+                    <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
+                        <MantineTextField attribute="name" label="Name" />
+                        <MantinePasswordField attribute="password" label="Password" />
+                        <MantineTextArea attribute="area" label="About" />
+                    </SimpleGrid>
+                </Fieldset>
 
-                <MantineTextField attribute="name" />
-                <MantineColorInput attribute="color" />
-                {/* <MantineJsonInput attribute="json" /> */}
-                <MantineTextArea attribute="area" />
-                <MantineSwitch attribute="switch" options={{ True: true, False: false }} />
+                <Fieldset legend="Choices" radius="md" p="sm">
+                    <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
+                        <MantineNumberField attribute="population" label="Population" />
+                        <MantineSelect attribute="select" required label="State"
+                            options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }} />
+                        <MantineMultiSelect attribute="multiSelect" label="Multi select" placeholder="Pick many"
+                            options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }} />
+                        <MantineSwitch attribute="switch" label="Switch" options={{ True: true, False: false }} />
+                        <MantineRadioGroup attribute="radio" label="Flag" options={{ 1: 'true', 0: 'false' }} />
+                    </SimpleGrid>
+                </Fieldset>
 
-                <MantineNumberField attribute="population" />
-                <MantineSelect
-                    attribute="select" required label={"Select"}
-                    options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }}
-                />
-                <MantineSlider attribute="slider" label={"Slider"} />
+                <Fieldset legend="Date & time" radius="md" p="sm">
+                    <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
+                        <MantineDatePickerInput attribute="dates" label="Date range" valueFormat="DD-MMM-YYYY" type="range" />
+                        <MantineDatePickerInput attribute="date" label="Date" valueFormat="DD-MM-YYYY" />
+                        <MantineTimeInput attribute="time" label="Time" />
+                        <MantineDateTimePicker attribute="dateTime" label="Date time" valueFormat="DD-MM-YYYY hh:mm:ss" />
+                    </SimpleGrid>
+                </Fieldset>
 
-                <MantineMultiSelect
-                    // defaultValue={[]}
-                    attribute="multiSelect" label={"Multi Select"} placeholder='Multi Select'
-                    options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }}
-                />
+                <Fieldset legend="Ratings & sliders" radius="md" p="sm">
+                    <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
+                        <MantineRating attribute="rating" fractions={2} />
+                        <MantineSlider attribute="slider" label="Slider" />
+                        <MantineRangeSlider attribute="rangeSlider" label="Range slider" />
+                    </SimpleGrid>
+                </Fieldset>
 
-                <MantineServerLookup
-                    attribute="serverLookup"
-                    title="Select Country"
-                    lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
-                    queryOptions={{ endPoint: "/serverlookupData.json", labelAttribute: 'name', idAttribute: 'id' }}
-                />
-
-                <MantineRating attribute="rating" fractions={2} />
-                <MantineRangeSlider attribute="rangeSlider" label={"Range Slider"} />
-                <MantineRadioGroup attribute="radio" options={{ 1: 'true', 0: 'false' }} />
-                <MantineRadio attribute="radios" />
-                <MantinePasswordField attribute="password" />
-                {/* <MantineDateTimePicker attribute='dateTime' label={"DateTime"}
-                    valueFormat='DD-MM-YYYY hh:mm:ss'
-                /> */}
-
-                <MantineDateTimePicker attribute='dateTime' valueFormat='DD-MM-YYYY hh:mm:ss'
-                    defaultValue={new Date("2022-01-02")} label={"Date Time Input"}
-                />
-
-                {/* <MantineDateInput attribute='date' label={"Date Input"}
-                    valueFormat='DD-MM-YYYY'
-                /> */}
-
-                <MantineServerLookup
-                    attribute="serverLookup"
-                    title="Select Country"
-                    // defaultValue={"Germany"}
-                    lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
-                    queryOptions={{ endPoint: "/serverlookupData.json", labelAttribute: 'name', idAttribute: 'id' }}
-                />
-
-                {/* <MantineCheckBox attribute="check" /> */}
-
-                {/* 
-                <MantineRadioGroup attribute="radio" options={{ 1: 'true', 0: 'false' }} />
-                <MantineDatePickerInput attribute='dates' label={"Dates"}
-                    valueFormat='DD-MM-YYYY'
-                    type='range'
-                // defaultValue={[new Date("2024-01-02"), new Date(2024, 1, 15)]}
-                // defaultValue={["2022-01-02", "2025-05-10"]}
-                />
-                <MantineDatePickerInput attribute='date' title={"Date"} valueFormat='DD-MM-YYYY'
-                    defaultValue={new Date("2022-01-02")}
-                />
-                
-                {/* <MantineServerLookup
-                    attribute="serverLookup"
-                    title="Select Country"
-                    // defaultValue={"Germany"}
-                    lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
-                    queryOptions={{ endPoint: "/serverlookupData.json", labelAttribute: 'name', idAttribute: 'id' }}
-                /> */}
-
-                {/* <MantineCalendar attribute='date' valueFormat='DD-MM-YYYY'
-                    defaultValue={"2022-01-02"}
-                />
-                <MantineDateInput attribute='date' valueFormat='DD-MM-YYYY' label={"Date Input"}
-                // defaultValue={new Date("2022-01-02")}
-                /> */}
-
-                {/* <MantineDateTimePicker attribute='dateTime' valueFormat='DD-MM-YYYY hh:mm:ss'
-                    defaultValue={new Date("2022-01-02")} label={"Date Time Input"}
-                /> */}
+                <Fieldset legend="Lookup" radius="md" p="sm">
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm" verticalSpacing="xs">
+                        <MantineServerLookup attribute="serverLookup" title="Country"
+                            lookupOptions={{ labelAttribute: 'name', idAttribute: 'id' }}
+                            queryOptions={{ endPoint: lookupEndPoint as any, labelAttribute: 'name', idAttribute: 'id' }} />
+                    </SimpleGrid>
+                </Fieldset>
             </PalmyraEditForm>
-            <Button onClick={consoleData}>Submit</Button>
+        </DemoShell>
+    );
+};
 
-            {/* <SectionContainer title={"Form"} variant="separated" defaultValue="Form">
-                <PalmyraEditForm id="1" endPoint={endPoint}
-                    storeFactory={storeFactory} ref={formRef}>
-                    <MantineDatePickerInput attribute='date' title={"Date"} valueFormat='DD-MM-YYYY'
-                        defaultValue={new Date("2022-01-02")}
-                    />
-                    <MantineTriStateCheckBox attribute='check' size="xl" />
-                </PalmyraEditForm>
-            </SectionContainer> */}
-        </>)
-}
-
-export { SampleForm }
+export { SampleForm };
