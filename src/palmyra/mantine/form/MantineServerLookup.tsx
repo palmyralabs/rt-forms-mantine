@@ -21,7 +21,7 @@ function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteP
     const [dropdownOpened, { open, close }] = useDisclosure(false);
 
     const value = getValue();
-    const label = value ? getOptionValue(value) : '';
+    const label = value ? (props.getOptionLabel ? props.getOptionLabel(value) : getOptionValue(value)) : '';
 
     const storeFactory: any = useContext(StoreFactoryContext);
     const resolvedIdRef = useRef<any>(undefined);
@@ -116,6 +116,8 @@ function MantineServerLookup(props: IServerLookupDefinition & Omit<AutocompleteP
             value={label}
             getOptionKey={getOptionKey}
             getOptionValue={getOptionValue}
+            getOptionLabel={props.getOptionLabel}
+            renderOption={props.renderOption}
             noOptionsLabel={props.noOptionsLabel}
             data={options}
             dropdownOpened={dropdownOpened}

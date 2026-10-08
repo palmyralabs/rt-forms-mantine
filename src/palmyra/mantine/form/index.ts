@@ -2,6 +2,7 @@
 export * from './MantineCheckBox';
 export * from './MantineCurrencyField';
 export * from './SearchFilterField';
+export * from './LookupSelect';
 // export * from './MantineCheckBoxGroup';
 export * from './MantineDateInput';
 export * from './MantineDatePickerInput';

@@ -73,6 +73,21 @@ interface ICalendarDefinition extends MantineInputFieldOptions, ILayoutOptions, 
     serverPattern?: string
 }
 
+interface ILookupSelectDefinition extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
+    endPoint: string,
+    idAttribute?: string,
+    labelAttribute?: string,
+    queryAttribute?: string,
+    searchable?: boolean,
+    clearable?: boolean,
+    disabled?: boolean,
+    placeholder?: string,
+    getOptionLabel?: (data: any) => string,
+    renderOption?: (data: any, option: any) => any,
+    fetchLimit?: number,
+    nothingFoundMessage?: string
+}
+
 interface ILookupViewOptions extends MantineInputFieldOptions, ILayoutOptions, ITextFieldProps {
     lookupOptions?: {
         idAttribute: string;
@@ -116,12 +131,8 @@ interface IServerLookupDefinition extends MantineInputFieldOptions, ILayoutOptio
         storeOptions?: StoreOptions;
     },
     onChange?: (value: string, d?: any) => void;
-    renderOption?: (
-        props: React.HTMLAttributes<HTMLLIElement> & { key: any },
-        option: any,
-        // state: AutocompleteRenderOptionState,
-        ownerState: any,
-    ) => React.ReactNode
+    getOptionLabel?: (data: any) => string,
+    renderOption?: (data: any, option?: any) => any
 }
 
 interface ISelectDefinition extends MantineInputFieldOptions, ILayoutOptions {
@@ -186,7 +197,7 @@ export type {
     ISwitchDefinition, IRadioGroupDefinition, ICheckBoxDefinition, ICheckBoxGroupDefinition,
     ISliderDefinition, IServerCheckboxDefinition, IRatingDefinition, IDateTimePickerDefinition,
     IRadioDefinition, ICalendarDefinition, ILookupViewOptions, IServerAutoCompleteDefinition,
-    IPinInputDefinition, IMonthInputDefinition, IYearInputDefinition
+    IPinInputDefinition, IMonthInputDefinition, IYearInputDefinition, ILookupSelectDefinition
 }
 
 export type { MantineInputFieldOptions, IEventListeners, ValueLabel, TextViewAttributeDefinition }
