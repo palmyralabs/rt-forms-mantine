@@ -1,0 +1,25 @@
+.py-columnsum {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.py-columnsum-label {
+  opacity: 0.75;
+}
+
+.py-columnsum-value {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.py-columnsum-value-negative {
+  color: rgb(192, 57, 43);
+}
+
+.py-static-footer {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}

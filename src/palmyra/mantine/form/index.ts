@@ -1,6 +1,7 @@
 // export * from './MantineCalendar';
 export * from './MantineCheckBox';
 export * from './MantineCurrencyField';
+export * from './SearchFilterField';
 // export * from './MantineCheckBoxGroup';
 export * from './MantineDateInput';
 export * from './MantineDatePickerInput';
