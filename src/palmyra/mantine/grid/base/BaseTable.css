@@ -88,3 +88,9 @@
   font-weight: 500;
   color: rgb(124, 124, 124, 0.85);
 }
+.py-grid-select-all-banner {
+    padding: 6px 10px;
+    background: var(--mantine-color-blue-light);
+    border-radius: var(--mantine-radius-sm);
+    margin-bottom: 6px;
+}

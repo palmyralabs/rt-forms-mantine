@@ -4,20 +4,36 @@ import {
   generateColumns, GridCustomizer,
   IPageQueryable,
   NoopGridCustomizer,
+  StoreFactoryContext,
   useServerQuery
 } from "@palmyralabs/rt-forms";
-import { RefObject, useEffect, useImperativeHandle, useRef } from 'react';
+import { RefObject, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { Anchor, Group, Loader, Text } from '@mantine/core';
 import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
 import { useGridSelection } from './useGridSelection';
 
+type SelectionRefValue = {
+  selectedRows: any[],
+  selectedIds: string[],
+  clear: () => void,
+  selectIds: (ids: (string | number)[]) => void,
+  selectAllPages: () => Promise<void>
+};
+
 type SelectionProps = {
   selectable?: 'single' | 'multi' | boolean,
   idProperty?: string,
   checkboxPosition?: 'first' | 'last',
+  selectAllPages?: boolean,
+  maxSelected?: number,
+  defaultSelectedIds?: (string | number)[],
+  defaultSelected?: (row: any) => boolean,
+  defaultSelectBy?: { attribute: string, values: any[] },
+  isRowSelectable?: (row: any) => boolean,
   onSelectionChange?: (rows: any[]) => void,
-  selectionRef?: RefObject<{ selectedRows: any[], clear: () => void }>
+  selectionRef?: RefObject<SelectionRefValue>
 };
 
 function ApiDataTable(props: ApiDataTableOptions & SelectionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
@@ -92,17 +108,45 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & { ref?: RefO
   const dataRef = useRef<any[]>([]);
   dataRef.current = data || [];
 
+  const idProperty = props.idProperty || 'id';
+  const storeFactory: any = useContext(StoreFactoryContext);
+  const gridStore = useMemo(
+    () => storeFactory?.getGridStore?.(props.storeOptions || {}, props.endPoint, idProperty),
+    [storeFactory, props.endPoint, idProperty]
+  );
+
+  const fetchAllRows = async (): Promise<any[]> => {
+    if (!gridStore?.query) return dataRef.current || [];
+    const total = serverQuery.getTotalRecords?.() || 0;
+    const req: any = serverQuery.getQueryRequest?.() || {};
+    const res: any = await gridStore.query({ ...req, offset: 0, limit: total || undefined, total: false });
+    return res?.result || [];
+  };
+
   const selection = useGridSelection({
     selectable: props.selectable,
-    idKey: props.idProperty || 'id',
+    idKey: idProperty,
     dataRef,
     position: props.checkboxPosition || 'first',
+    maxSelected: props.maxSelected,
+    defaultSelectedIds: props.defaultSelectedIds,
+    defaultSelected: props.defaultSelected,
+    defaultSelectBy: props.defaultSelectBy,
+    isRowSelectable: props.isRowSelectable,
+    getTotalRecords: () => serverQuery.getTotalRecords?.() || (dataRef.current || []).length,
+    fetchAllRows: props.selectAllPages ? fetchAllRows : undefined,
     onSelectionChange: props.onSelectionChange
   });
 
   useEffect(() => {
     if (props.selectionRef) {
-      props.selectionRef.current = { selectedRows: selection.selectedRows, clear: selection.clear };
+      props.selectionRef.current = {
+        selectedRows: selection.selectedRows,
+        selectedIds: selection.selectedIds,
+        clear: selection.clear,
+        selectIds: selection.selectIds,
+        selectAllPages: selection.selectAllPages
+      };
     }
   });
 
@@ -120,11 +164,32 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & { ref?: RefO
 
   const setSortColumns = currentRef.current?.setSortColumns || serverQuery.setSortColumns;
 
+  const banner = selection.banner;
+
   return (
-    <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer} showFooter={props.showFooter}
-      rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
-      tableOptions={tableOptions} onTableReady={props.onTableReady} tableRef={props.tableRef}
-    />
+    <>
+      {selection.enabled && (banner.showSelectAll || banner.showClearAll) && (
+        <Group gap="xs" justify="center" className="py-grid-select-all-banner">
+          {banner.showSelectAll ? (
+            <>
+              <Text size="xs" c="dimmed">All {banner.pageCount} on this page selected.</Text>
+              {banner.loading
+                ? <Loader size="xs" />
+                : <Anchor size="xs" onClick={banner.onSelectAll}>Select all {banner.total}</Anchor>}
+            </>
+          ) : (
+            <>
+              <Text size="xs" c="dimmed">All {selection.selectedIds.length} selected.</Text>
+              <Anchor size="xs" onClick={banner.onClear}>Clear selection</Anchor>
+            </>
+          )}
+        </Group>
+      )}
+      <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer} showFooter={props.showFooter}
+        rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
+        tableOptions={tableOptions} onTableReady={props.onTableReady} tableRef={props.tableRef}
+      />
+    </>
   )
 }
 

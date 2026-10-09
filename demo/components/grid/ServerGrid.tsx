@@ -1,7 +1,7 @@
 import { ColumnDefinition, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { useState } from "react";
-import { Group } from "@mantine/core";
+import { Badge, Group } from "@mantine/core";
 import './ServerGrid.css'
 import { containsFilter, DataGridDefaultControls, GridX, IDataGridDefaultControlConfig } from "../../../src/palmyra/mantine/grid";
 import { SearchFilterField } from "../../../src/main";
@@ -37,6 +37,7 @@ const ServerGrid = () => {
     const endPoint = 'api/palmyra/userManagement';
 
     const [filter, setFilter] = useState<any>({});
+    const [selected, setSelected] = useState<any[]>([]);
 
     const handleFilterChange = (attribute: string, _type?: string) => (e: any) => {
         const v = e?.target?.value ?? e;
@@ -55,14 +56,21 @@ const ServerGrid = () => {
 
     return <>
         <StoreFactoryContext.Provider value={storeFactory}>
-            <Group justify="flex-start" mb="md">
+            <Group justify="space-between" mb="md">
                 <PalmyraForm>
                     <SearchFilterField attribute="displayName" placeholder="Search name"
                         filter={filter} setFilter={setFilter} handleFilterChange={handleFilterChange} />
                 </PalmyraForm>
+                <Badge size="lg" variant="light" color={selected.length ? 'indigo' : 'gray'}>
+                    {selected.length} selected 
+                </Badge>
             </Group>
             <GridX columns={columns} endPoint={endPoint} lsKey="uniqueKey"
                 filter={gridFilter}
+                selectable="multi" idProperty="id" 
+                defaultSelectBy={{ attribute: 'loginName', values: ['satish', 'adarsh'] }}
+                // isRowSelectable={(row) => !!row.phoneNumber}
+                onSelectionChange={(rows) => setSelected(rows)}
                 quickSearch="code" pagination={{ ignoreSinglePage: false }}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}

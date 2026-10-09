@@ -19,8 +19,20 @@ type GridXProps<ControlPropsType> =
         selectable?: 'single' | 'multi' | boolean,
         idProperty?: string,
         checkboxPosition?: 'first' | 'last',
+        selectAllPages?: boolean,
+        maxSelected?: number,
+        defaultSelectedIds?: (string | number)[],
+        defaultSelected?: (row: any) => boolean,
+        defaultSelectBy?: { attribute: string, values: any[] },
+        isRowSelectable?: (row: any) => boolean,
         onSelectionChange?: (rows: any[]) => void,
-        selectionRef?: RefObject<{ selectedRows: any[], clear: () => void }>
+        selectionRef?: RefObject<{
+            selectedRows: any[],
+            selectedIds: string[],
+            clear: () => void,
+            selectIds: (ids: (string | number)[]) => void,
+            selectAllPages: () => Promise<void>
+        }>
     };
 
 function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
