@@ -34,7 +34,8 @@ type GridXProps<ControlPropsType> =
             clear: () => void,
             selectIds: (ids: (string | number)[]) => void,
             selectAllPages: () => Promise<void>
-        }>
+        }>,
+        paginationPosition?: 'top' | 'bottom' | 'both'
     }
     & IGridInlineEditProps
     & IGridExpansionProps;
@@ -44,18 +45,21 @@ function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
     const queryRef = props.ref ?? internalRef;
     useGridFilter(queryRef, props.filter);
     const paginationRef = useRef<IPagination>(null);
+    const paginationTopRef = useRef<IPagination>(null);
     const tableRef = useRef<any>(null);
     const topic: string = props.topic || useMemo(() => 'id' + Math.random(), []);
 
     const onDataChange = (newData: any[], oldData?: any[]) => {
 
-        if (paginationRef.current && paginationRef.current.refresh) {
-            try {
-                paginationRef.current.refresh();
-            } catch (error) {
-                console.error(error);
+        [paginationRef, paginationTopRef].forEach((ref) => {
+            if (ref.current && ref.current.refresh) {
+                try {
+                    ref.current.refresh();
+                } catch (error) {
+                    console.error(error);
+                }
             }
-        }
+        });
 
         if (props.onDataChange) {
             try {
@@ -86,6 +90,10 @@ function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
         [props.onFetchFailure, (props as any).storeOptions]
     );
 
+    const paginationPosition = props.paginationPosition || 'bottom';
+    const showTop = paginationPosition === 'top' || paginationPosition === 'both';
+    const showBottom = paginationPosition === 'bottom' || paginationPosition === 'both';
+
     return <>
         <div className='py-datagrid-header'>
             <div className='py-datagrid-header-right-container'>
@@ -95,10 +103,11 @@ function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
                 <Controls {...pluginOptions} />
             </div>
         </div>
+        {showTop && <Pagination {...pluginOptions} ref={paginationTopRef} />}
         <div className="py-data-grid-table">
             <ApiDataTable {...props} storeOptions={storeOptions} onDataChange={onDataChange} ref={queryRef} tableRef={tableRef} />
         </div>
-        <Pagination {...pluginOptions} ref={paginationRef} />
+        {showBottom && <Pagination {...pluginOptions} ref={paginationRef} />}
     </>
 }
 

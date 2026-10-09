@@ -1,10 +1,38 @@
-import { ColumnDefinition, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
+import { ColumnDefinition, DataGridPluginOptions, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { useRef, useState } from "react";
-import { Badge, Button, CloseButton, Group, Paper, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { RefObject, useImperativeHandle, useRef, useState } from "react";
+import { ActionIcon, Badge, Button, CloseButton, Group, Paper, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import './ServerGrid.css'
 import { containsFilter, DataGridDefaultControls, GridX, IDataGridDefaultControlConfig } from "../../../src/palmyra/mantine/grid";
 import { SearchFilterField } from "../../../src/main";
+
+function MyPagination(o: DataGridPluginOptions & { ref?: RefObject<{ refresh: () => void }> }) {
+    const q: any = o.queryRef?.current;
+    const [, force] = useState(0);
+    useImperativeHandle(o.ref, () => ({ refresh: () => force((n) => n + 1) }), [o.ref]);
+
+    if (!q) return null;
+    const total = q.getTotalRecords?.() || 0;
+    const size = q.getQueryLimit?.()?.limit || 20;
+    const page = q.getPageNo?.() || 0;
+    const pages = Math.ceil(total / size) || 1;
+
+    if ((o as any).ignoreSinglePage && pages <= 1) return null;
+
+    return (
+        <Group justify="flex-end" gap="xs" mt="sm">
+            <Text size="xs" c="dimmed">{total ? page * size + 1 : 0}–{Math.min((page + 1) * size, total)} of {total}</Text>
+            <ActionIcon variant="default" size="sm" disabled={page <= 0} onClick={() => q.gotoPage(page - 1)} aria-label="Previous page">
+                <FiChevronLeft size={14} />
+            </ActionIcon>
+            <Badge variant="light" size="lg">Page {page + 1} / {pages}</Badge>
+            <ActionIcon variant="default" size="sm" disabled={page + 1 >= pages} onClick={() => q.gotoPage(page + 1)} aria-label="Next page">
+                <FiChevronRight size={14} />
+            </ActionIcon>
+        </Group>
+    );
+}
 
 const columns: ColumnDefinition[] = [
     {
@@ -153,6 +181,8 @@ const ServerGrid = () => {
                 quickSearch="code" pagination={{ ignoreSinglePage: false }}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}
+                // DataGridPagination={MyPagination}
+                // paginationPosition="bottom"
                 pageSize={[20, 30, 1000]} />
         </StoreFactoryContext.Provider>
     </>
