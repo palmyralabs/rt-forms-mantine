@@ -10,6 +10,7 @@ import { SelectablePagination } from "./plugins/pagination/SelectablePagination"
 import { buildFetchFailureStoreOptions } from "./util/buildFetchFailureHook";
 import { useGridFilter } from "./base/useGridFilter";
 import { IGridInlineEditProps } from "./base/useGridInlineEdit";
+import { IGridExpansionInput } from "./base/useGridExpansion";
 
 type GridXProps<ControlPropsType> =
     GridXOptions<ControlPropsType>
@@ -35,7 +36,8 @@ type GridXProps<ControlPropsType> =
             selectAllPages: () => Promise<void>
         }>
     }
-    & IGridInlineEditProps;
+    & IGridInlineEditProps
+    & IGridExpansionInput;
 
 function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
     const internalRef = useRef<IPageQueryable>(null);

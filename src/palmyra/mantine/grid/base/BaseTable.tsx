@@ -1,7 +1,7 @@
 import { Table } from '@mantine/core';
 import { BaseTableOptions, IReactTanstackTable, useBaseGridManager } from '@palmyralabs/rt-forms';
 import { flexRender, useReactTable, } from '@tanstack/react-table';
-import { RefObject, useEffect, useRef } from 'react';
+import { Fragment, RefObject, useEffect, useRef } from 'react';
 import './BaseTable.css';
 import ColumnHeader from './ColumnHeader';
 import LoadingChild from './LoadingChild';
@@ -108,9 +108,13 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
                 .map((row, index) => {
                   const rowClassName = 'py-grid-data-row py-grid-data-row-' + ((1 == index % 2) ? 'even' : 'odd');
                   const rowStyle = { animationDelay: (Math.min(index, 14) * 18) + 'ms' };
+                  const renderDetail = mergedOptions.meta?.renderDetail;
+                  const showDetail = renderDetail && row.getIsExpanded && row.getIsExpanded() && row.depth === 0;
+                  const visibleCells = row.getVisibleCells();
                   return (
-                    <Table.Tr key={row.id} className={rowClassName} style={rowStyle}>
-                      {row.getVisibleCells().map(cell => {
+                    <Fragment key={row.id}>
+                    <Table.Tr className={rowClassName} style={rowStyle}>
+                      {visibleCells.map(cell => {
                         const meta: any = cell.column.columnDef.meta;
                         const isTypeNumber = meta?.columnDef?.type === 'number';
                         const cellClassName = 'py-grid-data-cell ' + (isTypeNumber ? ' py-grid-data-cell-type-number' : '');
@@ -130,6 +134,14 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
                         )
                       })}
                     </Table.Tr>
+                    {showDetail && (
+                      <Table.Tr className='py-grid-detail-row'>
+                        <Table.Td colSpan={visibleCells.length} className='py-grid-detail-cell'>
+                          {renderDetail(row.original)}
+                        </Table.Td>
+                      </Table.Tr>
+                    )}
+                    </Fragment>
                   )
                 })}
           </Table.Tbody>)}

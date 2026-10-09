@@ -1,7 +1,7 @@
 import { ColumnDefinition, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { useState } from "react";
-import { Badge, Group, TextInput } from "@mantine/core";
+import { Badge, Group, Text, TextInput } from "@mantine/core";
 import './ServerGrid.css'
 import { containsFilter, DataGridDefaultControls, GridX, IDataGridDefaultControlConfig } from "../../../src/palmyra/mantine/grid";
 import { SearchFilterField } from "../../../src/main";
@@ -84,6 +84,14 @@ const ServerGrid = () => {
                 selectable="multi" idProperty="id"
                 defaultSelectBy={{ attribute: 'loginName', values: ['satish', 'adarsh'] }}
                 onSelectionChange={(rows) => setSelected(rows)}
+                expandable
+                renderDetail={(row) => (
+                    <Group gap="xl">
+                        <Text size="sm"><b>Email:</b> {row.email || '—'}</Text>
+                        <Text size="sm"><b>Login:</b> {row.loginName}</Text>
+                        <Text size="sm"><b>User Type:</b> {row.userType?.userType || '—'}</Text>
+                    </Group>
+                )}
                 editable
                 editors={{
                     displayName: {

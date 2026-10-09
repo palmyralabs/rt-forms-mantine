@@ -14,6 +14,7 @@ import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
 import { useGridSelection } from './useGridSelection';
 import { useGridInlineEdit, IGridInlineEditProps, ICellSaveParams, setByPath } from './useGridInlineEdit';
+import { useGridExpansion, IGridExpansionInput } from './useGridExpansion';
 
 type SelectionRefValue = {
   selectedRows: any[],
@@ -37,7 +38,9 @@ type SelectionProps = {
   selectionRef?: RefObject<SelectionRefValue>
 };
 
-function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
+type ExpansionProps = IGridExpansionInput;
+
+function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -162,6 +165,16 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
     onSaveError: props.onSaveError
   });
 
+  const expansion = useGridExpansion({
+    expandable: props.expandable,
+    getSubRows: props.getSubRows,
+    renderDetail: props.renderDetail,
+    getRowCanExpand: props.getRowCanExpand,
+    defaultExpanded: props.defaultExpanded,
+    expandPosition: props.expandPosition,
+    onExpandedChange: props.onExpandedChange
+  });
+
   useEffect(() => {
     if (props.selectionRef) {
       props.selectionRef.current = {
@@ -185,17 +198,22 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
   const columnDefs = generateColumns(visibleColumns, customizer);
   if (inlineEdit.enabled) inlineEdit.preProcessColumns(columnDefs);
   if (selection.enabled) selection.preProcessColumns(columnDefs);
+  if (expansion.enabled) expansion.preProcessColumns(columnDefs);
 
   const handleRowClick = props.onRowClick ? (rowData: any) => {
     props.onRowClick(rowData);
   } : () => { };
 
+  const mergeOpts = (base: any, add: any) => ({
+    ...base, ...add,
+    state: { ...(base.state || {}), ...(add.state || {}) },
+    meta: { ...(base.meta || {}), ...(add.meta || {}) }
+  });
+
   let tableOptions: any = props.tableOptions || {};
-  if (selection.enabled) tableOptions = { ...tableOptions, ...selection.getTableOptions() };
-  if (inlineEdit.enabled) {
-    const editOpts = inlineEdit.getTableOptions();
-    tableOptions = { ...tableOptions, meta: { ...(tableOptions.meta || {}), ...editOpts.meta } };
-  }
+  if (selection.enabled) tableOptions = mergeOpts(tableOptions, selection.getTableOptions());
+  if (expansion.enabled) tableOptions = mergeOpts(tableOptions, expansion.getTableOptions());
+  if (inlineEdit.enabled) tableOptions = mergeOpts(tableOptions, inlineEdit.getTableOptions());
 
   const setSortColumns = currentRef.current?.setSortColumns || serverQuery.setSortColumns;
 
