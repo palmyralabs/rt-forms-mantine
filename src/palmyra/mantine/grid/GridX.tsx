@@ -55,7 +55,13 @@ type GridXProps<ControlPropsType> =
             edits: Record<string, Record<string, any>>,
             getEditedRows: () => { id: string, changes: Record<string, any> }[],
             clear: () => void
-        }>
+        }>,
+        autoSave?: boolean,
+        saveEndPoint?: any,
+        onCellSave?: (params: { id: any, attribute: string, value: any, oldValue: any, row: any, changes: Record<string, any> }) => Promise<any>,
+        updateRowOnSave?: boolean,
+        onSaveSuccess?: (params: any) => void,
+        onSaveError?: (params: any) => void
     };
 
 function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {

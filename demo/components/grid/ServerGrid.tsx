@@ -87,12 +87,20 @@ const ServerGrid = () => {
                 editable
                 editors={{
                     displayName: { type: 'text' },
-                    phoneNumber: { type: 'amount' },
+                    phoneNumber: { type: 'number' },
                     dob: { type: 'date' },
                     'userType.userType': { type: 'lookup', endPoint: 'api/palmyra/masterdata/userType', idAttribute: 'id', labelAttribute: 'userType' },
                     loginName: { type: 'select', options: { 'admin@gmail.com': 'Admin', 'satish': 'Satish', 'adarsh': 'Adarsh' } }
                 }}
                 onCellEdit={(p) => console.log('cell edit', p)}
+                onCellSave={(p) => new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if (String(p.value).toLowerCase() === 'fail') reject(new Error('Simulated failure'));
+                        else resolve(p);
+                    }, 800);
+                })}
+                onSaveSuccess={(p) => console.log('saved', p.attribute, '=', p.value)}
+                onSaveError={(p) => console.log('save error', p.error.message)}
                 quickSearch="code" pagination={{ ignoreSinglePage: false }}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}

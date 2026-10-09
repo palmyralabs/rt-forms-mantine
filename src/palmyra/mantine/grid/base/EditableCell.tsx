@@ -1,4 +1,4 @@
-import { NumberInput, Radio, Group, Select, TextInput } from '@mantine/core';
+import { Loader, NumberInput, Radio, Group, Select, TextInput } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { StoreFactoryContext } from '@palmyralabs/rt-forms';
 import dayjs from 'dayjs';
@@ -105,13 +105,17 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
         return original;
     };
 
+    const status = meta.getCellStatus ? meta.getCellStatus(row, attribute) : undefined;
+
     if (!cellEditable) return <span>{display() ?? ''}</span>;
 
     if (!editing) {
         const d = display();
+        const cls = 'py-grid-editable-cell' + (status === 'error' ? ' py-grid-cell-error' : '');
         return (
-            <div className="py-grid-editable-cell" onClick={() => setEditing(true)}>
-                {d != null && d !== '' ? d : <span className="py-grid-editable-placeholder">—</span>}
+            <div className={cls} onClick={() => setEditing(true)}>
+                <span>{d != null && d !== '' ? d : <span className="py-grid-editable-placeholder">—</span>}</span>
+                {status === 'saving' && <Loader size={12} />}
             </div>
         );
     }

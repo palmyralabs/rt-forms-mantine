@@ -13,7 +13,7 @@ import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
 import { useGridSelection } from './useGridSelection';
-import { useGridInlineEdit, ICellEditParams, ICellEditorConfig } from './useGridInlineEdit';
+import { useGridInlineEdit, ICellEditParams, ICellSaveParams, ICellEditorConfig, setByPath } from './useGridInlineEdit';
 
 type SelectionRefValue = {
   selectedRows: any[],
@@ -50,7 +50,13 @@ type InlineEditProps = {
   onCellEdit?: (params: ICellEditParams) => void,
   isCellEditable?: (row: any, attribute: string) => boolean,
   getEditorType?: (attribute: string) => 'text' | 'number',
-  editRef?: RefObject<EditRefValue>
+  editRef?: RefObject<EditRefValue>,
+  autoSave?: boolean,
+  saveEndPoint?: any,
+  onCellSave?: (params: ICellSaveParams) => Promise<any>,
+  updateRowOnSave?: boolean,
+  onSaveSuccess?: (params: ICellSaveParams & { response: any }) => void,
+  onSaveError?: (params: ICellSaveParams & { error: any }) => void
 };
 
 function ApiDataTable(props: ApiDataTableOptions & SelectionProps & InlineEditProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
@@ -155,6 +161,15 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & InlineEditPr
     onSelectionChange: props.onSelectionChange
   });
 
+  const defaultSave = (p: ICellSaveParams) => {
+    const store: any = storeFactory?.getFormStore?.({}, props.saveEndPoint || props.endPoint, idProperty);
+    if (!store?.put) return Promise.reject(new Error('No form store available'));
+    const payload: any = { [idProperty]: p.id };
+    setByPath(payload, p.attribute, p.value);
+    return store.put(payload);
+  };
+  const save = props.onCellSave ? props.onCellSave : (props.autoSave ? defaultSave : undefined);
+
   const inlineEdit = useGridInlineEdit({
     editable: props.editable,
     editableColumns: props.editableColumns,
@@ -162,7 +177,11 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & InlineEditPr
     idKey: idProperty,
     onCellEdit: props.onCellEdit,
     isCellEditable: props.isCellEditable,
-    getEditorType: props.getEditorType
+    getEditorType: props.getEditorType,
+    save,
+    updateRowOnSave: props.updateRowOnSave,
+    onSaveSuccess: props.onSaveSuccess,
+    onSaveError: props.onSaveError
   });
 
   useEffect(() => {
