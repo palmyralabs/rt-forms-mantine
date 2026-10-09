@@ -35,7 +35,14 @@ type GridXProps<ControlPropsType> =
             selectIds: (ids: (string | number)[]) => void,
             selectAllPages: () => Promise<void>
         }>,
-        paginationPosition?: 'top' | 'bottom' | 'both'
+        paginationPosition?: 'top' | 'bottom' | 'both',
+        paginationOptions?: {
+            compact?: boolean,
+            responsive?: boolean,
+            compactWidth?: number,
+            pageSizePosition?: 'left' | 'right',
+            keyboardNavigation?: boolean
+        }
     }
     & IGridInlineEditProps
     & IGridExpansionProps;
@@ -77,6 +84,7 @@ function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
         pageSize: props.pageSize, quickSearch: props.quickSearch, topic, ignoreSinglePage
     };
     (pluginOptions as any).tableRef = tableRef;
+    (pluginOptions as any).paginationOptions = props.paginationOptions;
 
     const Controls: (props: any) => JSX.Element = props.DataGridControls ||
         ((o: DataGridPluginOptions) => <><DropdownButton title="Filter" PrefixAdornment={<TbFilterShare />}>

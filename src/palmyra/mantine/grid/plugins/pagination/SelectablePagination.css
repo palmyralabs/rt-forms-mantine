@@ -18,3 +18,13 @@
 .py-pagination-size {
     width: 70px;
 }
+
+.py-pagination-wrapper {
+    width: 100%;
+}
+
+.py-pagination:focus-visible {
+    outline: 2px solid var(--mantine-color-blue-5);
+    outline-offset: 2px;
+    border-radius: var(--mantine-radius-sm);
+}
