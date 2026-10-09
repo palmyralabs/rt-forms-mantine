@@ -1,7 +1,7 @@
 import { ColumnDefinition, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { useState } from "react";
-import { Badge, Group } from "@mantine/core";
+import { Badge, Group, TextInput } from "@mantine/core";
 import './ServerGrid.css'
 import { containsFilter, DataGridDefaultControls, GridX, IDataGridDefaultControlConfig } from "../../../src/palmyra/mantine/grid";
 import { SearchFilterField } from "../../../src/main";
@@ -86,7 +86,18 @@ const ServerGrid = () => {
                 onSelectionChange={(rows) => setSelected(rows)}
                 editable
                 editors={{
-                    displayName: { type: 'text' },
+                    displayName: {
+                        type: 'custom',
+                        render: ({ value, commit, cancel }) => (
+                            <TextInput size="xs" variant="unstyled" autoFocus
+                                defaultValue={value ?? ''} leftSection={<span>✎</span>}
+                                onBlur={(e) => commit(e.currentTarget.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') commit((e.target as HTMLInputElement).value);
+                                    else if (e.key === 'Escape') cancel();
+                                }} />
+                        )
+                    },
                     phoneNumber: { type: 'number' },
                     dob: { type: 'date' },
                     'userType.userType': { type: 'lookup', endPoint: 'api/palmyra/masterdata/userType', idAttribute: 'id', labelAttribute: 'userType' },

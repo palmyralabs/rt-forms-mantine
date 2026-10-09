@@ -36,7 +36,7 @@ type GridXProps<ControlPropsType> =
         editable?: boolean,
         editableColumns?: string[],
         editors?: Record<string, {
-            type: 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup',
+            type: 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup' | 'custom',
             options?: Record<string, any> | { value: any, label: string }[],
             endPoint?: string,
             idAttribute?: string,
@@ -46,7 +46,9 @@ type GridXProps<ControlPropsType> =
             fetchLimit?: number,
             valueFormat?: string,
             displayPattern?: string,
-            serverPattern?: string
+            serverPattern?: string,
+            render?: (params: { value: any, row: any, attribute: string, commit: (value: any, label?: string) => void, cancel: () => void }) => any,
+            renderDisplay?: (value: any, row: any) => any
         }>,
         onCellEdit?: (params: { id: any, attribute: string, value: any, oldValue: any, row: any }) => void,
         isCellEditable?: (row: any, attribute: string) => boolean,

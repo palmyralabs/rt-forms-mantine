@@ -84,6 +84,7 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
     const cancel = () => { setValue(original); setEditing(false); };
 
     const display = () => {
+        if (cfg?.renderDisplay) return cfg.renderDisplay(original, row.original);
         if (type === 'select' || type === 'radio') {
             const opt = normOptions(cfg?.options).find((o) => o.value === String(original));
             return opt ? opt.label : original;
@@ -118,6 +119,14 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
                 {status === 'saving' && <Loader size={12} />}
             </div>
         );
+    }
+
+    if (cfg?.render) {
+        const customCommit = (v: any, label?: string) => {
+            if (label != null && meta.setLookupLabel) meta.setLookupLabel(attribute, v, label);
+            commit(v);
+        };
+        return cfg.render({ value: original, row: row.original, attribute, commit: customCommit, cancel });
     }
 
     if (type === 'number' || type === 'amount') {

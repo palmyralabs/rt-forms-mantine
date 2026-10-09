@@ -13,7 +13,15 @@ interface ICellSaveParams extends ICellEditParams {
     changes: Record<string, any>;
 }
 
-type CellEditorType = 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup';
+type CellEditorType = 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup' | 'custom';
+
+interface ICellEditorRenderParams {
+    value: any;
+    row: any;
+    attribute: string;
+    commit: (value: any, label?: string) => void;
+    cancel: () => void;
+}
 
 interface ICellEditorConfig {
     type: CellEditorType;
@@ -27,6 +35,8 @@ interface ICellEditorConfig {
     valueFormat?: string;
     displayPattern?: string;
     serverPattern?: string;
+    render?: (params: ICellEditorRenderParams) => any;
+    renderDisplay?: (value: any, row: any) => any;
 }
 
 interface IGridInlineEditInput {
@@ -160,4 +170,4 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
 };
 
 export { useGridInlineEdit, getByPath, setByPath };
-export type { IGridInlineEditInput, ICellEditParams, ICellSaveParams, ICellEditorConfig, CellEditorType };
+export type { IGridInlineEditInput, ICellEditParams, ICellSaveParams, ICellEditorConfig, ICellEditorRenderParams, CellEditorType };
