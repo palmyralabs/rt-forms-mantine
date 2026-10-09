@@ -111,9 +111,13 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
                   const renderDetail = mergedOptions.meta?.renderDetail;
                   const showDetail = renderDetail && row.getIsExpanded && row.getIsExpanded() && row.depth === 0;
                   const visibleCells = row.getVisibleCells();
+                  const expandOnRowClick = mergedOptions.meta?.expandOnRowClick;
+                  const rowClickable = expandOnRowClick && row.getCanExpand && row.getCanExpand();
+                  const onTrClick = rowClickable ? () => mergedOptions.meta?.onRowToggle?.(row) : undefined;
+                  const trClassName = rowClassName + (rowClickable ? ' py-grid-row-clickable' : '');
                   return (
                     <Fragment key={row.id}>
-                    <Table.Tr className={rowClassName} style={rowStyle}>
+                    <Table.Tr className={trClassName} style={rowStyle} onClick={onTrClick}>
                       {visibleCells.map(cell => {
                         const meta: any = cell.column.columnDef.meta;
                         const isTypeNumber = meta?.columnDef?.type === 'number';
@@ -137,7 +141,9 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
                     {showDetail && (
                       <Table.Tr className='py-grid-detail-row'>
                         <Table.Td colSpan={visibleCells.length} className='py-grid-detail-cell'>
-                          {renderDetail(row.original)}
+                          <div className='py-grid-detail-content'>
+                            {renderDetail(row.original)}
+                          </div>
                         </Table.Td>
                       </Table.Tr>
                     )}

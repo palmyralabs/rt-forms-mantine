@@ -1,7 +1,7 @@
 import { ColumnDefinition, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { useState } from "react";
-import { Badge, Group, Text, TextInput } from "@mantine/core";
+import { useRef, useState } from "react";
+import { Badge, Button, CloseButton, Group, Paper, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import './ServerGrid.css'
 import { containsFilter, DataGridDefaultControls, GridX, IDataGridDefaultControlConfig } from "../../../src/palmyra/mantine/grid";
 import { SearchFilterField } from "../../../src/main";
@@ -52,6 +52,15 @@ const ServerGrid = () => {
 
     const [filter, setFilter] = useState<any>({});
     const [selected, setSelected] = useState<any[]>([]);
+    const [viewRow, setViewRow] = useState<any>(null);
+    const expandRef = useRef<any>(null);
+
+    const ViewField = ({ label, value }: { label: string, value: any }) => (
+        <Stack gap={2}>
+            <Text size="xs" c="dimmed">{label}</Text>
+            <Text size="sm" fw={500}>{value != null && value !== '' ? String(value) : '—'}</Text>
+        </Stack>
+    );
 
     const handleFilterChange = (attribute: string, _type?: string) => (e: any) => {
         const v = e?.target?.value ?? e;
@@ -70,21 +79,42 @@ const ServerGrid = () => {
 
     return <>
         <StoreFactoryContext.Provider value={storeFactory}>
+            {viewRow && (
+                <Paper withBorder radius="md" p="md" mb="md" bg="var(--mantine-color-indigo-light)">
+                    <Group justify="space-between" mb="sm">
+                        <Title order={5}>User details — {viewRow.displayName}</Title>
+                        <CloseButton onClick={() => setViewRow(null)} aria-label="Close view" />
+                    </Group>
+                    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
+                        <ViewField label="Name" value={viewRow.displayName} />
+                        <ViewField label="Login name" value={viewRow.loginName} />
+                        <ViewField label="Email" value={viewRow.email} />
+                        <ViewField label="Phone number" value={viewRow.phoneNumber} />
+                        <ViewField label="Date of birth" value={viewRow.dob} />
+                        <ViewField label="User type" value={viewRow.userType?.userType} />
+                    </SimpleGrid>
+                </Paper>
+            )}
             <Group justify="space-between" mb="md">
                 <PalmyraForm>
                     <SearchFilterField attribute="displayName" placeholder="Search name"
                         filter={filter} setFilter={setFilter} handleFilterChange={handleFilterChange} />
                 </PalmyraForm>
-                <Badge size="lg" variant="light" color={selected.length ? 'indigo' : 'gray'}>
-                    {selected.length} selected
-                </Badge>
+                <Group gap="xs">
+                    <Button size="xs" variant="default" onClick={() => expandRef.current?.expandAll()}>Expand all</Button>
+                    <Button size="xs" variant="default" onClick={() => expandRef.current?.collapseAll()}>Collapse all</Button>
+                    <Badge size="lg" variant="light" color={selected.length ? 'indigo' : 'gray'}>
+                        {selected.length} selected
+                    </Badge>
+                </Group>
             </Group>
             <GridX columns={columns} endPoint={endPoint} lsKey="uniqueKey"
                 filter={gridFilter}
                 selectable="multi" idProperty="id"
                 defaultSelectBy={{ attribute: 'loginName', values: ['satish', 'adarsh'] }}
                 onSelectionChange={(rows) => setSelected(rows)}
-                expandable
+                onRowClick={(row: any) => setViewRow(row)}
+                expandable accordion expandRef={expandRef}
                 renderDetail={(row) => (
                     <Group gap="xl">
                         <Text size="sm"><b>Email:</b> {row.email || '—'}</Text>
@@ -92,7 +122,7 @@ const ServerGrid = () => {
                         <Text size="sm"><b>User Type:</b> {row.userType?.userType || '—'}</Text>
                     </Group>
                 )}
-                editable
+                editable={false}
                 editors={{
                     displayName: {
                         type: 'custom',

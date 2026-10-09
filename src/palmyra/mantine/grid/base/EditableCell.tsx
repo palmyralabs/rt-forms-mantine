@@ -114,7 +114,7 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
         const d = display();
         const cls = 'py-grid-editable-cell' + (status === 'error' ? ' py-grid-cell-error' : '');
         return (
-            <div className={cls} onClick={() => setEditing(true)}>
+            <div className={cls} onClick={(e) => { e.stopPropagation(); setEditing(true); }}>
                 <span>{d != null && d !== '' ? d : <span className="py-grid-editable-placeholder">—</span>}</span>
                 {status === 'saving' && <Loader size={12} />}
             </div>

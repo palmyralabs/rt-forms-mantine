@@ -14,7 +14,7 @@ import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
 import { useGridSelection } from './useGridSelection';
 import { useGridInlineEdit, IGridInlineEditProps, ICellSaveParams, setByPath } from './useGridInlineEdit';
-import { useGridExpansion, IGridExpansionInput } from './useGridExpansion';
+import { useGridExpansion, IGridExpansionProps } from './useGridExpansion';
 
 type SelectionRefValue = {
   selectedRows: any[],
@@ -38,7 +38,7 @@ type SelectionProps = {
   selectionRef?: RefObject<SelectionRefValue>
 };
 
-type ExpansionProps = IGridExpansionInput;
+type ExpansionProps = IGridExpansionProps;
 
 function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
   const { columns, EmptyChild } = props;
@@ -167,9 +167,16 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
 
   const expansion = useGridExpansion({
     expandable: props.expandable,
+    idKey: idProperty,
     getSubRows: props.getSubRows,
+    childrenKey: props.childrenKey,
+    loadChildren: props.loadChildren,
     renderDetail: props.renderDetail,
     getRowCanExpand: props.getRowCanExpand,
+    accordion: props.accordion,
+    expandOnRowClick: props.expandOnRowClick,
+    treeLines: props.treeLines,
+    expanded: props.expanded,
     defaultExpanded: props.defaultExpanded,
     expandPosition: props.expandPosition,
     onExpandedChange: props.onExpandedChange
@@ -191,6 +198,9 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
         getEditedRows: inlineEdit.getEditedRows,
         clear: inlineEdit.clear
       };
+    }
+    if (props.expandRef) {
+      props.expandRef.current = expansion.api;
     }
   });
 
@@ -217,6 +227,8 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
 
   const setSortColumns = currentRef.current?.setSortColumns || serverQuery.setSortColumns;
 
+  const treeData = useMemo(() => expansion.decorateData(data), [data, expansion.childrenState]);
+
   const banner = selection.banner;
 
   return (
@@ -239,7 +251,7 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
         </Group>
       )}
       <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer} showFooter={props.showFooter}
-        rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
+        rowData={treeData} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
         tableOptions={tableOptions} onTableReady={props.onTableReady} tableRef={props.tableRef}
       />
     </>
