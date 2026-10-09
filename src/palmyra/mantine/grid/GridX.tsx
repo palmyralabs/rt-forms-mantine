@@ -9,6 +9,7 @@ import { FilterForm } from "./plugins/filter/FilterForm";
 import { SelectablePagination } from "./plugins/pagination/SelectablePagination";
 import { buildFetchFailureStoreOptions } from "./util/buildFetchFailureHook";
 import { useGridFilter } from "./base/useGridFilter";
+import { IGridInlineEditProps } from "./base/useGridInlineEdit";
 
 type GridXProps<ControlPropsType> =
     GridXOptions<ControlPropsType>
@@ -32,39 +33,9 @@ type GridXProps<ControlPropsType> =
             clear: () => void,
             selectIds: (ids: (string | number)[]) => void,
             selectAllPages: () => Promise<void>
-        }>,
-        editable?: boolean,
-        editableColumns?: string[],
-        editors?: Record<string, {
-            type: 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup' | 'custom',
-            options?: Record<string, any> | { value: any, label: string }[],
-            endPoint?: string,
-            idAttribute?: string,
-            labelAttribute?: string,
-            queryAttribute?: string,
-            displayAttribute?: string,
-            fetchLimit?: number,
-            valueFormat?: string,
-            displayPattern?: string,
-            serverPattern?: string,
-            render?: (params: { value: any, row: any, attribute: string, commit: (value: any, label?: string) => void, cancel: () => void }) => any,
-            renderDisplay?: (value: any, row: any) => any
-        }>,
-        onCellEdit?: (params: { id: any, attribute: string, value: any, oldValue: any, row: any }) => void,
-        isCellEditable?: (row: any, attribute: string) => boolean,
-        getEditorType?: (attribute: string) => 'text' | 'number',
-        editRef?: RefObject<{
-            edits: Record<string, Record<string, any>>,
-            getEditedRows: () => { id: string, changes: Record<string, any> }[],
-            clear: () => void
-        }>,
-        autoSave?: boolean,
-        saveEndPoint?: any,
-        onCellSave?: (params: { id: any, attribute: string, value: any, oldValue: any, row: any, changes: Record<string, any> }) => Promise<any>,
-        updateRowOnSave?: boolean,
-        onSaveSuccess?: (params: any) => void,
-        onSaveError?: (params: any) => void
-    };
+        }>
+    }
+    & IGridInlineEditProps;
 
 function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
     const internalRef = useRef<IPageQueryable>(null);

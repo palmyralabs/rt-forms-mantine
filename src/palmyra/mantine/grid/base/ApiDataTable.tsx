@@ -13,7 +13,7 @@ import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
 import { useGridSelection } from './useGridSelection';
-import { useGridInlineEdit, ICellEditParams, ICellSaveParams, ICellEditorConfig, setByPath } from './useGridInlineEdit';
+import { useGridInlineEdit, IGridInlineEditProps, ICellSaveParams, setByPath } from './useGridInlineEdit';
 
 type SelectionRefValue = {
   selectedRows: any[],
@@ -37,29 +37,7 @@ type SelectionProps = {
   selectionRef?: RefObject<SelectionRefValue>
 };
 
-type EditRefValue = {
-  edits: Record<string, Record<string, any>>,
-  getEditedRows: () => { id: string, changes: Record<string, any> }[],
-  clear: () => void
-};
-
-type InlineEditProps = {
-  editable?: boolean,
-  editableColumns?: string[],
-  editors?: Record<string, ICellEditorConfig>,
-  onCellEdit?: (params: ICellEditParams) => void,
-  isCellEditable?: (row: any, attribute: string) => boolean,
-  getEditorType?: (attribute: string) => 'text' | 'number',
-  editRef?: RefObject<EditRefValue>,
-  autoSave?: boolean,
-  saveEndPoint?: any,
-  onCellSave?: (params: ICellSaveParams) => Promise<any>,
-  updateRowOnSave?: boolean,
-  onSaveSuccess?: (params: ICellSaveParams & { response: any }) => void,
-  onSaveError?: (params: ICellSaveParams & { error: any }) => void
-};
-
-function ApiDataTable(props: ApiDataTableOptions & SelectionProps & InlineEditProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
+function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;

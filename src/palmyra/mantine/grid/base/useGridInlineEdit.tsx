@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { RefObject, useRef, useState } from 'react';
 import { EditableCell } from './EditableCell';
 
 interface ICellEditParams {
@@ -11,6 +11,12 @@ interface ICellEditParams {
 
 interface ICellSaveParams extends ICellEditParams {
     changes: Record<string, any>;
+}
+
+interface IGridEditRef {
+    edits: Record<string, Record<string, any>>;
+    getEditedRows: () => { id: string, changes: Record<string, any> }[];
+    clear: () => void;
 }
 
 type CellEditorType = 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup' | 'custom';
@@ -39,14 +45,35 @@ interface ICellEditorConfig {
     renderDisplay?: (value: any, row: any) => any;
 }
 
-interface IGridInlineEditInput {
+interface IInlineEditEnable {
     editable?: boolean;
     editableColumns?: string[];
+    isCellEditable?: (row: any, attribute: string) => boolean;
+}
+
+interface IInlineEditEditors {
     editors?: Record<string, ICellEditorConfig>;
+    getEditorType?: (attribute: string) => 'text' | 'number';
+}
+
+interface IInlineEditSave {
+    autoSave?: boolean;
+    saveEndPoint?: any;
+    onCellSave?: (params: ICellSaveParams) => Promise<any>;
+    updateRowOnSave?: boolean;
+    onCellEdit?: (params: ICellEditParams) => void;
+    onSaveSuccess?: (params: ICellSaveParams & { response: any }) => void;
+    onSaveError?: (params: ICellSaveParams & { error: any }) => void;
+}
+
+interface IGridInlineEditProps
+    extends IInlineEditEnable, IInlineEditEditors, IInlineEditSave {
+    editRef?: RefObject<IGridEditRef>;
+}
+
+interface IGridInlineEditInput extends IInlineEditEnable, IInlineEditEditors {
     idKey: string;
     onCellEdit?: (params: ICellEditParams) => void;
-    isCellEditable?: (row: any, attribute: string) => boolean;
-    getEditorType?: (attribute: string) => 'text' | 'number';
     save?: (params: ICellSaveParams) => Promise<any>;
     updateRowOnSave?: boolean;
     onSaveSuccess?: (params: ICellSaveParams & { response: any }) => void;
@@ -170,4 +197,8 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
 };
 
 export { useGridInlineEdit, getByPath, setByPath };
-export type { IGridInlineEditInput, ICellEditParams, ICellSaveParams, ICellEditorConfig, ICellEditorRenderParams, CellEditorType };
+export type {
+    IGridInlineEditProps, IGridInlineEditInput, IGridEditRef,
+    IInlineEditEnable, IInlineEditEditors, IInlineEditSave,
+    ICellEditParams, ICellSaveParams, ICellEditorConfig, ICellEditorRenderParams, CellEditorType
+};
