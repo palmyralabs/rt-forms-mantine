@@ -41,7 +41,18 @@ type GridXProps<ControlPropsType> =
             responsive?: boolean,
             compactWidth?: number,
             pageSizePosition?: 'left' | 'right',
-            keyboardNavigation?: boolean
+            keyboardNavigation?: boolean,
+            showGoTo?: boolean,
+            disableOnLoading?: boolean,
+            showRange?: boolean,
+            showPageSize?: boolean,
+            align?: 'left' | 'center' | 'right' | 'apart',
+            size?: string,
+            radius?: string,
+            withEdges?: boolean,
+            withControls?: boolean,
+            siblings?: number,
+            boundaries?: number
         }
     }
     & IGridInlineEditProps
