@@ -13,7 +13,7 @@ const columns: ColumnDefinition[] = [
         type: 'string',
         searchable: true,
         sortable: true
-    }, 
+    },
     {
         attribute: 'loginName',
         label: 'loginName',
@@ -24,6 +24,20 @@ const columns: ColumnDefinition[] = [
     {
         attribute: 'phoneNumber',
         label: 'Phone Number',
+        type: 'string',
+        searchable: true,
+        sortable: true
+    },
+    {
+        attribute: 'dob',
+        label: 'Date of Birth',
+        type: 'date',
+        searchable: true,
+        sortable: true
+    },
+    {
+        attribute: 'userType.userType',
+        label: 'User Type',
         type: 'string',
         searchable: true,
         sortable: true
@@ -62,15 +76,23 @@ const ServerGrid = () => {
                         filter={filter} setFilter={setFilter} handleFilterChange={handleFilterChange} />
                 </PalmyraForm>
                 <Badge size="lg" variant="light" color={selected.length ? 'indigo' : 'gray'}>
-                    {selected.length} selected 
+                    {selected.length} selected
                 </Badge>
             </Group>
             <GridX columns={columns} endPoint={endPoint} lsKey="uniqueKey"
                 filter={gridFilter}
-                selectable="multi" idProperty="id" 
+                selectable="multi" idProperty="id"
                 defaultSelectBy={{ attribute: 'loginName', values: ['satish', 'adarsh'] }}
-                // isRowSelectable={(row) => !!row.phoneNumber}
                 onSelectionChange={(rows) => setSelected(rows)}
+                editable
+                editors={{
+                    displayName: { type: 'text' },
+                    phoneNumber: { type: 'amount' },
+                    dob: { type: 'date' },
+                    'userType.userType': { type: 'lookup', endPoint: 'api/palmyra/masterdata/userType', idAttribute: 'id', labelAttribute: 'userType' },
+                    loginName: { type: 'select', options: { 'admin@gmail.com': 'Admin', 'satish': 'Satish', 'adarsh': 'Adarsh' } }
+                }}
+                onCellEdit={(p) => console.log('cell edit', p)}
                 quickSearch="code" pagination={{ ignoreSinglePage: false }}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}

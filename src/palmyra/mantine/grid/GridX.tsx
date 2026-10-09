@@ -32,6 +32,29 @@ type GridXProps<ControlPropsType> =
             clear: () => void,
             selectIds: (ids: (string | number)[]) => void,
             selectAllPages: () => Promise<void>
+        }>,
+        editable?: boolean,
+        editableColumns?: string[],
+        editors?: Record<string, {
+            type: 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup',
+            options?: Record<string, any> | { value: any, label: string }[],
+            endPoint?: string,
+            idAttribute?: string,
+            labelAttribute?: string,
+            queryAttribute?: string,
+            displayAttribute?: string,
+            fetchLimit?: number,
+            valueFormat?: string,
+            displayPattern?: string,
+            serverPattern?: string
+        }>,
+        onCellEdit?: (params: { id: any, attribute: string, value: any, oldValue: any, row: any }) => void,
+        isCellEditable?: (row: any, attribute: string) => boolean,
+        getEditorType?: (attribute: string) => 'text' | 'number',
+        editRef?: RefObject<{
+            edits: Record<string, Record<string, any>>,
+            getEditedRows: () => { id: string, changes: Record<string, any> }[],
+            clear: () => void
         }>
     };
 

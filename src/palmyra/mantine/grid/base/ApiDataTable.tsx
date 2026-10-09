@@ -13,6 +13,7 @@ import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
 import { useGridSelection } from './useGridSelection';
+import { useGridInlineEdit, ICellEditParams, ICellEditorConfig } from './useGridInlineEdit';
 
 type SelectionRefValue = {
   selectedRows: any[],
@@ -36,7 +37,23 @@ type SelectionProps = {
   selectionRef?: RefObject<SelectionRefValue>
 };
 
-function ApiDataTable(props: ApiDataTableOptions & SelectionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
+type EditRefValue = {
+  edits: Record<string, Record<string, any>>,
+  getEditedRows: () => { id: string, changes: Record<string, any> }[],
+  clear: () => void
+};
+
+type InlineEditProps = {
+  editable?: boolean,
+  editableColumns?: string[],
+  editors?: Record<string, ICellEditorConfig>,
+  onCellEdit?: (params: ICellEditParams) => void,
+  isCellEditable?: (row: any, attribute: string) => boolean,
+  getEditorType?: (attribute: string) => 'text' | 'number',
+  editRef?: RefObject<EditRefValue>
+};
+
+function ApiDataTable(props: ApiDataTableOptions & SelectionProps & InlineEditProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -138,6 +155,16 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & { ref?: RefO
     onSelectionChange: props.onSelectionChange
   });
 
+  const inlineEdit = useGridInlineEdit({
+    editable: props.editable,
+    editableColumns: props.editableColumns,
+    editors: props.editors,
+    idKey: idProperty,
+    onCellEdit: props.onCellEdit,
+    isCellEditable: props.isCellEditable,
+    getEditorType: props.getEditorType
+  });
+
   useEffect(() => {
     if (props.selectionRef) {
       props.selectionRef.current = {
@@ -148,19 +175,30 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & { ref?: RefO
         selectAllPages: selection.selectAllPages
       };
     }
+    if (props.editRef) {
+      props.editRef.current = {
+        edits: inlineEdit.edits,
+        getEditedRows: inlineEdit.getEditedRows,
+        clear: inlineEdit.clear
+      };
+    }
   });
 
   const visibleColumns = (columns || []).filter((c: any) => !c.hideColumn);
   const columnDefs = generateColumns(visibleColumns, customizer);
+  if (inlineEdit.enabled) inlineEdit.preProcessColumns(columnDefs);
   if (selection.enabled) selection.preProcessColumns(columnDefs);
 
   const handleRowClick = props.onRowClick ? (rowData: any) => {
     props.onRowClick(rowData);
   } : () => { };
 
-  const tableOptions = selection.enabled
-    ? { ...props.tableOptions, ...selection.getTableOptions() }
-    : props.tableOptions;
+  let tableOptions: any = props.tableOptions || {};
+  if (selection.enabled) tableOptions = { ...tableOptions, ...selection.getTableOptions() };
+  if (inlineEdit.enabled) {
+    const editOpts = inlineEdit.getTableOptions();
+    tableOptions = { ...tableOptions, meta: { ...(tableOptions.meta || {}), ...editOpts.meta } };
+  }
 
   const setSortColumns = currentRef.current?.setSortColumns || serverQuery.setSortColumns;
 
