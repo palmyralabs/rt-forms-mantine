@@ -6,12 +6,21 @@ import {
   NoopGridCustomizer,
   useServerQuery
 } from "@palmyralabs/rt-forms";
-import { RefObject, useImperativeHandle, useRef } from 'react';
+import { RefObject, useEffect, useImperativeHandle, useRef } from 'react';
 import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
+import { useGridSelection } from './useGridSelection';
 
-function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
+type SelectionProps = {
+  selectable?: 'single' | 'multi' | boolean,
+  idProperty?: string,
+  checkboxPosition?: 'first' | 'last',
+  onSelectionChange?: (rows: any[]) => void,
+  selectionRef?: RefObject<{ selectedRows: any[], clear: () => void }>
+};
+
+function ApiDataTable(props: ApiDataTableOptions & SelectionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -78,20 +87,43 @@ function ApiDataTable(props: ApiDataTableOptions & { ref?: RefObject<IPageQuerya
     }
   }, [serverQuery]);
 
+  const data = serverQuery.getCurrentData();
+
+  const dataRef = useRef<any[]>([]);
+  dataRef.current = data || [];
+
+  const selection = useGridSelection({
+    selectable: props.selectable,
+    idKey: props.idProperty || 'id',
+    dataRef,
+    position: props.checkboxPosition || 'first',
+    onSelectionChange: props.onSelectionChange
+  });
+
+  useEffect(() => {
+    if (props.selectionRef) {
+      props.selectionRef.current = { selectedRows: selection.selectedRows, clear: selection.clear };
+    }
+  });
+
   const visibleColumns = (columns || []).filter((c: any) => !c.hideColumn);
   const columnDefs = generateColumns(visibleColumns, customizer);
+  if (selection.enabled) selection.preProcessColumns(columnDefs);
 
   const handleRowClick = props.onRowClick ? (rowData: any) => {
     props.onRowClick(rowData);
   } : () => { };
 
-  const data = serverQuery.getCurrentData();
+  const tableOptions = selection.enabled
+    ? { ...props.tableOptions, ...selection.getTableOptions() }
+    : props.tableOptions;
+
   const setSortColumns = currentRef.current?.setSortColumns || serverQuery.setSortColumns;
 
   return (
     <BaseTable columnDefs={columnDefs} EmptyChild={EmptyChildContainer} customizer={customizer} showFooter={props.showFooter}
       rowData={data} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
-      tableOptions={props.tableOptions} onTableReady={props.onTableReady} tableRef={props.tableRef}
+      tableOptions={tableOptions} onTableReady={props.onTableReady} tableRef={props.tableRef}
     />
   )
 }

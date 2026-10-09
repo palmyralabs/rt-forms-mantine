@@ -14,7 +14,14 @@ type GridXProps<ControlPropsType> =
     GridXOptions<ControlPropsType>
     & { ref?: RefObject<IPageQueryable> }
     & { onFetchFailure?: (error: any) => void }
-    & { filter?: any };
+    & { filter?: any }
+    & {
+        selectable?: 'single' | 'multi' | boolean,
+        idProperty?: string,
+        checkboxPosition?: 'first' | 'last',
+        onSelectionChange?: (rows: any[]) => void,
+        selectionRef?: RefObject<{ selectedRows: any[], clear: () => void }>
+    };
 
 function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
     const internalRef = useRef<IPageQueryable>(null);
