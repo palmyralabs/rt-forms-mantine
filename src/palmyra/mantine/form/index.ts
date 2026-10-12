@@ -3,6 +3,7 @@ export * from './MantineCheckBox';
 export * from './MantineCurrencyField';
 export * from './SearchFilterField';
 export * from './LookupSelect';
+export * from './SmartLookup';
 // export * from './MantineCheckBoxGroup';
 export * from './MantineDateInput';
 export * from './MantineDatePickerInput';

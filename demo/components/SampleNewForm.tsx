@@ -1,12 +1,43 @@
 import { IEndPoint, PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { ISaveForm, PalmyraNewForm } from "@palmyralabs/rt-forms";
-import { Button, SimpleGrid, Text } from "@mantine/core";
+import { Button, Group, SimpleGrid, Stack, Text, Textarea, TextInput } from "@mantine/core";
 import { useMemo, useRef, useState } from "react";
+
+const AddUserForm = ({ data, setData }: any) => (
+    <Stack gap="sm">
+        <TextInput label="Name" value={data.displayName || ''} autoFocus
+            onChange={(e) => setData({ ...data, displayName: e.currentTarget.value })} />
+        <TextInput label="Email" value={data.email || ''}
+            onChange={(e) => setData({ ...data, email: e.currentTarget.value })} />
+    </Stack>
+);
+
+const AddUserForm1 = ({ data, setData }: any) => (
+    <Stack gap="sm">
+        <TextInput
+            label="User Type"
+            value={data.userType || ''}
+            onChange={(e) =>
+                setData({ ...data, userType: e.currentTarget.value })
+            }
+        />
+
+        <Textarea
+            label="Description"
+            value={data.description || ''}
+            onChange={(e) =>
+                setData({ ...data, description: e.currentTarget.value })
+            }
+            minRows={3}
+            autosize
+        />
+    </Stack>
+);
 import {
     LookupSelect, MantineCurrencyField, MantineDateInput, MantineDatePickerInput,
     MantineDateTimePicker, MantineMultiSelect, MantineNumberField, MantinePasswordField,
-    MantineRadioGroup, MantineSelect, MantineServerLookup, MantineSwitch, MantineTextArea,
-    MantineTextField, MantineYearInput
+    MantineRadioGroup, MantineSelect, MantineServerLookup, MantineSwitch,
+    MantineTextArea, MantineTextField, MantineYearInput, SmartLookup
 } from "../../src/main";
 import { DemoShell } from "./DemoShell";
 import { DemoSection } from "./DemoSection";
@@ -103,6 +134,37 @@ const SampleNewForm = () => {
                                     <Text component="span" c="grape" size="xs">{d.email}</Text>
                                 </Text>
                             )} />
+
+                        {/* <SmartLookup attribute="smartUser" label="User (SmartLookup — add new)"
+                            endPoint={lookupEndPoint} idAttribute="id" labelAttribute="email"
+                            queryAttribute="email" searchable clearable fetchLimit={15}
+                            getOptionLabel={(d) => `${d.displayName} - ${d.email}`}
+                            addTitle={(t) => `Create "${t}"`}
+                            // getCreatePayload={(data) => ({ displayName: data.displayName, email: data.email, loginName: data.email })}
+                            renderAddForm={({ data, setData }) => (
+                                <AddUserForm data={data} setData={setData} />
+                            )}
+                            createLabel="Save user" cancelLabel="Discard"
+                            onSaveSuccess={(rec) => console.log('save success', rec)}
+                            onSaveFailure={(e) => console.log('save failure', e?.message)}
+                            onChange={(id, record) => console.log('SmartLookup', id, record)} /> */}
+
+
+                        <SmartLookup attribute="smartUser" label="User (SmartLookup — add new)"
+                            endPoint={lookupEndPoint} idAttribute="id" labelAttribute="userType"
+                            queryAttribute="userType" searchable clearable fetchLimit={15}
+                            multiple display="popover"
+                            // allowAdd={false}
+                            getOptionLabel={(d) => `${d.userType} - ${d.id}`}
+                            addTitle={(t) => `Create "${t}"`}
+                            getCreatedRecord={(res, data) => ({ id: (res?.id ?? res?.result?.id ?? ('new-' + Date.now())), ...data })}
+                            renderAddForm={({ data, setData }) => (
+                                <AddUserForm1 data={data} setData={setData} />
+                            )}
+                            createLabel="Save user" cancelLabel="Discard"
+                            onSaveSuccess={(rec) => console.log('save success', rec)}
+                            onSaveFailure={(e) => console.log('save failure', e?.message)}
+                            onChange={(id, record) => console.log('SmartLookup', id, record)} />
                     </SimpleGrid>
                 </DemoSection>
             </PalmyraNewForm>
