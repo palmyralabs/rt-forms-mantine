@@ -2,6 +2,7 @@ import { IEndPoint, PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { ISaveForm, PalmyraNewForm } from "@palmyralabs/rt-forms";
 import { Button, Group, SimpleGrid, Stack, Text, Textarea, TextInput } from "@mantine/core";
 import { useMemo, useRef, useState } from "react";
+import dayjs from "dayjs";
 
 const AddUserForm = ({ data, setData }: any) => (
     <Stack gap="sm">
@@ -93,7 +94,8 @@ const SampleNewForm = () => {
                 <DemoSection title="Numbers & money">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
                         <MantineNumberField attribute="population" label="Population" defaultValue={212} />
-                        <MantineCurrencyField attribute="amount" label="Payable amount" />
+                        <MantineCurrencyField attribute="amount" label="Payable amount (USD)" currency="CNY" />
+                        <MantineCurrencyField attribute="amountInr" label="Payable amount (INR)" currency="INR" />
                     </SimpleGrid>
                 </DemoSection>
 
@@ -109,7 +111,13 @@ const SampleNewForm = () => {
 
                 <DemoSection title="Date & time">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
-                        <MantineDatePickerInput attribute="date" label="Date" valueFormat="DD-MM-YYYY" />
+                        <MantineDatePickerInput attribute="date" label="Date" valueFormat="DD-MM-YYYY"
+                            minDate={new Date(2020, 0, 1)} maxDate={new Date()}
+                            presets={[
+                                { value: dayjs().format('YYYY-MM-DD'), label: 'Today' },
+                                { value: dayjs().subtract(1, 'day').format('YYYY-MM-DD'), label: 'Yesterday' },
+                                { value: dayjs().subtract(7, 'day').format('YYYY-MM-DD'), label: 'A week ago' }
+                            ]} />
                         <MantineDateInput attribute="dateInput" label="Date input" valueFormat="DD-MM-YYYY" />
                         <MantineDateTimePicker attribute="dateTime" label="Date time" valueFormat="DD-MM-YYYY hh:mm:ss" />
                         <MantineYearInput attribute="year" label="Year" valueFormat="YYYY" serverPattern="YYYY" />
