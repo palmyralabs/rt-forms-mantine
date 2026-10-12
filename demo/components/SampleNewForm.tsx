@@ -76,10 +76,17 @@ const SampleNewForm = () => {
             <PalmyraNewForm key={baseUrl} endPoint={endPoint} storeFactory={storeFactory} ref={formRef}>
                 <DemoSection title="Basic details">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
-                        <MantineTextField attribute="name" label="Name" placeholder="Full name" />
-                        <MantinePasswordField attribute="password" label="Password" placeholder="••••••" />
-                        <MantineSwitch attribute="active" label="Active" options={{ True: true, False: false }} />
-                        <MantineTextArea attribute="area" label="About" placeholder="Short description" />
+                        <MantineTextField attribute="name" label="Name" placeholder="Full name"
+                            description="Enter the person's full legal name"/>
+                        <MantinePasswordField attribute="password" label="Password" placeholder="••••••"
+                            labelInfo="Use a strong password"
+                            showStrength capsLockWarning withConfirm
+                            regExp={{ regex: /^(?=.*[A-Z])(?=.*\d).{8,}$/, errorMessage: 'Min 8 chars, 1 uppercase, 1 number' }} />
+                        <MantineSwitch attribute="active" label="Active" options={{ True: true, False: false }}
+                        labelInfo="sds" />
+                        <MantineTextArea attribute="area" label="About" placeholder="Short description"
+                            description="A brief bio" labelInfo="Shown on the profile page"
+                            autosize minRows={2} maxRows={6} maxLength={10} showCount />
                     </SimpleGrid>
                 </DemoSection>
 

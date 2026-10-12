@@ -1,0 +1,17 @@
+.py-textarea-wrap {
+    position: relative;
+}
+
+.py-textarea-has-count textarea {
+    padding-bottom: 20px;
+}
+
+.py-textarea-count {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    pointer-events: none;
+    padding: 0 4px;
+    background: var(--mantine-color-body);
+    border-radius: var(--mantine-radius-sm);
+}

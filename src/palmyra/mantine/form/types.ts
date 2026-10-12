@@ -30,7 +30,9 @@ interface TextViewAttributeDefinition {
 interface MantineInputFieldOptions extends FieldOptions {
     label?: string,
     title?: string,
-    attribute: string
+    attribute: string,
+    description?: string,
+    labelInfo?: string
 }
 
 type IRadioGroupOptions = Record<any, any> | Record<string, any> | { value: any, label: string }[];
