@@ -61,7 +61,7 @@ const SampleNewForm = () => {
 
                 <DemoSection title="Choices">
                     <SimpleGrid cols={cols} spacing="sm" verticalSpacing="xs">
-                        <MantineSelect attribute="state" required label="State"
+                        <MantineSelect attribute="state" required label="State" clearable
                             options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }} />
                         <MantineMultiSelect attribute="states" label="States" placeholder="Pick many"
                             options={{ 1: 'Tamil Nadu', 2: 'Kerala', 3: 'Maharastra', 4: 'Karnataka' }} />

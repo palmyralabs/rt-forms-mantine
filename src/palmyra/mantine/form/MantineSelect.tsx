@@ -61,8 +61,12 @@ function MantineSelect(props: ISelectDefinition & Omit<SelectProps, 'ref'> & { r
         return sOptions;
     })
 
-    const rightSectionIcon = props.rightSection ? props.rightSection :
-        <IoMdArrowDropdown />
+    const hasValue = value !== null && value !== undefined && value !== '';
+    const clearable = !!props.clearable && hasValue && !props.readOnly && !props.disabled;
+
+    const rightSectionIcon = clearable ? undefined
+        : (props.rightSection ? props.rightSection : <IoMdArrowDropdown />);
+
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
             customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
@@ -72,6 +76,7 @@ function MantineSelect(props: ISelectDefinition & Omit<SelectProps, 'ref'> & { r
                 {...options}
                 variant={variant}
                 error={error.message}
+                clearable={clearable}
                 rightSection={rightSectionIcon}
             />
         </FieldDecorator>}

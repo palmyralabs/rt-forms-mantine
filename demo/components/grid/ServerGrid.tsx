@@ -182,8 +182,8 @@ const ServerGrid = () => {
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}
                 // DataGridPagination={MyPagination}
-                paginationPosition="bottom"
-                paginationOptions={{ pageSizePosition: 'left', keyboardNavigation: true, responsive: true, showGoTo: true, disableOnLoading: true }}
+                paginationPosition="top"
+                paginationOptions={{ pageSizePosition: 'right', keyboardNavigation: true, responsive: true, showGoTo: true, disableOnLoading: true }}
                 pageSize={[20, 30, 1000]} />
         </StoreFactoryContext.Provider>
     </>
