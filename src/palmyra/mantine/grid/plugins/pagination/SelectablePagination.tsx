@@ -63,19 +63,21 @@ function SelectablePagination(o: DataGridPluginOptions & { ref?: RefObject<{ ref
     const compact = !!opts.compact || (responsive && width > 0 && width < compactWidth);
 
     const goto = (page1Based: number) => {
-        if (page1Based >= 1 && page1Based <= totalPages) pageQuery.gotoPage(page1Based - 1);
+        const target = page1Based - 1;
+        if (page1Based < 1 || page1Based > totalPages) return;
+        if (target === (pageQuery.getPageNo?.() || 0)) return;
+        pageQuery.gotoPage(target);
     };
     const onPageSizeChange = (value: string | null) => {
-        if (value) pageQuery.setPageSize(parseInt(value, 10));
+        if (!value) return;
+        const next = parseInt(value, 10);
+        if (next === (pageQuery.getQueryLimit?.()?.limit || rowsPerPage)) return;
+        pageQuery.setPageSize(next);
     };
     const onGoChange = (v: any) => {
         setGoInput(v);
         const n = Number(v);
-        if (n >= 1 && n <= totalPages) {
-            goDelay(() => {
-                if (n - 1 !== (pageQuery.getPageNo?.() || 0)) pageQuery.gotoPage(n - 1);
-            });
-        }
+        if (n >= 1 && n <= totalPages) goDelay(() => goto(n));
     };
 
     const onKeyDown = kb ? (e: any) => {
