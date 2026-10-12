@@ -1,8 +1,17 @@
 import { ColumnDefinition, DataGridPluginOptions, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { RefObject, useImperativeHandle, useRef, useState } from "react";
-import { ActionIcon, Badge, Button, CloseButton, Group, Paper, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+
+const GridLoader = () => (
+    <Paper withBorder radius="xl" px="lg" py="sm" shadow="md">
+        <Group gap="sm" wrap="nowrap">
+            <Loader size="sm" type="dots" color="grape" />
+            <Text size="sm" fw={600} c="grape">Fetching data, please wait…</Text>
+        </Group>
+    </Paper>
+);
 import './ServerGrid.css'
 import { containsFilter, DataGridDefaultControls, GridX, IDataGridDefaultControlConfig } from "../../../src/palmyra/mantine/grid";
 import { SearchFilterField } from "../../../src/main";
@@ -184,6 +193,8 @@ const ServerGrid = () => {
                 // DataGridPagination={MyPagination}
                 paginationPosition="top"
                 paginationOptions={{ pageSizePosition: 'right', keyboardNavigation: true, responsive: true, showGoTo: true, disableOnLoading: true }}
+                loadingOverlay
+                loader={<GridLoader />}
                 pageSize={[20, 30, 1000]} />
         </StoreFactoryContext.Provider>
     </>

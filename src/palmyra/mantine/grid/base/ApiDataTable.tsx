@@ -8,7 +8,7 @@ import {
   useServerQuery
 } from "@palmyralabs/rt-forms";
 import { RefObject, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-import { Anchor, Group, Loader, Text } from '@mantine/core';
+import { Anchor, Group, Loader, LoadingOverlay, Stack, Text } from '@mantine/core';
 import BaseTable from './BaseTable';
 import { useLSQueryOptions } from './useLSQueryOptions';
 import { resolveGridPersistence } from './gridPersistence';
@@ -40,7 +40,7 @@ type SelectionProps = {
 
 type ExpansionProps = IGridExpansionProps;
 
-function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void }) {
+function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void, loadingOverlay?: boolean, loader?: any, loadingText?: string }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -230,9 +230,21 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
   const treeData = useMemo(() => expansion.decorateData(data), [data, expansion.childrenState]);
 
   const banner = selection.banner;
+  const overlayVisible = props.loadingOverlay !== false && !!serverQuery.isLoading;
+
+  const loaderContent = props.loader || (
+    <Stack align="center" gap={10} className="py-grid-loader">
+      <Loader size="lg" type="bars" color="indigo" />
+      <Text size="sm" fw={500} c="dimmed">{props.loadingText || 'Loading…'}</Text>
+    </Stack>
+  );
 
   return (
-    <>
+    <div className="py-grid-loading-wrapper">
+      <LoadingOverlay visible={overlayVisible} zIndex={5}
+        transitionProps={{ duration: 150 }}
+        overlayProps={{ radius: 'md', blur: 2, backgroundOpacity: 0.55 }}
+        loaderProps={{ children: loaderContent }} />
       {selection.enabled && (banner.showSelectAll || banner.showClearAll) && (
         <Group gap="xs" justify="center" className="py-grid-select-all-banner">
           {banner.showSelectAll ? (
@@ -254,7 +266,7 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
         rowData={treeData} onRowClick={handleRowClick} onColumnSort={setSortColumns} initParams={queryParams.initParams}
         tableOptions={tableOptions} onTableReady={props.onTableReady} tableRef={props.tableRef}
       />
-    </>
+    </div>
   )
 }
 

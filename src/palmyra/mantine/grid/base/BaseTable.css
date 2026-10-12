@@ -152,3 +152,15 @@
     from { opacity: 0; transform: translateY(-4px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+.py-grid-loading-wrapper {
+    position: relative;
+    min-height: 80px;
+}
+
+.py-grid-loader {
+    padding: 16px 28px;
+    background: var(--mantine-color-body);
+    border-radius: var(--mantine-radius-md);
+    box-shadow: var(--mantine-shadow-md);
+}

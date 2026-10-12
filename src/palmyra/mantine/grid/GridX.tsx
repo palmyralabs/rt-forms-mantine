@@ -1,5 +1,5 @@
 import { DataGridPluginOptions, GridXOptions, IPageQueryable } from "@palmyralabs/rt-forms";
-import { JSX, RefObject, useMemo, useRef } from "react";
+import { JSX, ReactNode, RefObject, useMemo, useRef } from "react";
 import { TbFilterShare } from "react-icons/tb";
 import { renderTitle } from "../widget";
 import { DropdownButton } from "../widget/DropdownButton";
@@ -36,6 +36,9 @@ type GridXProps<ControlPropsType> =
             selectAllPages: () => Promise<void>
         }>,
         paginationPosition?: 'top' | 'bottom' | 'both',
+        loadingOverlay?: boolean,
+        loader?: ReactNode,
+        loadingText?: string,
         paginationOptions?: {
             compact?: boolean,
             responsive?: boolean,
