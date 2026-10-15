@@ -9,6 +9,7 @@ import { SampleNewForm } from './components/SampleNewForm';
 import { SampleGrid } from './components/SampleGrid';
 import { SampleViewForm } from './components/SampleViewForm';
 import { SampleUpload } from './components/SampleUpload';
+import { SampleHierarchy } from './components/SampleHierarchy';
 
 function App() {
   const [tab, setTab] = useState<string | null>('new');
@@ -36,6 +37,7 @@ function App() {
               <Tabs.Tab value="view">View Form</Tabs.Tab>
               <Tabs.Tab value="grid">Data Grid</Tabs.Tab>
               <Tabs.Tab value="upload">Upload</Tabs.Tab>
+              <Tabs.Tab value="hierarchy">Hierarchy</Tabs.Tab>
             </Tabs.List>
           </Container>
         </div>
@@ -46,6 +48,7 @@ function App() {
           <Tabs.Panel value="view"><SampleViewForm /></Tabs.Panel>
           <Tabs.Panel value="grid"><SampleGrid /></Tabs.Panel>
           <Tabs.Panel value="upload"><SampleUpload /></Tabs.Panel>
+          <Tabs.Panel value="hierarchy"><SampleHierarchy /></Tabs.Panel>
         </Container>
       </Tabs>
     </div>

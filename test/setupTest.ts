@@ -5,6 +5,15 @@ afterEach(() => {
     cleanup();
 })
 
+class ResizeObserverMock {
+    observe() { }
+    unobserve() { }
+    disconnect() { }
+}
+
+(globalThis as any).ResizeObserver = (globalThis as any).ResizeObserver || ResizeObserverMock;
+(window as any).ResizeObserver = (window as any).ResizeObserver || ResizeObserverMock;
+
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation(query => ({
