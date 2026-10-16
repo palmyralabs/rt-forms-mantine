@@ -1,8 +1,8 @@
 import { ColumnDefinition, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { useRef, useState } from "react";
-import { Badge, Button, CloseButton, Group, Paper, ScrollArea, SegmentedControl, Switch, Table, Text, TextInput, UnstyledButton } from "@mantine/core";
-import { FiRotateCcw, FiSave } from "react-icons/fi";
+import { ActionIcon, Badge, Button, CloseButton, Group, Paper, ScrollArea, SegmentedControl, Switch, Table, Text, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
+import { FiCornerUpLeft, FiCornerUpRight, FiRotateCcw, FiSave } from "react-icons/fi";
 import { EditedCell, IEditableGridRef, PalmyraEditGrid } from "../../../src/palmyra/mantine/grid";
 
 const fmt = (v: any) => v == null || v === '' ? '—' : typeof v === 'object' ? JSON.stringify(v) : String(v);
@@ -55,6 +55,8 @@ const ServerEditGrid = () => {
     const [saving, setSaving] = useState(false);
     const [invalidCount, setInvalidCount] = useState(0);
     const [lockAdmin, setLockAdmin] = useState(true);
+    const [canUndo, setCanUndo] = useState(false);
+    const [canRedo, setCanRedo] = useState(false);
     const editGridRef: any = useRef<IEditableGridRef>(null);
 
     const isCellEditable = (row: any, _attribute: string): boolean => {
@@ -100,6 +102,14 @@ const ServerEditGrid = () => {
                         onChange={(e) => setLockAdmin(e.currentTarget.checked)} />
                 </Group>
                 <Group gap="xs">
+                    <Tooltip label="Undo" withArrow>
+                        <ActionIcon variant="default" size="sm" aria-label="Undo"
+                            disabled={!canUndo} onClick={() => editGridRef.current?.undo()}><FiCornerUpLeft size={14} /></ActionIcon>
+                    </Tooltip>
+                    <Tooltip label="Redo" withArrow>
+                        <ActionIcon variant="default" size="sm" aria-label="Redo"
+                            disabled={!canRedo} onClick={() => editGridRef.current?.redo()}><FiCornerUpRight size={14} /></ActionIcon>
+                    </Tooltip>
                     {invalidCount > 0 && (
                         <Badge size="lg" color="red" variant="light">{invalidCount} invalid</Badge>
                     )}
@@ -159,7 +169,7 @@ const ServerEditGrid = () => {
                 lsKey="editGridKey"
                 mode={mode} showEditToolbar={false}
                 editGridRef={editGridRef}
-                editors={editors}
+                editors={editors} showUndoRedo={false}
                 editableColumns={['displayName', 'phoneNumber', 'dob', 'userType.userType']}
                 // isCellEditable={isCellEditable}
                 onDirtyChange={(rows, editedCells) => {
@@ -167,6 +177,7 @@ const ServerEditGrid = () => {
                     setCells(editedCells);
                 }}
                 onValidityChange={(errs) => setInvalidCount(errs.length)}
+                onHistoryChange={(h) => { setCanUndo(h.canUndo); setCanRedo(h.canRedo); }}
                 onBatchSave={(rows) => {
                     console.log('batch save', rows);
                     return simulateSave(JSON.stringify(rows));

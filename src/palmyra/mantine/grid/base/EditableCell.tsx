@@ -1,5 +1,5 @@
-import { Loader, NumberInput, Radio, Group, Select, TextInput, Tooltip } from '@mantine/core';
-import { DatePickerInput } from '@mantine/dates';
+import { Autocomplete, Checkbox, Loader, MultiSelect, NumberInput, Radio, Group, Select, Switch, Textarea, TextInput, Tooltip } from '@mantine/core';
+import { DatePickerInput, TimeInput } from '@mantine/dates';
 import { StoreFactoryContext } from '@palmyralabs/rt-forms';
 import dayjs from 'dayjs';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -104,34 +104,51 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
             if (cfg?.displayAttribute && getByPath(row.original, cfg.displayAttribute)) return getByPath(row.original, cfg.displayAttribute);
             return original;
         }
+        if (type === 'multiselect') {
+            const arr = Array.isArray(original) ? original : (original != null && original !== '' ? [original] : []);
+            const opts = normOptions(cfg?.options);
+            return arr.map((v: any) => { const o = opts.find((x) => x.value === String(v)); return o ? o.label : v; }).join(', ');
+        }
         return original;
     };
 
     const status = meta.getCellStatus ? meta.getCellStatus(row, attribute) : undefined;
+    const dirty = meta.isCellDirty ? meta.isCellDirty(row, attribute) : false;
+    const errMsg = meta.getCellError ? meta.getCellError(row, attribute) : undefined;
+    const cellCls = 'py-grid-editable-cell'
+        + (status === 'error' ? ' py-grid-cell-error' : '')
+        + (dirty && status !== 'error' ? ' py-grid-cell-dirty' : '');
+    const errorIcon = status === 'error' && errMsg
+        ? (<Tooltip label={errMsg} color="red" withArrow position="top" w={220} events={{ hover: true, focus: true, touch: true }}>
+            <span className="py-grid-cell-erricon" onClick={(e) => e.stopPropagation()}><FiAlertCircle size={14} /></span>
+        </Tooltip>)
+        : null;
 
     if (!cellEditable) {
         const d = display();
         return <span className="py-grid-cell-locked">{d != null && d !== '' ? d : ''}</span>;
     }
 
+    if (type === 'checkbox' || type === 'switch') {
+        const checked = original === true || original === 'true' || original === 1 || original === '1';
+        const toggle = (e: any) => meta.updateData?.(row, attribute, e.currentTarget.checked);
+        return (
+            <div className={cellCls} onClick={(e) => e.stopPropagation()}>
+                {type === 'switch'
+                    ? <Switch size="xs" checked={!!checked} onChange={toggle} />
+                    : <Checkbox size="xs" checked={!!checked} onChange={toggle} />}
+                {errorIcon}
+            </div>
+        );
+    }
+
     if (!editing) {
         const d = display();
-        const dirty = meta.isCellDirty ? meta.isCellDirty(row, attribute) : false;
-        const errMsg = meta.getCellError ? meta.getCellError(row, attribute) : undefined;
-        const cls = 'py-grid-editable-cell'
-            + (status === 'error' ? ' py-grid-cell-error' : '')
-            + (dirty && status !== 'error' ? ' py-grid-cell-dirty' : '');
         return (
-            <div className={cls} onClick={(e) => { e.stopPropagation(); setEditing(true); }}>
+            <div className={cellCls} onClick={(e) => { e.stopPropagation(); setEditing(true); }}>
                 <span>{d != null && d !== '' ? d : <span className="py-grid-editable-placeholder">—</span>}</span>
                 {status === 'saving' && <Loader size={12} />}
-                {status === 'error' && errMsg && (
-                    <Tooltip label={errMsg} color="red" withArrow position="top" w={220} events={{ hover: true, focus: true, touch: true }}>
-                        <span className="py-grid-cell-erricon" onClick={(e) => e.stopPropagation()}>
-                            <FiAlertCircle size={14} />
-                        </span>
-                    </Tooltip>
-                )}
+                {errorIcon}
             </div>
         );
     }
@@ -204,6 +221,47 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
                     commit(id);
                 }}
                 onCancel={cancel} />
+        );
+    }
+
+    if (type === 'multiselect') {
+        const cur = Array.isArray(value) ? value.map(String)
+            : (Array.isArray(original) ? original.map(String) : []);
+        return (
+            <MultiSelect size="xs" variant="unstyled" data={normOptions(cfg?.options)} searchable
+                value={cur} onChange={(v) => setValue(v)} onBlur={() => commit(value)}
+                comboboxProps={{ withinPortal: true }} autoFocus />
+        );
+    }
+
+    if (type === 'textarea') {
+        return (
+            <Textarea size="xs" variant="unstyled" autosize minRows={1} maxRows={6}
+                value={value ?? ''} autoFocus
+                onChange={(e) => setValue(e.currentTarget.value)}
+                onBlur={() => commit(value)}
+                onKeyDown={(e) => { if (e.key === 'Escape') cancel(); }} />
+        );
+    }
+
+    if (type === 'time') {
+        return (
+            <TimeInput size="xs" variant="unstyled" value={value ?? ''} autoFocus
+                onChange={(e) => setValue(e.currentTarget.value)}
+                onBlur={() => commit(value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') commit(value); else if (e.key === 'Escape') cancel(); }} />
+        );
+    }
+
+    if (type === 'autocomplete') {
+        const data = Array.isArray(cfg?.options)
+            ? cfg.options.map((o: any) => (typeof o === 'string' ? o : String(o.label ?? o.value)))
+            : normOptions(cfg?.options).map((o) => o.label);
+        return (
+            <Autocomplete size="xs" variant="unstyled" data={data} value={value ?? ''} autoFocus
+                onChange={(v) => setValue(v)} onBlur={() => commit(value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') commit(value); else if (e.key === 'Escape') cancel(); }}
+                comboboxProps={{ withinPortal: true }} />
         );
     }
 

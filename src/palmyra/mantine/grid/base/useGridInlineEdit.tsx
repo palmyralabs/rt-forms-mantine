@@ -3,6 +3,14 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 import { EditableCell } from './EditableCell';
 
 type IInlineValidationError = { id: string; attribute: string; message: string };
+type IInlineEditedCell = { id: string; attribute: string; value: any; oldValue: any; row: any };
+type IInlineEditsInfo = {
+    edits: Record<string, Record<string, any>>;
+    rows: { id: string; changes: Record<string, any> }[];
+    cells: IInlineEditedCell[];
+    canUndo: boolean;
+    canRedo: boolean;
+};
 
 interface ICellEditParams {
     id: any;
@@ -21,10 +29,15 @@ interface IGridEditRef {
     getEditedRows: () => { id: string, changes: Record<string, any> }[];
     getErrors?: () => { id: string; attribute: string; message: string }[];
     isValid?: () => boolean;
+    undo?: () => void;
+    redo?: () => void;
+    canUndo?: boolean;
+    canRedo?: boolean;
     clear: () => void;
 }
 
-type CellEditorType = 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup' | 'custom';
+type CellEditorType = 'text' | 'number' | 'amount' | 'date' | 'select' | 'radio' | 'lookup' | 'custom'
+    | 'checkbox' | 'switch' | 'multiselect' | 'textarea' | 'time' | 'autocomplete';
 
 interface ICellEditorRenderParams {
     value: any;
@@ -70,6 +83,7 @@ interface IInlineEditSave {
     onSaveSuccess?: (params: ICellSaveParams & { response: any }) => void;
     onSaveError?: (params: ICellSaveParams & { error: any }) => void;
     onValidityChange?: (errors: IInlineValidationError[]) => void;
+    onEditsChange?: (info: IInlineEditsInfo) => void;
 }
 
 interface IGridInlineEditProps
@@ -85,6 +99,7 @@ interface IGridInlineEditInput extends IInlineEditEnable, IInlineEditEditors {
     onSaveSuccess?: (params: ICellSaveParams & { response: any }) => void;
     onSaveError?: (params: ICellSaveParams & { error: any }) => void;
     onValidityChange?: (errors: IInlineValidationError[]) => void;
+    onEditsChange?: (info: IInlineEditsInfo) => void;
 }
 
 const getByPath = (obj: any, path: string): any => {
@@ -108,11 +123,25 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
     } = opts;
     const enabled = !!editable;
 
-    const [edits, setEdits] = useState<Record<string, Record<string, any>>>({});
+    const [hist, setHist] = useState<{ stack: Record<string, Record<string, any>>[]; index: number }>({ stack: [{}], index: 0 });
+    const edits = hist.stack[hist.index] || {};
+    const canUndo = hist.index > 0;
+    const canRedo = hist.index < hist.stack.length - 1;
     const [saving, setSaving] = useState<Record<string, Record<string, boolean>>>({});
     const [errors, setErrors] = useState<Record<string, Record<string, string>>>({});
     const [validationErrors, setValidationErrors] = useState<Record<string, Record<string, string>>>({});
     const lookupLabelRef = useRef<Record<string, string>>({});
+    const rowRef = useRef<Record<string, any>>({});
+
+    const pushEdits = (updater: (cur: Record<string, Record<string, any>>) => Record<string, Record<string, any>>) =>
+        setHist((h) => {
+            const cur = h.stack[h.index] || {};
+            const next = updater(cur);
+            const stack = [...h.stack.slice(0, h.index + 1), next];
+            return { stack, index: stack.length - 1 };
+        });
+    const undo = () => setHist((h) => (h.index > 0 ? { ...h, index: h.index - 1 } : h));
+    const redo = () => setHist((h) => (h.index < h.stack.length - 1 ? { ...h, index: h.index + 1 } : h));
 
     const validateCell = (attribute: string, value: any): string => {
         const fo: FieldOptions | undefined = editors?.[attribute]?.validation;
@@ -144,24 +173,25 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
         });
     };
 
-    const removeEdit = (id: string, attribute: string) => {
-        setEdits((prev) => {
-            if (!prev[id]) return prev;
-            const row = { ...prev[id] };
-            delete row[attribute];
-            return { ...prev, [id]: row };
-        });
-    };
+    const removeEdit = (id: string, attribute: string) => setHist((h) => {
+        const cur = h.stack[h.index] || {};
+        if (!cur[id]) return h;
+        const rowE = { ...cur[id] };
+        delete rowE[attribute];
+        const stack = [...h.stack];
+        stack[h.index] = { ...cur, [id]: rowE };
+        return { stack, index: h.index };
+    });
 
     const updateData = (row: any, attribute: string, value: any) => {
         const id = String(row.original[idKey]);
+        rowRef.current[id] = row.original;
         const oldValue = edits[id] && attribute in edits[id] ? edits[id][attribute] : getByPath(row.original, attribute);
-        setEdits((prev) => ({ ...prev, [id]: { ...prev[id], [attribute]: value } }));
+        pushEdits((cur) => ({ ...cur, [id]: { ...cur[id], [attribute]: value } }));
         const params: ICellSaveParams = { id: row.original[idKey], attribute, value, oldValue, row: row.original, changes: { [attribute]: value } };
         if (onCellEdit) onCellEdit(params);
 
         const vmsg = validateCell(attribute, value);
-        setFlag(setValidationErrors, id, attribute, vmsg || null);
         if (vmsg) return;
 
         if (!save) return;
@@ -221,7 +251,29 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
         .filter(([, changes]) => Object.keys(changes).length > 0)
         .map(([id, changes]) => ({ id, changes }));
 
-    const clear = () => { setEdits({}); setErrors({}); setValidationErrors({}); };
+    const buildEditedCells = () => getEditedRows().flatMap((r) =>
+        Object.keys(r.changes).map((attribute) => ({
+            id: r.id,
+            attribute,
+            value: r.changes[attribute],
+            oldValue: getByPath(rowRef.current[r.id], attribute),
+            row: rowRef.current[r.id]
+        })));
+
+    const clear = () => { setHist({ stack: [{}], index: 0 }); setErrors({}); setValidationErrors({}); rowRef.current = {}; };
+
+    useEffect(() => {
+        const next: Record<string, Record<string, string>> = {};
+        Object.keys(edits).forEach((id) => Object.keys(edits[id] || {}).forEach((attribute) => {
+            const msg = validateCell(attribute, edits[id][attribute]);
+            if (msg) { (next[id] = next[id] || {})[attribute] = msg; }
+        }));
+        setValidationErrors(next);
+    }, [hist]);
+
+    useEffect(() => {
+        if (opts.onEditsChange) opts.onEditsChange({ edits, rows: getEditedRows(), cells: buildEditedCells(), canUndo, canRedo });
+    }, [hist]);
 
     const getTableOptions = () => ({
         meta: {
@@ -243,7 +295,10 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
         });
     };
 
-    return { enabled, getTableOptions, preProcessColumns, edits, errors, validationErrors, getErrors, isValid, getEditedRows, clear };
+    return {
+        enabled, getTableOptions, preProcessColumns, edits, errors, validationErrors,
+        getErrors, isValid, getEditedRows, clear, undo, redo, canUndo, canRedo
+    };
 };
 
 export { useGridInlineEdit, getByPath, setByPath };
@@ -251,5 +306,5 @@ export type {
     IGridInlineEditProps, IGridInlineEditInput, IGridEditRef,
     IInlineEditEnable, IInlineEditEditors, IInlineEditSave,
     ICellEditParams, ICellSaveParams, ICellEditorConfig, ICellEditorRenderParams, CellEditorType,
-    IInlineValidationError
+    IInlineValidationError, IInlineEditedCell, IInlineEditsInfo
 };

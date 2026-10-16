@@ -163,7 +163,8 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
     updateRowOnSave: props.updateRowOnSave,
     onSaveSuccess: props.onSaveSuccess,
     onSaveError: props.onSaveError,
-    onValidityChange: props.onValidityChange
+    onValidityChange: props.onValidityChange,
+    onEditsChange: props.onEditsChange
   });
 
   const expansion = useGridExpansion({
@@ -199,6 +200,10 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
         getEditedRows: inlineEdit.getEditedRows,
         getErrors: inlineEdit.getErrors,
         isValid: inlineEdit.isValid,
+        undo: inlineEdit.undo,
+        redo: inlineEdit.redo,
+        canUndo: inlineEdit.canUndo,
+        canRedo: inlineEdit.canRedo,
         clear: inlineEdit.clear
       };
     }
