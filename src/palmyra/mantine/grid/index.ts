@@ -6,6 +6,8 @@ export * from './base'
 export * from './controls'
 
 export * from './GridX'
+export * from './EditableGrid'
+export * from './PalmyraEditGrid'
 export * from './PalmyraGrid'
 export * from './StaticGrid'
 export {

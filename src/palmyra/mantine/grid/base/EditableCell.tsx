@@ -1,8 +1,9 @@
-import { Loader, NumberInput, Radio, Group, Select, TextInput } from '@mantine/core';
+import { Loader, NumberInput, Radio, Group, Select, TextInput, Tooltip } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { StoreFactoryContext } from '@palmyralabs/rt-forms';
 import dayjs from 'dayjs';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { FiAlertCircle } from 'react-icons/fi';
 import { formatAmount } from '../../FormatCurrency';
 
 interface EditableCellProps {
@@ -108,15 +109,29 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
 
     const status = meta.getCellStatus ? meta.getCellStatus(row, attribute) : undefined;
 
-    if (!cellEditable) return <span>{display() ?? ''}</span>;
+    if (!cellEditable) {
+        const d = display();
+        return <span className="py-grid-cell-locked">{d != null && d !== '' ? d : ''}</span>;
+    }
 
     if (!editing) {
         const d = display();
-        const cls = 'py-grid-editable-cell' + (status === 'error' ? ' py-grid-cell-error' : '');
+        const dirty = meta.isCellDirty ? meta.isCellDirty(row, attribute) : false;
+        const errMsg = meta.getCellError ? meta.getCellError(row, attribute) : undefined;
+        const cls = 'py-grid-editable-cell'
+            + (status === 'error' ? ' py-grid-cell-error' : '')
+            + (dirty && status !== 'error' ? ' py-grid-cell-dirty' : '');
         return (
             <div className={cls} onClick={(e) => { e.stopPropagation(); setEditing(true); }}>
                 <span>{d != null && d !== '' ? d : <span className="py-grid-editable-placeholder">—</span>}</span>
                 {status === 'saving' && <Loader size={12} />}
+                {status === 'error' && errMsg && (
+                    <Tooltip label={errMsg} color="red" withArrow position="top" w={220} events={{ hover: true, focus: true, touch: true }}>
+                        <span className="py-grid-cell-erricon" onClick={(e) => e.stopPropagation()}>
+                            <FiAlertCircle size={14} />
+                        </span>
+                    </Tooltip>
+                )}
             </div>
         );
     }

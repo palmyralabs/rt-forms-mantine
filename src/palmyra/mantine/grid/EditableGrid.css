@@ -1,0 +1,36 @@
+.py-editgrid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.py-editgrid-toolbar {
+    padding: 6px 8px;
+    background: var(--mantine-color-body);
+    border: 1px solid var(--mantine-color-default-border);
+    border-radius: var(--mantine-radius-sm);
+}
+
+.py-editgrid-count {
+    cursor: pointer;
+}
+
+.py-editgrid-dirty-list {
+    min-width: 260px;
+}
+
+.py-editgrid-dirty-table {
+    font-size: var(--mantine-font-size-xs);
+}
+
+.py-editgrid-dirty-table thead th {
+    background: var(--mantine-color-default-hover);
+    white-space: nowrap;
+}
+
+.py-editgrid-dirty-rowcell {
+    vertical-align: top;
+    background: var(--mantine-color-default-hover);
+    white-space: nowrap;
+}

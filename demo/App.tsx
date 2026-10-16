@@ -7,6 +7,7 @@ import { Badge, Container, Group, Tabs, Text } from '@mantine/core';
 import { SampleForm } from './components/SampleForm';
 import { SampleNewForm } from './components/SampleNewForm';
 import { SampleGrid } from './components/SampleGrid';
+import { SampleEditGrid } from './components/SampleEditGrid';
 import { SampleViewForm } from './components/SampleViewForm';
 import { SampleUpload } from './components/SampleUpload';
 import { SampleHierarchy } from './components/SampleHierarchy';
@@ -36,6 +37,7 @@ function App() {
               <Tabs.Tab value="edit">Edit Form</Tabs.Tab>
               <Tabs.Tab value="view">View Form</Tabs.Tab>
               <Tabs.Tab value="grid">Data Grid</Tabs.Tab>
+              <Tabs.Tab value="editgrid">Edit Grid</Tabs.Tab>
               <Tabs.Tab value="upload">Upload</Tabs.Tab>
               <Tabs.Tab value="hierarchy">Hierarchy</Tabs.Tab>
             </Tabs.List>
@@ -47,6 +49,7 @@ function App() {
           <Tabs.Panel value="edit"><SampleForm /></Tabs.Panel>
           <Tabs.Panel value="view"><SampleViewForm /></Tabs.Panel>
           <Tabs.Panel value="grid"><SampleGrid /></Tabs.Panel>
+          <Tabs.Panel value="editgrid"><SampleEditGrid /></Tabs.Panel>
           <Tabs.Panel value="upload"><SampleUpload /></Tabs.Panel>
           <Tabs.Panel value="hierarchy"><SampleHierarchy /></Tabs.Panel>
         </Container>

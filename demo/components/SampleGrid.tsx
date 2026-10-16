@@ -3,7 +3,7 @@ import { DemoShell } from "./DemoShell";
 
 const SampleGrid = () => {
     return (
-        <DemoShell title="Data Grid" description="Server-driven grid with search, sorting, pagination and export">
+        <DemoShell title="Data Grid" description="Server-driven grid (read-only) — search, select, expand, pagination, export">
             <ServerGrid />
         </DemoShell>
     );

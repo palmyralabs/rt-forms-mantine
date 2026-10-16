@@ -143,7 +143,7 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
   });
 
   const defaultSave = (p: ICellSaveParams) => {
-    const store: any = storeFactory?.getFormStore?.({}, props.saveEndPoint || props.endPoint, idProperty);
+    const store: any = storeFactory?.getFormStore?.({}, props.endPoint, idProperty);
     if (!store?.put) return Promise.reject(new Error('No form store available'));
     const payload: any = { [idProperty]: p.id };
     setByPath(payload, p.attribute, p.value);
@@ -162,7 +162,8 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
     save,
     updateRowOnSave: props.updateRowOnSave,
     onSaveSuccess: props.onSaveSuccess,
-    onSaveError: props.onSaveError
+    onSaveError: props.onSaveError,
+    onValidityChange: props.onValidityChange
   });
 
   const expansion = useGridExpansion({
@@ -196,6 +197,8 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
       props.editRef.current = {
         edits: inlineEdit.edits,
         getEditedRows: inlineEdit.getEditedRows,
+        getErrors: inlineEdit.getErrors,
+        isValid: inlineEdit.isValid,
         clear: inlineEdit.clear
       };
     }

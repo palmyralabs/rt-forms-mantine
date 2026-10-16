@@ -134,3 +134,4 @@ function GridX<ControlPropsType>(props: GridXProps<ControlPropsType>) {
 }
 
 export { GridX };
+export type { GridXProps };

@@ -108,6 +108,25 @@
     border-bottom-color: var(--mantine-color-red-6);
 }
 
+.py-grid-cell-dirty {
+    border-bottom-color: var(--mantine-color-orange-5);
+    background: var(--mantine-color-orange-light);
+}
+
+.py-grid-cell-locked {
+    color: var(--mantine-color-dimmed);
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.py-grid-cell-erricon {
+    display: inline-flex;
+    align-items: center;
+    color: var(--mantine-color-red-6);
+    cursor: help;
+    margin-left: auto;
+}
+
 .py-grid-editable-cell:hover {
     border-bottom-color: var(--mantine-color-default-border);
 }

@@ -1,7 +1,7 @@
 import { ColumnDefinition, DataGridPluginOptions, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { RefObject, useImperativeHandle, useRef, useState } from "react";
-import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const GridLoader = () => (
@@ -149,6 +149,7 @@ const ServerGrid = () => {
                 filter={gridFilter}
                 selectable="multi" idProperty="id"
                 defaultSelectBy={{ attribute: 'loginName', values: ['satish', 'adarsh'] }}
+                isRowSelectable={(row: any) => selected.includes(row.id)}
                 onSelectionChange={(rows) => setSelected(rows)}
                 onRowClick={(row: any) => setViewRow(row)}
                 expandable accordion expandRef={expandRef}
@@ -159,34 +160,6 @@ const ServerGrid = () => {
                         <Text size="sm"><b>User Type:</b> {row.userType?.userType || '—'}</Text>
                     </Group>
                 )}
-                editable={false}
-                editors={{
-                    displayName: {
-                        type: 'custom',
-                        render: ({ value, commit, cancel }) => (
-                            <TextInput size="xs" variant="unstyled" autoFocus
-                                defaultValue={value ?? ''} leftSection={<span>✎</span>}
-                                onBlur={(e) => commit(e.currentTarget.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') commit((e.target as HTMLInputElement).value);
-                                    else if (e.key === 'Escape') cancel();
-                                }} />
-                        )
-                    },
-                    phoneNumber: { type: 'number' },
-                    dob: { type: 'date' },
-                    'userType.userType': { type: 'lookup', endPoint: 'api/palmyra/masterdata/userType', idAttribute: 'id', labelAttribute: 'userType' },
-                    loginName: { type: 'select', options: { 'admin@gmail.com': 'Admin', 'satish': 'Satish', 'adarsh': 'Adarsh' } }
-                }}
-                onCellEdit={(p) => console.log('cell edit', p)}
-                onCellSave={(p) => new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        if (String(p.value).toLowerCase() === 'fail') reject(new Error('Simulated failure'));
-                        else resolve(p);
-                    }, 800);
-                })}
-                onSaveSuccess={(p) => console.log('saved', p.attribute, '=', p.value)}
-                onSaveError={(p) => console.log('save error', p.error.message)}
                 quickSearch="code" pagination={{ ignoreSinglePage: false }}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}
