@@ -71,18 +71,22 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
     const cfg = meta.getEditor ? meta.getEditor(attribute) : undefined;
     const type = cfg?.type || (meta.getEditorType ? meta.getEditorType(attribute) : 'text') || 'text';
 
-    const [editing, setEditing] = useState(false);
+    const rowEditEnabled = !!meta.rowEditEnabled;
+    const rowEditing = meta.isRowEditing ? meta.isRowEditing(row) : false;
+
+    const [localEditing, setLocalEditing] = useState(false);
     const [value, setValue] = useState<any>(original);
     const inputRef = useRef<HTMLInputElement>(null);
+    const editing = rowEditEnabled ? rowEditing : localEditing;
 
     useEffect(() => { if (!editing) setValue(original); }, [original, editing]);
-    useEffect(() => { if (editing && (type === 'text' || type === 'number')) inputRef.current?.focus(); }, [editing]);
+    useEffect(() => { if (!rowEditEnabled && editing && (type === 'text' || type === 'number')) inputRef.current?.focus(); }, [editing]);
 
     const commit = (next: any) => {
-        setEditing(false);
+        setLocalEditing(false);
         if (next !== original) meta.updateData?.(row, attribute, next);
     };
-    const cancel = () => { setValue(original); setEditing(false); };
+    const cancel = () => { setValue(original); setLocalEditing(false); };
 
     const display = () => {
         if (cfg?.renderDisplay) return cfg.renderDisplay(original, row.original);
@@ -131,12 +135,13 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
 
     if (type === 'checkbox' || type === 'switch') {
         const checked = original === true || original === 'true' || original === 1 || original === '1';
+        const interactive = rowEditEnabled ? rowEditing : true;
         const toggle = (e: any) => meta.updateData?.(row, attribute, e.currentTarget.checked);
         return (
             <div className={cellCls} onClick={(e) => e.stopPropagation()}>
                 {type === 'switch'
-                    ? <Switch size="xs" checked={!!checked} onChange={toggle} />
-                    : <Checkbox size="xs" checked={!!checked} onChange={toggle} />}
+                    ? <Switch size="xs" checked={!!checked} onChange={toggle} readOnly={!interactive} />
+                    : <Checkbox size="xs" checked={!!checked} onChange={toggle} readOnly={!interactive} />}
                 {errorIcon}
             </div>
         );
@@ -144,14 +149,21 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
 
     if (!editing) {
         const d = display();
+        const openEdit = rowEditEnabled ? undefined : (e: any) => { e.stopPropagation(); setLocalEditing(true); };
         return (
-            <div className={cellCls} onClick={(e) => { e.stopPropagation(); setEditing(true); }}>
+            <div className={rowEditEnabled ? 'py-grid-rowedit-display' : cellCls} onClick={openEdit}>
                 <span>{d != null && d !== '' ? d : <span className="py-grid-editable-placeholder">—</span>}</span>
                 {status === 'saving' && <Loader size={12} />}
                 {errorIcon}
             </div>
         );
     }
+
+    const wrapEditor = (node: any) => (status === 'error' && errMsg)
+        ? <div className="py-grid-editor-wrap py-grid-cell-error">{node}{errorIcon}</div>
+        : node;
+
+    const renderEditor = () => {
 
     if (cfg?.render) {
         const customCommit = (v: any, label?: string) => {
@@ -274,6 +286,10 @@ const EditableCell = ({ ctx, attribute }: EditableCellProps) => {
                 else if (e.key === 'Escape') cancel();
             }} />
     );
+
+    };
+
+    return wrapEditor(renderEditor());
 };
 
 export { EditableCell };

@@ -56,7 +56,12 @@ type GridXProps<ControlPropsType> =
             withControls?: boolean,
             siblings?: number,
             boundaries?: number
-        }
+        },
+        aggregations?: Record<string, 'sum' | 'avg' | 'count' | 'min' | 'max' | ((rows: any[], attribute: string) => any)>,
+        summaryLabel?: string,
+        groupBy?: string,
+        groupCollapsible?: boolean,
+        defaultCollapsedGroups?: string[]
     }
     & IGridInlineEditProps
     & IGridExpansionProps;

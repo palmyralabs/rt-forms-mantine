@@ -1,7 +1,7 @@
 import { ColumnDefinition, DataGridPluginOptions, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { RefObject, useImperativeHandle, useRef, useState } from "react";
-import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SegmentedControl, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const GridLoader = () => (
@@ -90,6 +90,7 @@ const ServerGrid = () => {
     const [filter, setFilter] = useState<any>({});
     const [selected, setSelected] = useState<any[]>([]);
     const [viewRow, setViewRow] = useState<any>(null);
+    const [groupBy, setGroupBy] = useState<string>('');
     const expandRef = useRef<any>(null);
 
     const ViewField = ({ label, value }: { label: string, value: any }) => (
@@ -138,6 +139,9 @@ const ServerGrid = () => {
                         filter={filter} setFilter={setFilter} handleFilterChange={handleFilterChange} />
                 </PalmyraForm>
                 <Group gap="xs">
+                    <Text size="xs" c="dimmed">Group by</Text>
+                    <SegmentedControl size="xs" value={groupBy} onChange={(v) => setGroupBy(v)}
+                        data={[{ label: 'None', value: '' }, { label: 'User Type', value: 'userType.userType' }, { label: 'Login', value: 'loginName' }]} />
                     <Button size="xs" variant="default" onClick={() => expandRef.current?.expandAll()}>Expand all</Button>
                     <Button size="xs" variant="default" onClick={() => expandRef.current?.collapseAll()}>Collapse all</Button>
                     <Badge size="lg" variant="light" color={selected.length ? 'indigo' : 'gray'}>
@@ -152,7 +156,7 @@ const ServerGrid = () => {
                 isRowSelectable={(row: any) => selected.includes(row.id)}
                 onSelectionChange={(rows) => setSelected(rows)}
                 onRowClick={(row: any) => setViewRow(row)}
-                expandable accordion expandRef={expandRef}
+                expandable={!groupBy} accordion expandRef={expandRef}
                 renderDetail={(row) => (
                     <Group gap="xl">
                         <Text size="sm"><b>Email:</b> {row.email || '—'}</Text>
@@ -160,6 +164,8 @@ const ServerGrid = () => {
                         <Text size="sm"><b>User Type:</b> {row.userType?.userType || '—'}</Text>
                     </Group>
                 )}
+                groupBy={groupBy || undefined} groupCollapsible={false}
+                // aggregations={{ phoneNumber: 'min' }} summaryLabel="Total"
                 quickSearch="code" pagination={{ ignoreSinglePage: false }}
                 getPluginOptions={getOptions}
                 DataGridControls={DataGridDefaultControls}

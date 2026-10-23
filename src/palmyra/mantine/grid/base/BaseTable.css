@@ -82,6 +82,30 @@
   text-align: end;
 }
 
+.py-grid-footer-cell {
+  font-weight: 600;
+}
+
+.py-grid-group-row {
+  background: var(--mantine-color-default-hover);
+  cursor: pointer;
+}
+
+.py-grid-group-cell {
+  padding: 6px 10px;
+}
+
+.py-grid-group-label {
+  font-weight: 700;
+  font-size: var(--mantine-font-size-sm);
+}
+
+.py-grid-group-agg {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+  margin-left: 8px;
+}
+
 .empty-child-grid-container {
   font-size: 25px;
   text-align: center;
@@ -125,6 +149,24 @@
     color: var(--mantine-color-red-6);
     cursor: help;
     margin-left: auto;
+}
+
+.py-grid-rowedit-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 20px;
+}
+
+.py-grid-editor-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.py-grid-editor-wrap > :first-child {
+    flex: 1;
+    min-width: 0;
 }
 
 .py-grid-editable-cell:hover {

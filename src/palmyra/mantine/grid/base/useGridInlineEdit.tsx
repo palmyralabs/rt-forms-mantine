@@ -1,6 +1,18 @@
+import { ActionIcon, Group } from '@mantine/core';
 import { FieldOptions, generatePredicate, validate } from '@palmyralabs/rt-forms';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { ReactNode, RefObject, useEffect, useRef, useState } from 'react';
+import { FiCheck, FiEdit2, FiX } from 'react-icons/fi';
 import { EditableCell } from './EditableCell';
+
+interface IRowActionContext {
+    row: any;
+    id: string;
+    editing: boolean;
+    saving: boolean;
+    edit: () => void;
+    save: () => void;
+    cancel: () => void;
+}
 
 type IInlineValidationError = { id: string; attribute: string; message: string };
 type IInlineEditedCell = { id: string; attribute: string; value: any; oldValue: any; row: any };
@@ -84,6 +96,15 @@ interface IInlineEditSave {
     onSaveError?: (params: ICellSaveParams & { error: any }) => void;
     onValidityChange?: (errors: IInlineValidationError[]) => void;
     onEditsChange?: (info: IInlineEditsInfo) => void;
+    rowEdit?: boolean;
+    rowActionsPosition?: 'first' | 'last';
+    rowEditIcon?: ReactNode;
+    rowSaveIcon?: ReactNode;
+    rowCancelIcon?: ReactNode;
+    renderRowActions?: (ctx: IRowActionContext) => ReactNode;
+    onRowSave?: (row: any, changes: Record<string, any>, id: string) => Promise<any>;
+    onRowSaveSuccess?: (row: any, changes: Record<string, any>, response: any) => void;
+    onRowSaveError?: (row: any, changes: Record<string, any>, error: any) => void;
 }
 
 interface IGridInlineEditProps
@@ -100,6 +121,15 @@ interface IGridInlineEditInput extends IInlineEditEnable, IInlineEditEditors {
     onSaveError?: (params: ICellSaveParams & { error: any }) => void;
     onValidityChange?: (errors: IInlineValidationError[]) => void;
     onEditsChange?: (info: IInlineEditsInfo) => void;
+    rowEdit?: boolean;
+    rowActionsPosition?: 'first' | 'last';
+    rowEditIcon?: ReactNode;
+    rowSaveIcon?: ReactNode;
+    rowCancelIcon?: ReactNode;
+    renderRowActions?: (ctx: IRowActionContext) => ReactNode;
+    rowSave?: (row: any, changes: Record<string, any>, id: string) => Promise<any>;
+    onRowSaveSuccess?: (row: any, changes: Record<string, any>, response: any) => void;
+    onRowSaveError?: (row: any, changes: Record<string, any>, error: any) => void;
 }
 
 const getByPath = (obj: any, path: string): any => {
@@ -119,9 +149,14 @@ const setByPath = (obj: any, path: string, value: any) => {
 const useGridInlineEdit = (opts: IGridInlineEditInput) => {
     const {
         editable, editableColumns, editors, idKey, onCellEdit, isCellEditable, getEditorType,
-        save, updateRowOnSave = true, onSaveSuccess, onSaveError, onValidityChange
+        save, updateRowOnSave = true, onSaveSuccess, onSaveError, onValidityChange,
+        rowEdit, rowActionsPosition = 'last', rowSave, onRowSaveSuccess, onRowSaveError,
+        rowEditIcon, rowSaveIcon, rowCancelIcon, renderRowActions
     } = opts;
     const enabled = !!editable;
+    const rowEditEnabled = enabled && !!rowEdit;
+    const [rowEditId, setRowEditId] = useState<string | null>(null);
+    const [rowSavingId, setRowSavingId] = useState<string | null>(null);
 
     const [hist, setHist] = useState<{ stack: Record<string, Record<string, any>>[]; index: number }>({ stack: [{}], index: 0 });
     const edits = hist.stack[hist.index] || {};
@@ -194,6 +229,7 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
         const vmsg = validateCell(attribute, value);
         if (vmsg) return;
 
+        if (rowEditEnabled) return;
         if (!save) return;
         setFlag(setErrors, id, attribute, null);
         setFlag(setSaving, id, attribute, true);
@@ -275,9 +311,63 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
         if (opts.onEditsChange) opts.onEditsChange({ edits, rows: getEditedRows(), cells: buildEditedCells(), canUndo, canRedo });
     }, [hist]);
 
+    const removeRowEdits = (id: string) => setHist((h) => {
+        const cur = h.stack[h.index] || {};
+        if (!cur[id]) return h;
+        const next = { ...cur };
+        delete next[id];
+        const stack = [...h.stack];
+        stack[h.index] = next;
+        return { stack, index: h.index };
+    });
+
+    const startRowEdit = (id: string) => setRowEditId(id);
+
+    const cancelRow = (id: string) => {
+        removeRowEdits(id);
+        setValidationErrors((p) => { const n = { ...p }; delete n[id]; return n; });
+        rowRef.current[id] && delete rowRef.current[id];
+        setRowEditId((cur) => (cur === id ? null : cur));
+    };
+
+    const saveRow = (row: any) => {
+        const id = String(row.original[idKey]);
+        const changes = edits[id] || {};
+        if (!Object.keys(changes).length) { setRowEditId(null); return Promise.resolve(); }
+        const rowErrors = Object.keys(changes)
+            .map((attr) => ({ attr, msg: validateCell(attr, changes[attr]) }))
+            .filter((e) => e.msg);
+        if (rowErrors.length) {
+            const next: Record<string, string> = {};
+            rowErrors.forEach((e) => { next[e.attr] = e.msg; });
+            setValidationErrors((p) => ({ ...p, [id]: next }));
+            return Promise.reject(new Error('Fix validation errors'));
+        }
+        setRowSavingId(id);
+        const applyLocal = () => {
+            if (updateRowOnSave) Object.keys(changes).forEach((attr) => setByPath(row.original, attr, changes[attr]));
+            removeRowEdits(id);
+            setRowEditId(null);
+        };
+        return Promise.resolve()
+            .then(() => (rowSave ? rowSave(row.original, changes, row.original[idKey]) : undefined))
+            .then((response: any) => {
+                applyLocal();
+                if (onRowSaveSuccess) onRowSaveSuccess(row.original, changes, response);
+            })
+            .catch((error: any) => {
+                if (onRowSaveError) onRowSaveError(row.original, changes, error);
+                throw error;
+            })
+            .finally(() => setRowSavingId((cur) => (cur === id ? null : cur)));
+    };
+
+    const isRowEditing = (row: any) => rowEditEnabled && rowEditId === String(row.original[idKey]);
+
     const getTableOptions = () => ({
         meta: {
             updateData, getEditedValue, getEditorType, isCellEditable, getCellStatus, getCellError, isCellDirty,
+            rowEditEnabled, isRowEditing,
             getEditor: (attribute: string) => editors?.[attribute],
             getLookupLabel: (attribute: string, id: any) => lookupLabelRef.current[attribute + ':' + String(id)],
             setLookupLabel: (attribute: string, id: any, label: string) => {
@@ -293,6 +383,48 @@ const useGridInlineEdit = (opts: IGridInlineEditInput) => {
             if (!attribute || !isColumnEditable(attribute)) return;
             col.cell = (ctx: any) => <EditableCell ctx={ctx} attribute={attribute} />;
         });
+        if (!rowEditEnabled) return;
+        const actionsColumn = {
+            id: 'py-row-actions',
+            header: () => null,
+            cell: ({ row }: any) => {
+                const id = String(row.original[idKey]);
+                const editing = rowEditId === id;
+                const busy = rowSavingId === id;
+                const edit = () => startRowEdit(id);
+                const save = () => { saveRow(row).catch(() => { }); };
+                const cancel = () => cancelRow(id);
+                if (renderRowActions) {
+                    return (
+                        <div onClick={(e) => e.stopPropagation()}>
+                            {renderRowActions({ row: row.original, id, editing, saving: busy, edit, save, cancel })}
+                        </div>
+                    );
+                }
+                if (editing) {
+                    return (
+                        <Group gap={2} wrap="nowrap" onClick={(e) => e.stopPropagation()}>
+                            <ActionIcon size="sm" color="teal" variant="light" aria-label="Save row"
+                                loading={busy} onClick={save}>
+                                {rowSaveIcon || <FiCheck size={14} />}
+                            </ActionIcon>
+                            <ActionIcon size="sm" color="gray" variant="light" aria-label="Cancel row"
+                                onClick={cancel}>
+                                {rowCancelIcon || <FiX size={14} />}
+                            </ActionIcon>
+                        </Group>
+                    );
+                }
+                return (
+                    <ActionIcon size="sm" variant="subtle" color="blue" aria-label="Edit row"
+                        onClick={(e) => { e.stopPropagation(); edit(); }}>
+                        {rowEditIcon || <FiEdit2 size={14} />}
+                    </ActionIcon>
+                );
+            }
+        };
+        if (rowActionsPosition === 'first') columnDefs.unshift(actionsColumn);
+        else columnDefs.push(actionsColumn);
     };
 
     return {
@@ -306,5 +438,5 @@ export type {
     IGridInlineEditProps, IGridInlineEditInput, IGridEditRef,
     IInlineEditEnable, IInlineEditEditors, IInlineEditSave,
     ICellEditParams, ICellSaveParams, ICellEditorConfig, ICellEditorRenderParams, CellEditorType,
-    IInlineValidationError, IInlineEditedCell, IInlineEditsInfo
+    IInlineValidationError, IInlineEditedCell, IInlineEditsInfo, IRowActionContext
 };

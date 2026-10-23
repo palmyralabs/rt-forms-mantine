@@ -1,9 +1,9 @@
 import { ColumnDefinition, StoreFactoryContext } from "@palmyralabs/rt-forms";
 import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ActionIcon, Badge, Button, CloseButton, Group, Paper, ScrollArea, SegmentedControl, Switch, Table, Text, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
-import { FiCornerUpLeft, FiCornerUpRight, FiRotateCcw, FiSave } from "react-icons/fi";
-import { EditedCell, IEditableGridRef, PalmyraEditGrid } from "../../../src/palmyra/mantine/grid";
+import { FiCornerUpLeft, FiCornerUpRight, FiEdit2, FiRotateCcw, FiSave } from "react-icons/fi";
+import { EditedCell, ICellEditorConfig, IEditableGridRef, PalmyraEditGrid, setByPath } from "../../../src/palmyra/mantine/grid";
 
 const fmt = (v: any) => v == null || v === '' ? '—' : typeof v === 'object' ? JSON.stringify(v) : String(v);
 
@@ -17,7 +17,7 @@ const columns: ColumnDefinition[] = [
 
 const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/' });
 
-const editors = {
+const editors: Record<string, ICellEditorConfig> = {
     displayName: {
         type: 'custom' as const,
         validation: { required: true, length: { min: 3 }, missingMessage: 'Name is required', invalidMessage: 'Min 3 characters' },
@@ -35,7 +35,7 @@ const editors = {
         type: 'number' as const,
         validation: { required: true, regExp: { regex: /^\d{10}$/, errorMessage: 'Enter a 10-digit number' } }
     },
-    dob: { type: 'date' as const, validation: { required: true, min: '1900-01-01', max: new Date().toISOString().split('T')[0] } },
+    dob: { type: 'date' as const },
     'userType.userType': {
         type: 'lookup' as const, endPoint: 'api/palmyra/masterdata/userType',
         idAttribute: 'id', labelAttribute: 'userType'
@@ -48,6 +48,16 @@ const editors = {
 
 const ServerEditGrid = () => {
     const endPoint = 'api/palmyra/userManagement';
+    const endPointObj = { query: endPoint, get: endPoint, post: endPoint, put: endPoint + '/{id}', delete: endPoint + '/{id}' };
+    const formStore: any = useMemo(() => (storeFactory as any).getFormStore({}, endPointObj, 'id'), []);
+
+    const putRow = (id: any, changes: Record<string, any>) => {
+        const payload: any = { id };
+        Object.keys(changes).forEach((k) => setByPath(payload, k, changes[k]));
+        console.log('PUT', id, payload);
+        return formStore.put(payload, { endPointVars: { id } });
+    };
+
     const [mode, setMode] = useState<'batch' | 'cell'>('batch');
     const [dirtyCount, setDirtyCount] = useState(0);
     const [cells, setCells] = useState<EditedCell[]>([]);
@@ -55,6 +65,7 @@ const ServerEditGrid = () => {
     const [saving, setSaving] = useState(false);
     const [invalidCount, setInvalidCount] = useState(0);
     const [lockAdmin, setLockAdmin] = useState(true);
+    const [rowEdit, setRowEdit] = useState(false);
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
     const editGridRef: any = useRef<IEditableGridRef>(null);
@@ -78,14 +89,6 @@ const ServerEditGrid = () => {
             .finally(() => setSaving(false));
     };
 
-    const simulateSave = (label: string) => new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const flat = JSON.stringify(label).toLowerCase();
-            if (flat.includes('fail')) reject(new Error('Simulated failure'));
-            else resolve(label);
-        }, 800);
-    });
-
     const groups = Object.values(cells.reduce((acc: Record<string, { id: string, row: any, cells: EditedCell[] }>, c) => {
         (acc[c.id] ||= { id: c.id, row: c.row, cells: [] }).cells.push(c);
         return acc;
@@ -100,6 +103,8 @@ const ServerEditGrid = () => {
                         data={[{ label: 'Batch (Save all)', value: 'batch' }, { label: 'Cell (auto-save)', value: 'cell' }]} />
                     <Switch size="sm" label="Lock admin rows" checked={lockAdmin}
                         onChange={(e) => setLockAdmin(e.currentTarget.checked)} />
+                    <Switch size="sm" label="Full-row edit" checked={rowEdit}
+                        onChange={(e) => setRowEdit(e.currentTarget.checked)} />
                 </Group>
                 <Group gap="xs">
                     <Tooltip label="Undo" withArrow>
@@ -163,12 +168,24 @@ const ServerEditGrid = () => {
             )}
 
             <PalmyraEditGrid
-                key={mode}
+                key={mode + ':' + rowEdit}
                 columns={columns}
-                endPoint={endPoint}
+                endPoint={endPointObj}
                 lsKey="editGridKey"
                 mode={mode} showEditToolbar={false}
                 editGridRef={editGridRef}
+                rowEdit={rowEdit}
+                renderRowActions={({ editing, saving, edit, save, cancel }) => editing
+                    ? (
+                        <Group gap={4} wrap="nowrap">
+                            <Button size="compact-xs" color="teal" loading={saving} onClick={save}>Save</Button>
+                            <Button size="compact-xs" variant="default" onClick={cancel}>Cancel</Button>
+                        </Group>
+                    ) : (
+                        <Button size="compact-xs" variant="light" leftSection={<FiEdit2 size={12} />} onClick={edit}>Edit</Button>
+                    )}
+                onRowSave={(_row, changes, id) => putRow(id, changes)}
+                onRowSaveSuccess={(_row, changes) => console.log('row saved', changes)}
                 editors={editors} showUndoRedo={false}
                 editableColumns={['displayName', 'phoneNumber', 'dob', 'userType.userType']}
                 // isCellEditable={isCellEditable}
@@ -180,9 +197,9 @@ const ServerEditGrid = () => {
                 onHistoryChange={(h) => { setCanUndo(h.canUndo); setCanRedo(h.canRedo); }}
                 onBatchSave={(rows) => {
                     console.log('batch save', rows);
-                    return simulateSave(JSON.stringify(rows));
+                    return Promise.all(rows.map((r) => putRow(r.id, r.changes)));
                 }}
-                onCellSave={(p) => simulateSave(String(p.value)).then(() => p)}
+                onCellSave={(p) => putRow(p.id, p.changes).then(() => p)}
                 onSaveSuccess={(p) => console.log('saved', p.attribute, '=', p.value)}
                 onSaveError={(p) => console.log('save error', p.error?.message)}
                 quickSearch="code"
