@@ -1,9 +1,10 @@
 import { ColumnDefinition, StoreFactoryContext } from "@palmyralabs/rt-forms";
-import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
+import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { useMemo, useRef, useState } from "react";
 import { ActionIcon, Badge, Button, CloseButton, Group, Paper, ScrollArea, SegmentedControl, Switch, Table, Text, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
 import { FiCornerUpLeft, FiCornerUpRight, FiEdit2, FiRotateCcw, FiSave } from "react-icons/fi";
 import { EditedCell, ICellEditorConfig, IEditableGridRef, PalmyraEditGrid, setByPath } from "../../../src/palmyra/mantine/grid";
+import { LookupConfig } from "../LookupConfig";
 
 const fmt = (v: any) => v == null || v === '' ? '—' : typeof v === 'object' ? JSON.stringify(v) : String(v);
 
@@ -15,7 +16,7 @@ const columns: ColumnDefinition[] = [
     { attribute: 'userType.userType', label: 'User Type', type: 'string' }
 ];
 
-const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/' });
+const GRID_ENDPOINTS = ['api/palmyra/userManagement', 'api/palmyra/masterdata/project', 'api/palmyra/masterdata/department'];
 
 const editors: Record<string, ICellEditorConfig> = {
     displayName: {
@@ -47,9 +48,11 @@ const editors: Record<string, ICellEditorConfig> = {
 };
 
 const ServerEditGrid = () => {
-    const endPoint = 'api/palmyra/userManagement';
-    const endPointObj = { query: endPoint, get: endPoint, post: endPoint, put: endPoint + '/{id}', delete: endPoint + '/{id}' };
-    const formStore: any = useMemo(() => (storeFactory as any).getFormStore({}, endPointObj, 'id'), []);
+    const [baseUrl, setBaseUrl] = useState('/');
+    const [endPoint, setEndPoint] = useState('api/palmyra/userManagement');
+    const storeFactory = useMemo(() => new PalmyraStoreFactory({ baseUrl }), [baseUrl]);
+    const endPointObj = useMemo(() => ({ query: endPoint, get: endPoint, post: endPoint, put: endPoint + '/{id}', delete: endPoint + '/{id}' }), [endPoint]);
+    const formStore: any = useMemo(() => (storeFactory as any).getFormStore({}, endPointObj, 'id'), [storeFactory, endPointObj]);
 
     const putRow = (id: any, changes: Record<string, any>) => {
         const payload: any = { id };
@@ -96,6 +99,8 @@ const ServerEditGrid = () => {
 
     return (
         <StoreFactoryContext.Provider value={storeFactory}>
+            <LookupConfig baseUrl={baseUrl} endPoint={endPoint} endPoints={GRID_ENDPOINTS}
+                onBaseUrl={setBaseUrl} onEndPoint={setEndPoint} />
             <Group justify="space-between" mb="sm">
                 <Group gap="xs">
                     <Text size="sm">Save mode</Text>
@@ -168,7 +173,7 @@ const ServerEditGrid = () => {
             )}
 
             <PalmyraEditGrid
-                key={mode + ':' + rowEdit}
+                key={baseUrl + ':' + endPoint + ':' + mode + ':' + rowEdit}
                 columns={columns}
                 endPoint={endPointObj}
                 lsKey="editGridKey"

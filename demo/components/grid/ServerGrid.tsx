@@ -1,6 +1,7 @@
 import { ColumnDefinition, DataGridPluginOptions, PalmyraForm, StoreFactoryContext } from "@palmyralabs/rt-forms";
-import { PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { RefObject, useImperativeHandle, useRef, useState } from "react";
+import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
+import { RefObject, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { LookupConfig } from "../LookupConfig";
 import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SegmentedControl, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -81,11 +82,13 @@ const columns: ColumnDefinition[] = [
     }
 ]
 
-const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/' });
+const GRID_ENDPOINTS = ['api/palmyra/userManagement', 'api/palmyra/masterdata/project',
+    'api/palmyra/masterdata/department', 'api/dev/jobs/35d0754a-f4b1-48be-b08a-801c724c666b'];
 
 const ServerGrid = () => {
-    // const endPoint = 'masterdata/project.json'; //'grid/simpleGridData.json'
-    const endPoint = 'api/palmyra/userManagement';
+    const [baseUrl, setBaseUrl] = useState('/');
+    const [endPoint, setEndPoint] = useState('api/palmyra/userManagement');
+    const storeFactory = useMemo(() => new PalmyraStoreFactory({ baseUrl }), [baseUrl]);
 
     const [filter, setFilter] = useState<any>({});
     const [selected, setSelected] = useState<any[]>([]);
@@ -117,6 +120,8 @@ const ServerGrid = () => {
 
     return <>
         <StoreFactoryContext.Provider value={storeFactory}>
+            <LookupConfig baseUrl={baseUrl} endPoint={endPoint} endPoints={GRID_ENDPOINTS}
+                onBaseUrl={setBaseUrl} onEndPoint={setEndPoint} />
             {viewRow && (
                 <Paper withBorder radius="md" p="md" mb="md" bg="var(--mantine-color-indigo-light)">
                     <Group justify="space-between" mb="sm">
@@ -149,7 +154,7 @@ const ServerGrid = () => {
                     </Badge>
                 </Group>
             </Group>
-            <GridX columns={columns} endPoint={endPoint} lsKey="uniqueKey"
+            <GridX key={baseUrl + '|' + endPoint} columns={columns} endPoint={endPoint} lsKey="uniqueKey"
                 filter={gridFilter}
                 selectable="multi" idProperty="id"
                 defaultSelectBy={{ attribute: 'loginName', values: ['satish', 'adarsh'] }}
@@ -174,7 +179,43 @@ const ServerGrid = () => {
                 paginationOptions={{ pageSizePosition: 'right', keyboardNavigation: true, responsive: true, showGoTo: true, disableOnLoading: true }}
                 loadingOverlay
                 loader={<GridLoader />}
-                pageSize={[20, 30, 1000]} />
+                pageSize={[20, 30, 1000]}
+                //                transformResult={(d) => {
+                //     const result = (d?.result ?? []).map(
+                //         ({ loginName, ...item }: any) => item
+                //     );
+
+                //     console.log('Transformed result:', result);
+
+                //     return {
+                //         result,
+                //         total: d?.total ?? result.length,
+                //     };
+                // }}
+
+                // transformResult={(d) => {
+                //     const result = (d?.result ?? []).filter(
+                //         (item: any) => item.active === 0
+                //     );
+
+                //     return {
+                //         result,
+                //         total: result.length,
+                //     };
+                // }}
+
+                transformResult={(d) => {
+                    const result = (d?.result ?? []).filter(
+                        (item: any) =>
+                            !['admin@gmail.com', 'satish', 'adarsh'].includes(item.loginName)
+                    );
+
+                    return {
+                        result,
+                        total: d?.total ?? result.length,
+                    };
+                }}
+            />
         </StoreFactoryContext.Provider>
     </>
 }

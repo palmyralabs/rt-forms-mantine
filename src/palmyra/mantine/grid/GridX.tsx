@@ -61,7 +61,9 @@ type GridXProps<ControlPropsType> =
         summaryLabel?: string,
         groupBy?: string,
         groupCollapsible?: boolean,
-        defaultCollapsedGroups?: string[]
+        defaultCollapsedGroups?: string[],
+        transformResult?: (data: any) => { result: any[], total?: number },
+        transformRequest?: (config: any) => any
     }
     & IGridInlineEditProps
     & IGridExpansionProps;

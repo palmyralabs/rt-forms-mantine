@@ -80,7 +80,7 @@ type SelectionProps = {
 
 type ExpansionProps = IGridExpansionProps;
 
-function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void, loadingOverlay?: boolean, loader?: any, loadingText?: string, aggregations?: Record<string, AggSpec>, summaryLabel?: string, groupBy?: string, groupCollapsible?: boolean, defaultCollapsedGroups?: string[] }) {
+function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void, loadingOverlay?: boolean, loader?: any, loadingText?: string, aggregations?: Record<string, AggSpec>, summaryLabel?: string, groupBy?: string, groupCollapsible?: boolean, defaultCollapsedGroups?: string[], transformResult?: (data: any) => { result: any[], total?: number }, transformRequest?: (config: any) => any }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -91,7 +91,23 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
   const lsParams = persist.enabled
     ? { ...props.initParams, ...LSOptions.getLSOptions() }
     : { ...props.initParams };
-  const queryParams = { ...props, initParams: lsParams };
+  const requestStoreOptions = useMemo(() => {
+    const transformRequest = props.transformRequest;
+    if (!transformRequest) return props.storeOptions;
+    const base: any = props.storeOptions || {};
+    const userCustomizer = base.axiosCustomizer;
+    return {
+      ...base,
+      axiosCustomizer: (axios: any) => {
+        if (userCustomizer) userCustomizer(axios);
+        axios.interceptors.request.use((config: any) => {
+          try { return transformRequest(config) || config; } catch (e) { return config; }
+        });
+      }
+    };
+  }, [props.storeOptions, props.transformRequest]);
+
+  const queryParams = { ...props, storeOptions: requestStoreOptions, initParams: lsParams };
 
   const serverQuery = useServerQuery(queryParams);
 
@@ -147,10 +163,14 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
     }
   }, [serverQuery]);
 
-  const data = serverQuery.getCurrentData();
+  const rawData = serverQuery.getCurrentData();
+  if (rawData != null && !Array.isArray(rawData)) {
+    console.warn('[grid] query result must be an array of rows; got', rawData, '— check transformResult (it must return { result: any[] }).');
+  }
+  const data = (Array.isArray(rawData) || rawData == null) ? rawData : [];
 
   const dataRef = useRef<any[]>([]);
-  dataRef.current = data || [];
+  dataRef.current = Array.isArray(data) ? data : [];
 
   const idProperty = props.idProperty || 'id';
   const storeFactory: any = useContext(StoreFactoryContext);
