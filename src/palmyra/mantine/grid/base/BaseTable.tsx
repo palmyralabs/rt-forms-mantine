@@ -13,6 +13,37 @@ type BaseTableExtra = {
   tableRef?: RefObject<any>; tableOptions?: any; onTableReady?: (table: any) => void;
   groupBy?: string; groupCollapsible?: boolean; defaultCollapsedGroups?: string[];
   aggregations?: Record<string, AggSpecB>;
+  columnPinning?: { left?: string[]; right?: string[] };
+  rowPinning?: { top?: string[]; bottom?: string[] };
+  idProperty?: string;
+};
+
+const orderByPin = (cells: any[]): any[] => {
+  const left: any[] = [], center: any[] = [], right: any[] = [];
+  cells.forEach((c) => {
+    const p = c.column.getIsPinned();
+    if (p === 'left') left.push(c); else if (p === 'right') right.push(c); else center.push(c);
+  });
+  return [...left, ...center, ...right];
+};
+
+const pinStyle = (column: any): any => {
+  const pinned = column.getIsPinned();
+  if (!pinned) return undefined;
+  const size = column.getSize();
+  const style: any = { position: 'sticky', zIndex: 3, width: size, minWidth: size, maxWidth: size };
+  if (pinned === 'left') style.left = column.getStart('left');
+  if (pinned === 'right') style.right = column.getAfter('right');
+  return style;
+};
+
+const pinClass = (column: any): string => {
+  const pinned = column.getIsPinned();
+  if (!pinned) return '';
+  let c = ' py-grid-col-pinned py-grid-col-pinned-' + pinned;
+  if (pinned === 'left' && column.getIsLastColumn && column.getIsLastColumn('left')) c += ' py-grid-col-pin-left-edge';
+  if (pinned === 'right' && column.getIsFirstColumn && column.getIsFirstColumn('right')) c += ' py-grid-col-pin-right-edge';
+  return c;
 };
 
 const toNumB = (v: any): number => { const n = Number(v); return isNaN(n) ? 0 : n; };
@@ -69,14 +100,42 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
     return next;
   });
 
+  const columnPinning = (() => {
+    const left: string[] = [...(props.columnPinning?.left || [])];
+    const right: string[] = [...(props.columnPinning?.right || [])];
+    ((options as any).columns || []).forEach((c: any) => {
+      const pin = c?.meta?.columnDef?.pin ?? c?.pin;
+      const id = c?.meta?.attribute ?? c?.accessorKey ?? c?.id ?? c?.meta?.columnDef?.attribute;
+      if (id == null || !pin) return;
+      if (pin === 'left' && !left.includes(String(id))) left.push(String(id));
+      else if (pin === 'right' && !right.includes(String(id))) right.push(String(id));
+    });
+    return { left, right };
+  })();
+  const colPinEnabled = (columnPinning.left.length + columnPinning.right.length) > 0;
+  const rowPinEnabled = !!(props.rowPinning && ((props.rowPinning.top?.length || 0) + (props.rowPinning.bottom?.length || 0) > 0));
+
   const mergedOptions: any = {
     ...options,
     ...tableOptions,
-    columns: resizeEnabled ? seedSizes((options as any).columns) : (options as any).columns,
+    columns: (resizeEnabled || colPinEnabled) ? seedSizes((options as any).columns) : (options as any).columns,
     data: (options as any).data,
   };
   if (resizeEnabled && !mergedOptions.columnResizeMode) {
     mergedOptions.columnResizeMode = 'onChange';
+  }
+  if (colPinEnabled || rowPinEnabled) {
+    mergedOptions.state = {
+      ...(mergedOptions.state || {}),
+      ...(colPinEnabled ? { columnPinning } : {}),
+      ...(rowPinEnabled ? { rowPinning: { top: props.rowPinning?.top || [], bottom: props.rowPinning?.bottom || [] } } : {})
+    };
+    if (colPinEnabled) mergedOptions.enableColumnPinning = true;
+    if (rowPinEnabled) { mergedOptions.enableRowPinning = true; mergedOptions.keepPinnedRows = true; }
+    const idProp = props.idProperty;
+    if (rowPinEnabled && idProp && !mergedOptions.getRowId) {
+      mergedOptions.getRowId = (row: any) => String(row?.[idProp]);
+    }
   }
 
   const table = useReactTable(mergedOptions);
@@ -106,25 +165,30 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
     ? { layout: 'fixed', style: { width: table.getTotalSize(), minWidth: '100%' } }
     : {};
 
-  const renderDataRow = (row: any, index: number) => {
+  const renderDataRow = (row: any, index: number, pinPos?: 'top' | 'bottom') => {
     const rowClassName = 'py-grid-data-row py-grid-data-row-' + ((1 == index % 2) ? 'even' : 'odd');
-    const rowStyle = { animationDelay: (Math.min(index, 14) * 18) + 'ms' };
+    const rowStyle = pinPos ? {} : { animationDelay: (Math.min(index, 14) * 18) + 'ms' };
     const renderDetail = mergedOptions.meta?.renderDetail;
     const showDetail = renderDetail && row.getIsExpanded && row.getIsExpanded() && row.depth === 0;
-    const visibleCells = row.getVisibleCells();
+    const cellsRaw = row.getVisibleCells();
+    const visibleCells = colPinEnabled ? orderByPin(cellsRaw) : cellsRaw;
     const expandOnRowClick = mergedOptions.meta?.expandOnRowClick;
     const rowClickable = expandOnRowClick && row.getCanExpand && row.getCanExpand();
     const onTrClick = rowClickable ? () => mergedOptions.meta?.onRowToggle?.(row) : undefined;
-    const trClassName = rowClassName + (rowClickable ? ' py-grid-row-clickable' : '');
+    const trClassName = rowClassName + (rowClickable ? ' py-grid-row-clickable' : '')
+      + (pinPos ? ' py-grid-row-pinned py-grid-row-pinned-' + pinPos : '');
     return (
-      <Fragment key={row.id}>
+      <Fragment key={(pinPos ? pinPos + '-' : '') + row.id}>
         <Table.Tr className={trClassName} style={rowStyle} onClick={onTrClick}>
           {visibleCells.map((cell: any) => {
             const meta: any = cell.column.columnDef.meta;
             const isTypeNumber = meta?.columnDef?.type === 'number';
-            const cellClassName = 'py-grid-data-cell ' + (isTypeNumber ? ' py-grid-data-cell-type-number' : '');
+            const cellClassName = 'py-grid-data-cell ' + (isTypeNumber ? ' py-grid-data-cell-type-number' : '')
+              + (colPinEnabled ? pinClass(cell.column) : '');
             const colWidth = resizeEnabled ? cell.column.getSize() : meta?.columnDef?.width;
-            const cellStyle: any = colWidth ? { width: colWidth, minWidth: colWidth } : undefined;
+            const cellStyle: any = colPinEnabled && cell.column.getIsPinned()
+              ? pinStyle(cell.column)
+              : (colWidth ? { width: colWidth, minWidth: colWidth } : undefined);
             return (
               <Table.Td key={cell.id} className={cellClassName} style={cellStyle}
                 onClick={() => onRowClick(row.original)}>
@@ -144,8 +208,8 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
     );
   };
 
-  const renderBody = () => {
-    const allRows = table.getRowModel().rows;
+  const renderCenter = () => {
+    const allRows = rowPinEnabled ? table.getCenterRows() : table.getRowModel().rows;
     const colCount = table.getVisibleFlatColumns().length;
     const groupBy = props.groupBy;
     if (!groupBy) return allRows.map((row, index) => renderDataRow(row, index));
@@ -192,6 +256,17 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
     });
   };
 
+  const renderBody = () => {
+    if (!rowPinEnabled) return renderCenter();
+    const top = table.getTopRows();
+    const bottom = table.getBottomRows();
+    return (<>
+      {top.map((row: any, i: number) => renderDataRow(row, i, 'top'))}
+      {renderCenter()}
+      {bottom.map((row: any, i: number) => renderDataRow(row, i, 'bottom'))}
+    </>);
+  };
+
   return (<>
     <div className={props.className}>
       <div className='py-baseGrid-scroll'>
@@ -199,13 +274,15 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
         <Table.Thead className='py-grid-header'>
           {table.getHeaderGroups().map(headerGroup => (
             <Table.Tr key={headerGroup.id} className='py-grid-header-row'>
-              {headerGroup.headers.map(header => {
+              {(colPinEnabled ? orderByPin(headerGroup.headers) : headerGroup.headers).map(header => {
                 return (
                   header.isPlaceholder ? null : (
                     <ColumnHeader header={header}
                       key={header.id} sortMode={getMode(header)}
                       onSortChange={onColumnSort}
                       resizeEnabled={resizeEnabled}
+                      pinStyle={colPinEnabled ? pinStyle(header.column) : undefined}
+                      pinClassName={colPinEnabled ? pinClass(header.column) : undefined}
                     >
                       {flexRender(
                         header.column.columnDef.header,

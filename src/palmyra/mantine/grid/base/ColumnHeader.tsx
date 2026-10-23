@@ -3,7 +3,7 @@ import { LuArrowDownUp, LuArrowUpDown } from "react-icons/lu";
 import './ColumnHeader.css';
 import { useSortColumn } from '@palmyralabs/rt-forms';
 import { Table } from '@mantine/core';
-const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled }) => {
+const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled, pinStyle, pinClassName }: any) => {
     const columnAttribute = header.column.columnDef.meta?.attribute || header.id;
 
     const original: any = header.column.columnDef.meta?.columnDef || {};
@@ -18,6 +18,8 @@ const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled 
     const width = rawWidth || 'auto';
     const widthStyle: any = { width, position: 'relative' };
     if (hasWidth) widthStyle.minWidth = rawWidth;
+    if (pinStyle) Object.assign(widthStyle, pinStyle);
+    const pinCls = pinClassName || '';
 
     const { sortColumn, order, sortOrder } = useSortColumn({ sortDisabled, onSortChange, initMode: sortMode })
 
@@ -42,7 +44,7 @@ const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled 
 
     if (header.column.columnDef.columns) {
         return (
-            <Table.Td className='py-baseGrid-header-cell py-baseGrid-header-group-cell' key={header.id} colSpan={header.colSpan}
+            <Table.Td className={'py-baseGrid-header-cell py-baseGrid-header-group-cell' + pinCls} key={header.id} colSpan={header.colSpan}
                 style={widthStyle}>
                 <div className={cellClassName + ' py-dataGrid-header-text-group'}>
                     {children}
@@ -53,7 +55,7 @@ const ColumnHeader = ({ header, children, sortMode, onSortChange, resizeEnabled 
     } else
         return (
             <Table.Td key={header.id} colSpan={header.colSpan}
-                className='py-baseGrid-header-cell'
+                className={'py-baseGrid-header-cell' + pinCls}
                 style={widthStyle}>
                 <div
                     // style={{ width: width }}

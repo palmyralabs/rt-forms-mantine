@@ -63,7 +63,9 @@ type GridXProps<ControlPropsType> =
         groupCollapsible?: boolean,
         defaultCollapsedGroups?: string[],
         transformResult?: (data: any) => { result: any[], total?: number },
-        transformRequest?: (config: any) => any
+        transformRequest?: (config: any) => any,
+        columnPinning?: { left?: string[], right?: string[] },
+        rowPinning?: { top?: string[], bottom?: string[] }
     }
     & IGridInlineEditProps
     & IGridExpansionProps;

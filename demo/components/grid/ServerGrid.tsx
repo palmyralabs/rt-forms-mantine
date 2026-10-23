@@ -2,7 +2,7 @@ import { ColumnDefinition, DataGridPluginOptions, PalmyraForm, StoreFactoryConte
 import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { RefObject, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { LookupConfig } from "../LookupConfig";
-import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SegmentedControl, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Badge, Button, CloseButton, Group, Loader, Paper, SegmentedControl, SimpleGrid, Stack, Switch, Text, Title } from "@mantine/core";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const GridLoader = () => (
@@ -44,41 +44,19 @@ function MyPagination(o: DataGridPluginOptions & { ref?: RefObject<{ refresh: ()
     );
 }
 
-const columns: ColumnDefinition[] = [
+const columns: (ColumnDefinition & { pin?: 'left' | 'right' })[] = [
     {
-        attribute: 'displayName',
-        label: 'name',
-        type: 'string',
-        searchable: true,
-        sortable: true
+        attribute: 'displayName', label: 'name', type: 'string', searchable: true, sortable: true,
+        width: '220px'
     },
+    { attribute: 'loginName', label: 'loginName', type: 'string', searchable: true,
+         sortable: true, width: '220px' },
+    { attribute: 'phoneNumber', label: 'Phone Number', type: 'string', searchable: true, sortable: true, width: '200px' },
+    { attribute: 'email', label: 'Email', type: 'string', width: '240px' },
+    { attribute: 'dob', label: 'Date of Birth', type: 'date', searchable: true, sortable: true, width: '200px' },
     {
-        attribute: 'loginName',
-        label: 'loginName',
-        type: 'string',
-        searchable: true,
-        sortable: true
-    },
-    {
-        attribute: 'phoneNumber',
-        label: 'Phone Number',
-        type: 'string',
-        searchable: true,
-        sortable: true
-    },
-    {
-        attribute: 'dob',
-        label: 'Date of Birth',
-        type: 'date',
-        searchable: true,
-        sortable: true
-    },
-    {
-        attribute: 'userType.userType',
-        label: 'User Type',
-        type: 'string',
-        searchable: true,
-        sortable: true
+        attribute: 'userType.userType', label: 'User Type', type: 'string', searchable: true,
+        sortable: true, width: '200px'
     }
 ]
 
@@ -94,6 +72,8 @@ const ServerGrid = () => {
     const [selected, setSelected] = useState<any[]>([]);
     const [viewRow, setViewRow] = useState<any>(null);
     const [groupBy, setGroupBy] = useState<string>('');
+    const [pinRows, setPinRows] = useState(false);
+    const [topIds, setTopIds] = useState<string[]>([]);
     const expandRef = useRef<any>(null);
 
     const ViewField = ({ label, value }: { label: string, value: any }) => (
@@ -144,6 +124,7 @@ const ServerGrid = () => {
                         filter={filter} setFilter={setFilter} handleFilterChange={handleFilterChange} />
                 </PalmyraForm>
                 <Group gap="xs">
+                    <Switch size="sm" label="Pin rows" checked={pinRows} onChange={(e) => setPinRows(e.currentTarget.checked)} />
                     <Text size="xs" c="dimmed">Group by</Text>
                     <SegmentedControl size="xs" value={groupBy} onChange={(v) => setGroupBy(v)}
                         data={[{ label: 'None', value: '' }, { label: 'User Type', value: 'userType.userType' }, { label: 'Login', value: 'loginName' }]} />
@@ -170,6 +151,8 @@ const ServerGrid = () => {
                     </Group>
                 )}
                 groupBy={groupBy || undefined} groupCollapsible={false}
+                rowPinning={pinRows ? { bottom: topIds } : undefined}
+                onDataChange={(d: any[]) => { const ids = (d || []).slice(0, 2).map((r: any) => String(r.id)); setTopIds((prev) => prev.join() === ids.join() ? prev : ids); }}
                 // aggregations={{ phoneNumber: 'min' }} summaryLabel="Total"
                 quickSearch="code" pagination={{ ignoreSinglePage: false }}
                 getPluginOptions={getOptions}
