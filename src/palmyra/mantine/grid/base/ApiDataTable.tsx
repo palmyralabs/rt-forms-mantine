@@ -80,7 +80,7 @@ type SelectionProps = {
 
 type ExpansionProps = IGridExpansionProps;
 
-function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void, loadingOverlay?: boolean, loader?: any, loadingText?: string, aggregations?: Record<string, AggSpec>, summaryLabel?: string, groupBy?: string, groupCollapsible?: boolean, defaultCollapsedGroups?: string[], transformResult?: (data: any) => { result: any[], total?: number }, transformRequest?: (config: any) => any, columnPinning?: { left?: string[], right?: string[] }, rowPinning?: { top?: string[], bottom?: string[] } }) {
+function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineEditProps & ExpansionProps & { ref?: RefObject<IPageQueryable>, tableRef?: RefObject<any>, tableOptions?: any, onTableReady?: (table: any) => void, loadingOverlay?: boolean, loader?: any, loadingText?: string, aggregations?: Record<string, AggSpec>, summaryLabel?: string, groupBy?: string, groupCollapsible?: boolean, defaultCollapsedGroups?: string[], transformResult?: (data: any) => { result: any[], total?: number }, transformRequest?: (config: any) => any, columnPinning?: { left?: string[], right?: string[] }, rowPinning?: { top?: string[], bottom?: string[] }, stickyHeader?: boolean, maxHeight?: number | string }) {
   const { columns, EmptyChild } = props;
   const EmptyChildContainer = EmptyChild || EmptyChildTable;
   const customizer: GridCustomizer = props.customizer || NoopGridCustomizer;
@@ -356,6 +356,7 @@ function ApiDataTable(props: ApiDataTableOptions & SelectionProps & IGridInlineE
         groupBy={props.groupBy} groupCollapsible={props.groupCollapsible} defaultCollapsedGroups={props.defaultCollapsedGroups}
         aggregations={props.aggregations}
         columnPinning={props.columnPinning} rowPinning={props.rowPinning} idProperty={idProperty}
+        stickyHeader={props.stickyHeader} maxHeight={props.maxHeight}
       />
     </div>
   )

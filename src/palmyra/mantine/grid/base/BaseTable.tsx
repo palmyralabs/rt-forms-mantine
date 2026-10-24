@@ -16,6 +16,8 @@ type BaseTableExtra = {
   columnPinning?: { left?: string[]; right?: string[] };
   rowPinning?: { top?: string[]; bottom?: string[] };
   idProperty?: string;
+  stickyHeader?: boolean;
+  maxHeight?: number | string;
 };
 
 const orderByPin = (cells: any[]): any[] => {
@@ -269,8 +271,9 @@ export default function BaseTable(props: BaseTableOptions & BaseTableExtra) {
 
   return (<>
     <div className={props.className}>
-      <div className='py-baseGrid-scroll'>
-      <Table aria-label={props['aria-label']} className='py-baseGrid' {...tableProps}>
+      <div className='py-baseGrid-scroll'
+        style={props.maxHeight != null ? { maxHeight: props.maxHeight, overflowY: 'auto' } : undefined}>
+      <Table aria-label={props['aria-label']} className='py-baseGrid' stickyHeader={!!props.stickyHeader} {...tableProps}>
         <Table.Thead className='py-grid-header'>
           {table.getHeaderGroups().map(headerGroup => (
             <Table.Tr key={headerGroup.id} className='py-grid-header-row'>

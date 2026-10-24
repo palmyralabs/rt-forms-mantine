@@ -151,6 +151,7 @@ const ServerGrid = () => {
                     </Group>
                 )}
                 groupBy={groupBy || undefined} groupCollapsible={false}
+                stickyHeader
                 rowPinning={pinRows ? { bottom: topIds } : undefined}
                 onDataChange={(d: any[]) => { const ids = (d || []).slice(0, 2).map((r: any) => String(r.id)); setTopIds((prev) => prev.join() === ids.join() ? prev : ids); }}
                 // aggregations={{ phoneNumber: 'min' }} summaryLabel="Total"

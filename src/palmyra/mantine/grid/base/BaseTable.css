@@ -143,6 +143,10 @@
   z-index: 4;
 }
 
+.py-baseGrid thead .py-baseGrid-header-cell.py-grid-col-pinned {
+  z-index: 6;
+}
+
 .empty-child-grid-container {
   font-size: 25px;
   text-align: center;

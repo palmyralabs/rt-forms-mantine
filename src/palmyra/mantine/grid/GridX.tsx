@@ -65,7 +65,9 @@ type GridXProps<ControlPropsType> =
         transformResult?: (data: any) => { result: any[], total?: number },
         transformRequest?: (config: any) => any,
         columnPinning?: { left?: string[], right?: string[] },
-        rowPinning?: { top?: string[], bottom?: string[] }
+        rowPinning?: { top?: string[], bottom?: string[] },
+        stickyHeader?: boolean,
+        maxHeight?: number | string
     }
     & IGridInlineEditProps
     & IGridExpansionProps;
